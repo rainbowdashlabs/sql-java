@@ -1,0 +1,4 @@
+name: SimpleCoins
+main: de.chojo.simplecoins.SimpleCoins
+version: 1.0
+api-version: 1.13
