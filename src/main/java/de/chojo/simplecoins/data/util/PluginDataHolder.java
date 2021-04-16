@@ -1,4 +1,4 @@
-package de.chojo.simplecoins.data;
+package de.chojo.simplecoins.data.util;
 
 import org.bukkit.plugin.Plugin;
 
@@ -43,6 +43,10 @@ public class PluginDataHolder {
      */
     protected DataSource source() {
         return source;
+    }
+
+    protected Plugin plugin() {
+        return plugin;
     }
 
     /**

@@ -1,6 +1,7 @@
 package de.chojo.simplecoins.data;
 
 import de.chojo.simplecoins.data.objects.CoinPlayer;
+import de.chojo.simplecoins.data.util.PluginDataHolder;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
