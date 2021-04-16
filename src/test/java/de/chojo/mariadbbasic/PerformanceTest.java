@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class PerformanceTest {
-    private static int benchmarkCalls = 50000;
-    private static int benchmarkStringLength = 5000;
+    private static final int benchmarkCalls = 50000;
+    private static final int benchmarkStringLength = 5000;
 
     @Test
     public void parallelTest() {
@@ -88,7 +88,7 @@ public class PerformanceTest {
 
         duration = System.currentTimeMillis() - duration;
 
-        System.out.println(String.format("%d Parallel Requests took %d ms | %d seconds", benchmarkCalls, duration, duration / 1000));
+        System.out.printf("%d Parallel Requests took %d ms | %d seconds%n", benchmarkCalls, duration, duration / 1000);
 
         clearDatabase(source);
     }

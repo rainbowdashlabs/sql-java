@@ -11,8 +11,8 @@ import javax.sql.DataSource;
 import java.util.OptionalLong;
 
 public class JoinAndLeaveListener implements Listener {
-    private CoinData data;
-    private Plugin plugin;
+    private final CoinData data;
+    private final Plugin plugin;
 
     public JoinAndLeaveListener(DataSource source, Plugin plugin) {
         this.plugin = plugin;

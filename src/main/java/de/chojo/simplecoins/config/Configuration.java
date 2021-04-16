@@ -1,10 +1,7 @@
 package de.chojo.simplecoins.config;
 
 import de.chojo.simplecoins.config.elements.Database;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.Plugin;
-
-import javax.sql.DataSource;
 
 public class Configuration {
     private final Plugin plugin;
