@@ -1,9 +1,10 @@
 # Content
-- [Introduction / What can I expect.](#introduction---what-can-i-expect)
-- [What are databases?](#what-are-databases-)
+
+- [Introduction / What can I expect.](#introduction--what-can-i-expect)
+- [What are databases?](#what-are-databases)
 - [Prerequisite](#prerequisite)
     * [Driver Implementation](#driver-implementation)
-        + [Different Database -> Different Driver and Queries](#different-database----different-driver-and-queries)
+        + [Different Database -> Different Driver and Queries](#different-database---different-driver-and-queries)
     * [Async and Synced calling](#async-and-synced-calling)
     * [Connection Pooling and HikariCP](#connection-pooling-and-hikaricp)
     * [Read everything](#read-everything)
@@ -58,11 +59,11 @@ scraping the surface.
 # What are databases?
 
 As you delve into the depths of programming, you will come across times when you realize that it would be a lot more
-convenient for both the user and the developer to store data in tables like you see in spreadsheets instead of creating
+convenient for both the user, and the developer to store data in tables like you see in spreadsheets instead of creating
 all sorts of wrapper objects, hashmaps of hashmaps of hashmaps and so on. This is where databases come in handy. Now,
-I'm sure most of us have heard of the term "database". It just seems to be that. A base full of data. But how are they
-stored? They must be stored in some efficient manner for them to even be considered an option over regular files. Data
-in SQL servers are stored in tables similar to this one:
+I'm sure most of us have heard of the term "database". It just seems to be that. A database full of data, But how are
+they stored? They must be stored in some efficient manner for them to even be considered an option over regular files.
+Data in SQL servers are stored in tables similar to this one:
 
 ![Table](https://chojos.lewds.de/Slategray_CodFlamingo_is_Creepy.png)
 
@@ -76,7 +77,7 @@ Date, Int, etc. The general SQL data types are listed [here](http://www.w3school
 
 Note: Other databases might have different types. Read the documentation of your database.\
 
-Note 2: Some types have differnent names than the java data types. `Bigint` in SQL is equal to a `long` in Java for
+Note 2: Some types have different names than the java data types. `Bigint` in SQL is equal to a `long` in Java for
 example.
 
 # Prerequisite
@@ -85,15 +86,15 @@ In order to get this done properly we will need some things to prepare and clari
 
 ## Driver Implementation
 
-Of course spigot has some kind of mysql database driver included. However this driver was never really intended to be
+Of course spigot has some kind of mysql database driver included, however this driver was never really intended to be
 used by the public and is also pretty old (As of 14.4.2021 the version is 5.1.49. Latest is 8.0.23). So you will be good
 with getting your own version of it.\
-Also your plugin will break whenever the driver path changes or the driver is relocated. In fact the spigot way doesnt
-work anymore with paper and I want to provide a general best practise on this page.\
+Also your plugin will break whenever the driver path changes, or the driver is relocated. In fact the spigot way doesn't
+work with paper anymore, and I want to provide a general best practise on this page.\
 You can find the latest mysql driver [here](https://mvnrepository.com/artifact/mysql/mysql-connector-java/latest).\
-Throw this in your gradle, maven or whatever and dont forget to shade and relocate this.
+Throw this in your gradle, maven or whatever and don't forget to shade and relocate this.
 
-We are using a standard mysql connector. However if you use MariaDB you can also use the MariaDB driver directly. You
+We are using a standard mysql connector, however if you use MariaDB you can also use the MariaDB driver directly. You
 will find the latest version [here](https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client/latest).
 Note: The ConnectionPool implementation is a bit different there. The class is called `MariaDbPoolDataSource`.
 
@@ -112,17 +113,16 @@ management.
 
 ## Async and Synced calling
 
-The examples in this wikipage will all use synced requests. You may want to use async requests to avoid that the
-database requests slow down your server. You will find more about
+The examples will all use synced requests. You may want to use async requests to avoid that the database requests slow
+down your server. You will find more about
 this [here](https://www.spigotmc.org/wiki/asynchronously-working-with-a-database/).\
-The repository linked at the end also contains a example implementation how to use a database async in bukkit.
+The repository linked at the end also contains an example implementation how to use a database async in bukkit.
 
 ## Connection Pooling and HikariCP
 
-In our example we will use a pooled data source provided by the mysql driver.\
-This is the most easiest way. However it has some drawbacks. For example the mysql connection pool does not have any way
-to restrict how many connections you can open, but your database will. If you use too many Threads to call your database
-it will fail at some point.\
+In our example we will use a pooled data source provided by the mysql driver, which is the easiest way, however it has
+some drawbacks. For example the mysql connection pool does not have any way to restrict how many connections you can
+open, but your database will. If you use too many Threads to call your database it will fail at some point.\
 Frameworks like [HikariCP](https://github.com/brettwooldridge/HikariCP) can help you with managing your connections and
 improve your database connection.\
 If you want to know more about connection pooling with HikariCP you can look at
@@ -139,17 +139,17 @@ This means that they are closeable, but can be also closed automatically (obviou
 
 When you open a connection this connection will stay open until it is closed.\
 A statement needs cache until it is closed.\
-A Result set is also cached until it is closed or the statement is closed.
+A Result set is also cached until it is closed, or the statement is closed.
 
-If you miss to close it you will have a memory leak and you will block connections and/or cache.\
+If you are missing to close it you will have a memory leak, and you will block connections and/or cache.\
 You could also run out of free connections at some point.
 
 To avoid this you want to use a `Try-with-Resources`.\
 This ensures that all closeables are closed when you leave the code block.
 
-Here is some "pseudo code" which shows you the advantage of a auto closeable.
+Here is some "pseudo code" which shows you the advantage of an auto closeable.
 
-The old and wrong way shown pretty much everywhere looks like this. (Dont look to long at it. Its wrong anyway...)
+The old and wrong way shown pretty much everywhere looks like this. (don't look to long at it. Its wrong anyway...)
 
 ``` java
 try {
@@ -163,13 +163,13 @@ try {
     conn.close();
     stmt.close(); // Closing the Statement closes the ResultSet of the statement as well. 
 } catch (SQLException e){
-    e.printStackstrace(); // This should be replaced with a propper logging solution. Dont do this.
+    e.printStackstrace(); // This should be replaced with a propper logging solution. don't do this.
 }
 ```
 
-With `AutoCloseable` you dont have to bother anymore about closing your stuff.\
+With `AutoCloseable` you don't have to bother about closing your stuff anymore.\
 We will also use a DataSource named source which we cached somewhere inside our class
-(No we dont get it via a static variable from somewhere. This is bad design...)
+(No we don't get it via a static variable from somewhere. This is bad design...)
 
 ``` java
 try (Connection conn = source.getConnection(); PreparedStatement stmt = conn.prepareStatement("SELECT some from stuff")) {
@@ -178,11 +178,12 @@ try (Connection conn = source.getConnection(); PreparedStatement stmt = conn.pre
     ResultSet rs = stmt.exeuteQuery();
     // do something with the ResultSet
 } catch (SQLException e) {
-    e.printStackstrace(); // This should be replaced with a propper logging solution. Dont do this.
+    e.printStackstrace(); // This should be replaced with a propper logging solution. don't do this.
 }
 ```
 
-You can see, that we dont close our stuff here, because we dont need it. Any object you assign inside the braces `(...)`
+You can see, that we don't close our stuff here, because we don't need it. Any object you assign inside the
+braces `(...)`
 of the try block `try (...) {...}` will be closed when you exit the code block.\
 This will return the connection to our connection pool, free the blocked memory for the result cache and statement. Now
 we are happy and ready for the next request.\
@@ -190,14 +191,14 @@ Obviously object assigned inside the braces need to be of type `AutoCloseable`.\
 (Hint: Many more classes are auto closeable. Like input and output streams for example. Keep a look at the stuff you are
 using and use try with resources wherever you can.)
 
-One more addition here. The result set is also a auto closeable, but we dont create it inside the try braces. It will
-still be closed. Lets take a look at the ResultSet documentation.
+One more addition here. The result set is also an auto closeable, but we don't create it inside the try braces. It will
+still be closed. Let's take a look at the ResultSet documentation.
 > A ResultSet object is automatically closed when the Statement object that generated it is closed, re-executed, or used to retrieve the next result from a sequence of multiple results.
 
 [Source](https://docs.oracle.com/javase/7/docs/api/java/sql/ResultSet.html)
 
-And thats it. Thats Try-with-Resources. Your connection, statement and result set are freed when you exit the code block
-and you dont have to care about it anymore.\
+That's it. That's Try-with-Resources. Your connection, statement and result set are freed when you exit the code block,
+and you don't have to care about it anymore.
 
 # Setting up a Connection
 
@@ -205,7 +206,7 @@ With the knowledge about Try-with-Resources we can get serious now. Time to conn
 Hopefully you have imported the database driver your want to use.
 
 First we need to create our DataSource. Like mentioned before: Every database driver has other class names and classes.
-Not all database driver implement connection pooling. However the MySQl and MariaDB driver implement connection
+Not all database driver implement connection pooling, however the MySQl and MariaDB driver implement connection
 pooling.\
 To create a data source for one of these database simply create a new instance of the connection pools:\
 MySQL:
@@ -234,7 +235,7 @@ database:
   password: passy
 ```
 
-Now we need to configure our DataSource. Both datasources provide the same methods:
+Now we need to configure our DataSource. Both DataSources provide the same methods:
 
 ``` java
 Database database = config.getDatabase();
@@ -246,11 +247,11 @@ dataSource.setDatabaseName(database.getDatabase());
 dataSource.setUser(database.getUser());
 ```
 
-_Note: Every database driver implementation contains some reasonable default values. If you dont set a port, the default
-port of the database is used. The default host is always "localhost". The default value depends on the database driver
-type._
+_Note: Every database driver implementation contains some reasonable default values. If you don't set a port, the
+default port of the database is used. The default host is always "localhost". The default value depends on the database
+driver type._
 
-_Note for MariaDB driver: While the mysql DataSource doesnt implement a max connection count the DataSource for MariaDB
+_Note for MariaDB driver: While the mysql DataSource doesn't implement a max connection count the DataSource for MariaDB
 does implement it. You can set it via:_
 
 ``` java
@@ -258,7 +259,7 @@ dataSource.setMaxPoolSize(8); // Default value is 8. 8 connections should be mor
 ```
 
 Now we want to test our connection.\
-Please not that we use Try-with-Resources here and everywhere from now on.
+Please note that we use Try-with-Resources here and everywhere from now on.
 
 ``` java
 private void testDataSource(DataSource dataSource) throws SQLException {
@@ -271,10 +272,10 @@ private void testDataSource(DataSource dataSource) throws SQLException {
 ```
 
 This snippet will create a connection to the database and will wait 1000 ms for a response from the database.\
-If the connection is not valid we throw a exception to stop our process. If the connection cant be established a error
-will be thrown by the database driver anyway.
+If the connection is not valid we throw an exception to stop our process, if the connection can't be established an
+error will be thrown by the database driver anyway.
 
-If nothing went wrong we now have a working connection pool to our database.
+When nothing went wrong we now have a working connection pool to our database.
 
 You probably want to wrap the code above inside a method and let this method return a `DataSource` class.
 
@@ -303,24 +304,24 @@ We will take a look at different methods in this section.
 
 ## Creating a table
 
-To create a table we need to define the columns with a name and the required data type.\
+To create a table we need to define the columns with a name, and the required data type.\
 You can find the types [here](https://www.w3schools.com/sql/sql_datatypes.asp).\
 Some of these types have a `(size)` parameter.\
 For String data types this defines the maximum size of the data written in this column.\
-However for numeric types it does NOT. `INT(2)` won't restrict the integer value written to this collumn in any way.
-This is wrong knowledge spreaded out widely. See
+However for numeric types it does NOT. `INT(2)` won't restrict the integer value written to this column in any way. This
+is wrong knowledge spread out widely. See
 the [documentation](https://dev.mysql.com/doc/refman/5.7/en/numeric-type-attributes.html) if you want to know more.
 
 There are some best practises which data type you have to choose:
 
-- String always same size (E.g. UUID)-> char(size) (Max 255 chars)
+- String with always the same size (E.g. UUID)-> char(size) (Max 255 chars)
 - String with known max size (E.g. Player names) -> `VARCHAR(size)` (Max 65,535)
 - Text of unknown length -> `TEXT` (~32,700 character)
 - Text which is expected to be large -> `MEDIUMTEXT` (16,777,215 characters) or `LONGTEXT` (4,294,967,295 characters)
 
-However I recomment to take a dive into the documentation.
+I recommend to take a dive into the documentation.
 
-A example player to store some coins for a player would look like this:
+An example player to store some coins for a player would look like this:
 
 ``` sql
 -- always make sure to use "if not exists" to avoid errors when the table is alread defined.
@@ -349,16 +350,16 @@ it should be inserted.
 
 ### Default
 
-The `default` keyword is pretty usefull.\
+The `default` keyword is pretty useful.\
 If you look on our statement above you will notice that `coins` has a default value.\
 This means that whenever we insert a new uuid to this table without inserting a value into the `coins` column, this
 value will be 0.
 
 ### not null
 
-The `not null` keyword should be ovious. It permits you or someone else to insert a `null` value into this column.\
-This is pretty usefull as well.\
-You never want to have some coins in your table with a `null` uuid or a uuid with `null` coins.
+The `not null` keyword should be obvious. It permits you or someone else to insert a `null` value into this column.\
+This is pretty useful as well.\
+You never want to have some coins in your table with a `null` uuid or an uuid with `null` coins.
 
 ### Primary keys
 
@@ -366,7 +367,7 @@ Our `primary key (uuid)` creates a primary key for the uuid column.\
 This has two advantages:
 
 - A UUID can't exist more than one time in this table.
-- A index is created on the uuid column which speeds up your search for a specific uuid.
+- An index is created on the uuid column which speeds up your search for a specific uuid.
 
 The first advantage is called constrain. The second advantage is called index. A primary key is both in one.
 
@@ -374,7 +375,7 @@ The first advantage is called constrain. The second advantage is called index. A
 
 A table can only have one primary key, but you maybe want to have more constrains to have better data consistency and
 faster searches.\
-Thats why we can create own constrains and indices for our table.
+That's why we can create own constrains and indices for our table.
 
 To show you this we need a more complex table:
 
@@ -395,29 +396,29 @@ CREATE INDEX IF NOT EXISTS player_boosts_until_index
 The booster table contains all users with active boosters and a `booster_id`. It also contains a timestamp when this
 booster will run out.
 
-Since we have more than one booster probably we want to have a uuid multiple times in this table. But we dont want the
-same player with the same booster more than one time in this table. Thats why our constrain is a combination of `uuid`
-and `boost_id`. This means that the combination of these two colums musst be unique in this table.
+Since we have more than one booster probably we want to have an uuid multiple times in this table, but we don't want the
+same player with the same booster more than one time in this table. That's why our `CONSTRAIN` is a combination
+of `uuid`
+and `boost_id`. This means that the combination of these two columns must be unique in this table.
 
-The constrain could be replaced by a primary key in the current case. I just used it here because i wanted to show you
-the syntax for it. If you have more complex tables you probably will need more constrains next to the primary key.
+The `CONSTRAIN` could be replaced by a primary key in the current case. I just used it here because I wanted to show you
+the syntax for it. When you have more complex tables you probably will need more constrains next to the primary key.
 
-_Note: The names for the constrains and indices can be chosen freely. Howevery its recommended to use usefull names._
+_Note: The names for the constrains and indices can be chosen freely, however it's recommended to use useful names._
 
 # Setting up your database
 
 Now that we are connected we need to ensure that we will find the tables in our database we are looking for.\
-Most people do this in their code by writing very long table create statements. We wont do this.\
+Most people do this in their code by writing very long table create statements. We won't do this.\
 We will ship our required table layout in a file in our plugin.\
-Its considered a best practise to not include large sql statements in your code directly. This may change with java 15
-which allow quoteblocks now.\
-But we know that it will be a long time until we can use java 15 in production for minecraft server, so we stick with
-the old fashined way.
+It's considered the best practise to not include large sql statements in your code directly. This may change with java
+15, which allow quoteblocks now, but we know that it will be a long time until we can use java 15 in production for
+minecraft server, so we stick with the old fashioned way.
 
 Create a file `dbsetup.sql` in your resources.\
 We now write all statements to create our tables in this file.
 
-```sql
+``` sql
 CREATE TABLE IF NOT EXISTS something
 (
     [...]
@@ -430,14 +431,14 @@ CREATE TABLE IF NOT EXISTS somewhat
 [...]
 ```
 
-Please notice that we end each statement with a `;` this is required to know where the statement ends. Also we use
-the `IF NOT EXISTS` keyword everywhere. Otherwise our setup would fail on the next startup.
+Please notice that we end each statement with a `;` this is required to know where the statement ends. We also use
+the `IF NOT EXISTS` keyword everywhere, otherwise our setup would fail on the next startup.
 
 Now we need to execute this in our database.\
 For this we will create a `initDb()` method in our plugin and call it after our datasource assignment.
 
 This method will read our `dbsetup.sql` file and execute the statements one by one into our database.\
-Please not that this method will throw a SQLException whenever something went wrong.\
+Please note that this method will throw a SQLException whenever something went wrong.\
 This will abort the setup, since there is no sense to run our plugin without a properly initialized database.
 
 ``` java
@@ -469,8 +470,8 @@ After our script is executed all tables should be created and we are ready to go
 
 ## Sidenote on versioning
 
-Versioning a database is hard and there are not many best practises. However I am using a system with setup, incremental
-patches and migration files to acomplish this. This system is probably not required for most plugins, so you can skip
+Versioning a database is hard and there are not many best practises, however I am using a system with setup, incremental
+patches and migration files to accomplish this. This system is probably not required for most plugins, so you can skip
 this if you are not interested.
 
 If you want to keep track of your database version create a single table like:
@@ -490,8 +491,8 @@ CREATE TABLE IF NOT EXISTS <plugin_name>_db_version
 ```
 
 This table should contain the version and patch version of your database.\
-You can check on startup which database version your database has.\
-Now you can include incremental patch files in your plugin with a scructure like this:
+You can check on a startup which database version your database has.\
+Now you can include incremental patch files in your plugin with a structure like this:
 
 ```yaml
 database/1/setup.sql
@@ -511,17 +512,17 @@ Of course you need to store your required database version somewhere in your plu
 
 # Best practises
 
-While working with databases I developed some best practises.
+While working with databases I found some best practises I want to share with you.
 
 ## Prepared Statements
 
 Using prepared statements is crucial when writing user input into your database.\
 Prepared statements will protect you from SQLInjection. They will also improve performance because the database can
 cache these statements better.\
-They will also ensure that your value is interpreted correctly. So your string stays a string and your integer stays a
+They will also ensure that your value is interpreted correctly. So your string stays a string, and your integer stays a
 integer.
 
-You can see a prepared statement below. Dont think about the SQL query itself for now.\
+You can see a prepared statement below. don't think about the SQL query itself for now.\
 You may notice the `?` inside the query. These are placeholders for the actual values.\
 These values are set by the `set...()` methods provided by the PreparedStatement object.\
 You need to choose the correct method to set your value, which is pretty straight forward. Then you enter the number of
@@ -550,14 +551,14 @@ The Optional class is pretty useful when you work with databases.
 When you request data from a database you have several possible outcomes:
 
 - We found data
-- We dont found data
-- An error occured
+- We don't found data
+- An error occurred
 
-You dont want to deliver false data in case of an error or when no data is returned.\
+You don't want to deliver false data in case of an error or when no data is returned.\
 The Optional indicates that a value can be returned by this function, but it also says that its possible that no value
 is returned.\
-The old fashioned was would be to return `null` or a default value. However this is bad style and you will probably
-forget to perform a null check.
+The "old" way would be to return `null` or a default value, however this is bad style, and you will probably forget to
+perform a null check.
 
 The Optional can be used very simple:
 
@@ -592,13 +593,13 @@ public OptionalLong getCoins(Player player) {
 }
 ```
 
-If we get an error or found nothing in the database we return `OptionalLong.empty()`. This will signalize that we dont
+If we get an error or found nothing in the database we return `OptionalLong.empty()`. This will signalize that we don't
 have or could not retrieve any data.\
 If we found data we wrap it into an Optional.
 
 ## Returning boolean
 
-If we dont return any data we still want to know if our transaction was a success in this case we just return false in
+If we don't return any data we still want to know if our transaction was a success in this case we just return false in
 the case of an exception and true otherwise.\
 This will prevent us from sending a confirm message if something went wrong.
 
@@ -641,12 +642,12 @@ No value is allowed to be `null` and every `uuid` can be only one time in this t
 
 ## Writing data
 
-Writing data is essential. What should we read if we dont write?\
-So lets start with writing. We have three different ways. `INSERT`, `UPSERT` and `REPLACE`
+Writing data is essential. What should we read if we don't write?\
+So lets start with writing. We have three different ways: `INSERT`, `UPSERT` and `REPLACE`
 
 ### Insert
 
-The `INSERT` statement is probably one of the most common and most simple pattern.\
+The `INSERT` statement is probably one of the most common, and most simple pattern.\
 You insert some data into some columns of a table.\
 
 Remember the constrains from earlier? You will need to insert the data in the correct way otherwise they will prevent
@@ -672,9 +673,9 @@ public boolean addCoins(Player player, long amount) {
 This is super convenient for the beginning.\
 However basic inserts are not very common because you normally have some kind of logic in your table.\
 This insert would only work one time because we have the primary key.\
-If we wouldnt have the primary key we would have to count the coins in every entry for each player, which would be way
-more work than just updating it right?\
-Thats where we come to the upsert.
+If we wouldn't have the primary key we would have to count the coins in every entry for each player, which would be way
+more work than just updating it, right?\
+That's where we come to the upsert.
 
 ### Upsert
 
@@ -713,8 +714,8 @@ Most time you want to update data instead of insert new data. You have two diffe
 
 ### Replace
 
-Replace is similar to the upsert. But instead of updating the value we just replace it with another one or insert it.
-Its a mix of Update and Insert.
+Replace is similar to the upsert, but instead of updating the value we just replace it with another one or insert it.
+It's a mix of `UPDATE` and `INSERT`.
 
 ``` java
 public boolean setCoins(Player player, long amount) {
@@ -734,8 +735,8 @@ public boolean setCoins(Player player, long amount) {
 
 ### Update
 
-We could also do the same as above with a update. In this way we would only update the data if we have an entry for our
-key.
+We could also do the same as above with an `UPDATE`. In this way we would only update the data if we have an entry for
+our key.
 
 ``` java
 public boolean setCoins(Player player, long amount) {
@@ -755,7 +756,7 @@ public boolean setCoins(Player player, long amount) {
 You see something new here. The `WHERE` clause defines which columns we want to update. This time we say that we want to
 update the coins on a specific uuid.\
 Our return value changed as well. The method `executeUpdate()` returns us the number of rows we updated. If the result
-is 0 we dont updated anything so we return false.
+is 0 we don't updated anything, so we return false.
 
 This mechanic can be used to make some nice thread save take operations without checking if a player has sufficient
 coins.
@@ -779,8 +780,8 @@ public boolean takeCoins(Player player, long amount) {
 
 This method will take coins from a player with a specific uuid if the player has enough coins.\
 If we get an updated row we know that the player had enough money.\
-Use this whenever you want to take a something from a player if he has enough credits. If you check first if the player
-has enough credits and take if if it has you lose thread safety.
+Use this whenever you want to take a something from a player if he has enough credits. If you check first whether the
+player has enough credits or not and take it if he has, you lose thread safety.
 
 ## Deleting data
 
@@ -801,9 +802,9 @@ public boolean deleteCoins(Player player) {
 }
 ```
 
-A `DELETE` statement is also a type of update. Thats why we can use the same mechanism like earlier to check if we
+A `DELETE` statement is also a type of update. That's why we can use the same mechanism, like earlier, to check if we
 deleted the player.\
-If you execute a delete without `WHERE` your whole table will be wiped.
+If you execute a `DELETE` without `WHERE` your whole table will be wiped.
 
 ## Reading Data
 
@@ -844,7 +845,7 @@ public OptionalLong getCoins(Player player) {
 ```
 
 We check if our `ResultSet` contains a row with the `next()` method. If so we get the column with the name coins. A `*`
-selector should be avoided. Its unreadable for other people reading your code and bad practise.
+selector should be avoided. It's unreadable for other people reading your code and bad practise.
 
 ### Select Multiple Rows.
 
@@ -873,17 +874,17 @@ public Optional<List<CoinPlayer>> getCoins() {
 ```
 
 You see several new things here.\
-First we select both colums (We are not using `*`, altough we select all columns).\
+First we select both columns (We are not using `*`, although we select all columns).\
 Then we loop through the ResultSet with a while which will move the pointer to the next row until we hit the end of the
 ResultSet.\
-Also please note that the Result is wrapped into a coint player. This is way cleaner than just returning a map or
-something else.
+Also please note that the Result is wrapped into a CoinPlayer. This is way cleaner than just returning a map or
+something else. Especially when you want to return multiple rows, you should wrap them into an object.
 
 ### Select only what you need
 
 There are only very rare cases where you will need the complete table. In the most cases you pull the table to do some
-sorting on it locally. However the database can do this as well.\
-Dont select what you dont need.
+sorting on it locally, however the database can do this as well.\
+Don't select what you don't need.
 
 Let's say we want to get the top x player with the most coins.\
 Of course you can pull the complete table, sort it in java and get a sublist of the x first entries.\
@@ -911,7 +912,7 @@ public Optional<List<CoinPlayer>> getTopCoins(int amount) {
 }
 ```
 
-The `ORDER BY ... DESC` clause sorts the whole table by coins in a descending order.\
+The `ORDER BY ... DESC` clause sorts the whole table by coins in an descending order.\
 The `LIMIT` keyword will only return the x player with the most coins.
 
 When reading the result set you already have the x top players in a sorted list.
@@ -923,4 +924,4 @@ found [here](https://github.com/RainbowDashLabs/BasicSQLPlugin). Contributions w
 
 A Guide how to work with HikariCP can be found [here](https://www.spigotmc.org/threads/480002/)
 
-A async implementation can be found in the repository as well.
+An async implementation can be found in the repository as well.
