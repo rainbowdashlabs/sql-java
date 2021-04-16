@@ -1,185 +1,926 @@
+# Content
+- [Introduction / What can I expect.](#introduction---what-can-i-expect)
+- [What are databases?](#what-are-databases-)
+- [Prerequisite](#prerequisite)
+    * [Driver Implementation](#driver-implementation)
+        + [Different Database -> Different Driver and Queries](#different-database----different-driver-and-queries)
+    * [Async and Synced calling](#async-and-synced-calling)
+    * [Connection Pooling and HikariCP](#connection-pooling-and-hikaricp)
+    * [Read everything](#read-everything)
+- [Try With Resources](#try-with-resources)
+- [Setting up a Connection](#setting-up-a-connection)
+- [Building Tables](#building-tables)
+    * [Creating a table](#creating-a-table)
+    * [Data consistency](#data-consistency)
+        + [Default](#default)
+        + [not null](#not-null)
+        + [Primary keys](#primary-keys)
+        + [Constrains and Indices](#constrains-and-indices)
+- [Setting up your database](#setting-up-your-database)
+    * [Sidenote on versioning](#sidenote-on-versioning)
+- [Best practises](#best-practises)
+    * [Prepared Statements](#prepared-statements)
+    * [Using optional](#using-optional)
+    * [Returning boolean](#returning-boolean)
+- [Working with data](#working-with-data)
+    * [Writing data](#writing-data)
+        + [Insert](#insert)
+        + [Upsert](#upsert)
+    * [Updating data](#updating-data)
+        + [Replace](#replace)
+        + [Update](#update)
+    * [Deleting data](#deleting-data)
+    * [Reading Data](#reading-data)
+        + [ResultSet](#resultset)
+        + [Select Single Row](#select-single-row)
+        + [Select Multiple Rows.](#select-multiple-rows)
+        + [Select only what you need](#select-only-what-you-need)
+- [Further Stuff](#further-stuff)
+
 # Introduction / What can I expect.
+
 Databases are often crucial when it comes to storing of data.\
 This tutorial aims to get you ready to store your data in your MariaDB.
 
 We will start with some general preconditions we need to clarify and make some preparations.\
 After this we will look into the DataSource and build our first connection to our database.\
-To continue with reading and writing data to the database we will need to introduce some best practices. This will make it easier for you to work with your database.\
-After this we can finally come to write and read some data and will do this at the example of a pretty simple coins plugin, which gives and takes coins.
+To continue with reading and writing data to the database we will need to introduce some best practices. This will make
+it easier for you to work with your database.\
+After this we can finally come to write and read some data and will do this at the example of a pretty simple coins
+plugin, which gives and takes coins.
+
+After reading this guide you will have basic knowledge how to develop an application with a stable and good database
+implementation.
+
+Databases are a really large topic. We can't cover everything here. You might think this is much, but we are just
+scraping the surface.
 
 # What are databases?
-As you delve into the depths of programming, you will come across times when you realize that it would be a lot more convenient for both the user and the developer to store data in tables like you see in spreadsheets instead of creating all sorts of wrapper objects, hashmaps of hashmaps of hashmaps and so on. This is where databases come in handy. Now, I'm sure most of us have heard of the term "database". It just seems to be that. A base full of data. But how are they stored? They must be stored in some efficient manner for them to even be considered an option over regular files. Data in SQL servers are stored in tables similar to this one:
+
+As you delve into the depths of programming, you will come across times when you realize that it would be a lot more
+convenient for both the user and the developer to store data in tables like you see in spreadsheets instead of creating
+all sorts of wrapper objects, hashmaps of hashmaps of hashmaps and so on. This is where databases come in handy. Now,
+I'm sure most of us have heard of the term "database". It just seems to be that. A base full of data. But how are they
+stored? They must be stored in some efficient manner for them to even be considered an option over regular files. Data
+in SQL servers are stored in tables similar to this one:
 
 ![Table](https://chojos.lewds.de/Slategray_CodFlamingo_is_Creepy.png)
 
-Looking at the image, I think you might be seeing how this comes in handy. Data is stored neatly as entries or rows of data. Each kind of data is classified under each column. In this tutorial, I will be showing you how to connect your plugin to a MySQL database. Note, however, that you will still have to learn how to program using the MySQL programming syntax. [Here](https://www.w3schools.com/sql/default.asp) is a good tutorial which I used to learn the basics.
-Now to clear up, what exactly are databases? Well, a database in MySQL is a single table, or collection of tables, such as that one up there. It is a table with columns and rows possessing data. Each column has an expected type of data such as a Date, Int, etc. The general SQL data types are listed [here](http://www.w3schools.com/sql/sql_datatypes_general.asp).
+Looking at the image, I think you might be seeing how this comes in handy. Data is stored neatly as entries or rows of
+data. Each kind of data is classified under each column. In this tutorial, I will be showing you how to connect your
+plugin to a MySQL database. Note, however, that you will still have to learn how to program using the MySQL programming
+syntax. [Here](https://www.w3schools.com/sql/default.asp) is a good tutorial which helps you to learn the basics. Now to
+clear up, what exactly are databases? Well, a database in SQL is a single table, or collection of tables, such as that
+one up there. It is a table with columns and rows possessing data. Each column has an expected type of data such as a
+Date, Int, etc. The general SQL data types are listed [here](http://www.w3schools.com/sql/sql_datatypes_general.asp).
 
-# Preconditions
+Note: Other databases might have different types. Read the documentation of your database.\
+
+Note 2: Some types have differnent names than the java data types. `Bigint` in SQL is equal to a `long` in Java for
+example.
+
+# Prerequisite
+
 In order to get this done properly we will need some things to prepare and clarify.
 
 ## Driver Implementation
-Of course spigot has some kind of mysql database driver included. However this version was never really intended to be used by the public and is also pretty old (As of 14.4.2021 the version is 5.1.49. Latest is 8.0.23). So you will be good with getting your own version of it.\
+
+Of course spigot has some kind of mysql database driver included. However this driver was never really intended to be
+used by the public and is also pretty old (As of 14.4.2021 the version is 5.1.49. Latest is 8.0.23). So you will be good
+with getting your own version of it.\
+Also your plugin will break whenever the driver path changes or the driver is relocated. In fact the spigot way doesnt
+work anymore with paper and I want to provide a general best practise on this page.\
 You can find the latest mysql driver [here](https://mvnrepository.com/artifact/mysql/mysql-connector-java/latest).\
 Throw this in your gradle, maven or whatever and dont forget to shade and relocate this.
 
+We are using a standard mysql connector. However if you use MariaDB you can also use the MariaDB driver directly. You
+will find the latest version [here](https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client/latest).
+Note: The ConnectionPool implementation is a bit different there. The class is called `MariaDbPoolDataSource`.
+
+### Different Database -> Different Driver and Queries
+
+Every database has its own database driver. Nearly every database has some different syntax. If you want to support
+different databases you will probably need different queries for each database and a different database driver. If you
+want to make your life a bit easier but support multiple database I would recommend HikariCP to you.
+
+If you are looking for the driver for a database simply google for `<database name> jdbc`.
+
+Note: Not all database drivers have an own implementation for connection pooling.\
+Postgres for example will remove it in a future release. In this case you have to use HikariCP anyway.\
+This is mostly done, because the database driver should not be responsible for implementing a proper connection pooling
+management.
+
 ## Async and Synced calling
-The examples in this wikipage will all use synced requests. You may want to use async requests to avoid that the database requests slow down your server. You will find more about this [here](https://www.spigotmc.org/wiki/asynchronously-working-with-a-database/).
+
+The examples in this wikipage will all use synced requests. You may want to use async requests to avoid that the
+database requests slow down your server. You will find more about
+this [here](https://www.spigotmc.org/wiki/asynchronously-working-with-a-database/).\
+The repository linked at the end also contains a example implementation how to use a database async in bukkit.
 
 ## Connection Pooling and HikariCP
+
 In our example we will use a pooled data source provided by the mysql driver.\
-This is the most easiest way. However it has some drawbacks. For example the mysql connection pool does not have any way to restrict how many connections you can open, but your database will. If you use too many Threads to call your database it will fail at some point.\
-Frameworks like [HikariCP](https://github.com/brettwooldridge/HikariCP) can help you with managing your connections and improve your database connection.\
-If you want to know more about connection pooling with HikariCP you can look at this [thread](https://www.spigotmc.org/threads/480002/).
+This is the most easiest way. However it has some drawbacks. For example the mysql connection pool does not have any way
+to restrict how many connections you can open, but your database will. If you use too many Threads to call your database
+it will fail at some point.\
+Frameworks like [HikariCP](https://github.com/brettwooldridge/HikariCP) can help you with managing your connections and
+improve your database connection.\
+If you want to know more about connection pooling with HikariCP you can look at
+this [thread](https://www.spigotmc.org/threads/480002/).
 
 ## Read everything
+
 I know this is a much to read, but please take your time and go through everything.
 
 # Try With Resources
 
+A `Connection`, `Statement` (`PreparedStatement`) and `ResultSet` are `AutoCloseable`.\
+This means that they are closeable, but can be also closed automatically (obviously...).
+
+When you open a connection this connection will stay open until it is closed.\
+A statement needs cache until it is closed.\
+A Result set is also cached until it is closed or the statement is closed.
+
+If you miss to close it you will have a memory leak and you will block connections and/or cache.\
+You could also run out of free connections at some point.
+
+To avoid this you want to use a `Try-with-Resources`.\
+This ensures that all closeables are closed when you leave the code block.
+
+Here is some "pseudo code" which shows you the advantage of a auto closeable.
+
+The old and wrong way shown pretty much everywhere looks like this. (Dont look to long at it. Its wrong anyway...)
+
+``` java
+try {
+    Connection conn = getConnection();
+    PreparedStatement stmt = conn.prepareStatement("SELECT some from stuff");
+    stmt.setSomething(1, something);
+    ResultSet rs = stmt.exeuteQuery();
+    // do something with the ResultSet
+
+    // The following part is missed most of the time. Many ppl forget to close their stuff.
+    conn.close();
+    stmt.close(); // Closing the Statement closes the ResultSet of the statement as well. 
+} catch (SQLException e){
+    e.printStackstrace(); // This should be replaced with a propper logging solution. Dont do this.
+}
+```
+
+With `AutoCloseable` you dont have to bother anymore about closing your stuff.\
+We will also use a DataSource named source which we cached somewhere inside our class
+(No we dont get it via a static variable from somewhere. This is bad design...)
+
+``` java
+try (Connection conn = source.getConnection(); PreparedStatement stmt = conn.prepareStatement("SELECT some from stuff")) {
+    ResultSet rs = stmt.exeuteQuery();
+    stmt.setSomething(1, something);
+    ResultSet rs = stmt.exeuteQuery();
+    // do something with the ResultSet
+} catch (SQLException e) {
+    e.printStackstrace(); // This should be replaced with a propper logging solution. Dont do this.
+}
+```
+
+You can see, that we dont close our stuff here, because we dont need it. Any object you assign inside the braces `(...)`
+of the try block `try (...) {...}` will be closed when you exit the code block.\
+This will return the connection to our connection pool, free the blocked memory for the result cache and statement. Now
+we are happy and ready for the next request.\
+Obviously object assigned inside the braces need to be of type `AutoCloseable`.\
+(Hint: Many more classes are auto closeable. Like input and output streams for example. Keep a look at the stuff you are
+using and use try with resources wherever you can.)
+
+One more addition here. The result set is also a auto closeable, but we dont create it inside the try braces. It will
+still be closed. Lets take a look at the ResultSet documentation.
+> A ResultSet object is automatically closed when the Statement object that generated it is closed, re-executed, or used to retrieve the next result from a sequence of multiple results.
+
+[Source](https://docs.oracle.com/javase/7/docs/api/java/sql/ResultSet.html)
+
+And thats it. Thats Try-with-Resources. Your connection, statement and result set are freed when you exit the code block
+and you dont have to care about it anymore.\
+
 # Setting up a Connection
+
+With the knowledge about Try-with-Resources we can get serious now. Time to connect to our database.\
+Hopefully you have imported the database driver your want to use.
+
+First we need to create our DataSource. Like mentioned before: Every database driver has other class names and classes.
+Not all database driver implement connection pooling. However the MySQl and MariaDB driver implement connection
+pooling.\
+To create a data source for one of these database simply create a new instance of the connection pools:\
+MySQL:
+
+``` java
+MysqlDataSource dataSource = new MysqlConnectionPoolDataSource();
+```
+
+MariaDVB
+
+``` java
+MariaDbPoolDataSource dataSource = new MariaDbPoolDataSource();
+```
+
+To connect to your database you need the connection data like you always need. Load it from your config. Don't hardcode
+anything like this. This is very bad practise.
+
+You config will contain something like this:
+
+```yaml
+database:
+  host: localhost # host of your database
+  port: 3306 # default port for MariaDB and MySQL
+  database: db # name of your database. A database server can contain multiple databases
+  user: username
+  password: passy
+```
+
+Now we need to configure our DataSource. Both datasources provide the same methods:
+
+``` java
+Database database = config.getDatabase();
+// we set out credentials
+dataSource.setServerName(database.getHost());
+dataSource.setPassword(database.getPassword());
+dataSource.setPortNumber(database.getPort());
+dataSource.setDatabaseName(database.getDatabase());
+dataSource.setUser(database.getUser());
+```
+
+_Note: Every database driver implementation contains some reasonable default values. If you dont set a port, the default
+port of the database is used. The default host is always "localhost". The default value depends on the database driver
+type._
+
+_Note for MariaDB driver: While the mysql DataSource doesnt implement a max connection count the DataSource for MariaDB
+does implement it. You can set it via:_
+
+``` java
+dataSource.setMaxPoolSize(8); // Default value is 8. 8 connections should be more then enough for most plugins.
+```
+
+Now we want to test our connection.\
+Please not that we use Try-with-Resources here and everywhere from now on.
+
+``` java
+private void testDataSource(DataSource dataSource) throws SQLException {
+    try (Connection conn = dataSource.getConnection()) {
+        if (!conn.isValid(1000)) {
+            throw new SQLException("Could not establish database connection.");
+        }
+    }
+}
+```
+
+This snippet will create a connection to the database and will wait 1000 ms for a response from the database.\
+If the connection is not valid we throw a exception to stop our process. If the connection cant be established a error
+will be thrown by the database driver anyway.
+
+If nothing went wrong we now have a working connection pool to our database.
+
+You probably want to wrap the code above inside a method and let this method return a `DataSource` class.
+
+``` java
+private DataSource initMySQLDataSource() throws SQLException {
+    MysqlDataSource dataSource = new MysqlConnectionPoolDataSource();
+    // set credentials
+
+    // Test connection
+    testDataSource(dataSource);
+    return dataSource;
+}
+```
+
+You call this method in your `onEnable()` method and cache the returned datasource in a
+field `private DataSource dataSource` in your plugin class.
+
+# Building Tables
+
+Now that we have our database connected we need to store our data somewhere.\
+Like mentioned at the beginning SQL databases store data in tables.\
+But databases can do a lot more than just storing data in tables. They can validate and pre organize your data to yield
+results faster and provide data consistency.
+
+We will take a look at different methods in this section.
+
+## Creating a table
+
+To create a table we need to define the columns with a name and the required data type.\
+You can find the types [here](https://www.w3schools.com/sql/sql_datatypes.asp).\
+Some of these types have a `(size)` parameter.\
+For String data types this defines the maximum size of the data written in this column.\
+However for numeric types it does NOT. `INT(2)` won't restrict the integer value written to this collumn in any way.
+This is wrong knowledge spreaded out widely. See
+the [documentation](https://dev.mysql.com/doc/refman/5.7/en/numeric-type-attributes.html) if you want to know more.
+
+There are some best practises which data type you have to choose:
+
+- String always same size (E.g. UUID)-> char(size) (Max 255 chars)
+- String with known max size (E.g. Player names) -> `VARCHAR(size)` (Max 65,535)
+- Text of unknown length -> `TEXT` (~32,700 character)
+- Text which is expected to be large -> `MEDIUMTEXT` (16,777,215 characters) or `LONGTEXT` (4,294,967,295 characters)
+
+However I recomment to take a dive into the documentation.
+
+A example player to store some coins for a player would look like this:
+
+``` sql
+-- always make sure to use "if not exists" to avoid errors when the table is alread defined.
+CREATE TABLE IF NOT EXISTS player_coins
+(
+    -- A uuid has 36 characters.
+    -- That's why we define our uuid column with a size of 36.
+    -- We also say that this column should never be null.
+    uuid  CHAR(36)         NOT NULL,
+    -- We create a coin column with a bigint. This is equal to a long in java.
+    -- We also say that this column should never be null.
+    -- If you just insert a new uuid into this table the coin column will be 0 by default.
+    coins BIGINT DEFAULT 0 NOT NULL,
+    -- we create a primary key "coins_pk" on the uuid column.
+    -- This means that a value in the uuid column can be only one time in the column.
+    primary key (uuid)
+);
+```
+
+You may have noticed some other parameter there than just type. We will come to this in a moment.
+
+## Data consistency
+
+SQL tables are not just tables. They have some kind of their own mind and can decide which data can be inserted and how
+it should be inserted.
+
+### Default
+
+The `default` keyword is pretty usefull.\
+If you look on our statement above you will notice that `coins` has a default value.\
+This means that whenever we insert a new uuid to this table without inserting a value into the `coins` column, this
+value will be 0.
+
+### not null
+
+The `not null` keyword should be ovious. It permits you or someone else to insert a `null` value into this column.\
+This is pretty usefull as well.\
+You never want to have some coins in your table with a `null` uuid or a uuid with `null` coins.
+
+### Primary keys
+
+Our `primary key (uuid)` creates a primary key for the uuid column.\
+This has two advantages:
+
+- A UUID can't exist more than one time in this table.
+- A index is created on the uuid column which speeds up your search for a specific uuid.
+
+The first advantage is called constrain. The second advantage is called index. A primary key is both in one.
+
+### Constrains and Indices
+
+A table can only have one primary key, but you maybe want to have more constrains to have better data consistency and
+faster searches.\
+Thats why we can create own constrains and indices for our table.
+
+To show you this we need a more complex table:
+
+```sql
+CREATE TABLE IF NOT EXISTS player_boosts
+(
+    uuid     CHAR(36)  NOT NULL,
+    boost_id INT       NOT NULL,
+    until    TIMESTAMP NOT NULL,
+    CONSTRAINT player_boosts_constrain
+        UNIQUE (uuid, boost_id)
+);
+
+CREATE INDEX IF NOT EXISTS player_boosts_until_index
+    ON player_boosts (until ASC);
+```
+
+The booster table contains all users with active boosters and a `booster_id`. It also contains a timestamp when this
+booster will run out.
+
+Since we have more than one booster probably we want to have a uuid multiple times in this table. But we dont want the
+same player with the same booster more than one time in this table. Thats why our constrain is a combination of `uuid`
+and `boost_id`. This means that the combination of these two colums musst be unique in this table.
+
+The constrain could be replaced by a primary key in the current case. I just used it here because i wanted to show you
+the syntax for it. If you have more complex tables you probably will need more constrains next to the primary key.
+
+_Note: The names for the constrains and indices can be chosen freely. Howevery its recommended to use usefull names._
 
 # Setting up your database
 
-## Building Tables
-### Primary keys
-### Deploying database
+Now that we are connected we need to ensure that we will find the tables in our database we are looking for.\
+Most people do this in their code by writing very long table create statements. We wont do this.\
+We will ship our required table layout in a file in our plugin.\
+Its considered a best practise to not include large sql statements in your code directly. This may change with java 15
+which allow quoteblocks now.\
+But we know that it will be a long time until we can use java 15 in production for minecraft server, so we stick with
+the old fashined way.
+
+Create a file `dbsetup.sql` in your resources.\
+We now write all statements to create our tables in this file.
+
+```sql
+CREATE TABLE IF NOT EXISTS something
+(
+    [...]
+);
+
+CREATE TABLE IF NOT EXISTS somewhat
+(
+    [...]
+);
+[...]
+```
+
+Please notice that we end each statement with a `;` this is required to know where the statement ends. Also we use
+the `IF NOT EXISTS` keyword everywhere. Otherwise our setup would fail on the next startup.
+
+Now we need to execute this in our database.\
+For this we will create a `initDb()` method in our plugin and call it after our datasource assignment.
+
+This method will read our `dbsetup.sql` file and execute the statements one by one into our database.\
+Please not that this method will throw a SQLException whenever something went wrong.\
+This will abort the setup, since there is no sense to run our plugin without a properly initialized database.
+
+``` java
+private void initDb() throws SQLException, IOException {
+    // first lets read our setup file.
+    // This file contains statements to create our inital tables.
+    // it is located in the resources.
+    String setup;
+    try (InputStream in = getClassLoader().getResourceAsStream("dbsetup.sql")) {
+        setup = new String(in.readAllBytes());
+    } catch (IOException e) {
+        getLogger().log(Level.SEVERE, "Could not read db setup file.");
+        throw e;
+    }
+    // Mariadb can only handle a single query per statement. We need to split at ;.
+    String[] queries = setup.split(";");
+    // execute each query to the database.
+    for (String query : queries) {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.execute();
+        }
+    }
+    getLogger().info("Database setup complete.");
+}
+```
+
+After our script is executed all tables should be created and we are ready to go.
+
+## Sidenote on versioning
+
+Versioning a database is hard and there are not many best practises. However I am using a system with setup, incremental
+patches and migration files to acomplish this. This system is probably not required for most plugins, so you can skip
+this if you are not interested.
+
+If you want to keep track of your database version create a single table like:
+
+```sql
+CREATE TABLE IF NOT EXISTS <plugin_name>_db_version
+(
+    version
+    int
+    not
+    null,
+    patch
+    int
+    not
+    null
+);
+```
+
+This table should contain the version and patch version of your database.\
+You can check on startup which database version your database has.\
+Now you can include incremental patch files in your plugin with a scructure like this:
+
+```yaml
+database/1/setup.sql
+database/1/patch_1.sql
+database/1/patch_2.sql
+database/1/patch_3.sql
+database/1/migrate.sql
+database/2/setup.sql
+database/2/patch_1.sql
+database/2/patch_2.sql
+```
+
+`setup` files contain a full new database setup. These are used if no database is present.\
+`patch` files are applied on the `setup` until the current version is reached.\
+If the major version needs to be changed, all patches will be applied first and then the `migrate` script is executed.\
+Of course you need to store your required database version somewhere in your plugin.\
 
 # Best practises
 
-## Returning boolean
+While working with databases I developed some best practises.
+
+## Prepared Statements
+
+Using prepared statements is crucial when writing user input into your database.\
+Prepared statements will protect you from SQLInjection. They will also improve performance because the database can
+cache these statements better.\
+They will also ensure that your value is interpreted correctly. So your string stays a string and your integer stays a
+integer.
+
+You can see a prepared statement below. Dont think about the SQL query itself for now.\
+You may notice the `?` inside the query. These are placeholders for the actual values.\
+These values are set by the `set...()` methods provided by the PreparedStatement object.\
+You need to choose the correct method to set your value, which is pretty straight forward. Then you enter the number of
+the `?` you want to replace and add the value you want to set there.
+
+``` java
+public boolean someMethod(Object obj1, Object obj2) {
+    try (Connection conn = conn(); PreparedStatement stmt = conn.prepareStatement(
+            "INSERT INTO player_coins(uuid, coins) VALUES(?, ?);"
+    )) {
+        stmt.setSomething(1, obj1);
+        stmt.setSomething(2, obj2);
+        stmt.execute();
+        return true;
+    } catch (SQLException e) {
+        logSQLError("Something went wrong.", e);
+    }
+    return false;
+}
+```
 
 ## Using optional
 
+The Optional class is pretty useful when you work with databases.
 
+When you request data from a database you have several possible outcomes:
 
-## Contrains
+- We found data
+- We dont found data
+- An error occured
 
-# Writing data
+You dont want to deliver false data in case of an error or when no data is returned.\
+The Optional indicates that a value can be returned by this function, but it also says that its possible that no value
+is returned.\
+The old fashioned was would be to return `null` or a default value. However this is bad style and you will probably
+forget to perform a null check.
 
-## Insert
+The Optional can be used very simple:
 
-# Updating data
+``` java
+// A empty optional. The old null value.
+Optional.empty()
+// wraps the value into an optional
+Optional.of(anyValue) 
+// wraps a value which might be null. If the value is null this is equal to Optional.empty()
+Optional.ofNullable(anyValue)
+```
 
-## Update
+There are some special Optionals designed for specific types like `OptionalLong`, `OptionalInt` and `OptionalDouble`.
+
+In general the whole think would look like this:
+
+``` java
+public OptionalLong getCoins(Player player) {
+    try (Connection conn = conn(); PreparedStatement stmt = conn.prepareStatement(
+            "select coins from player_coins where uuid = ?;"
+    )) {
+        stmt.setString(1, player.getUniqueId().toString());
+        ResultSet resultSet = stmt.executeQuery();
+        if (resultSet.next()) {
+            return OptionalLong.of(resultSet.getLong("coins"));
+        }
+        return OptionalLong.empty();
+    } catch (SQLException e) {
+        logSQLError("Could not retrieve player coins.", e);
+        return OptionalLong.empty();
+    }
+}
+```
+
+If we get an error or found nothing in the database we return `OptionalLong.empty()`. This will signalize that we dont
+have or could not retrieve any data.\
+If we found data we wrap it into an Optional.
+
+## Returning boolean
+
+If we dont return any data we still want to know if our transaction was a success in this case we just return false in
+the case of an exception and true otherwise.\
+This will prevent us from sending a confirm message if something went wrong.
+
+``` java
+public boolean someMethod(Object obj1, Object obj2) {
+    try (Connection conn = conn(); PreparedStatement stmt = conn.prepareStatement(
+            "INSERT INTO player_coins(uuid, coins) VALUES(?, ?);"
+    )) {
+        stmt.setSomething(1, obj1);
+        stmt.setSomething(2, obj2);
+        stmt.execute();
+        return true;
+    } catch (SQLException e) {
+        logSQLError("Something went wrong.", e);
+    }
+    return false;
+}
+```
+
+# Working with data
+
+Now we can finally come to the cool part.\
+Time to play with some data!\
+This section will cover all basic operations you will need to start working with your database.
+
+For space reasons I will only show you the prepared statements, without any java code.
+
+Our table looks like this:
+
+``` sql
+create table if not exists player_coins_2
+(
+    uuid  char(36)         not null,
+    coins bigint default 0 not null,
+    primary key (uuid)
+);
+```
+
+No value is allowed to be `null` and every `uuid` can be only one time in this table.
+
+## Writing data
+
+Writing data is essential. What should we read if we dont write?\
+So lets start with writing. We have three different ways. `INSERT`, `UPSERT` and `REPLACE`
+
+### Insert
+
+The `INSERT` statement is probably one of the most common and most simple pattern.\
+You insert some data into some columns of a table.\
+
+Remember the constrains from earlier? You will need to insert the data in the correct way otherwise they will prevent
+you from inserting data. The insert will fail if we violate any rules of the table
+
+So lets insert some data:
+
+``` java
+public boolean addCoins(Player player, long amount) {
+    try (Connection conn = conn(); PreparedStatement stmt = conn.prepareStatement(
+            "INSERT INTO player_coins(uuid, coins) VALUES(?, ?)")) {
+        stmt.setString(1, player.getUniqueId().toString());
+        stmt.setLong(2, amount);
+        stmt.execute();
+        return true;
+    } catch (SQLException e) {
+        logSQLError("Could not add coins", e);
+    }
+    return false;
+}
+```
+
+This is super convenient for the beginning.\
+However basic inserts are not very common because you normally have some kind of logic in your table.\
+This insert would only work one time because we have the primary key.\
+If we wouldnt have the primary key we would have to count the coins in every entry for each player, which would be way
+more work than just updating it right?\
+Thats where we come to the upsert.
+
+### Upsert
+
+The upsert is a mix of `INSERT` and `UPDATE`.
+
+``` java
+public boolean addCoins(Player player, long amount) {
+    try (Connection conn = conn(); PreparedStatement stmt = conn.prepareStatement(
+            "INSERT INTO player_coins(uuid, coins) VALUES(?, ?) ON DUPLICATE KEY UPDATE coins = coins + ?;")) {
+        stmt.setString(1, player.getUniqueId().toString());
+        stmt.setLong(2, amount);
+        stmt.setLong(3, amount);
+        stmt.execute();
+        return true;
+    } catch (SQLException e) {
+        logSQLError("Could not add coins", e);
+    }
+    return false;
+}
+```
+
+You can see that this is quite similar to the `INSERT` statement from above. This time we added something at the end.\
+`ON DUPLICATE KEY UPDATE`\
+This means that if we encounter a duplicate key (in our case the uuid) we want to update the entry otherwise we just
+insert it.\
+We are doing this by setting the value of the `coints` column to the current coin count plus the value we want to
+add `coins = coins + ?`\
+
+You probably never want to just insert data.
+
+## Updating data
+
+Updating data is as important as inserting data.
+
+Most time you want to update data instead of insert new data. You have two different ways to do this.
+
+### Replace
+
+Replace is similar to the upsert. But instead of updating the value we just replace it with another one or insert it.
+Its a mix of Update and Insert.
+
+``` java
+public boolean setCoins(Player player, long amount) {
+    try (Connection conn = conn(); PreparedStatement stmt = conn.prepareStatement(
+            "REPLACE player_coins(uuid, coins)  VALUES(?,?);"
+    )) {
+        stmt.setString(1, player.getUniqueId().toString());
+        stmt.setLong(2, amount);
+        stmt.execute();
+        return true;
+    } catch (SQLException e) {
+        logSQLError("Could not set coins", e);
+    }
+    return false;
+}
+```
+
+### Update
+
+We could also do the same as above with a update. In this way we would only update the data if we have an entry for our
+key.
+
+``` java
+public boolean setCoins(Player player, long amount) {
+    try (Connection conn = conn(); PreparedStatement stmt = conn.prepareStatement(
+            "UPDATE player_coins SET coins = ? WHERE uuid = ?"
+    )) {
+        stmt.setLong(1, amount);
+        stmt.setString(2, player.getUniqueId().toString());
+        return stmt.executeUpdate() > 0;
+    } catch (SQLException e) {
+        logSQLError("Could not set coins", e);
+    }
+    return false;
+}
+```
+
+You see something new here. The `WHERE` clause defines which columns we want to update. This time we say that we want to
+update the coins on a specific uuid.\
+Our return value changed as well. The method `executeUpdate()` returns us the number of rows we updated. If the result
+is 0 we dont updated anything so we return false.
+
+This mechanic can be used to make some nice thread save take operations without checking if a player has sufficient
+coins.
+
+``` java
+public boolean takeCoins(Player player, long amount) {
+    try (Connection conn = conn(); PreparedStatement stmt = conn.prepareStatement(
+            "UPDATE player_coins SET coins = coins - ? WHERE uuid = ? AND coins >= ?;"
+    )) {
+        stmt.setLong(1, amount);
+        stmt.setString(2, player.getUniqueId().toString());
+        stmt.setLong(3, amount);
+        int updated = stmt.executeUpdate();
+        return updated == 1;
+    } catch (SQLException e) {
+        logSQLError("Could not take coins from player.", e);
+    }
+    return false;
+}
+```
+
+This method will take coins from a player with a specific uuid if the player has enough coins.\
+If we get an updated row we know that the player had enough money.\
+Use this whenever you want to take a something from a player if he has enough credits. If you check first if the player
+has enough credits and take if if it has you lose thread safety.
 
 ## Deleting data
 
-# Reading Data
+Sometimes you need to delete data from your tables.
 
-# Setting up a Connection
-First of all, you will need to ensure that you have:
-
-    Hostname - the ip address where the database is being stored
-    Port - the port on the ip address on which the database is being hosted
-    Database - which database to use because a server can have multiple databases
-    Username - the username with which to use in connecting to the database
-    Password - similar to the username, it is used for authentication purposes
-
-Ensure that you have those 5 and we can get started with setting up a connection.
-
-Code (Java):
-public class Test extends JavaPlugin {
-
-    String host, port, database, username, password;
-    static Connection connection;
- 
-    @Override
-    public void onEnable() {  
-        host = "localhost";
-        port = "3306";
-        database = "TestDatabase";
-        username = "user";
-        password = "pass";    
+``` java
+public boolean deleteCoins(Player player) {
+    try (Connection conn = conn(); PreparedStatement stmt = conn.prepareStatement(
+            "DELETE FROM player_coins WHERE uuid = ?;"
+    )) {
+        stmt.setString(1, player.getUniqueId().toString());
+        int updated = stmt.executeUpdate();
+        return updated == 1;
+    } catch (SQLException e) {
+        logSQLError("Could not delete coins of player.", e);
     }
- 
-    @Override
-    public void onDisable() {
-    }
-
+    return false;
 }
-This is what your main plugin class should generally have at this point. Note that for the host, port, database, username, and password, those are just examples. You should change it to whatever is the actual information needed to connect to your MySQL server. If you are using this for a configurable plugin, it would be better to get this information from a configuration file. You may notice this variable I declared:
-Code (Java):
-static Connection c;
-Now what this is, is an instance of the 'java.sql.Connection' class. This is what we will be using to connect. Before we get on to that, we will first ensure that we have the necessary requirements to connect to a MySQL server. Here is a method that we can use to return a "safe" Connection instance:
+```
 
-Code (Java):
-public void openConnection() throws SQLException,
-ClassNotFoundException {
-if (connection != null && !connection.isClosed()) {
-return;
-}
-// Class.forName("com.mysql.jdbc.Driver"); - Use this with old version of the Driver
-Class.forName("com.mysql.cj.jdbc.Driver");
-connection = DriverManager.getConnection("jdbc:mysql://"
-+ this.host+ ":" + this.port + "/" + this.database,
-this.username, this.password);
-}
-What this essentially does is check if the system that it is running on has installed the jdbc driver for MySQL. After it performs the check, it will then attempt to get the Connection using the DriverManager.getConnection method which is using the 'java.sql.DriverManager' class to return a connection with the given information.
-This method can be modified as necessary in order to make things easier such as making a separate class to handle all your MySQL methods.
-Here is what your main class should now have :
+A `DELETE` statement is also a type of update. Thats why we can use the same mechanism like earlier to check if we
+deleted the player.\
+If you execute a delete without `WHERE` your whole table will be wiped.
 
-Code (Java):
+## Reading Data
 
-public class Test extends JavaPlugin {
+Now that you can manage your data in your database it's finally time to read it.
 
-    String host, port, database, username, password;
-    static Connection connection;
+### ResultSet
 
-    @Override
-    public void onEnable() {
-        host = "localhost";
-        port = "3306";
-        database = "TestDatabase";
-        username = "user";
-        password = "pass";    
-        try {    
-            openConnection();
-            Statement statement = connection.createStatement();          
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
+Whenever you request data via a `SELECT` statement you will get a `ResultSet`.\
+To get the `ResultSet` you need to use the `executeQuery()` method on your statement.\
+
+A result set contains the rows you requested. The rows are selected by a pointer. When you get the result set this
+pointer will be before the first row.
+
+To move the pointer to the next row you have to call the `next()` method on your `ResultSet`. This method does not only
+move the pointer forward it also tells you if there is a row.\
+If next returns `false` no row can be read.
+
+### Select Single Row
+
+If you select a row via a primary key like our uuid you will get only one row.
+
+``` java
+public OptionalLong getCoins(Player player) {
+    try (Connection conn = conn(); PreparedStatement stmt = conn.prepareStatement(
+            "select coins from player_coins where uuid = ?;"
+    )) {
+        stmt.setString(1, player.getUniqueId().toString());
+        ResultSet resultSet = stmt.executeQuery();
+        if (resultSet.next()) {
+            return OptionalLong.of(resultSet.getLong("coins"));
         }
+        return OptionalLong.of(0);
+    } catch (SQLException e) {
+        logSQLError("Could not retrieve player coins.", e);
+        return OptionalLong.empty();
     }
+}
+```
 
-    @Override
-    public void onDisable() {
-    }
+We check if our `ResultSet` contains a row with the `next()` method. If so we get the column with the name coins. A `*`
+selector should be avoided. Its unreadable for other people reading your code and bad practise.
 
-    public void openConnection() throws SQLException, ClassNotFoundException {
-        if (connection != null && !connection.isClosed()) {
-            return;
+### Select Multiple Rows.
+
+If we want to select multiple rows we have to do it a bit different.
+
+``` java
+public Optional<List<CoinPlayer>> getCoins() {
+    try (Connection conn = conn(); PreparedStatement stmt = conn.prepareStatement(
+            "SELECT uuid, coins from player_coins;"
+    )) {
+        ResultSet resultSet = stmt.executeQuery();
+        List<CoinPlayer> coins = new ArrayList<>();
+        while (resultSet.next()) {
+            coins.add(
+                    new CoinPlayer(
+                            UUID.fromString(resultSet.getString("uuid")),
+                            resultSet.getLong("coins"))
+            );
         }
-        Class.forName("com.mysql.jdbc.Driver");
-        connection = DriverManager.getConnection("jdbc:mysql://"
-                + this.host + ":" + this.port + "/" + this.database,
-                this.username, this.password);
+        return Optional.of(coins);
+    } catch (SQLException e) {
+        logSQLError("Could not fetch all player coins", e);
+        return Optional.empty();
     }
-
 }
+```
 
-Now what we did here was successfully setup out connection to the MySQL server. Now what can we do to send commands to the server to get or set data? This is where the 'java.sql.Statement' instance comes in handy. As you see, there is a Statement variable that I created using connection.createStatement(). This returns a statement which you can use to send commands. Note that at this point, you should already know how to program in SQL such as through the tutorial I mentioned earlier.
+You see several new things here.\
+First we select both colums (We are not using `*`, altough we select all columns).\
+Then we loop through the ResultSet with a while which will move the pointer to the next row until we hit the end of the
+ResultSet.\
+Also please note that the Result is wrapped into a coint player. This is way cleaner than just returning a map or
+something else.
 
-Statements - Getting and Setting Data
-Using statements, you can execute commands to the server to perform a query in order to retrieve data stored in the database or you can set data such as adding new columns, creating new entries, or editing existing ones.
+### Select only what you need
 
-Getting Data
-Supposing we had a table with two columns, 'PLAYERNAME' and 'BALANCE', we will be retrieving all entries of players with empty balances.
+There are only very rare cases where you will need the complete table. In the most cases you pull the table to do some
+sorting on it locally. However the database can do this as well.\
+Dont select what you dont need.
 
-Code (Java):
-ResultSet result = statement.executeQuery("SELECT * FROM PlayerData WHERE BALANCE = 0;");
-ArrayList<String> bankruptPlayers = new ArrayList<String>();
-while (result.next()) {
-String name = result.getString("PLAYERNAME");
-bankruptPlayers.add(name);
+Let's say we want to get the top x player with the most coins.\
+Of course you can pull the complete table, sort it in java and get a sublist of the x first entries.\
+But this is way easier:
+
+``` java
+public Optional<List<CoinPlayer>> getTopCoins(int amount) {
+    try (Connection conn = conn(); PreparedStatement stmt = conn.prepareStatement(
+            "SELECT uuid, coins from player_coins ORDER BY coins DESC LIMIT ?;"
+    )) {
+        ResultSet resultSet = stmt.executeQuery();
+        List<CoinPlayer> coins = new LinkedList<>();
+        while (resultSet.next()) {
+            coins.add(
+                    new CoinPlayer(
+                            UUID.fromString(resultSet.getString("uuid")),
+                            resultSet.getLong("coins"))
+            );
+        }
+        return Optional.of(coins);
+    } catch (SQLException e) {
+        logSQLError("Could not fetch all player coins", e);
+        return Optional.empty();
+    }
 }
-Now you will see that I have created a ResultSet object from executing a query from the statement variable. When executing queries, it accepts a single String as a parameter which should contain your entire query. This will then return a ResultSet. A ResultSet is basically a special object which acts as a set containing all the data returned from that query if any at all. I created a while loop with the method result.next() as its condition. What this method does is move the set of values that you are viewing one step forward. If there is an available entry, it returns true. Note that when you create the ResultSet directly from a query, you should call result.next() to make it move to the first entry. Inside the loop, I called resultset.getString("PLAYERNAME"). This gets a String value from that entry under the column named 'PLAYERNAME'. Note that there are several different get methods for ResultSet which should be used in coordination with the expected data type of the specified column. This is basically all that you need to do to get data from MySQL tables.
+```
 
-Setting Data
-Using the same example table as in the Getting Data tutorial, we will be setting an entry of a player. Unlike the getters, this is pretty much a simple one-liner. We need the String name of the player and the int balance.
-Code (Java):
-statement.executeUpdate("INSERT INTO PlayerData (PLAYERNAME, BALANCE) VALUES ('Playername', 100);");
-Using this, we are setting the data of a player named 'Playername' with a balance of 100. This is basically all there is to setting data for MySQL servers.
+The `ORDER BY ... DESC` clause sorts the whole table by coins in a descending order.\
+The `LIMIT` keyword will only return the x player with the most coins.
 
-MySQL servers are very useful when you know how to use them. What you learn here can help kickstart your career into working with databases. Just make sure to explore and toy around with what you can. :)
+When reading the result set you already have the x top players in a sorted list.
+
+# Further Stuff
+
+A sample implementation with all shown Queries and Stuff can be
+found [here](https://github.com/RainbowDashLabs/BasicSQLPlugin). Contributions welcome.
+
+A Guide how to work with HikariCP can be found [here](https://www.spigotmc.org/threads/480002/)
+
+A async implementation can be found in the repository as well.
