@@ -1,41 +1,35 @@
 package de.chojo.simplecoins.config;
 
+import de.chojo.simplecoins.config.elements.Database;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.Plugin;
+
+import javax.sql.DataSource;
 
 public class Configuration {
     private final Plugin plugin;
 
-
-    private Configuration() {
-        throw new UnsupportedOperationException("This is a utility class.");
-    }
+    private Database database;
+    private String driver;
 
     public Configuration(Plugin plugin) {
         this.plugin = plugin;
     }
 
-    public String getHost() {
-        return getDatabaseSection().getString("host");
+    public void reload() {
+        database = plugin.getConfig().getObject("database", Database.class, new Database());
+        driver = plugin.getConfig().getString("driver");
     }
 
-    public String getUser() {
-        return getDatabaseSection().getString("user");
+    public Plugin getPlugin() {
+        return plugin;
     }
 
-    public String getPassword() {
-        return getDatabaseSection().getString("password");
+    public String getDriver() {
+        return driver;
     }
 
-    public String getDatabase() {
-        return getDatabaseSection().getString("database");
-    }
-
-    public int getPort() {
-        return getDatabaseSection().getInt("port");
-    }
-
-    private ConfigurationSection getDatabaseSection() {
-        return plugin.getConfig().getConfigurationSection("database");
+    public Database getDatabase() {
+        return database;
     }
 }

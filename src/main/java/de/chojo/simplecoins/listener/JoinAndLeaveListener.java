@@ -27,6 +27,8 @@ public class JoinAndLeaveListener implements Listener {
         OptionalLong coins = data.getCoins(event.getPlayer());
         if (coins.isPresent()) {
             event.getPlayer().sendMessage("You have currently " + coins.getAsLong() + " coins.");
+        }else {
+            event.getPlayer().sendMessage("Couldnt retrieve coins.");
         }
     }
 

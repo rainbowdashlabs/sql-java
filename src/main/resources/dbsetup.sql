@@ -1,3 +1,4 @@
+-- always make sure to use "if not exists" to avoid errors when the table is alread defined.
 create table if not exists player_coins
 (
     -- A uuid has 36 characters.
@@ -10,6 +11,5 @@ create table if not exists player_coins
     coins bigint default 0 not null,
     -- we create a primary key "coins_pk" on the uuid column.
     -- This means that a value in the uuid column can be only one time in the column.
-    constraint coins_pk
-        primary key (uuid)
+    primary key (uuid)
 );

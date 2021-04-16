@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalLong;
@@ -51,6 +52,21 @@ public class AsyncCoinData extends PluginDataHolder {
                 return updated == 1;
             } catch (SQLException e) {
                 logSQLError("Could not take coins from player.", e);
+            }
+            return false;
+        });
+    }
+
+    public BukkitAsyncAction<Boolean> deleteCoins(Player player) {
+        return BukkitAsyncAction.supplyAsync(plugin(), () -> {
+            try (Connection conn = conn(); PreparedStatement stmt = conn.prepareStatement(
+                    "DELETE FROM player_coins where uuid = ?;"
+            )) {
+                stmt.setString(1, player.getUniqueId().toString());
+                int updated = stmt.executeUpdate();
+                return updated == 1;
+            } catch (SQLException e) {
+                logSQLError("Could not delete coins of player.", e);
             }
             return false;
         });
@@ -97,6 +113,29 @@ public class AsyncCoinData extends PluginDataHolder {
             )) {
                 ResultSet resultSet = stmt.executeQuery();
                 List<CoinPlayer> coins = new ArrayList<>();
+                while (resultSet.next()) {
+                    coins.add(
+                            new CoinPlayer(
+                                    UUID.fromString(resultSet.getString("uuid")),
+                                    resultSet.getLong("coins"))
+                    );
+                }
+                return Optional.of(coins);
+            } catch (SQLException e) {
+                logSQLError("Could not fetch all player coins", e);
+                return Optional.empty();
+            }
+        });
+    }
+
+    public BukkitAsyncAction<Optional<List<CoinPlayer>>> getTopCoins(int amount) {
+        return BukkitAsyncAction.supplyAsync(plugin(), () -> {
+            try (Connection conn = conn(); PreparedStatement stmt = conn.prepareStatement(
+                    "SELECT uuid, coins from player_coins ORDER BY coins DESC LIMIT ?;"
+            )) {
+                stmt.setInt(1, amount);
+                ResultSet resultSet = stmt.executeQuery();
+                List<CoinPlayer> coins = new LinkedList<>();
                 while (resultSet.next()) {
                     coins.add(
                             new CoinPlayer(

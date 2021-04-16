@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalLong;
@@ -24,7 +25,7 @@ public class CoinData extends PluginDataHolder {
 
     public boolean addCoins(Player player, long amount) {
         try (Connection conn = conn(); PreparedStatement stmt = conn.prepareStatement(
-                "INSERT INTO player_coins SET uuid  = ?, coins = ? ON DUPLICATE KEY UPDATE coins = coins + ?;")) {
+                "INSERT INTO player_coins(uuid, coins) VALUES(?, ?) ON DUPLICATE KEY UPDATE coins = coins + ?;")) {
             stmt.setString(1, player.getUniqueId().toString());
             stmt.setLong(2, amount);
             stmt.setLong(3, amount);
@@ -49,14 +50,33 @@ public class CoinData extends PluginDataHolder {
             logSQLError("Could not take coins from player.", e);
         }
         return false;
+
+    }
+    public boolean deleteCoins(Player player) {
+        try (Connection conn = conn(); PreparedStatement stmt = conn.prepareStatement(
+                "DELETE FROM player_coins where uuid = ?;"
+        )) {
+            stmt.setString(1, player.getUniqueId().toString());
+            int updated = stmt.executeUpdate();
+            return updated == 1;
+        } catch (SQLException e) {
+            logSQLError("Could not delete coins of player.", e);
+        }
+        return false;
     }
 
     public boolean setCoins(Player player, long amount) {
         try (Connection conn = conn(); PreparedStatement stmt = conn.prepareStatement(
                 "REPLACE player_coins(uuid, coins)  VALUES(?,?);"
+                //"UPDATE player_coins SET coins = ? where uuid = ?"
         )) {
             stmt.setString(1, player.getUniqueId().toString());
             stmt.setLong(2, amount);
+/*
+            stmt.setLong(1, amount);
+            stmt.setString(2, player.getUniqueId().toString());
+*/
+
             stmt.execute();
             return true;
         } catch (SQLException e) {
@@ -87,6 +107,27 @@ public class CoinData extends PluginDataHolder {
         )) {
             ResultSet resultSet = stmt.executeQuery();
             List<CoinPlayer> coins = new ArrayList<>();
+            while (resultSet.next()) {
+                coins.add(
+                        new CoinPlayer(
+                                UUID.fromString(resultSet.getString("uuid")),
+                                resultSet.getLong("coins"))
+                );
+            }
+            return Optional.of(coins);
+        } catch (SQLException e) {
+            logSQLError("Could not fetch all player coins", e);
+            return Optional.empty();
+        }
+    }
+
+    public Optional<List<CoinPlayer>> getTopCoins(int amount) {
+        try (Connection conn = conn(); PreparedStatement stmt = conn.prepareStatement(
+                "SELECT uuid, coins from player_coins ORDER BY coins DESC LIMIT ?;"
+        )) {
+            stmt.setInt(1, amount);
+            ResultSet resultSet = stmt.executeQuery();
+            List<CoinPlayer> coins = new LinkedList<>();
             while (resultSet.next()) {
                 coins.add(
                         new CoinPlayer(
