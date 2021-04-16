@@ -21,7 +21,7 @@ dependencies {
 
 group = "de.chojo"
 version = "1.0-SNAPSHOOOOOOT"
-description = "mArIa-Db-BaSiCs"
+description = "basicsqlplugin"
 java.sourceCompatibility = JavaVersion.VERSION_15
 
 publishing {
