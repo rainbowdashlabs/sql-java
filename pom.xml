@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.chojo</groupId>
-    <artifactId>basicsqlplugin</artifactId>
+    <artifactId>simplecoins</artifactId>
     <version>1.0-SNAPSHOOOOOOT</version>
 
     <properties>
@@ -35,7 +35,15 @@
                     <relocations>
                         <relocation>
                             <pattern>com.mysql</pattern>
-                            <shadedPattern>de.chojo.mysql</shadedPattern>
+                            <shadedPattern>de.chojo.simplecoins.mysql</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>com.google</pattern>
+                            <shadedPattern>de.chojo.simplecoins.google</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>org.mariadb</pattern>
+                            <shadedPattern>de.chojo.simplecoins.mariadb</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>

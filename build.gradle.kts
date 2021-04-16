@@ -16,6 +16,7 @@ repositories {
 dependencies {
     implementation("mysql:mysql-connector-java:8.0.23")
     implementation("org.mariadb.jdbc:mariadb-java-client:2.7.2")
+    implementation("org.junit.jupiter:junit-jupiter:5.4.2")
     testImplementation("org.junit.jupiter:junit-jupiter:RELEASE")
     compileOnly("org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT")
 }
@@ -33,6 +34,8 @@ publishing {
 
 tasks.named<ShadowJar>("shadowJar") {
     relocate("com.mysql", "de.chojo.simplecoins.mysql")
+    relocate("com.google", "de.chojo.simplecoins.google")
+    relocate("org.mariadb", "de.chojo.simplecoins.mariadb")
     minimize()
     mergeServiceFiles()
 }
