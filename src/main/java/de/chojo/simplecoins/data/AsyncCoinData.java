@@ -18,8 +18,12 @@ import java.util.Optional;
 import java.util.OptionalLong;
 import java.util.UUID;
 
+/**
+ * This class is equal to {@link CoinData}. It just wraps the queries into a {@link BukkitAsyncAction}.
+ * <p>
+ * The cleaner version with delegate is visible in {@link AsyncWrappedCoinData}
+ */
 public class AsyncCoinData extends PluginDataHolder {
-
     public AsyncCoinData(Plugin plugin, DataSource source) {
         super(plugin, source);
     }

@@ -52,6 +52,7 @@ public class CoinData extends PluginDataHolder {
         return false;
 
     }
+
     public boolean deleteCoins(Player player) {
         try (Connection conn = conn(); PreparedStatement stmt = conn.prepareStatement(
                 "DELETE FROM player_coins where uuid = ?;"

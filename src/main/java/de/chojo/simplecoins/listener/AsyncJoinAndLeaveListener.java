@@ -20,26 +20,28 @@ public class AsyncJoinAndLeaveListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        data.addCoins(event.getPlayer(), 10).queue(result -> {
-            if (result) {
-                event.getPlayer().sendMessage("You received 10 coins.");
-            }
-            data.getCoins(event.getPlayer()).queue(coins -> {
-                if (coins.isPresent()) {
-                    event.getPlayer().sendMessage("You have currently " + coins.getAsLong() + " coins.");
-                }
-            });
-        });
+        data.addCoins(event.getPlayer(), 10)
+                .queue(result -> {
+                    if (result) {
+                        event.getPlayer().sendMessage("You received 10 coins.");
+                    }
+                    data.getCoins(event.getPlayer()).queue(coins -> {
+                        if (coins.isPresent()) {
+                            event.getPlayer().sendMessage("You have currently " + coins.getAsLong() + " coins.");
+                        }
+                    });
+                });
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
-        data.takeCoins(event.getPlayer(), 5).queue(result -> {
-            if (result) {
-                plugin.getLogger().info("Withdraw 5 coins from " + event.getPlayer().getName() + ".");
-                return;
-            }
-            plugin.getLogger().info("Player has not sufficient coins.");
-        });
+        data.takeCoins(event.getPlayer(), 5)
+                .queue(result -> {
+                    if (result) {
+                        plugin.getLogger().info("Withdraw 5 coins from " + event.getPlayer().getName() + ".");
+                        return;
+                    }
+                    plugin.getLogger().info("Player has not sufficient coins.");
+                });
     }
 }

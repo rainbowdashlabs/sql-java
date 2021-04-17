@@ -17,6 +17,12 @@ public final class BukkitAsyncAction<T> {
     private final Supplier<T> asyncSupplier;
     private final Consumer<Throwable> asyncErrorHandler;
 
+    private BukkitAsyncAction(Plugin plugin, Supplier<T> asyncSupplier, Consumer<Throwable> asyncErrorHandler) {
+        this.asyncSupplier = asyncSupplier;
+        this.plugin = plugin;
+        this.asyncErrorHandler = asyncErrorHandler;
+    }
+
     /**
      * This will change the executor.
      * <p>
@@ -29,12 +35,6 @@ public final class BukkitAsyncAction<T> {
     public static void changeExecutor(ExecutorService executor) {
         BukkitAsyncAction.executor.shutdownNow();
         BukkitAsyncAction.executor = executor;
-    }
-
-    private BukkitAsyncAction(Plugin plugin, Supplier<T> asyncSupplier, Consumer<Throwable> asyncErrorHandler) {
-        this.asyncSupplier = asyncSupplier;
-        this.plugin = plugin;
-        this.asyncErrorHandler = asyncErrorHandler;
     }
 
     private static Consumer<Throwable> getDefaultLogger(Plugin plugin) {
@@ -52,6 +52,7 @@ public final class BukkitAsyncAction<T> {
      * @param plugin        plugin of action
      * @param asyncSupplier asyncSupplier which will request the data asynchronous
      * @param <T>           type of asyncSupplier
+     *
      * @return new Bukkit action
      */
     public static <T> BukkitAsyncAction<T> supplyAsync(Plugin plugin, Supplier<T> asyncSupplier) {
@@ -65,10 +66,11 @@ public final class BukkitAsyncAction<T> {
      * should be taken to assure the thread-safety of asynchronous tasks.</b>
      * <p>
      *
-     * @param plugin        plugin of action
-     * @param asyncSupplier asyncSupplier which will request the data asynchronous
+     * @param plugin            plugin of action
+     * @param asyncSupplier     asyncSupplier which will request the data asynchronous
      * @param asyncErrorHandler error handler for supplier error
-     * @param <T>           type of asyncSupplier
+     * @param <T>               type of asyncSupplier
+     *
      * @return new Bukkit action
      */
     public static <T> BukkitAsyncAction<T> supplyAsync(Plugin plugin, Supplier<T> asyncSupplier, Consumer<Throwable> asyncErrorHandler) {
@@ -86,7 +88,7 @@ public final class BukkitAsyncAction<T> {
     /**
      * Queue the action async
      *
-     * @param syncedConsumer      synced consumer which accepts the results
+     * @param syncedConsumer     synced consumer which accepts the results
      * @param syncedErrorHandler error handler
      */
     public void queue(Consumer<T> syncedConsumer, Consumer<Throwable> syncedErrorHandler) {
