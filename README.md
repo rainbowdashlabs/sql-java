@@ -40,8 +40,8 @@
 
 # Introduction / What can I expect.
 
-Databases are often crucial when it comes to storing of data.\
-This tutorial aims to get you ready to store your data in your MariaDB.
+Databases are often crucial when it comes to storing data.\
+This tutorial aims to get you ready to store your data in your MariaDB or MySQL database.
 
 We will start with some general preconditions we need to clarify and make some preparations.\
 After this we will look into the DataSource and build our first connection to our database.\
@@ -60,25 +60,28 @@ scraping the surface.
 
 As you delve into the depths of programming, you will come across times when you realize that it would be a lot more
 convenient for both the user, and the developer to store data in tables like you see in spreadsheets instead of creating
-all sorts of wrapper objects, hashmaps of hashmaps of hashmaps and so on. This is where databases come in handy. Now,
-I'm sure most of us have heard of the term "database". It just seems to be that. A database full of data, But how are
-they stored? They must be stored in some efficient manner for them to even be considered an option over regular files.
-Data in SQL servers are stored in tables similar to this one:
+all sorts of wrapper objects, hashmaps of hashmaps and so on. This is where databases come in handy.\
+SQL databases are designed to store structural data in an effective manner. They do this by storing data in tables like
+this:
 
-![Table](https://chojos.lewds.de/Slategray_CodFlamingo_is_Creepy.png)
+| uuid | coins |
+| :--- | :--- |
+| 0006b9ed-2592-461c-aa82-be3e7efe6006 | 70 |
+| 14a13f3a-535c-45e8-aec7-6eea5b90f9d5 | 20 |
+| 2917b45f-e1ab-42a8-953b-a30124d18a8b | 96 |
+| 3f7141c7-5355-4244-b70c-79034c365db5 | 54 |
+| 5395581d-fc92-470b-9de8-90e5ef415b2c | 85 |
 
 Looking at the image, I think you might be seeing how this comes in handy. Data is stored neatly as entries or rows of
-data. Each kind of data is classified under each column. In this tutorial, I will be showing you how to connect your
-plugin to a MySQL database. Note, however, that you will still have to learn how to program using the MySQL programming
-syntax. [Here](https://www.w3schools.com/sql/default.asp) is a good tutorial which helps you to learn the basics. Now to
-clear up, what exactly are databases? Well, a database in SQL is a single table, or collection of tables, such as that
-one up there. It is a table with columns and rows possessing data. Each column has an expected type of data such as a
-Date, Int, etc. The general SQL data types are listed [here](http://www.w3schools.com/sql/sql_datatypes_general.asp).
+data. Each kind of data is classified under each column.\
+The data is structured in columns. Why am I always say that the data is structured? Because there is unstructered data
+as well. Thats something where you would use so called noSQL database, altough the term "noSQL" is a bit missleading,
+since it is a very broad field, but thats something for another time.\
 
-Note: Other databases might have different types. Read the documentation of your database.\
-
-Note 2: Some types have different names than the java data types. `Bigint` in SQL is equal to a `long` in Java for
-example.
+Since the data is structured SQL databases can do lot more than just storing data. They can define rules for values in a
+column or even validate combination of columns. They can also link colums in different tables together and delete
+dropped rows when the linked row is deleted. This is also a gread way to keep data consistency, but we are already going
+into the topic without clarifying some things. Lets get started with some prerequisites.
 
 # Prerequisite
 
