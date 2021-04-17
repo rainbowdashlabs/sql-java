@@ -11,6 +11,7 @@ public class Configuration {
 
     public Configuration(Plugin plugin) {
         this.plugin = plugin;
+        reload();
     }
 
     public void reload() {

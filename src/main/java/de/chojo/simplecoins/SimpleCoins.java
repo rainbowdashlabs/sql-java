@@ -5,17 +5,21 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 import de.chojo.simplecoins.config.Configuration;
 import de.chojo.simplecoins.config.elements.Database;
 import de.chojo.simplecoins.listener.JoinAndLeaveListener;
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mariadb.jdbc.MariaDbPoolDataSource;
 
 import javax.sql.DataSource;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 public class SimpleCoins extends JavaPlugin implements Listener {
     private Configuration config;
@@ -23,6 +27,8 @@ public class SimpleCoins extends JavaPlugin implements Listener {
 
     @Override
     public void onLoad() {
+        ConfigurationSerialization.registerClass(Database.class);
+
         saveDefaultConfig();
         getConfig().options().copyDefaults(true);
         saveConfig();
@@ -104,6 +110,7 @@ public class SimpleCoins extends JavaPlugin implements Listener {
                 throw new SQLException("Could not establish database connection.");
             }
         }
+        getLogger().info("§2Database connection established.");
     }
 
     private void initDb() throws SQLException, IOException {
@@ -112,7 +119,10 @@ public class SimpleCoins extends JavaPlugin implements Listener {
         // it is located in the resources.
         String setup;
         try (InputStream in = getClassLoader().getResourceAsStream("dbsetup.sql")) {
+            // Java 9+ way
             setup = new String(in.readAllBytes());
+            // Legacy way
+            setup = new BufferedReader(new InputStreamReader(in)).lines().collect(Collectors.joining("\n"));
         } catch (IOException e) {
             getLogger().log(Level.SEVERE, "Could not read db setup file.", e);
             throw e;
@@ -121,11 +131,13 @@ public class SimpleCoins extends JavaPlugin implements Listener {
         String[] queries = setup.split(";");
         // execute each query to the database.
         for (String query : queries) {
+            // If you use the legacy way you have to check for empty queries here.
+            if (query.isBlank()) continue;
             try (Connection conn = dataSource.getConnection();
                  PreparedStatement stmt = conn.prepareStatement(query)) {
                 stmt.execute();
             }
         }
-        getLogger().info("Database setup complete.");
+        getLogger().info("§2Database setup complete.");
     }
 }
