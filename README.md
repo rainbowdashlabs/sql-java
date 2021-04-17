@@ -298,22 +298,25 @@ field `private DataSource dataSource` in your plugin class.
 
 # Building Tables
 
-Now that we have our database connected we need to store our data somewhere.\
-Like mentioned at the beginning SQL databases store data in tables.\
-But databases can do a lot more than just storing data in tables. They can validate and pre organize your data to yield
-results faster and provide data consistency.
+Now that we have our database connected we need to store our data somewhere. Like mentioned at the beginning SQL
+databases store data in tables, but databases can do a lot more than just storing data in tables. They can validate and
+pre organize your data to yield results faster and provide data consistency.
 
 We will take a look at different methods in this section.
 
 ## Creating a table
 
-To create a table we need to define the columns with a name, and the required data type.\
-You can find the types [here](https://www.w3schools.com/sql/sql_datatypes.asp).\
-Some of these types have a `(size)` parameter.\
-For String data types this defines the maximum size of the data written in this column.\
-However for numeric types it does NOT. `INT(2)` won't restrict the integer value written to this column in any way. This
-is wrong knowledge spread out widely. See
-the [documentation](https://dev.mysql.com/doc/refman/5.7/en/numeric-type-attributes.html) if you want to know more.
+To create a table we need to define the columns with a name, and the required data type. You can find the
+types [here](https://www.w3schools.com/sql/sql_datatypes.asp). Some of these types have a `(size)`
+parameter. For String data types this defines the maximum size of the data written in this column. However for numeric
+types it does NOT. `INT(2)` won't restrict the integer value written to this column in any way. This is wrong knowledge
+spread out widely. See the [documentation](https://dev.mysql.com/doc/refman/5.7/en/numeric-type-attributes.html) if you
+want to know more.
+
+_Note: Other databases might have different types. Read the documentation of your database._
+
+_Note 2: Some types have different names than the java data types. `Bigint` in SQL is equal to a `long` in Java for
+example._
 
 There are some best practises which data type you have to choose:
 
@@ -324,7 +327,7 @@ There are some best practises which data type you have to choose:
 
 I recommend to take a dive into the documentation.
 
-An example player to store some coins for a player would look like this:
+An example table to store some coins for a player would look like this:
 
 ``` sql
 -- always make sure to use "if not exists" to avoid errors when the table is alread defined.
@@ -344,7 +347,7 @@ CREATE TABLE IF NOT EXISTS player_coins
 );
 ```
 
-You may have noticed some other parameter there than just type. We will come to this in a moment.
+You may have noticed some other parameter there than just the column type. We will come to this in a moment.
 
 ## Data consistency
 
@@ -401,13 +404,38 @@ booster will run out.
 
 Since we have more than one booster probably we want to have an uuid multiple times in this table, but we don't want the
 same player with the same booster more than one time in this table. That's why our `CONSTRAIN` is a combination
-of `uuid`
-and `boost_id`. This means that the combination of these two columns must be unique in this table.
+of `uuid` and `boost_id`. This means that the combination of these two columns must be unique in this table.
 
 The `CONSTRAIN` could be replaced by a primary key in the current case. I just used it here because I wanted to show you
 the syntax for it. When you have more complex tables you probably will need more constrains next to the primary key.
 
 _Note: The names for the constrains and indices can be chosen freely, however it's recommended to use useful names._
+
+However something other interesting is happening here. We create a index on the until column. This index is sorted which
+meant that we already have this table in a sorted form by the until timestamp. We will have the lowest timestamp at the
+top and the timestamps in the far future at the end of the table.
+
+Since we probably want to see which boosters will run out shortly we want to select the most recent booster which end.
+We can to this by ordering the table by until and then select the next x entries.
+
+As a query this would look like this (Dont worry. Everything here will be explained later. A further explanation is
+added at the end of the article.):
+
+``` sql
+EXPLAIN select
+	uuid,
+	boost_id
+from
+	player_boosts
+where until < date_sub(now(), INTERVAL 1 HOUR);
+```
+
+| id | select\_type | table | type | possible\_keys | key | key\_len | ref | rows | Extra |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| 1 | SIMPLE | player\_boosts | range | player\_boosts\_until\_index | player\_boosts\_until\_index | 4 | NULL | 1 | Using where; Using index |
+
+Since we already have the table sorted by until the database will automatically search in the index instead of the table
+itself.
 
 # Setting up your database
 
@@ -480,16 +508,10 @@ this if you are not interested.
 If you want to keep track of your database version create a single table like:
 
 ```sql
-CREATE TABLE IF NOT EXISTS <plugin_name>_db_version
+CREATE TABLE IF NOT EXISTS plugin_name_db_version
 (
-    version
-    int
-    not
-    null,
-    patch
-    int
-    not
-    null
+    version int not null,
+    patch   int not null
 );
 ```
 
