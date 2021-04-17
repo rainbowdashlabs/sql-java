@@ -14,8 +14,8 @@ public final class BukkitAsyncAction<T> {
     private static final BukkitScheduler SCHEDULER = Bukkit.getScheduler();
     private static ExecutorService executor = Executors.newCachedThreadPool();
     private final Plugin plugin;
-    private final Supplier<T> supplier;
-    private final Consumer<Throwable> supplierError;
+    private final Supplier<T> asyncSupplier;
+    private final Consumer<Throwable> asyncErrorHandler;
 
     /**
      * This will change the executor.
@@ -31,10 +31,10 @@ public final class BukkitAsyncAction<T> {
         BukkitAsyncAction.executor = executor;
     }
 
-    private BukkitAsyncAction(Plugin plugin, Supplier<T> supplier, Consumer<Throwable> supplierError) {
-        this.supplier = supplier;
+    private BukkitAsyncAction(Plugin plugin, Supplier<T> asyncSupplier, Consumer<Throwable> asyncErrorHandler) {
+        this.asyncSupplier = asyncSupplier;
         this.plugin = plugin;
-        this.supplierError = supplierError;
+        this.asyncErrorHandler = asyncErrorHandler;
     }
 
     private static Consumer<Throwable> getDefaultLogger(Plugin plugin) {
@@ -67,60 +67,60 @@ public final class BukkitAsyncAction<T> {
      *
      * @param plugin        plugin of action
      * @param asyncSupplier asyncSupplier which will request the data asynchronous
-     * @param supplierError error handler for supplier error
+     * @param asyncErrorHandler error handler for supplier error
      * @param <T>           type of asyncSupplier
      * @return new Bukkit action
      */
-    public static <T> BukkitAsyncAction<T> supplyAsync(Plugin plugin, Supplier<T> asyncSupplier, Consumer<Throwable> supplierError) {
-        return new BukkitAsyncAction<>(plugin, asyncSupplier, supplierError);
+    public static <T> BukkitAsyncAction<T> supplyAsync(Plugin plugin, Supplier<T> asyncSupplier, Consumer<Throwable> asyncErrorHandler) {
+        return new BukkitAsyncAction<>(plugin, asyncSupplier, asyncErrorHandler);
     }
 
     /**
      * Queue the action for async execution
      */
     public void queue() {
-        executeAsync(supplier, e -> {
+        executeAsync(asyncSupplier, e -> {
         });
     }
 
     /**
      * Queue the action async
      *
-     * @param consumer      synced consumer which accepts the results
-     * @param consumerError error handler
+     * @param syncedConsumer      synced consumer which accepts the results
+     * @param syncedErrorHandler error handler
      */
-    public void queue(Consumer<T> consumer, Consumer<Throwable> consumerError) {
-        executeAsync(supplier, consumer, supplierError, consumerError);
+    public void queue(Consumer<T> syncedConsumer, Consumer<Throwable> syncedErrorHandler) {
+        executeAsync(asyncSupplier, syncedConsumer, asyncErrorHandler, syncedErrorHandler);
     }
 
     /**
      * Queue the action async
      *
-     * @param consumer synced consumer which accepts the results
+     * @param syncedConsumer synced consumer which accepts the results
      */
-    public void queue(Consumer<T> consumer) {
-        executeAsync(supplier, consumer);
+    public void queue(Consumer<T> syncedConsumer) {
+        executeAsync(asyncSupplier, syncedConsumer);
     }
 
-    private void executeAsync(Supplier<T> supplier, Consumer<T> consumer) {
-        executeAsync(supplier, consumer, supplierError, getDefaultLogger(plugin));
+    private void executeAsync(Supplier<T> asyncSupplier, Consumer<T> syncedConsumer) {
+        executeAsync(asyncSupplier, syncedConsumer, asyncErrorHandler, getDefaultLogger(plugin));
     }
 
     private void executeAsync(Supplier<T> asyncSupplier, Consumer<T> syncedConsumer,
-                              Consumer<Throwable> asyncSupplierError, Consumer<Throwable> syncedConsumerError) {
+                              Consumer<Throwable> asyncErrorHandler, Consumer<Throwable> syncedErrorHandler) {
         executor.execute(() -> {
             T result;
             try {
                 result = asyncSupplier.get();
             } catch (Throwable e) {
-                asyncSupplierError.accept(e);
+                asyncErrorHandler.accept(e);
                 return;
             }
             SCHEDULER.runTask(plugin, () -> {
                 try {
                     syncedConsumer.accept(result);
                 } catch (Throwable e) {
-                    syncedConsumerError.accept(e);
+                    syncedErrorHandler.accept(e);
                 }
             });
         });
