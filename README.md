@@ -942,11 +942,120 @@ The `LIMIT` keyword will only return the x player with the most coins.
 
 When reading the result set you already have the x top players in a sorted list.
 
+# Nice to know
+
+This section will contain nice to knows which didnt found it's own place in the article.
+
+## Sorted indices and EXPLAIN
+
+Remember our player coins from previously? I inserted some data:
+
+| uuid | coins |
+| :--- | :--- |
+| 0006b9ed-2592-461c-aa82-be3e7efe6006 | 70 |
+| 14a13f3a-535c-45e8-aec7-6eea5b90f9d5 | 20 |
+| 2917b45f-e1ab-42a8-953b-a30124d18a8b | 96 |
+| 3f7141c7-5355-4244-b70c-79034c365db5 | 54 |
+| 5395581d-fc92-470b-9de8-90e5ef415b2c | 85 |
+| 66c4189f-5245-4831-b71c-4346ff8a408d | 30 |
+| 6e1fa064-8e68-4c6f-8b81-1ee085ef322b | 223 |
+| 817d6f02-45c7-4ac6-8520-08d5aa71e0ce | 10 |
+| 8d85120b-d576-4abe-924c-0eee16e16aa5 | 60 |
+| 979a0446-30b7-492b-90db-67c481596742 | 78 |
+| a0f1d4ed-215c-4c17-bb6c-27f40ecfa21b | 11 |
+| a9fc9610-1ec0-4501-8778-e2a85da2a580 | 50 |
+| bcfa3ceb-cd93-4bab-9f5c-993cab7f9aad | 40 |
+| d6a721d5-89ef-4d1b-9e1b-226e32847ad9 | 80 |
+| f222744e-6cce-424b-b00a-450bdad4eb07 | 21 |
+
+To speed up your search from the top coins example even more you could create a index which is already presorted. When
+you do this, your database dont have to sort anymore and can retrieve the results directly by looking into the index.
+Currently when do something like this:
+
+``` sql
+SELECT
+	uuid,
+	coins
+FROM
+	player_coins
+ORDER BY coins DESC
+LIMIT 10;
+```
+
+We read the whole table, sort it by coins and then take the first 10 rows. Your database can tell you this as well.\
+Run this query:
+
+``` sql
+EXPLAIN SELECT
+	uuid,
+	coins
+FROM
+	player_coins
+ORDER BY coins DESC
+LIMIT 10;
+```
+
+The explain keyword shows you what the database will do. Currently our explain looks like this:
+
+| id | select\_type | table | type | possible\_keys | key | key\_len | ref | rows | Extra |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| 1 | SIMPLE | player\_coins | ALL | NULL | NULL | NULL | NULL | 15 | Using filesort |
+
+Type shows us that we are using all entries in the table. Rows say that we are reading 15 rows, which are all rows in
+the table, and we are using filesort which is not pretty fast.
+
+Now execute this query:
+
+``` sql
+CREATE INDEX player_coins_coins_index
+	ON player_coins (coins DESC );
+```
+
+This will create a sorted index on the table sorted by coins in descending order. You remember that we used a `ORDER BY`
+clause in our query previously. This query will now read the index instead of the table itself, which is quite fast,
+because it just takes the first x entries from the index instead of reading all values sorting them and then taking the
+first x entries.
+
+You can check this by using the explain statement from above again.
+
+| id | select\_type | table | type | possible\_keys | key | key\_len | ref | rows | Extra |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| 1 | SIMPLE | player\_coins | index | NULL | player\_coins\_coins\_index | 8 | NULL | 10 | Using index |
+
+You can see that some things changed:
+
+- The type changed from `ALL` to `index`, which means that we are only searching the index instead of the whole table.\
+- The key changed from `null` to `player_coins_coins_index` which shows us, that we using the index we previously
+  created.
+- The rows count wen down from `15` to `10` which means we only read the lines we want to return instead of all rows in
+  the table. Instead of all we use the index as search type and extra mentiones that we are using an index instead of
+  the table.
+- Any `extra` changed from `Using filesort` to `Using index`.
+
+This is great. Our index works perfectly! Instead of reading the whole table we read the index. And we just read a part
+of the index since the index is sorted.
+
+# Conclusions
+
+You now have the tools to create some reasonable table layout for your application. However you just read the basics.
+There is so much more out there to learn when it comes to SQL databases.
+
+Databases can do a lot of work faster and better then your application. Remember to use always the connstrains to keep
+data consistency and indices on columns you want to search. Try to alway do as much presorting and filtering in your
+query instead of reading the data and sort it outside the database.
+
+And please dont forget to use prepared statements and a datasource. These will make your life so much easier.
+
+If you want to learn some more things you may want to check out the further reading section below.
+
 # Further Stuff
 
 A sample implementation with all shown Queries and Stuff can be
-found [here](https://github.com/RainbowDashLabs/BasicSQLPlugin). Contributions welcome.
+found [here](https://github.com/RainbowDashLabs/BasicSQLPlugin). An async implementation can be found in the repository
+as well. Contributions welcome.
 
-A Guide how to work with HikariCP can be found [here](https://www.spigotmc.org/threads/480002/)
+A guide how to work with HikariCP can be found [here](https://www.spigotmc.org/threads/480002/)
 
-An async implementation can be found in the repository as well.
+An article how to work with databases asynchronously in bukkit can be
+found [here](https://www.spigotmc.org/wiki/asynchronously-working-with-a-database/).
+
