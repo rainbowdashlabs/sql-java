@@ -212,7 +212,7 @@ With the knowledge about Try-with-Resources we can get serious now. Time to conn
 Hopefully you have imported the database driver your want to use.
 
 First we need to create our DataSource. Like mentioned before: Every database driver has other class names and classes.
-Not all database driver implement connection pooling, however the MySQl and MariaDB driver implement connection
+Not all database driver implement connection pooling, however the MySQL and MariaDB driver implement connection
 pooling.\
 To create a data source for one of these database simply create a new instance of the connection pools:\
 MySQL:
@@ -221,7 +221,7 @@ MySQL:
 MysqlDataSource dataSource = new MysqlConnectionPoolDataSource();
 ```
 
-MariaDVB
+MariaDB
 
 ``` java
 MariaDbPoolDataSource dataSource = new MariaDbPoolDataSource();
@@ -366,7 +366,7 @@ value will be 0.
 
 ### not null
 
-The `not null` keyword should be obvious. It permits you or someone else to insert a `null` value into this column.\
+The `not null` keyword should be obvious. It prevents you or someone else to insert a `null` value into this column.\
 This is pretty useful as well.\
 You never want to have some coins in your table with a `null` uuid or an uuid with `null` coins.
 
@@ -378,13 +378,13 @@ This has two advantages:
 - A UUID can't exist more than one time in this table.
 - An index is created on the uuid column which speeds up your search for a specific uuid.
 
-The first advantage is called constrain. The second advantage is called index. A primary key is both in one.
+The first advantage is called constraint. The second advantage is called index. A primary key is both in one.
 
 ### Constrains and Indices
 
-A table can only have one primary key, but you maybe want to have more constrains to have better data consistency and
+A table can only have one primary key, but you maybe want to have more constraints to have better data consistency and
 faster searches.\
-That's why we can create own constrains and indices for our table.
+That's why we can create own constraints and indices for our table.
 
 To show you this we need a more complex table:
 
@@ -394,7 +394,7 @@ CREATE TABLE IF NOT EXISTS player_boosts
     uuid     CHAR(36)  NOT NULL,
     boost_id INT       NOT NULL,
     until    TIMESTAMP NOT NULL,
-    CONSTRAINT player_boosts_constrain
+    CONSTRAINT player_boosts_constraint
         UNIQUE (uuid, boost_id)
 );
 
@@ -402,17 +402,17 @@ CREATE INDEX IF NOT EXISTS player_boosts_until_index
     ON player_boosts (until ASC);
 ```
 
-The booster table contains all users with active boosters and a `booster_id`. It also contains a timestamp when this
+The booster table contains all users with active boosters and a `boost_id`. It also contains a timestamp when this
 booster will run out.
 
 Since we have more than one booster probably we want to have an uuid multiple times in this table, but we don't want the
-same player with the same booster more than one time in this table. That's why our `CONSTRAIN` is a combination
+same player with the same booster more than one time in this table. That's why our `CONSTRAINT` is a combination
 of `uuid` and `boost_id`. This means that the combination of these two columns must be unique in this table.
 
-The `CONSTRAIN` could be replaced by a primary key in the current case. I just used it here because I wanted to show you
-the syntax for it. When you have more complex tables you probably will need more constrains next to the primary key.
+The `CONSTRAINT` could be replaced by a primary key in the current case. I just used it here because I wanted to show you
+the syntax for it. When you have more complex tables you probably will need more constraints next to the primary key.
 
-_Note: The names for the constrains and indices can be chosen freely, however it's recommended to use useful names._
+_Note: The names for the constraints and indices can be chosen freely, however it's recommended to use useful names._
 
 However something other interesting is happening here. We create an index on the `until` column. This index is sorted which
 meant that we already have this table in a sorted form by the `until` timestamp. We will have the lowest timestamp at the
@@ -559,7 +559,7 @@ You can see a prepared statement below. don't think about the SQL query itself f
 You may notice the `?` inside the query. These are placeholders for the actual values.\
 These values are set by the `set...()` methods provided by the PreparedStatement object.\
 You need to choose the correct method to set your value, which is pretty straight forward. Then you enter the number of
-the `?` you want to replace and add the value you want to set there.
+the `?` you want to replace and add the value you want to set there. The index of the placeholders is not zero-based and instead starts at 1.
 
 ``` java
 public boolean someMethod(Object obj1, Object obj2) {
@@ -604,7 +604,7 @@ Optional.of(anyValue)
 Optional.ofNullable(anyValue)
 ```
 
-There are some special Optionals designed for specific types like `OptionalLong`, `OptionalInt` and `OptionalDouble`.
+There are some special Optionals designed for specific types like `OptionalLong`, `OptionalInt`, `OptionalDouble` and `OptionalBoolean`.
 
 In general the whole think would look like this:
 
@@ -663,11 +663,11 @@ For space reasons I will only show you the prepared statements, without any java
 Our table looks like this:
 
 ``` sql
-create table if not exists player_coins_2
+CREATE TABLE IF NOT EXISTS player_coins_2
 (
-    uuid  char(36)         not null,
-    coins bigint default 0 not null,
-    primary key (uuid)
+    uuid  CHAR(36)         NOT NULL,
+    coins BIGINT DEFAULT 0 NOT NULL,
+    PRIMARY KEY (uuid)
 );
 ```
 
@@ -681,10 +681,10 @@ So lets start with writing. We have three different ways: `INSERT`, `UPSERT` and
 ### Insert
 
 The `INSERT` statement is probably one of the most common, and most simple pattern.\
-You insert some data into some columns of a table.\
+You insert some data into some columns of a table.
 
-Remember the constrains from earlier? You will need to insert the data in the correct way otherwise they will prevent
-you from inserting data. The insert will fail if we violate any rules of the table
+Remember the constraints from earlier? You will need to insert the data in the correct way otherwise they will prevent
+you from inserting data. The insert will fail if we violate any rules of the table.
 
 So lets insert some data:
 
@@ -734,8 +734,8 @@ You can see that this is quite similar to the `INSERT` statement from above. Thi
 `ON DUPLICATE KEY UPDATE`\
 This means that if we encounter a duplicate key (in our case the uuid) we want to update the entry otherwise we just
 insert it.\
-We are doing this by setting the value of the `coints` column to the current coin count plus the value we want to
-add `coins = coins + ?`\
+We are doing this by setting the value of the `coins` column to the current coin count plus the value we want to
+add `coins = coins + ?`
 
 You probably never want to just insert data.
 
@@ -753,7 +753,7 @@ It's a mix of `UPDATE` and `INSERT`.
 ``` java
 public boolean setCoins(Player player, long amount) {
     try (Connection conn = conn(); PreparedStatement stmt = conn.prepareStatement(
-            "REPLACE player_coins(uuid, coins)  VALUES(?,?);"
+            "REPLACE player_coins(uuid, coins) VALUES(?, ?);"
     )) {
         stmt.setString(1, player.getUniqueId().toString());
         stmt.setLong(2, amount);
@@ -837,7 +837,7 @@ public boolean deleteCoins(Player player) {
 
 A `DELETE` statement is also a type of update. That's why we can use the same mechanism, like earlier, to check if we
 deleted the player.\
-If you execute a `DELETE` without `WHERE` your whole table will be wiped.
+If you execute a `DELETE` without `WHERE` your whole table will be wiped which would have the same effect as `TRUNCATE`.
 
 ## Reading Data
 
@@ -846,7 +846,7 @@ Now that you can manage your data in your database it's finally time to read it.
 ### ResultSet
 
 Whenever you request data via a `SELECT` statement you will get a `ResultSet`.\
-To get the `ResultSet` you need to use the `executeQuery()` method on your statement.\
+To get the `ResultSet` you need to use the `executeQuery()` method on your statement.
 
 A result set contains the rows you requested. The rows are selected by a pointer. When you get the result set this
 pointer will be before the first row.
@@ -862,7 +862,7 @@ If you select a row via a primary key like our uuid you will get only one row.
 ``` java
 public OptionalLong getCoins(Player player) {
     try (Connection conn = conn(); PreparedStatement stmt = conn.prepareStatement(
-            "select coins from player_coins where uuid = ?;"
+            "SELECT coins FROM player_coins WHERE uuid = ?;"
     )) {
         stmt.setString(1, player.getUniqueId().toString());
         ResultSet resultSet = stmt.executeQuery();
@@ -887,7 +887,7 @@ If we want to select multiple rows we have to do it a bit different.
 ``` java
 public Optional<List<CoinPlayer>> getCoins() {
     try (Connection conn = conn(); PreparedStatement stmt = conn.prepareStatement(
-            "SELECT uuid, coins from player_coins;"
+            "SELECT uuid, coins FROM player_coins;"
     )) {
         ResultSet resultSet = stmt.executeQuery();
         List<CoinPlayer> coins = new ArrayList<>();
@@ -926,7 +926,7 @@ But this is way easier:
 ``` java
 public Optional<List<CoinPlayer>> getTopCoins(int amount) {
     try (Connection conn = conn(); PreparedStatement stmt = conn.prepareStatement(
-            "SELECT uuid, coins from player_coins ORDER BY coins DESC LIMIT ?;"
+            "SELECT uuid, coins FROM player_coins ORDER BY coins DESC LIMIT ?;"
     )) {
         ResultSet resultSet = stmt.executeQuery();
         List<CoinPlayer> coins = new LinkedList<>();
@@ -1016,7 +1016,7 @@ Now execute this query:
 
 ``` sql
 CREATE INDEX player_coins_coins_index
-	ON player_coins (coins DESC );
+	ON player_coins (coins DESC);
 ```
 
 This will create a sorted index on the table sorted by coins in descending order. You remember that we used a `ORDER BY`
