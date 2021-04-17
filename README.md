@@ -1,10 +1,10 @@
 # Content
 
-- [Introduction / What can I expect.](#introduction--what-can-i-expect)
-- [What are databases?](#what-are-databases)
+- [Introduction / What can I expect.](#introduction---what-can-i-expect)
+- [What are databases?](#what-are-databases-)
 - [Prerequisite](#prerequisite)
     * [Driver Implementation](#driver-implementation)
-        + [Different Database -> Different Driver and Queries](#different-database---different-driver-and-queries)
+        + [Different Database -> Different Driver and Queries](#different-database----different-driver-and-queries)
     * [Async and Synced calling](#async-and-synced-calling)
     * [Connection Pooling and HikariCP](#connection-pooling-and-hikaricp)
     * [Read everything](#read-everything)
@@ -36,6 +36,9 @@
         + [Select Single Row](#select-single-row)
         + [Select Multiple Rows.](#select-multiple-rows)
         + [Select only what you need](#select-only-what-you-need)
+- [Nice to know](#nice-to-know)
+    * [Sorted indices and EXPLAIN](#sorted-indices-and-explain)
+- [Conclusions](#conclusions)
 - [Further Stuff](#further-stuff)
 
 # Introduction / What can I expect.
