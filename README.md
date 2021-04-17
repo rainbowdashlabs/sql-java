@@ -482,21 +482,26 @@ private void initDb() throws SQLException, IOException {
     // it is located in the resources.
     String setup;
     try (InputStream in = getClassLoader().getResourceAsStream("dbsetup.sql")) {
+        // Java 9+ way
         setup = new String(in.readAllBytes());
+        // Legacy way
+        setup = new BufferedReader(new InputStreamReader(in)).lines().collect(Collectors.joining("\n"));
     } catch (IOException e) {
-        getLogger().log(Level.SEVERE, "Could not read db setup file.");
+        getLogger().log(Level.SEVERE, "Could not read db setup file.", e);
         throw e;
     }
     // Mariadb can only handle a single query per statement. We need to split at ;.
     String[] queries = setup.split(";");
     // execute each query to the database.
     for (String query : queries) {
+        // If you use the legacy way you have to check for empty queries here.
+        if (query.isBlank()) continue;
         try (Connection conn = dataSource.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.execute();
         }
     }
-    getLogger().info("Database setup complete.");
+    getLogger().info("§2Database setup complete.");
 }
 ```
 
