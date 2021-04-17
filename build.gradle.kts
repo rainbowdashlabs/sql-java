@@ -16,15 +16,14 @@ repositories {
 dependencies {
     implementation("mysql:mysql-connector-java:8.0.23")
     implementation("org.mariadb.jdbc:mariadb-java-client:2.7.2")
-    implementation("org.junit.jupiter:junit-jupiter:5.4.2")
-    testImplementation("org.junit.jupiter:junit-jupiter:RELEASE")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.4.2")
     compileOnly("org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT")
 }
 
 group = "de.chojo"
-version = "1.0-SNAPSHOOOOOOT"
+version = "1.0"
 description = "basicsqlplugin"
-java.sourceCompatibility = JavaVersion.VERSION_15
+java.sourceCompatibility = JavaVersion.VERSION_11
 
 publishing {
     publications.create<MavenPublication>("maven") {
@@ -36,6 +35,9 @@ tasks.named<ShadowJar>("shadowJar") {
     relocate("com.mysql", "de.chojo.simplecoins.mysql")
     relocate("com.google", "de.chojo.simplecoins.google")
     relocate("org.mariadb", "de.chojo.simplecoins.mariadb")
-    minimize()
+    // Dont use minimize. This will remove classes from your database driver which you will need.
+    minimize {
+        exclude(dependency("mysql:.*:.*"))
+    }
     mergeServiceFiles()
 }
