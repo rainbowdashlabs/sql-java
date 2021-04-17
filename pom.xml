@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.chojo</groupId>
-    <artifactId>simplecoins</artifactId>
-    <version>1.0-SNAPSHOOOOOOT</version>
+    <artifactId>basicsqlplugin</artifactId>
+    <version>1.0</version>
 
     <properties>
-        <java.version>15</java.version>
+        <java.version>11</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
