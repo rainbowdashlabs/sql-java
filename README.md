@@ -1,10 +1,10 @@
 # Content
 
-- [Introduction / What can I expect.](#introduction---what-can-i-expect)
-- [What are databases?](#what-are-databases-)
+- [Introduction / What can I expect.](#introduction--what-can-i-expect)
+- [What are databases?](#what-are-databases)
 - [Prerequisite](#prerequisite)
     * [Driver Implementation](#driver-implementation)
-        + [Different Database -> Different Driver and Queries](#different-database----different-driver-and-queries)
+        + [Different Database -> Different Driver and Queries](#different-database---different-driver-and-queries)
     * [Async and Synced calling](#async-and-synced-calling)
     * [Connection Pooling and HikariCP](#connection-pooling-and-hikaricp)
     * [Read everything](#read-everything)
@@ -64,7 +64,7 @@ scraping the surface.
 As you delve into the depths of programming, you will come across times when you realize that it would be a lot more
 convenient for both the user, and the developer to store data in tables like you see in spreadsheets instead of creating
 all sorts of wrapper objects, hashmaps of hashmaps and so on. This is where databases come in handy.\
-SQL databases are designed to store structural data in an effective manner. They do this by storing data in tables like
+SQL databases are designed to store structural data effectively. They do this by storing data in tables like
 this:
 
 | uuid | coins |
@@ -77,14 +77,14 @@ this:
 
 Looking at the image, I think you might be seeing how this comes in handy. Data is stored neatly as entries or rows of
 data. Each kind of data is classified under each column.\
-The data is structured in columns. Why am I always say that the data is structured? Because there is unstructered data
-as well. Thats something where you would use so called noSQL database, altough the term "noSQL" is a bit missleading,
-since it is a very broad field, but thats something for another time.\
+The data is structured in columns. Why am I always say that the data is structured? Because there is unstructured data
+as well. That's something where you would use so called noSQL database, although the term "noSQL" is a bit misleading,
+since it is a very broad field, but that's something for another time.
 
 Since the data is structured SQL databases can do lot more than just storing data. They can define rules for values in a
-column or even validate combination of columns. They can also link colums in different tables together and delete
-dropped rows when the linked row is deleted. This is also a gread way to keep data consistency, but we are already going
-into the topic without clarifying some things. Lets get started with some prerequisites.
+column or even validate combination of columns. They can also link columns in different tables together and delete
+dropped rows when the linked row is deleted. This is also a great way to keep data consistency, but we are already going
+into the topic without clarifying some things. Let's get started with some prerequisites.
 
 # Prerequisite
 
@@ -121,7 +121,7 @@ management.
 
 The examples will all use synced requests. You may want to use async requests to avoid that the database requests slow
 down your server. You will find more about
-this [here](https://www.spigotmc.org/wiki/asynchronously-working-with-a-database/).\
+this [here](https://www.spigotmc.org/wiki/asynchronously-working-with-a-database/). \
 The repository linked at the end also contains an example implementation how to use a database async in bukkit.
 
 ## Connection Pooling and HikariCP
@@ -200,7 +200,7 @@ using and use try with resources wherever you can.)
 One more addition here. The result set is also an auto closeable, but we don't create it inside the try braces. It will
 still be closed. Let's take a look at the ResultSet documentation.
 > A ResultSet object is automatically closed when the Statement object that generated it is closed, re-executed, or used to retrieve the next result from a sequence of multiple results.
-
+>
 [Source](https://docs.oracle.com/javase/7/docs/api/java/sql/ResultSet.html)
 
 That's it. That's Try-with-Resources. Your connection, statement and result set are freed when you exit the code block,
@@ -311,7 +311,7 @@ We will take a look at different methods in this section.
 
 To create a table we need to define the columns with a name, and the required data type. You can find the
 types [here](https://www.w3schools.com/sql/sql_datatypes.asp). Some of these types have a `(size)`
-parameter. For String data types this defines the maximum size of the data written in this column. However for numeric
+parameter. For String data types this defines the maximum size of the data written in this column, however for numeric
 types it does NOT. `INT(2)` won't restrict the integer value written to this column in any way. This is wrong knowledge
 spread out widely. See the [documentation](https://dev.mysql.com/doc/refman/5.7/en/numeric-type-attributes.html) if you
 want to know more.
@@ -328,7 +328,7 @@ There are some best practises which data type you have to choose:
 - Text of unknown length -> `TEXT` (~32,700 character)
 - Text which is expected to be large -> `MEDIUMTEXT` (16,777,215 characters) or `LONGTEXT` (4,294,967,295 characters)
 
-I recommend to take a dive into the documentation.
+I would recommend to take a dive into the documentation.
 
 An example table to store some coins for a player would look like this:
 
@@ -414,14 +414,14 @@ the syntax for it. When you have more complex tables you probably will need more
 
 _Note: The names for the constrains and indices can be chosen freely, however it's recommended to use useful names._
 
-However something other interesting is happening here. We create a index on the until column. This index is sorted which
-meant that we already have this table in a sorted form by the until timestamp. We will have the lowest timestamp at the
+However something other interesting is happening here. We create an index on the `until` column. This index is sorted which
+meant that we already have this table in a sorted form by the `until` timestamp. We will have the lowest timestamp at the
 top and the timestamps in the far future at the end of the table.
 
 Since we probably want to see which boosters will run out shortly we want to select the most recent booster which end.
 We can to this by ordering the table by until and then select the next x entries.
 
-As a query this would look like this (Dont worry. Everything here will be explained later. A further explanation is
+As a query this would look like this (don't worry. Everything here will be explained later. A further explanation is
 added at the end of the article.):
 
 ``` sql
@@ -447,7 +447,7 @@ Most people do this in their code by writing very long table create statements. 
 We will ship our required table layout in a file in our plugin.\
 It's considered the best practise to not include large sql statements in your code directly. This may change with java
 15, which allow quoteblocks now, but we know that it will be a long time until we can use java 15 in production for
-minecraft server, so we stick with the old fashioned way.
+minecraft server, so we stick with the "old fashioned" way.
 
 Create a file `dbsetup.sql` in your resources.\
 We now write all statements to create our tables in this file.
@@ -500,7 +500,7 @@ private void initDb() throws SQLException, IOException {
 }
 ```
 
-After our script is executed all tables should be created and we are ready to go.
+After our script is executed all tables should be created, and we are ready to go.
 
 ## Sidenote on versioning
 
@@ -547,7 +547,7 @@ While working with databases I found some best practises I want to share with yo
 Using prepared statements is crucial when writing user input into your database.\
 Prepared statements will protect you from SQLInjection. They will also improve performance because the database can
 cache these statements better.\
-They will also ensure that your value is interpreted correctly. So your string stays a string, and your integer stays a
+They will also ensure that your value is interpreted correctly. So your string stays a string, and your integer stays a,
 integer.
 
 You can see a prepared statement below. don't think about the SQL query itself for now.\
@@ -872,7 +872,7 @@ public OptionalLong getCoins(Player player) {
 }
 ```
 
-We check if our `ResultSet` contains a row with the `next()` method. If so we get the column with the name coins. A `*`
+We check if our `ResultSet` contains a row with the `next()` method, if so we get the column with the name coins. A `*`
 selector should be avoided. It's unreadable for other people reading your code and bad practise.
 
 ### Select Multiple Rows.
@@ -947,7 +947,7 @@ When reading the result set you already have the x top players in a sorted list.
 
 # Nice to know
 
-This section will contain nice to knows which didnt found it's own place in the article.
+This section will contain nice to knows which didn't found its own place in the article.
 
 ## Sorted indices and EXPLAIN
 
@@ -971,9 +971,9 @@ Remember our player coins from previously? I inserted some data:
 | d6a721d5-89ef-4d1b-9e1b-226e32847ad9 | 80 |
 | f222744e-6cce-424b-b00a-450bdad4eb07 | 21 |
 
-To speed up your search from the top coins example even more you could create a index which is already presorted. When
-you do this, your database dont have to sort anymore and can retrieve the results directly by looking into the index.
-Currently when do something like this:
+To speed up your search from the top coins example even more you could create an index which is already presorted. When
+you do this, your database don't have to sort anymore and can retrieve the results directly by looking into the index,
+currently when do something like this:
 
 ``` sql
 SELECT
@@ -998,7 +998,7 @@ ORDER BY coins DESC
 LIMIT 10;
 ```
 
-The explain keyword shows you what the database will do. Currently our explain looks like this:
+The `EXPLAIN` keyword shows you what the database will do, currently our explain looks like this:
 
 | id | select\_type | table | type | possible\_keys | key | key\_len | ref | rows | Extra |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -1019,7 +1019,7 @@ clause in our query previously. This query will now read the index instead of th
 because it just takes the first x entries from the index instead of reading all values sorting them and then taking the
 first x entries.
 
-You can check this by using the explain statement from above again.
+You can check this by using the `EXPLAIN` statement from above again.
 
 | id | select\_type | table | type | possible\_keys | key | key\_len | ref | rows | Extra |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -1028,26 +1028,26 @@ You can check this by using the explain statement from above again.
 You can see that some things changed:
 
 - The type changed from `ALL` to `index`, which means that we are only searching the index instead of the whole table.\
-- The key changed from `null` to `player_coins_coins_index` which shows us, that we using the index we previously
+- The key changed from `null` to `player_coins_coins_index` which shows us, that we're using the index we previously
   created.
-- The rows count wen down from `15` to `10` which means we only read the lines we want to return instead of all rows in
-  the table. Instead of all we use the index as search type and extra mentiones that we are using an index instead of
+- The rows count went down from `15` to `10` which means we only read the lines we want to return instead of all rows in
+  the table. Instead of all we use the index as search type and extra mentions that we are using an index instead of
   the table.
 - Any `extra` changed from `Using filesort` to `Using index`.
 
-This is great. Our index works perfectly! Instead of reading the whole table we read the index. And we just read a part
+This is great. Our index works perfectly! Instead of reading the whole table we read the index, and we just read a part
 of the index since the index is sorted.
 
 # Conclusions
 
-You now have the tools to create some reasonable table layout for your application. However you just read the basics.
+You now have the tools to create some reasonable table layout for your application, However you just read the basics.
 There is so much more out there to learn when it comes to SQL databases.
 
-Databases can do a lot of work faster and better then your application. Remember to use always the connstrains to keep
-data consistency and indices on columns you want to search. Try to alway do as much presorting and filtering in your
+Databases can do a lot of work faster and better than your application. Remember to always use the constrains to keep
+data consistency and indices on columns you want to search. Try to always do as much presorting and filtering in your
 query instead of reading the data and sort it outside the database.
 
-And please dont forget to use prepared statements and a datasource. These will make your life so much easier.
+And please don't forget to use prepared statements and a datasource. These will make your life so much easier.
 
 If you want to learn some more things you may want to check out the further reading section below.
 
