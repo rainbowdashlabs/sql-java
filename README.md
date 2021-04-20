@@ -64,8 +64,7 @@ scraping the surface.
 As you delve into the depths of programming, you will come across times when you realize that it would be a lot more
 convenient for both the user, and the developer to store data in tables like you see in spreadsheets instead of creating
 all sorts of wrapper objects, hashmaps of hashmaps and so on. This is where databases come in handy.\
-SQL databases are designed to store structural data effectively. They do this by storing data in tables like
-this:
+SQL databases are designed to store structural data effectively. They do this by storing data in tables like this:
 
 | uuid | coins |
 | :--- | :--- |
@@ -134,7 +133,7 @@ improve your database connection.\
 If you want to know more about connection pooling with HikariCP you can look at
 this [thread](https://www.spigotmc.org/threads/480002/).
 
-## Read everything
+### Read everything
 
 I know this is a much to read, but please take your time and go through everything.
 
@@ -409,14 +408,15 @@ Since we have more than one booster probably we want to have an uuid multiple ti
 same player with the same booster more than one time in this table. That's why our `CONSTRAINT` is a combination
 of `uuid` and `boost_id`. This means that the combination of these two columns must be unique in this table.
 
-The `CONSTRAINT` could be replaced by a primary key in the current case. I just used it here because I wanted to show you
-the syntax for it. When you have more complex tables you probably will need more constraints next to the primary key.
+The `CONSTRAINT` could be replaced by a primary key in the current case. I just used it here because I wanted to show
+you the syntax for it. When you have more complex tables you probably will need more constraints next to the primary
+key.
 
 _Note: The names for the constraints and indices can be chosen freely, however it's recommended to use useful names._
 
-However something other interesting is happening here. We create an index on the `until` column. This index is sorted which
-meant that we already have this table in a sorted form by the `until` timestamp. We will have the lowest timestamp at the
-top and the timestamps in the far future at the end of the table.
+However something other interesting is happening here. We create an index on the `until` column. This index is sorted
+which meant that we already have this table in a sorted form by the `until` timestamp. We will have the lowest timestamp
+at the top and the timestamps in the far future at the end of the table.
 
 Since we probably want to see which boosters will run out shortly we want to select the most recent booster which end.
 We can to this by ordering the table by until and then select the next x entries.
@@ -541,7 +541,7 @@ database/2/patch_2.sql
 `setup` files contain a full new database setup. These are used if no database is present.\
 `patch` files are applied on the `setup` until the current version is reached.\
 If the major version needs to be changed, all patches will be applied first and then the `migrate` script is executed.\
-Of course you need to store your required database version somewhere in your plugin.\
+Of course you need to store your required database version somewhere in your plugin.
 
 # Best practises
 
@@ -559,7 +559,8 @@ You can see a prepared statement below. don't think about the SQL query itself f
 You may notice the `?` inside the query. These are placeholders for the actual values.\
 These values are set by the `set...()` methods provided by the PreparedStatement object.\
 You need to choose the correct method to set your value, which is pretty straight forward. Then you enter the number of
-the `?` you want to replace and add the value you want to set there. The index of the placeholders is not zero-based and instead starts at 1.
+the `?` you want to replace and add the value you want to set there. The index of the placeholders is not zero-based and
+instead starts at 1.
 
 ``` java
 public boolean someMethod(Object obj1, Object obj2) {
@@ -584,7 +585,7 @@ The Optional class is pretty useful when you work with databases.
 When you request data from a database you have several possible outcomes:
 
 - We found data
-- We don't found data
+- We didn't found data
 - An error occurred
 
 You don't want to deliver false data in case of an error or when no data is returned.\
@@ -604,7 +605,8 @@ Optional.of(anyValue)
 Optional.ofNullable(anyValue)
 ```
 
-There are some special Optionals designed for specific types like `OptionalLong`, `OptionalInt`, `OptionalDouble` and `OptionalBoolean`.
+There are some special Optionals designed for specific types like `OptionalLong`, `OptionalInt`, `OptionalDouble`
+and `OptionalBoolean`.
 
 In general the whole think would look like this:
 
@@ -1032,12 +1034,12 @@ You can check this by using the `EXPLAIN` statement from above again.
 
 You can see that some things changed:
 
-- The type changed from `ALL` to `index`, which means that we are only searching the index instead of the whole table.\
+- The type changed from `ALL` to `index`, which means that we are only searching the index instead of the whole table.
 - The key changed from `null` to `player_coins_coins_index` which shows us, that we're using the index we previously
   created.
 - The rows count went down from `15` to `10` which means we only read the lines we want to return instead of all rows in
-  the table. Instead of all we use the index as search type and extra mentions that we are using an index instead of
-  the table.
+  the table. Instead of all we use the index as search type and extra mentions that we are using an index instead of the
+  table.
 - Any `extra` changed from `Using filesort` to `Using index`.
 
 This is great. Our index works perfectly! Instead of reading the whole table we read the index, and we just read a part
