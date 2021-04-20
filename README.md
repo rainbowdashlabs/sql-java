@@ -324,10 +324,11 @@ example._
 
 There are some best practises which data type you have to choose:
 
-- String with always the same size (E.g. UUID)-> char(size) (Max 255 chars)
+- String with always the same size (E.g. UUID)-> `CHAR(size)` (Max 255 chars)
 - String with known max size (E.g. Player names) -> `VARCHAR(size)` (Max 65,535)
 - Text of unknown length -> `TEXT` (~32,700 character)
 - Text which is expected to be large -> `MEDIUMTEXT` (16,777,215 characters) or `LONGTEXT` (4,294,967,295 characters)
+- UUID can also stored ad `BINARY(16)` (See "Nice to know" section for more)
 
 I would recommend to take a dive into the documentation.
 
@@ -1046,6 +1047,30 @@ You can see that some things changed:
 
 This is great. Our index works perfectly! Instead of reading the whole table we read the index, and we just read a part
 of the index since the index is sorted.
+
+## UUID in database
+
+UUIDs can be stored as `BINARY(16)` or `CHAR(36)`. Consequently a char UUID requires more space than a binary UUID.\
+Your goal should be to keep your columns as small as possible. Also binary data can be indexed better. A binary UUID
+will also keep your index smaller, which is important because the database will try to cache the indices and load them
+into memory. This is only possible as long as the index is small enough, so it is always a good practice to keep your
+indexed columns as small as possible.
+
+You can use these functions to convert your `UUID` to `byte[]` and your `byte[]` to `UUID`:
+
+``` java
+public static byte[] convert(UUID uuid) {
+    return ByteBuffer.wrap(new byte[16])
+            .putLong(uuid.getMostSignificantBits())
+            .putLong(uuid.getLeastSignificantBits())
+            .array();
+}
+
+public static UUID convert(byte[] bytes) {
+    ByteBuffer byteBuffer = ByteBuffer.wrap(bytes);
+    return new UUID(byteBuffer.getLong(), byteBuffer.getLong());
+}
+```
 
 # Conclusions
 
