@@ -41,3 +41,8 @@ tasks.named<ShadowJar>("shadowJar") {
     }
     mergeServiceFiles()
 }
+
+tasks.test {
+    useJUnitPlatform()
+    maxHeapSize = "1G"
+}
