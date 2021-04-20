@@ -119,9 +119,11 @@ management.
 ## Async and Synced calling
 
 The examples will all use synced requests. You may want to use async requests to avoid that the database requests slow
-down your server. You will find more about
+down your server. You will find more about about
 this [here](https://www.spigotmc.org/wiki/asynchronously-working-with-a-database/). \
-The repository linked at the end also contains an example implementation how to use a database async in bukkit.
+The repository linked at the end also contains an example implementation how to use a database async in bukkit. You
+probably never want to execute any sql functions inside your main thread. This is the baddest idea you can have. I
+promise that it will cause TPS loss on your server.
 
 ## Connection Pooling and HikariCP
 
