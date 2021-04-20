@@ -744,16 +744,12 @@ add `coins = coins + ?`
 
 You probably never want to just insert data.
 
-## Updating data
-
-Updating data is as important as inserting data.
-
-Most time you want to update data instead of insert new data. You have two different ways to do this.
-
 ### Replace
 
-Replace is similar to the upsert, but instead of updating the value we just replace it with another one or insert it.
-It's a mix of `UPDATE` and `INSERT`.
+`REPLACE` is like a `DELETE` and `INSERT`. It will first delete your old row, if a conflict with the primary key exists,
+and then insert the new data. Since this is an actual `INSERT`, this will also create a new id if you use an auto
+increment column. Also have in mind that you can get duplicated entries if you don't setup your primary/unique keys
+correctly.
 
 ``` java
 public boolean setCoins(Player player, long amount) {
@@ -770,6 +766,12 @@ public boolean setCoins(Player player, long amount) {
     return false;
 }
 ```
+
+## Updating data
+
+Updating data is as important as inserting data.
+
+Most time you want to update data instead of insert new data.
 
 ### Update
 
@@ -1095,4 +1097,3 @@ A guide how to work with HikariCP can be found [here](https://www.spigotmc.org/t
 
 An article how to work with databases asynchronously in bukkit can be
 found [here](https://www.spigotmc.org/wiki/asynchronously-working-with-a-database/).
-
