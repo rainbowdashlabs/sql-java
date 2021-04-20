@@ -102,11 +102,10 @@ public class AsyncCoinData extends PluginDataHolder {
                 if (resultSet.next()) {
                     return OptionalLong.of(resultSet.getLong("coins"));
                 }
-                return OptionalLong.of(0);
             } catch (SQLException e) {
                 logSQLError("Could not retrieve player coins.", e);
-                return OptionalLong.empty();
             }
+            return OptionalLong.empty();
         });
     }
 
