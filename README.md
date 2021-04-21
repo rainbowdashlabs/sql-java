@@ -1075,6 +1075,18 @@ public static UUID convert(byte[] bytes) {
 }
 ```
 
+You can use these methods like this:
+``` java
+// Convert UUID to bytes
+PreparedStatement stmt = conn.prepareStatement("...");
+stmt.setBytes(?, UUIDConverter.convert(player.getUniqueId()));
+
+// Convert bytes to UUID
+ResultSet rs = stmt.executeQuery();
+UUID uuid = UUIDConverter.convert(rs.getBytes("uuid"));
+
+```
+
 # Conclusions
 
 You now have the tools to create some reasonable table layout for your application, However you just read the basics.
