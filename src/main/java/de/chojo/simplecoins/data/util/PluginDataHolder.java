@@ -68,7 +68,7 @@ public class PluginDataHolder {
      * @param ex      exception to log
      */
     protected void logSQLError(Level level, String message, SQLException ex) {
-        if (level.intValue() > Level.INFO.intValue()) {
+        if (level.intValue() < Level.INFO.intValue()) {
             level = Level.INFO;
         }
 
