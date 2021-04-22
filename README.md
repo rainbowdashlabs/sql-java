@@ -162,7 +162,7 @@ The old and wrong way shown pretty much everywhere looks like this. (don't look 
 ``` java
 try {
     Connection conn = getConnection();
-    PreparedStatement stmt = conn.prepareStatement("SELECT some from stuff");
+    PreparedStatement stmt = conn.prepareStatement("SELECT some FROM stuff WHERE thing = ?");
     stmt.setSomething(1, something);
     ResultSet rs = stmt.exeuteQuery();
     // do something with the ResultSet
@@ -180,8 +180,8 @@ We will also use a DataSource named source which we cached somewhere inside our 
 (No we don't get it via a static variable from somewhere. This is bad design...)
 
 ``` java
-try (Connection conn = source.getConnection(); PreparedStatement stmt = conn.prepareStatement("SELECT some from stuff")) {
-    ResultSet rs = stmt.exeuteQuery();
+try (Connection conn = source.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("SELECT some FROM stuff WHERE thing = ?")) {
     stmt.setSomething(1, something);
     ResultSet rs = stmt.exeuteQuery();
     // do something with the ResultSet
