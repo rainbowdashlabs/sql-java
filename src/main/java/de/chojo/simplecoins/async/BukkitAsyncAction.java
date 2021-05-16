@@ -38,7 +38,7 @@ public final class BukkitAsyncAction<T> {
     }
 
     private static Consumer<Throwable> getDefaultLogger(Plugin plugin) {
-        return e -> plugin.getLogger().log(Level.SEVERE, plugin.getName() + " generated an Exception in an BukkitAsyncAction.", e);
+        return e -> plugin.getLogger().log(Level.SEVERE, plugin.getName() + " generated an exception in a BukkitAsyncAction.", e);
     }
 
     /**
