@@ -73,9 +73,7 @@ public class PluginDataHolder {
         }
 
         plugin.getLogger().log(
-                level,
-                String.format("%s%nMessage: %s%nCode: %s%nState: %s",
-                        message, ex.getMessage(), ex.getErrorCode(), ex.getSQLState()),
-                ex);
+                level, String.format("%s%nMessage: %s%nCode: %s%nState: %s",
+                        message, ex.getMessage(), ex.getErrorCode(), ex.getSQLState()), ex);
     }
 }

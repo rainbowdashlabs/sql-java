@@ -1,4 +1,4 @@
-package de.chojo.mariadbbasic;
+package de.chojo.simplecoins;
 
 import com.mysql.cj.jdbc.MysqlConnectionPoolDataSource;
 import com.mysql.cj.jdbc.MysqlDataSource;
