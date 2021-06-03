@@ -66,13 +66,7 @@ convenient for both the user, and the developer to store data in tables like you
 all sorts of wrapper objects, hashmaps of hashmaps and so on. This is where databases come in handy.\
 SQL databases are designed to store structural data effectively. They do this by storing data in tables like this:
 
-| uuid | coins |
-| :--- | :--- |
-| 0006b9ed-2592-461c-aa82-be3e7efe6006 | 70 |
-| 14a13f3a-535c-45e8-aec7-6eea5b90f9d5 | 20 |
-| 2917b45f-e1ab-42a8-953b-a30124d18a8b | 96 |
-| 3f7141c7-5355-4244-b70c-79034c365db5 | 54 |
-| 5395581d-fc92-470b-9de8-90e5ef415b2c | 85 |
+![](https://chojos.lewds.de/8zSw7LmQIZ.png)
 
 Looking at the image, I think you might be seeing how this comes in handy. Data is stored neatly as entries or rows of
 data. Each kind of data is classified under each column.\
@@ -247,12 +241,12 @@ Now we need to configure our DataSource. Both DataSources provide the same metho
 
 ``` java
 Database database = config.getDatabase();
-// we set out credentials
+// we set our credentials
 dataSource.setServerName(database.getHost());
-dataSource.setPassword(database.getPassword());
 dataSource.setPortNumber(database.getPort());
 dataSource.setDatabaseName(database.getDatabase());
 dataSource.setUser(database.getUser());
+dataSource.setPassword(database.getPassword());
 ```
 
 _Note: Every database driver implementation contains some reasonable default values. If you don't set a port, the
@@ -437,10 +431,7 @@ from
 where until < date_sub(now(), INTERVAL 1 HOUR);
 ```
 
-| id | select\_type | table | type | possible\_keys | key | key\_len | ref | rows | Extra |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | SIMPLE | player\_boosts | range | player\_boosts\_until\_index | player\_boosts\_until\_index | 4 | NULL | 1 | Using where; Using index |
-
+![](https://chojos.lewds.de/pa5Si06Di0.png)
 Since we already have the table sorted by until the database will automatically search in the index instead of the table
 itself.
 
@@ -966,23 +957,7 @@ This section will contain nice to knows which didn't found its own place in the 
 
 Remember our player coins from previously? I inserted some data:
 
-| uuid | coins |
-| :--- | :--- |
-| 0006b9ed-2592-461c-aa82-be3e7efe6006 | 70 |
-| 14a13f3a-535c-45e8-aec7-6eea5b90f9d5 | 20 |
-| 2917b45f-e1ab-42a8-953b-a30124d18a8b | 96 |
-| 3f7141c7-5355-4244-b70c-79034c365db5 | 54 |
-| 5395581d-fc92-470b-9de8-90e5ef415b2c | 85 |
-| 66c4189f-5245-4831-b71c-4346ff8a408d | 30 |
-| 6e1fa064-8e68-4c6f-8b81-1ee085ef322b | 223 |
-| 817d6f02-45c7-4ac6-8520-08d5aa71e0ce | 10 |
-| 8d85120b-d576-4abe-924c-0eee16e16aa5 | 60 |
-| 979a0446-30b7-492b-90db-67c481596742 | 78 |
-| a0f1d4ed-215c-4c17-bb6c-27f40ecfa21b | 11 |
-| a9fc9610-1ec0-4501-8778-e2a85da2a580 | 50 |
-| bcfa3ceb-cd93-4bab-9f5c-993cab7f9aad | 40 |
-| d6a721d5-89ef-4d1b-9e1b-226e32847ad9 | 80 |
-| f222744e-6cce-424b-b00a-450bdad4eb07 | 21 |
+![](https://chojos.lewds.de/vXD7MpMlHw.png)
 
 To speed up your search from the top coins example even more you could create an index which is already presorted. When
 you do this, your database don't have to sort anymore and can retrieve the results directly by looking into the index,
@@ -1013,9 +988,7 @@ LIMIT 10;
 
 The `EXPLAIN` keyword shows you what the database will do, currently our explain looks like this:
 
-| id | select\_type | table | type | possible\_keys | key | key\_len | ref | rows | Extra |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | SIMPLE | player\_coins | ALL | NULL | NULL | NULL | NULL | 15 | Using filesort |
+![](https://chojos.lewds.de/G1UewaJBCb.png)
 
 Type shows us that we are using all entries in the table. Rows say that we are reading 15 rows, which are all rows in
 the table, and we are using filesort which is not pretty fast.
@@ -1034,9 +1007,7 @@ first x entries.
 
 You can check this by using the `EXPLAIN` statement from above again.
 
-| id | select\_type | table | type | possible\_keys | key | key\_len | ref | rows | Extra |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | SIMPLE | player\_coins | index | NULL | player\_coins\_coins\_index | 8 | NULL | 10 | Using index |
+![](https://chojos.lewds.de/8LD7zlmzjX.png)
 
 You can see that some things changed:
 
