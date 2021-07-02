@@ -1,4 +1,4 @@
--- always make sure to use "if not exists" to avoid errors when the table is alread defined.
+-- always make sure to use "if not exists" to avoid errors when the table is already defined.
 create table if not exists player_coins
 (
     -- A uuid has 36 characters.
