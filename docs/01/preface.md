@@ -7,4 +7,4 @@ But probably just because no one told me that I was doing it wrong. To spare you
 
 ## Minecraft relation
 
-Because most of the Java programmers can be found in the Minecraft community, the examples on this page are sometimes Minecraft related. I also encountered the most flawed code for database integration in this community. However the examples and advices given in this repository can be generally applied to all applications that are in need of a database integration.
+Because most of the Java programmers can be found in the Minecraft community, the examples on this page are sometimes Minecraft related. I also encountered the most flawed code for database implementations in this community. However the examples and advices given in this repository can be generally applied to all applications that are in need of a database connections.
