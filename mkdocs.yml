@@ -8,15 +8,12 @@ plugins:
       type: date
       fallback_to_build_date: true
       enable_creation_date: true
-#pages:
-#- ['index.md', 'Welcome']
-#- ['01/preface.md', 'Chapter 1 The basics', 'Preface']
-#- ['01/introduction.md', 'Chapter 1 The basics', 'Introduction']
 nav:
   - Home: index.md
   - 'Chapter 1 The basics':
     - 'Preface': 01/preface.md
     - 'Introduction': 01/introduction.md
+    - 'About Databases': 01/about_databases.md
 theme:
   features:
     - navigation.instant

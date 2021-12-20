@@ -1,18 +1,23 @@
-# Introduction / What can I expect.
+# Introduction
 
-Databases are often crucial when it comes to storing data.\
-This tutorial aims to get you ready to store your data in your MariaDB or MySQL database.
+Welcome to the introduction. You are probably here because you want to work or are already working with databases.
+Databases are often crucial when it comes to storing data. We have many different databases out there. All of them
+satify different use cases and are specialised on different tasks and data sets. Some store data in documents, some in
+tables or something else.
 
-We will start with some general preconditions we need to clarify and make some preparations.\
-After this we will look into the DataSource and build our first connection to our database.\
-To continue with reading and writing data to the database we will need to introduce some best practices. This will make
-it easier for you to work with your database.\
-After this we can finally come to write and read some data and will do this at the example of a pretty simple coins
-plugin, which gives and takes coins.
+Maybe you have already choosen a database and started programming. Maybe you are encountering errors like timed out
+connections, low tick speed on your minecraft server or a strange increased memory consumption. Or maybe you are lucky
+and found this text before you start blindly. If you are the second one I congratulate you!
+You have probably saved a lot of time. If you are the first type, don't worry we will get this sorted out, but it will
+be some work.
 
-After reading this guide you will have basic knowledge how to develop an application with a stable and good database
-implementation.
+First we have to choose our database. After this the real fun begins. How do we read or write data? How do we create
+good a good table layout? How do we connect to our database in our application or how can we take a look at our data?
 
-Databases are a really large topic. We can't cover everything here. You might think this is much, but we are just
-scraping the surface.
+We will answer all these questions on the next pages. Keep it up and read everything carefully. You will probably get
+problems if you skip some party. Since we cant cover all existing databases we will focus on the more popular databases
+MySQL, MariaDB, PostgreSQL and SQLite on this page. It is fine if you don't know them yet. They will become your 
+best friends soon.
 
+We will start with connection and setting up our database with some desktop clients. After this we dive into java 
+and take a look at the different ways of connection to our databases.
