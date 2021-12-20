@@ -14,6 +14,7 @@ nav:
     - 'Preface': 01/preface.md
     - 'Introduction': 01/introduction.md
     - 'About Databases': 01/about_databases.md
+    - 'Database Setup': 01/database_setup.md
 theme:
   features:
     - navigation.instant
