@@ -18,7 +18,8 @@ and [MariaDB](https://mariadb.org/) already. These two are siblings and MariaDB 
 as a drop in replacement and can provide some enhancements. One more popular and more enterprise database
 is [PostgreSQL](https://www.postgresql.org/) which is used in data science and projects with large datasets. One more
 special database is [SQLite](https://www.sqlite.org) which is a serverless database without any running server. Its used
-when the amount of data is small and the application should run without further setup steps.
+when the amount of data is small and the application should run without further setup steps. It is loaded into 
+memory and therefore limited by the available memory on your system.
 
 We will focus relational databases on this page. More precisely we will focus on MySql, MariaDB and PostgreSQL. SQLite
 is quite common to MySQL.
