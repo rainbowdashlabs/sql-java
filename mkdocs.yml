@@ -21,6 +21,7 @@ nav:
     - 'Datatypes':
       - 'SQLite': 02/datatypes/sqlite.md
       - 'MariaDB and MySQL': 02/datatypes/mariadb_mysql.md
+      - 'PostgreSQL': 02/datatypes/postgresql.md
 theme:
   features:
     - navigation.instant
