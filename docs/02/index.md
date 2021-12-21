@@ -1,7 +1,7 @@
 Chapter 2 Basic data operations
 
-- Datatypes
-- Operators
+- Datatypes Done
+- Operators Done
 - Naming conventions
 - Setting up a database
 - Creating and deleting a table
