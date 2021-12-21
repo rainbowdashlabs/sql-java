@@ -5,6 +5,7 @@ Chapter 2 Basic data operations
 - Naming conventions
 - Setting up a database
 - Creating and deleting a table
+  - Default values
 - Inserting data (INSERT)
 - Selecting data
   - Limit

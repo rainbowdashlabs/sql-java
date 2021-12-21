@@ -17,11 +17,12 @@ nav:
     - 'Project Setup': 01/setup.md
   - 'Chapter 2 Basic Data Operations':
     - 'Operators': 02/operators.md
+    - 'SQL Datatypes': 02/sql_datatypes.md
 theme:
   features:
     - navigation.instant
     - navigation.tracking
-    - navigation.expand
+#    - navigation.expand
 #    - navigation.tabs
 #    - navigation.tabs.sticky
     - navigation.sections
