@@ -10,11 +10,13 @@ plugins:
       enable_creation_date: true
 nav:
   - Home: index.md
-  - 'Chapter 1 The basics':
+  - 'Chapter 1 Getting Started':
     - 'Preface': 01/preface.md
     - 'Introduction': 01/introduction.md
     - 'About Databases': 01/about_databases.md
-    - 'Database Setup': 01/database_setup.md
+    - 'Project Setup': 01/setup.md
+  - 'Chapter 2 Basic Data Operations':
+    - 'Operators': 02/operators.md
 theme:
   features:
     - navigation.instant

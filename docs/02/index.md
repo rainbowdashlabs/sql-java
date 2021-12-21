@@ -1,8 +1,9 @@
 Chapter 2 Basic data operations
 
-- Setting up a database
 - Datatypes
+- Operators
 - Naming conventions
+- Setting up a database
 - Creating and deleting a table
 - Inserting data (INSERT)
 - Selecting data
