@@ -18,6 +18,9 @@ nav:
   - 'Chapter 2 Basic Data Operations':
     - 'Operators': 02/operators.md
     - 'SQL Datatypes': 02/sql_datatypes.md
+    - 'Datatypes':
+      - 'SQLite': 02/datatypes/sqlite.md
+      - 'MariaDB and MySQL': 02/datatypes/mariadb_mysql.md
 theme:
   features:
     - navigation.instant
