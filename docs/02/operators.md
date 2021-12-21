@@ -2,6 +2,9 @@
 
 We actually have a lot of operators in SQL and even more in our databases if we use one with an extended SQL flavour.
 
+Some of the operators on this page may have shorter or different aliases in our databases. I will focus on the
+intersection of the operators to keep it simple for now.
+
 Lets start with the one which are equal in all databases we use
 
 ## Mathematical
@@ -30,8 +33,8 @@ SELECT 5 / 2.0;
 -> 2.5
 ```
 
-All our databases have additional mathematical operators like squareroot, absolute and more. However they are different
-in syntax. I will just link them here if you need something special.
+All our databases have additional mathematical operators and build in functions like squareroot, absolute and more.
+However they are different in syntax. I will just link them here if you need something special.
 
 [MySQL](https://dev.mysql.com/doc/refman/8.0/en/numeric-functions.html)
 | [SQLite](https://www.sqlite.org/lang_corefunc.html) | [MariaDB](https://mariadb.com/kb/en/numeric-functions/)
@@ -183,3 +186,78 @@ You can also use the `NOT` keyword
 SELECT 1 NOT BETWEEN 0 AND 5;
 -> FALSE
 ```
+
+## Text comparison and pattern matching
+
+We often need to compare texts or part of them. Our databases already provide us some nice ways to do this.
+
+### LIKE
+
+The like operator uses a simple pattern matching syntax
+
+- `%` is a wildcard for multiple characters
+- `_` is a wildcard for one character
+
+```sql
+SELECT 'abcdef' LIKE 'abc'; -- (1)
+-> FALSE
+
+SELECT 'abcdef' LIKE 'abc%'; -- (2)
+-> TRUE
+
+SELECT 'abcdef' LIKE '__c%'; -- (3)
+-> TRUE
+
+SELECT 'abcdef' LIKE '%cde%'; -- (4)
+-> TRUE
+
+```
+
+1. We check if the string is like abc, but we do not add a wilcard at the end
+2. We check if the string starts with abc. We also add a wildcard in the end which matches all following characters.
+3. We just check if the third char is a `c`. We also add a wildcard
+4. We check if the string contains `cde` with two wildcards
+
+**Note on case sensitivitiy**
+
+In MySQL, SQLite and MariaDB the `LIKE` operator is **case insensitive**.
+
+PostgreSQL uses `LIKE` for **case sensitive** and `ILIKE` for **case insensitive** matching.
+
+### Regex
+
+In MySQL and MariaDB have the REGEXP operator. SQLite has this operator as well but does not has a implementation of it
+by default. It will throw an error if used.
+
+PostgreSQL uses the `~` operator for case sensitive regex matching and `~*` for case insensitive.
+
+Noteable is also that the REGEXP and `~` operators do not check if the whole string matches the expression. It just
+checks for a subsequence.
+
+The usage in general is the same.
+
+```sql title="MariaDB and MySQL"
+SELECT 'abcdef' REGEXP 'CDE'; -- (1)
+-> TRUE
+
+SELECT 'abcdef' REGEXP '[CDE]'; -- (2)
+-> TRUE
+```
+
+1. Case insensitive matching. We check if the string contains CDE
+2. Case insensitive matching. We check if the string contains any of `c`, `d` or `e`.
+
+```sql title="PostgreSQL"
+SELECT 'abcdef' ~ 'CDE'; -- (1)
+-> FALSE
+
+SELECT 'abcdef' ~* 'CDE'; -- (2)
+-> TRUE
+
+SELECT 'abcdef' ~* '[CDE]'; -- (3)
+-> TRUE
+```
+
+1. Case sensitive matching. We check if the string contains `CDE` with the correct casing.
+2. Case insensitive matching. We check if the string contains `CDE`
+3. Case insnesitive matching. We check if the string contains any of `c`, `d` or `e`.
