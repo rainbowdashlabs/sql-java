@@ -22,8 +22,7 @@ be really annoying
 
 - Avoid duplication of the table name. If you table is named `user` and has a id column name it `id` instead of
   `user_id`.
-- Altough possible a column should not have the name name than its type.
-
+- Even if it is possible that a column has the same name as its type, this should be avoided.
 ### Primary key columns
 
 Most common is `id`

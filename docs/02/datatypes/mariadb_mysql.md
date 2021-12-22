@@ -17,7 +17,7 @@ choose. Choose your integer type based on the maximum size you expect the values
 
 - TINYINT: Between -128 and 127 - [MariaDB](https://mariadb.com/kb/en/tinyint/)
   | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/integer-types.html)
-- SMALLINT: -32,768 and 3,2767 - [MariaDB](https://mariadb.com/kb/en/smallint/)
+- SMALLINT: -32,768 and 32,767 - [MariaDB](https://mariadb.com/kb/en/smallint/)
   | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/integer-types.html)
 - MEDIUMINT: -8,288,608 and 8,388,607 - [MariaDB](https://mariadb.com/kb/en/mediumint/)
   | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/integer-types.html)

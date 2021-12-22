@@ -3,8 +3,9 @@
 PostgreSQL has a lot more specialised and more flexible datatypes. This makes their creation a bit more complex in some
 cases.
 
-We will just take a look at the more general types and will skip stuff like [geometric](https://www.postgresql.
-org/docs/14/datatype-geometric.html), [text search](https://www.postgresql.org/docs/14/datatype-textsearch.html) or
+We will just take a look at the more general types and will skip stuff
+like [geometric](https://www.postgresql.org/docs/14/datatype-geometric.html)
+, [text search](https://www.postgresql.org/docs/14/datatype-textsearch.html) or
 [range](https://www.postgresql.org/docs/14/rangetypes.html) types.
 
 ## Numeric types
@@ -33,14 +34,12 @@ A number with a "exact" fixed point.
 ### DOUBLE
 
 Java: Double | [Documentation](https://www.postgresql.org/docs/14/datatype-numeric.html#DATATYPE-FLOAT)
-| [MySQL](https://dev.mysql.com/doc/refman/8.0/en/floating-point-types.html)
 
 A number with a double precision floating point
 
 ### BOOLEAN
 
-Java: Boolean | [MariaDB](https://mariadb.com/kb/en/boolean/)
-| [MySQL](https://dev.mysql.com/doc/refman/8.0/en/other-vendor-data-types.html)
+Java: Boolean | [Documentation](https://www.postgresql.org/docs/14/datatype-boolean.html)
 
 Booleans are stored as tinyint internally.
 
@@ -50,8 +49,7 @@ We have several string types which we need to choose based on the expected size 
 
 ### CHAR
 
-Java: String | [Documentation](https://www.postgresql.org/docs/14/datatype-character.html) | [MySQL](https://dev.mysql.
-com/doc/refman/8.0/en/char.html)
+Java: String | [Documentation](https://www.postgresql.org/docs/14/datatype-character.html)
 
 A character is used for strings with the same size. E.g. Country Codes. The length needs to be defined on creation.
 Characters will be padded with spaces if some characters are missing to reach the specified length. The maximum size of
@@ -106,21 +104,6 @@ JSONB is a binary representation of the object itself. Unlike JSON JSONB allows 
 keys. This enables postgres to provide some kind of document based database behaviour.
 
 ## Binary types
-
-### BLOB
-
-Java: Anything
-
-The blob type is divided into several sizes. It is used to store any binary data you want.
-
-- TINYBLOB: Up to 255 bytes - [MariaDB](https://mariadb.com/kb/en/tinyblob/)
-  | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/blob.html)
-- BLOB: Up to 65,353 bytes - [MariaDB](https://mariadb.com/kb/en/blob/)
-  | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/blob.html)
-- MEDIUMBLOB: Up to 16,777,215 bytes - [MariaDB](https://mariadb.com/kb/en/mediumblob/)
-  | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/blob.html)
-- LONGBLOB: Up to 4,294,967,295 bytes aka 4GB - [MariaDB](https://mariadb.com/kb/en/longblob/)
-  | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/blob.html)
 
 ### BINARY (BYTEA)
 

@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalLong;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * A clean implementation example if you want to change your data class into a async class.
@@ -28,6 +29,9 @@ public class AsyncWrappedCoinData {
     public AsyncWrappedCoinData(Plugin plugin, DataSource source) {
         this.plugin = plugin;
         delegate = new CoinData(plugin, source);
+        CompletableFuture.runAsync(() ->{
+            // do something
+        });
     }
 
     public BukkitAsyncAction<Boolean> addCoins(Player player, long amount) {
