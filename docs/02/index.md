@@ -3,9 +3,8 @@ Chapter 2 Basic data operations
 - Datatypes Done
 - Operators Done
 - Naming conventions Done
-- Setting up a database
+- Setting up a database Done
 - Creating and deleting a table
-  - Default values
 - Inserting data (INSERT)
 - Selecting data
   - Limit

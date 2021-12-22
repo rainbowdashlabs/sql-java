@@ -24,6 +24,7 @@ nav:
       - 'PostgreSQL': 02/datatypes/postgresql.md
     - 'Naming Conventions': 02/naming.md
     - 'Code Style': 02/code_style.md
+    - 'Database Creation': 02/database_creation.md
 theme:
   features:
     - navigation.instant

@@ -4,6 +4,7 @@ Chapter 3 Advanced Data
   - Explain
   - Analyze
 - Data Consistency (Indices, Constrains)
+  - Default values
   - Sorted indices
   - Conditional indices
 - Upsert/Replace

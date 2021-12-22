@@ -16,7 +16,7 @@ Have a link at the documentation if you want to dive deeper.
 
 ## Cheatsheet for quick reference
 
-**Java Type**|**Size**|**MySQL / MariaDB**|**SQLite**|**PostgreSQL**
+**Java Type**|**Range/Length**|**MySQL / MariaDB**|**SQLite**|**PostgreSQL**
 :-----|:-----|:-----|:-----|:-----
 String|Fixed < 255 with padding|CHAR| |CHAR(Up to 1 GB)
 String|< 255|TINYTEXT, VARCHAR|TEXT|TEXT, VARCHAR
