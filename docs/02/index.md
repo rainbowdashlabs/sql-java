@@ -1,11 +1,14 @@
 Chapter 2 Basic data operations
 
-- Datatypes Done
-- Operators Done
-- Naming conventions Done
-- Setting up a database Done
+DONE
+- Datatypes
+- Operators
+- Naming conventions
+- Setting up a database
 - Creating and deleting a table
 - Inserting data (INSERT)
+
+TODO
 - Selecting data
   - Limit
   - Offset

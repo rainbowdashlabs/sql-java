@@ -12,10 +12,10 @@ You have probably saved a lot of time. If you are the first type, don't worry we
 be some work.
 
 First we have to choose our database. After this the real fun begins. How do we read or write data? How do we create
-good a good table layout? How do we connect to our database in our application or how can we take a look at our data?
+a good table layout? How do we connect to our database in our application or how can we take a look at our data?
 
 We will answer all these questions on the next pages. Keep it up and read everything carefully. You will probably get
-problems if you skip some party. Since we cant cover all existing databases we will focus on the more popular databases
+problems if you skip some part. Since we cant cover all existing databases we will focus on the more popular databases
 MySQL, MariaDB, PostgreSQL and SQLite on this page. It is fine if you don't know them yet. They will become your 
 best friends soon.
 

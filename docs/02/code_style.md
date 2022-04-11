@@ -11,16 +11,16 @@ All SQL keywords should be `UPPER_CASE` this will make clear which words are nam
 
 ```
 -- Bad
-SELECT col FROM my_table;
+select col from my_table;
 
 -- Good
-SELECT coll FROM my_table;
+SELECT col FROM my_table;
 ```
 
 ## Quote only if required
 
-Many people tend to quote a lot which isn't needed. If you use a good naming scheme you will never need to quote your
-stuff.
+Many people tend to quote a lot which isn't needed. If you use a good naming scheme you will probably never need to
+quote your stuff.
 
 ```
 -- Bad
@@ -46,6 +46,17 @@ FROM my_table
 WHERE col1 = 'something'
     AND col2 = 'else'
 LIMIT 1;
+
+-- Even better
+SELECT 
+    col1,
+    col2
+FROM
+    my_table
+WHERE
+    col1 = 'something'
+    AND col2 = 'else'
+LIMIT 1;
 ```
 
 ## Meaningful alias
@@ -58,66 +69,69 @@ CTE can make your complex code way more readable.
 
 Take a look at this subquery example which shows the friend count of all players which were seen in the last 10 days.
 
+<!-- @formatter:off --> 
 ```sql
-SELECT  -- (4)
-    id,
-    coalesce(friend.count, 0)
-FROM
-    ( -- (1)
-        SELECT id
-        FROM player
-        WHERE last_online > now() - '10 DAYS':: INTERVAL
-    ) active
-LEFT JOIN ( -- (3)
-        SELECT user_id, count(1) as friend_count
-        FROM ( -- (2)
-                 SELECT player_1 as player_id
-                 FROM friend_graph
-                 UNION ALL
-                 SELECT player_2 as player_id
-                 FROM friend_graph
-             ) flat_friend_graph
-        GROUP BY user_id
-    ) friend
-    ON active.id = friend.player_id
+SELECT -- (4)
+       id,
+       COALESCE(friend.count, 0)
+FROM ( -- (1)
+         SELECT id
+         FROM player
+         WHERE last_online > NOW() - '10 DAYS':: INTERVAL
+     ) active
+         LEFT JOIN ( -- (3)
+    SELECT user_id, COUNT(1) AS friend_count
+    FROM ( -- (2)
+             SELECT player_1 AS player_id
+             FROM friend_graph
+             UNION ALL
+             SELECT player_2 AS player_id
+             FROM friend_graph
+         ) flat_friend_graph
+    GROUP BY user_id
+) friend
+                   ON active.id = friend.player_id
 ```
+<!-- @formatter:on --> 
 
 1. We select all players which were online in the past 10 days.
-2. Our friend graph table is a unidirectional graph which contains one entry per friendship
-   We use a UNION ALL to append the `player_2` column on the `player_1` column.
+2. Our friend graph table is a unidirectional graph which contains one entry per friendship We use a UNION ALL to append
+   the `player_2` column on the `player_1` column.
 3. We calculate the friend count. We group by the used_id and count how often every user id occurs.
 4. We combine our friend count with the active players and get a table with the friend count of all active players.
 
 When we use CTEs it would look like this.
+
+<!-- @formatter:off --> 
 ```sql
 WITH active_players AS ( -- (1)
     SELECT id
-    FROM player 
-    WHERE last_online > now() - '10 DAYS':: INTERVAL
-    ),
-flat_friend_graph as ( -- (2)
-    SELECT player_1 as player_id
+    FROM player
+    WHERE last_online > NOW() - INTERVAL '10 DAYS'
+),
+flat_friend_graph AS ( -- (2)
+    SELECT player_1 AS player_id
     FROM friend_graph
     UNION ALL
-    SELECT player_2 as player_id
+    SELECT player_2 AS player_id
     FROM friend_graph
-    ),
-friend_count as ( -- (3)
-    SELECT user_id, count(1) as friend_count
+),
+friend_count AS ( -- (3)
+    SELECT user_id, COUNT(1) AS friend_count
     FROM flat_friend_graph
     GROUP BY user_id
-    )
-SELECT  -- (4)
-    id,
-    coalesce(friend.count, 0)
-FROM 
-    active_players active
-LEFT JOIN friend_count friend
+)
+SELECT -- (4)
+       id,
+       COALESCE(friend.count, 0)
+FROM active_players active
+LEFT JOIN friend_count friend 
     ON active.id = friend.player_id
 ```
+<!-- @formatter:on --> 
 
 1. We select all players which were online in the past 10 days.
-2. Our friend graph table is a unidirectional graph which contains one entry per friendship
-We use a UNION ALL to append the `player_2` column on the `player_1` column.
+2. Our friend graph table is a unidirectional graph which contains one entry per friendship We use a UNION ALL to append
+   the `player_2` column on the `player_1` column.
 3. We calculate the friend count. We group by the used_id and count how often every user id occurs.
 4. We combine our friend count with the active players and get a table with the friend count of all active players.

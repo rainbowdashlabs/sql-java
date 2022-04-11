@@ -44,10 +44,10 @@ MySQL and SQLite use [SQL/PSM (SQL/Persistent Stored Module)](https://en.wikiped
 standardized type of SQL
 
 MariaDB uses [SQL/PSM](https://en.wikipedia.org/wiki/SQL/PSM) and [PL/SQL](https://en.wikipedia.org/wiki/PL/SQL) which
-allows to write procedural statements with loops and other stuff. It has its origin in
+allows writing procedural statements with loops and other stuff. It has its origin in
 the [OracleDB](https://www.oracle.com/database/).
 
-PostgreSQL uses [PL/pgSQL](https://en.wikipedia.org/wiki/PL/pgSQL) which is a extension of
+PostgreSQL uses [PL/pgSQL](https://en.wikipedia.org/wiki/PL/pgSQL) which is an extension of
 the [PL/SQL](https://en.wikipedia.org/wiki/PL/SQL) and enhances the general possibilities of SQL on a level which allows
 highly complex operations. Some people say that you can write your complete backend in PL/pgSQL.
 
