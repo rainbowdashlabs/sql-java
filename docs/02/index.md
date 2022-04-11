@@ -10,9 +10,9 @@ DONE
 
 TODO
 - Selecting data
+  - Order by
   - Limit
   - Offset
   - Where
-  - Order by
 - Updating Data (UPDATE)
 - Deleting Data

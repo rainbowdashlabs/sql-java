@@ -4,12 +4,18 @@ Now that we have created our tables we want to add data to them.
 
 Lets start with our players
 
-| id  | player_name | last_online      |
-|-----|-------------|------------------|
-| 1   | Mike        | 2022-05-11 00:00 |
-| 2   | Sarah       | 2022-04-04 00:00 |
-| 3   | John        | 2022-04-08 00:00 |
-| 4   | Lilly       | 2022-04-02 00:00 |
+| id  | player\_name | last\_online     |
+|:----|:-------------|:-----------------|
+| 1   | Mike         | 2022-05-11 00:00 |
+| 2   | Sarah        | 2022-04-04 00:00 |
+| 3   | john         | 2022-04-08 00:00 |
+| 4   | Lilly        | 2022-04-01 00:00 |
+| 5   | Matthias     | 2022-03-06 00:00 |
+| 6   | Lenny        | 2022-03-08 00:00 |
+| 7   | Summer       | 2022-05-22 00:00 |
+| 8   | Marry        | 2022-06-04 00:00 |
+| 9   | Milana       | 2022-02-12 00:00 |
+| 10  | Lexi         | 2022-02-22 00:00 |
 
 In order to insert data we will need to use the `INSERT` statement.
 
@@ -45,10 +51,16 @@ use:
 **MariaDB/MySQL**
 ```sql
 INSERT INTO player(id, player_name, last_online)
-VALUES (1, 'Mike', timestamp('2022-05-11 00:00')),
-       (2, 'Sarah', timestamp('2022-04-04 00:00')),
-       (3, 'john', timestamp('2022-04-08 00:00')),
-       (4, 'Lilly', timestamp('2022-04-02 00:00'));
+VALUES (1, 'Mike', TIMESTAMP('2022-05-11 00:00')),
+       (2, 'Sarah', TIMESTAMP('2022-04-04 00:00')),
+       (3, 'john', TIMESTAMP('2022-04-08 00:00')),
+       (4, 'Lilly', TIMESTAMP('2022-04-02 00:00')),
+       (5, 'Matthias', TIMESTAMP('2022-03-06 00:00')),
+       (6, 'Lenny', TIMESTAMP('2022-03-08 00:00')),
+       (7, 'Summer', TIMESTAMP('2022-05-22 00:00')),
+       (8, 'Marry', TIMESTAMP('2022-06-04 00:00')),
+       (9, 'Milana', TIMESTAMP('2022-02-12 00:00')),
+       (10, 'Lexi', TIMESTAMP('2022-02-22 00:00'));
 ```
 **PostgreSQL**
 ```sql
@@ -56,36 +68,45 @@ INSERT INTO player(id, player_name, last_online)
 VALUES (1, 'Mike', '2022-05-11 00:00'::TIMESTAMP),
        (2, 'Sarah', '2022-04-04 00:00'::TIMESTAMP),
        (3, 'john', '2022-04-08 00:00'::TIMESTAMP),
-       (4, 'Lilly', '2022-04-02 00:00'::TIMESTAMP);
+       (4, 'Lilly', '2022-04-01 00:00'::TIMESTAMP),
+       (5, 'Matthias', '2022-03-06 00:00'::TIMESTAMP),
+       (6, 'Lenny', '2022-03-08 00:00'::TIMESTAMP),
+       (7, 'Summer', '2022-05-22 00:00'::TIMESTAMP),
+       (8, 'Marry', '2022-06-04 00:00'::TIMESTAMP),
+       (9, 'Milana', '2022-02-12 00:00'::TIMESTAMP),
+       (10, 'Lexi', '2022-02-22 00:00'::TIMESTAMP);
 ```
 **SqLite**
 ```sql
 INSERT INTO player(id, player_name, last_online)
 VALUES (1, 'Mike', CAST(STRFTIME('%s', '2022-05-11 00:00') AS INTEGER)),
        (2, 'Sarah', CAST(STRFTIME('%s', '2022-04-04 00:00') AS INTEGER)),
-       (3, 'john', CAST(STRFTIME('%s', '2022-04-08 00:00') AS INTEGER)),
-       (4, 'Lilly', CAST(STRFTIME('%s', '2022-04-02 00:00') AS INTEGER));
+       (3, 'John', CAST(STRFTIME('%s', '2022-04-08 00:00') AS INTEGER)),
+       (4, 'Lilly', CAST(STRFTIME('%s', '2022-04-02 00:00') AS INTEGER)),
+       (5, 'Matthias', CAST(STRFTIME('%s', '2022-03-06 00:00') AS INTEGER)),
+       (6, 'Lenny', CAST(STRFTIME('%s', '2022-03-08 00:00') AS INTEGER)),
+       (7, 'Summer', CAST(STRFTIME('%s', '2022-05-22 00:00') AS INTEGER)),
+       (8, 'Marry', CAST(STRFTIME('%s', '2022-06-04 00:00') AS INTEGER)),
+       (9, 'Milana', CAST(STRFTIME('%s', '2022-02-12 00:00') AS INTEGER)),
+       (10, 'Lexi', CAST(STRFTIME('%s', '2022-02-22 00:00') AS INTEGER));
+
 ```
   
 </details>
 
 Lets to the same with the friend_graph
 
-| player_1 | player_2 |
-|----------|----------|
-| 1        | 2        |
-| 2        | 3        |
-| 4        | 3        |
-
-
-| col 1 l |     | dgdjhfgjhdfg         | sgdsfgh         |
-|---------|-----|----------------------|-----------------|
-|         |     |                      | sdfgoshdfglsghf |
-|         |     | asldfkjsldkfgl;sdhgf |                 |
-|         |     |                      |                 |
-|         |     |                      |                 |
-
-
+| player\_1 | player\_2 |
+|:----------|:----------|
+| 1         | 2         |
+| 2         | 3         |
+| 4         | 3         |
+| 5         | 3         |
+| 7         | 2         |
+| 6         | 1         |
+| 6         | 2         |
+| 1         | 10        |
+| 4         | 10        |
 
 <details>
 <summary>Solution</summary>
@@ -94,7 +115,13 @@ Lets to the same with the friend_graph
 INSERT INTO friend_graph(player_1, player_2)
 VALUES (1, 2),
        (2, 3),
-       (4, 3)
+       (4, 3),
+       (5, 3),
+       (7, 2),
+       (6, 1),
+       (6, 2),
+       (1, 10),
+       (4, 10);
 ```
 
 </details>

@@ -26,7 +26,8 @@ nav:
     - 'Code Style': 02/code_style.md
     - 'Database Creation': 02/database_creation.md
     - 'Tables': 02/tables.md
-    - 'Insert Data': 02/insert.md
+    - 'Insert': 02/insert.md
+    - 'Select': 02/select.md
 theme:
   features:
     - navigation.instant
