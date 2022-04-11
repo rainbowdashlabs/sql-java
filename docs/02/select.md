@@ -1,7 +1,10 @@
 # Select
 
-The select statement is another very important statement. Now that we have inserted data in our tables we want to read
+The `SELECT` statement is another very important statement. Now that we have inserted data in our tables we want to read
 them as well.
+
+The `SELECT` statement always returns a so called result set. This set contains all our requested data. Notice that 
+altough that it is called a "set", this doesnt man that the results are unique in any way.
 
 ## Basic select
 
@@ -35,6 +38,33 @@ can be generally discourraged. In 99% of these cases there are better and more r
 
 This is in general always a good thing to remember. Never read more data from the database than you need. The following
 keywords will help doing this.
+
+## Column Alias
+
+Using the `as` keyword we can rename columns when we select them
+
+```sql
+SELECT id,
+       player_name as name
+FROM player;
+```
+
+Returns:
+
+| id  | name     |
+|:----|:---------|
+| 1   | Mike     |
+| 2   | Sarah    |
+| 4   | Lilly    |
+| 5   | Matthias |
+| 6   | Lenny    |
+| 7   | Summer   |
+| 8   | Marry    |
+| 9   | Milana   |
+| 10  | Lexi     |
+| 3   | John     |
+
+The column `player_name` is now names `name` in our result set
 
 ## WHERE
 

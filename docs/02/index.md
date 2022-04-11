@@ -7,12 +7,12 @@ DONE
 - Setting up a database
 - Creating and deleting a table
 - Inserting data (INSERT)
-
-TODO
 - Selecting data
   - Order by
   - Limit
   - Offset
   - Where
+
+TODO
 - Updating Data (UPDATE)
 - Deleting Data

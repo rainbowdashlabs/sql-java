@@ -126,6 +126,41 @@ VALUES (1, 2),
 
 </details>
 
+## Create tables with content
+
+You can also use an alternative syntax to directly create a table with content.
+
+Lets say we want to create a table with money of the players. The table should contain the id and a fixed amount of 
+money for each player for now.
+
+```sql
+CREATE TABLE money as (
+    SELECT id, 1000.0 as money
+    FROM player
+)
+```
+
+This will create a table like this:
+
+| id  | money |
+|:----|:------|
+| 1   | 1000  |
+| 2   | 1000  |
+| 3   | 1000  |
+| 4   | 1000  |
+| 5   | 1000  |
+| 6   | 1000  |
+| 7   | 1000  |
+| 8   | 1000  |
+| 9   | 1000  |
+| 10  | 1000  |
+
+This method has some stuff you have to take care of. The database will decide about the data type of the column. 
+When we use `1000.0` we get a numeric type. When we use `1000` we will get an integer type. It is also important to 
+use an alias on newly created columns which have only a type. Use the `as` keyword here. If you dont define an alias 
+the column will have some fallback default value which is usually not what you want. 
+
+
 ## Conflicts
 You may have noticed that until now we can insert the players as often as we want and our ids will no longer be 
 unique. We will deal with this later.
