@@ -16,32 +16,32 @@ Have a link at the documentation if you want to dive deeper.
 
 ## Cheatsheet for quick reference
 
-**Java Type**|**Range/Length**|**MySQL / MariaDB**|**SQLite**|**PostgreSQL**
-:-----|:-----|:-----|:-----|:-----
-String|Fixed < 255 with padding|CHAR| |CHAR(Up to 1 GB)
-String|< 255|TINYTEXT, VARCHAR|TEXT|TEXT, VARCHAR
-String|< 65,353|TEXT, VARCHAR|TEXT|TEXT, VARCHAR
-String|< 16,777,215|MEDIUMTEXT|TEXT|TEXT, VARCHAR
-String|< 4,294,967,295|LONGTEXT|TEXT|TEXT, VARCHAR
-String|unlimited| |TEXT|TEXT, VARCHAR
-Integer/Short|-128 and 127|TINYINT|INTEGER|SMALLINT
-Integer/Short|-32,768 and 32,767|SMALLINT|INTEGER|SMALLINT
-Integer| -8,288,608 and 8,388,607|MEDIUMINT|INTEGER|INTEGER
-Integer|-2,147,483,648 and 2,147,483,647|INT(INTEGER)|INTEGER|INTEGER
-Long| |BIGINT|INTEGER (64 bit max)|BIGINT
-Double|exact fixed point|DECIMAL|REAL|DECIMAL(NUMERIC)
-Double|double precision|DOUBLE|REAL|DOUBLE
-Float|single precision|FLOAT|REAL|
-Boolean| |BOOLEAN|BOOLEAN(INTEGER)|BOOLEAN
-Bytes|Fixed < 255 with padding|BINARY| |
-Bytes|< 255|TINYBLOB, VARBINARY|BLOB|BYTEA
-Bytes|< 65,353|BLOB, VARBINARY|BLOB|BYTEA
-Bytes|< 16,777,215|MEDIUMBLOB|BLOB|BYTEA
-Bytes|< 4,294,967,295|LONGBLOB|BLOB|BYTEA
-LocalDate| |DATE|TEXT, REAL, INTEGER|DATE
-LocalTime| |TIME|TEXT, REAL, INTEGER|TIME
-LocalDateTime| |TIMESTAMP|TEXT, REAL, INTEGER|TIMESTAMPTZ
-Timestamp| |TIMESTAMP|TEXT, REAL, INTEGER|TIMESTAMP
+| **Java Type** | **Range/Length**                 | **MySQL / MariaDB** | **SQLite**           | **PostgreSQL**   |
+|:--------------|:---------------------------------|:--------------------|:---------------------|:-----------------|
+| String        | Fixed < 255 with padding         | CHAR                |                      | CHAR(Up to 1 GB) |
+| String        | < 255                            | TINYTEXT, VARCHAR   | TEXT                 | TEXT, VARCHAR    |
+| String        | < 65,353                         | TEXT, VARCHAR       | TEXT                 | TEXT, VARCHAR    |
+| String        | < 16,777,215                     | MEDIUMTEXT          | TEXT                 | TEXT, VARCHAR    |
+| String        | < 4,294,967,295                  | LONGTEXT            | TEXT                 | TEXT, VARCHAR    |
+| String        | unlimited                        |                     | TEXT                 | TEXT, VARCHAR    |
+| Integer/Short | -128 and 127                     | TINYINT             | INTEGER              | SMALLINT         |
+| Integer/Short | -32,768 and 32,767               | SMALLINT            | INTEGER              | SMALLINT         |
+| Integer       | -8,288,608 and 8,388,607         | MEDIUMINT           | INTEGER              | INTEGER          |
+| Integer       | -2,147,483,648 and 2,147,483,647 | INT(INTEGER)        | INTEGER              | INTEGER          |
+| Long          |                                  | BIGINT              | INTEGER (64 bit max) | BIGINT           |
+| Double        | exact fixed point                | DECIMAL             | REAL                 | DECIMAL(NUMERIC) |
+| Double        | double precision                 | DOUBLE              | REAL                 | DOUBLE           |
+| Float         | single precision                 | FLOAT               | REAL                 |                  |
+| Boolean       |                                  | BOOLEAN             | BOOLEAN(INTEGER)     | BOOLEAN          |
+| Bytes         | Fixed < 255 with padding         | BINARY              |                      |                  |
+| Bytes         | < 255                            | TINYBLOB, VARBINARY | BLOB                 | BYTEA            |
+| Bytes         | < 65,353                         | BLOB, VARBINARY     | BLOB                 | BYTEA            |
+| Bytes         | < 16,777,215                     | MEDIUMBLOB          | BLOB                 | BYTEA            |
+| Bytes         | < 4,294,967,295                  | LONGBLOB            | BLOB                 | BYTEA            |
+| LocalDate     |                                  | DATE                | TEXT, REAL, INTEGER  | DATE             |
+| LocalTime     |                                  | TIME                | TEXT, REAL, INTEGER  | TIME             |
+| LocalDateTime |                                  | TIMESTAMP           | TEXT, REAL, INTEGER  | TIMESTAMPTZ      |
+| Timestamp     |                                  | TIMESTAMP           | TEXT, REAL, INTEGER  | TIMESTAMP        |
 
 ## Null
 
