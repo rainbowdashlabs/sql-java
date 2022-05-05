@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    implementation("mysql:mysql-connector-java:8.0.23")
+    implementation("mysql:mysql-connector-java:8.0.29")
     implementation("org.mariadb.jdbc:mariadb-java-client:2.7.5")
     testImplementation("org.junit.jupiter:junit-jupiter:5.4.2")
     compileOnly("org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT")
