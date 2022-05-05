@@ -46,10 +46,11 @@ We gonna need a built in function again to retrieve the current time.
   a constant for the current transaction.
 - PostgreSQL: `now()` returns the current timestamp
 
-<details>
-<summary>Solution</summary>
+**Solutions:**
 
-**SqLite**
+<details>
+<summary>SqLite</summary>
+
 
 ```sql
 UPDATE player
@@ -57,7 +58,11 @@ SET last_online = CAST(strftime('%s', 'NOW') AS INTEGER)
 WHERE id = 10;
 ```
 
-**MariaDB/MySQL/PostgreSQL**
+</details>
+
+<details>
+<summary>MariaDB/MySQL</summary>
+****
 
 ```sql
 UPDATE player
@@ -65,7 +70,10 @@ SET last_online = CURRENT_TIMESTAMP
 WHERE id = 10;
 ```
 
-**PostgreSQL**
+</details>
+
+<details>
+<summary>PostgreSQL</summary>
 
 ```sql
 UPDATE player
@@ -94,18 +102,23 @@ Of course we can also use the current value of the column we want to update.
 Remember our money table we created in the [insert chapter](../02/insert.md#create-tables-with-content)? We need this
 now again.
 
-So lets say we want to take 600 of our currency from lexy, but only if she has at least 600.
+Lets say we want to take 600 of our currency from lexy, but only if she has at least 600.
 
 The syntax for this is quite the same then the one earlier. We just reference the column value itself
 
 ```sql
 UPDATE player
 SET column_x = value_x,
-    column_y = value_y + column_y
+    column_y = value_y + <value>
 WHERE condition
 ```
 
 Try to remove the money and adjust the condition with the check for the money
+
+
+
+<details>
+<summary>Solution</summary>
 
 ```sql
 UPDATE money
@@ -113,6 +126,9 @@ SET money = money - 600
 WHERE id = 10
   AND money >= 600
 ```
+
+</details>
+
 
 Lets check what changed:
 
