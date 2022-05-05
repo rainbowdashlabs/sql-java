@@ -1,5 +1,10 @@
 {
-  "extends": [
-    "config:base"
-  ]
+  "baseBranches": ["master"],
+  "dependencyDashboard": true,
+  "labels": ["dependencies"],
+  "extends": ["config:base"],
+  "ignoreDeps": ["spigot-api"],
+  "reviewers": ["RainbowDashLabs"],
+  "prConcurrentLimit": 3,
+  "prHourlyLimit": 10
 }
