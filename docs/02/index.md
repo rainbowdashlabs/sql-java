@@ -12,7 +12,7 @@ DONE
   - Limit
   - Offset
   - Where
+- Updating Data (UPDATE)
 
 TODO
-- Updating Data (UPDATE)
 - Deleting Data

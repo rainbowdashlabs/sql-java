@@ -28,6 +28,7 @@ nav:
     - 'Tables': 02/tables.md
     - 'Insert': 02/insert.md
     - 'Select': 02/select.md
+    - 'Update': 02/update.md
 theme:
   features:
     - navigation.instant
