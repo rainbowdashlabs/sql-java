@@ -4,7 +4,7 @@ Now that we know what we know what we can have in our database and how to name o
 work with it.
 
 Make sure that you are connected to your RDBMS. Use a ssh tunnel like I showed you in the [setup](../01/setup.md) 
-ppage when you are connection to a remote database.
+page when you are connection to a remote database.
 
 Database creation is actually very simple on all our databases.
 
