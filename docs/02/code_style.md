@@ -33,7 +33,7 @@ SELECT col FROM my_table;
 ## Line breaks are good
 
 Line breaks will make larger queries way more readable. A good rule is to precede each keyword with a line break. You
-may add more line brakes based on your own choice
+may add more line breaks based on your own choice
 
 ```
 -- Bad
