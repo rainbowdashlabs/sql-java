@@ -4,7 +4,7 @@ Now that we have setup our database, learned about naming and the data types, we
 
 Everything in our databases is stored in tables.
 
-Creating and dropping is a very important skill. OF course there is much more, but we will take it slow for now.
+Creating and dropping is a very important skill. Of course there is much more, but we will take it slow for now.
 
 # Creating a table
 
@@ -44,7 +44,7 @@ store duplicated data.
 Please try first to create the statments on your own based on the learnings from the datatype pages. You can refer to
 the [datatype cheatsheet](../02/sql_datatypes.md). We dont care about the content at the moment.
 
-Of course you can also use your desktop client of your choice to create the tables, but I highly suggest to learn 
+Of course you can also use your desktop client of your choice to create the tables, but I highly recommend to learn 
 the sql syntax as well, since this makes debugging a lot easier later.
 
 The general syntax is:
