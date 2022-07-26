@@ -10,7 +10,7 @@ like [geometric](https://www.postgresql.org/docs/14/datatype-geometric.html)
 
 ## Numeric types
 
-Numeric types sometimes have a "size". this size is not directly a validation. It is most common the size of the number
+Numeric types sometimes have a "size". This size is not directly a validation. It is most common the size of the number
 and defines how much of that size is used to store the decimal. Sized never have a size which validates the input. It is
 always about precision.
 
@@ -18,8 +18,8 @@ always about precision.
 
 Java: Integer, Long | [Documentation](https://www.postgresql.org/docs/14/datatype-numeric.html#DATATYPE-INT)
 
-The integer in maria db are divided into several sizes. They will require different disk space depending on the size you
-choose. Choose your integer type based on the maximum size you expect the values to be.
+The integer in MariaDB are divided into several sizes. They will require different disk space depending on the size you
+choose. Choose your integer type based on the maximum and minimum size you expect the values to be.
 
 - SMALLINT: -32,768 and 3,2767
 - INTEGER: -2,147,483,648 and 2,147,483,647
@@ -72,8 +72,7 @@ The varchar is a string with a variable maximum size. Unlike CHAR is does not ad
 
 Unlike other databases a varchar witout an explicit limit is unlimited and equal to the TEXT in behaviour
 
-Theoretically the maximum size is 65,532 characters. If you use utf8 which requires 3 bytes per char you are down to
-21,844 characters.
+Theoretically the maximum size is 65,532 characters. If you use utf8 which requires up to 4 bytes per char you are down to 21,844 characters in the worst case.
 
 One advancement over TEXT is that varchar columns can be fully indexed while TEXT columns are truncated to a specified
 length
@@ -100,7 +99,7 @@ Java: String | [Documentation](https://www.postgresql.org/docs/14/datatype-json.
 JSON is the primitive text only representation which adds syntax validation to a column for json. It also allows to use
 a large number of json [specific operators](https://www.postgresql.org/docs/14/functions-json.html).
 
-JSONB is a binary representation of the object itself. Unlike JSON JSONB allows to create indices on values of specific
+JSONB is a binary representation of the object itself. Unlike JSON it allows to create indices on values of specific
 keys. This enables postgres to provide some kind of document based database behaviour.
 
 ## Binary types
