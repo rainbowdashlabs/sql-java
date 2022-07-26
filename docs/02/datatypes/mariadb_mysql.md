@@ -13,7 +13,7 @@ always about precision.
 Java: Integer, Long
 
 The integer in MariaDB are divided into several sizes. They will require different disk space depending on the size you
-choose. Choose your integer type based on the maximum or minimum size you expect the values to be.
+choose. Choose your integer type based on the maximum and minimum size you expect the values to be.
 
 - TINYINT: Between -128 and 127 - [MariaDB](https://mariadb.com/kb/en/tinyint/)
   | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/integer-types.html)
