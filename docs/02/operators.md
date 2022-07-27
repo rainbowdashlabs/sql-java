@@ -44,7 +44,7 @@ However they are different in syntax. I will just link them here if you need som
 
 ### AND and OR
 
-The java and (`&&`) operator becomes `AND` in sql and the or (`||`) operator becomes `OR`.
+The java 'and' (`&&`) operator becomes `AND` in sql and the 'or' (`||`) operator becomes `OR`.
 
 We can also group our logical checks in groups with braces.
 

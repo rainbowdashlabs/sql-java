@@ -4,7 +4,7 @@ MariaDB and MySQL are very similar when it comes to datatypes. However there are
 
 ## Numeric types
 
-Numeric types sometimes have a "size". this size is not directly a validation. It is most common the size of the number
+Numeric types sometimes have a "size". This size is not directly a validation. It is most common the size of the number
 and defines how much of that size is used to store the decimal. Sized never have a size which validates the input. It is
 always about precision.
 
@@ -12,8 +12,8 @@ always about precision.
 
 Java: Integer, Long
 
-The integer in maria db are divided into several sizes. They will require different disk space depending on the size you
-choose. Choose your integer type based on the maximum size you expect the values to be.
+The integer in MariaDB are divided into several sizes. They will require different disk space depending on the size you
+choose. Choose your integer type based on the maximum and minimum size you expect the values to be.
 
 - TINYINT: Between -128 and 127 - [MariaDB](https://mariadb.com/kb/en/tinyint/)
   | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/integer-types.html)
@@ -91,8 +91,8 @@ Java: String | [MariaDB](https://mariadb.com/kb/en/varchar/)
 The varchar is a string with a variable maximum size. The maximum size here is a bit more complex, since it depends on
 the encoding of the database. Unlike CHAR is does not add any padding.
 
-Theoretically the maximum size is 65,532 characters. If you use utf8 which requires 3 bytes per char you are down to
-21,844 characters.
+Theoretically the maximum size is 65,532 characters. If you use utf8 which requires up to 4 bytes per char you are down to
+21,844 characters in the worst case.
 
 One advancement over TEXT is that varchar columns can be fully indexed while TEXT columns are truncated to a specified
 length
