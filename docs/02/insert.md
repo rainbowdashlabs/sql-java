@@ -137,10 +137,10 @@ Let's say we want to create a table with money of the players. The table should 
 money for each player for now.
 
 ```sql
-CREATE TABLE money as (
-    SELECT id, 1000.0 as money
+CREATE TABLE money AS 
+    SELECT id, 1000.0 AS money
     FROM player
-)
+
 ```
 
 This will create a table like this:

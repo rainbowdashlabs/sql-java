@@ -12,16 +12,16 @@ CREATE TABLE friend_graph
 );
 
 INSERT INTO player(id, player_name, last_online)
-VALUES (1, 'Mike', '2022-05-11 00:00'::TIMESTAMP),
-       (2, 'Sarah', '2022-04-04 00:00'::TIMESTAMP),
-       (3, 'john', '2022-04-08 00:00'::TIMESTAMP),
-       (4, 'Lilly', '2022-04-01 00:00'::TIMESTAMP),
-       (5, 'Matthias', '2022-03-06 00:00'::TIMESTAMP),
-       (6, 'Lenny', '2022-03-08 00:00'::TIMESTAMP),
-       (7, 'Summer', '2022-05-22 00:00'::TIMESTAMP),
-       (8, 'Marry', '2022-06-04 00:00'::TIMESTAMP),
-       (9, 'Milana', '2022-02-12 00:00'::TIMESTAMP),
-       (10, 'Lexi', '2022-02-22 00:00'::TIMESTAMP);
+VALUES (1, 'Mike', TIMESTAMP('2022-05-11 00:00')),
+       (2, 'Sarah', TIMESTAMP('2022-04-04 00:00')),
+       (3, 'john', TIMESTAMP('2022-04-08 00:00')),
+       (4, 'Lilly', TIMESTAMP('2022-04-02 00:00')),
+       (5, 'Matthias', TIMESTAMP('2022-03-06 00:00')),
+       (6, 'Lenny', TIMESTAMP('2022-03-08 00:00')),
+       (7, 'Summer', TIMESTAMP('2022-05-22 00:00')),
+       (8, 'Marry', TIMESTAMP('2022-06-04 00:00')),
+       (9, 'Milana', TIMESTAMP('2022-02-12 00:00')),
+       (10, 'Lexi', TIMESTAMP('2022-02-22 00:00'));
 
 INSERT INTO friend_graph(player_1, player_2)
 VALUES (1, 2),

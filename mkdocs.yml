@@ -16,11 +16,12 @@ nav:
     - 'About Databases': 01/about_databases.md
     - 'Project Setup': 01/setup.md
   - 'Chapter 2 Basic Data Operations':
+    - 'Introduction': 02/introduction.md
     - 'Operators': 02/operators.md
     - 'SQL Datatypes': 02/sql_datatypes.md
     - 'Datatypes':
       - 'SQLite': 02/datatypes/sqlite.md
-      - 'MariaDB and MySQL': 02/datatypes/mariadb_mysql.md
+      - 'MariaDB and MySQL': 02/datatypes/mariadb.md
       - 'PostgreSQL': 02/datatypes/postgresql.md
     - 'Naming Conventions': 02/naming.md
     - 'Code Style': 02/code_style.md
@@ -30,6 +31,14 @@ nav:
     - 'Select': 02/select.md
     - 'Update': 02/update.md
     - 'Delete': 02/delete.md
+  - 'Chapter 3 Data Consistency and advanced operations':
+      - 'Query Planer': 03/query_planer.md
+      - 'Query Planer Details':
+        - 'Postgres': 03/query_planer/postgres.md
+        - 'MariaDB': 03/query_planer/mariadb.md
+        - 'MySQL': 03/query_planer/mysql.md
+        - 'SqLite': 03/query_planer/sqlite.md
+      -
 theme:
   features:
     - navigation.instant
