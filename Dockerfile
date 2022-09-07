@@ -12,4 +12,4 @@ COPY docs/ /docs/docs
 
 COPY .git/ /docs/.git/
 
-ENTRYPOINT ["mkdocs", "serve"]
+ENTRYPOINT ["mkdocs", "serve", "-a", "0.0.0.0:8000"]
