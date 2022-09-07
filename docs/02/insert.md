@@ -2,7 +2,7 @@
 
 Now that we have created our tables we want to add data to them.
 
-Lets start with our players
+Let's start with our players
 
 | id  | player\_name | last\_online     |
 |:----|:-------------|:-----------------|
@@ -43,7 +43,10 @@ use:
 - MariaDB/MySQL: `timestamp('2022-05-11 00:00')`\
   We use the timestamp function to parse our string
 - SqLite: `CAST(STRFTIME('%s', '2022-05-11 00:00') AS INTEGER)`\
-  We save timestamps as epoch seconds since sqlite doesnt really has a timestamp type
+  We save timestamps as epoch seconds since sqlite doesn't really has a timestamp type
+
+Now try to recreate the table from above with the previously mentioned methods and statements. Usually the time an 
+be ommited when it is set to 00:00.
   
 <details>
 <summary>Solution</summary>
@@ -94,7 +97,7 @@ VALUES (1, 'Mike', CAST(STRFTIME('%s', '2022-05-11 00:00') AS INTEGER)),
   
 </details>
 
-Lets to the same with the friend_graph
+Lets to the same with the friend_graph. Try to insert following values into the `friend_graph` table.
 
 | player\_1 | player\_2 |
 |:----------|:----------|
@@ -130,7 +133,7 @@ VALUES (1, 2),
 
 You can also use an alternative syntax to directly create a table with content.
 
-Lets say we want to create a table with money of the players. The table should contain the id and a fixed amount of 
+Let's say we want to create a table with money of the players. The table should contain the id and a fixed amount of 
 money for each player for now.
 
 ```sql

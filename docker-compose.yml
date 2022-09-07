@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  docs:
+    volumes:
+      - "./docs/:/docs/"
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "80:8000"

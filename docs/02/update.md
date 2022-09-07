@@ -20,10 +20,10 @@ Remember our already pretty known table of players.
 | 9   | Milana       | 2022-02-12 00:00:00.000000 |
 | 10  | Lexi         | 2022-02-22 00:00:00.000000 |
 
-We are currently saving the last time the player has logged in in the `last_online` column.
+We are currently saving the last time the player was online in the `last_online` column.
 
 When Lexy is online again we might need to update the `last_online` value for her again. We have now two options. The
-first one is deleting the entry and inserting a new one. This is very dirty and also not a good practice. Thats why we
+first one is deleting the entry and inserting a new one. This is very dirty and also not a good practice. That's why we
 use the `UPDATE` statement and define in the `WHERE` clause where we want to update and what we want to update.
 
 The general syntax is:
@@ -62,7 +62,6 @@ WHERE id = 10;
 
 <details>
 <summary>MariaDB/MySQL</summary>
-****
 
 ```sql
 UPDATE player
