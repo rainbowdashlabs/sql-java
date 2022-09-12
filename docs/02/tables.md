@@ -55,7 +55,7 @@ CREATE TABLE table_name
 (
     col_name TYPE,
     col_name TYPE
-)
+);
 ```
 <!-- @formatter:on --> 
 
@@ -76,7 +76,7 @@ CREATE TABLE friend_graph
 (
     player_1 INTEGER,
     player_2 INTEGER
-)
+);
 ```
 
 </details>
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS table_name
 (
     col_name TYPE,
     col_name TYPE
-)
+);
 ```
 <!-- @formatter:on --> 
 
