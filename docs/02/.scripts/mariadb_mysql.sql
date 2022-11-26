@@ -41,4 +41,11 @@ FROM player;
 UPDATE money
 SET money = money - 600
 WHERE id = 10
-  AND money >= 600
+  AND money >= 600;
+
+CREATE TABLE player
+(
+    id          INTEGER PRIMARY KEY,
+    player_name TEXT      NOT NULL,
+    last_online TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

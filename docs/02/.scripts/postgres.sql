@@ -41,4 +41,4 @@ FROM player;
 UPDATE money
 SET money = money - 600
 WHERE id = 10
-  AND money >= 600
+  AND money >= 600;

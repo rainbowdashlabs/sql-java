@@ -340,7 +340,7 @@ on large tables. Luckily there are ways to make this faster. We will cover this 
 
 ## Summing Up
 
-We have no learned the four most important keywords for searching, sorting and limiting the retrieved data. The 
+We have now learned the four most important keywords for searching, sorting and limiting the retrieved data. The 
 keywords have to be used in a specific order and cant be altered in a free way.
 
 The general syntax for this is:

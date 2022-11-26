@@ -16,3 +16,18 @@ CREATE TABLE player
     player_name TEXT,
     last_online TIMESTAMP DEFAULT current_timestamp
 );
+
+CREATE TABLE money
+(
+    player_id INT               NOT NULL,
+    money     DECIMAL DEFAULT 0 NOT NULL,
+    CONSTRAINT money_pk
+        PRIMARY KEY (player_id),
+    CONSTRAINT money_player_null_fk
+        FOREIGN KEY (player_id) REFERENCES player (id)
+            ON DELETE CASCADE
+);
+
+ALTER TABLE money
+    ADD CONSTRAINT money_min
+        CHECK (money >= 0);
