@@ -6,10 +6,10 @@ EXPOSE 8000
 
 WORKDIR "/docs"
 
-COPY mkdocs.yml /docs/mkdocs.yml
+COPY mkdocs.yml mkdocs.yml
 
-COPY docs/ /docs/docs
+COPY docs/ docs/
 
-COPY .git/ /docs/.git/
+COPY .git/ .git/
 
-ENTRYPOINT ["mkdocs", "serve", "-a", "0.0.0.0:8000"]
+ENTRYPOINT ["mkdocs", "serve", "-a", "0.0.0.0:80"]

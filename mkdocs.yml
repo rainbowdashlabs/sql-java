@@ -21,7 +21,7 @@ nav:
     - 'SQL Datatypes': 02/sql_datatypes.md
     - 'Datatypes':
       - 'SQLite': 02/datatypes/sqlite.md
-      - 'MariaDB and MySQL': 02/datatypes/mariadb.md
+      - 'MariaDB and MySQL': 02/datatypes/mariadb_mysql.md
       - 'PostgreSQL': 02/datatypes/postgresql.md
     - 'Naming Conventions': 02/naming.md
     - 'Code Style': 02/code_style.md
@@ -32,13 +32,14 @@ nav:
     - 'Update': 02/update.md
     - 'Delete': 02/delete.md
   - 'Chapter 3 Data Consistency and advanced operations':
+      - 'Introduction': 03/introduction.md
       - 'Query Planer': 03/query_planer.md
       - 'Query Planer Details':
         - 'Postgres': 03/query_planer/postgres.md
         - 'MariaDB': 03/query_planer/mariadb.md
         - 'MySQL': 03/query_planer/mysql.md
         - 'SqLite': 03/query_planer/sqlite.md
-      -
+      - 'Data Consistency': 03/data_consistency.md
 theme:
   features:
     - navigation.instant
