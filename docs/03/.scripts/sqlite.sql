@@ -79,4 +79,11 @@ EXPLAIN SELECT player_id, money
 
 CREATE INDEX player_name_uindex ON player((lower(player_name)));
 
-SELECT (1 | 2) - (1 & 2)
+SELECT (1 | 2) - (1 & 2);
+
+INSERT INTO player(player_name) VALUES ('Lexy') ON CONFLICT DO NOTHING;
+
+INSERT INTO player(player_name, age)
+VALUES ('Lexy', 21)
+ON CONFLICT (player_name)
+    DO UPDATE SET age = excluded.age;

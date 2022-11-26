@@ -53,6 +53,7 @@ nav:
         - 'Sorted Indice': 03/more_indice/sorted_indice.md
         - 'Conditional indice': 03/more_indice/conditional_indice.md
         - 'Indice and expressions': 03/more_indice/indice_and_expressions.md
+      - 'Upsert and Conflict handling': 03/upsert.md
 
 theme:
   features:
