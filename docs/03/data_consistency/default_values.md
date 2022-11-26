@@ -46,7 +46,7 @@ Note that we only specify `id` and `player_name` this time and do not set the `l
 And now it is time to take a look at our data!
 
 ```sql
-SELECT *
+SELECT id, player_name, last_online
 FROM player;
 ```
 
@@ -80,7 +80,7 @@ VALUES (11, 'Jonathan', NULL);
 Let's take a look at our new inserted player.
 
 ```sql
-SELECT *
+SELECT id, player_name, last_online
 FROM player
 WHERE id = 11;
 ```

@@ -70,7 +70,7 @@ unknown players.
 INSERT INTO money(player_id)
 VALUES (10);
 
-SELECT *
+SELECT player_id, money
 FROM money
 WHERE player_id = 10;
 ```
@@ -89,7 +89,7 @@ DELETE
 FROM player
 WHERE id = 10;
 
-SELECT *
+SELECT player_id, money
 FROM money
 WHERE player_id = 10;
 ```
@@ -122,22 +122,22 @@ Just in case that you no longer know how our table looks like:
 
 We can't use a primary key for player 1 OR 2, but we still can use a primary key for player 1 AND 2.
 
-```sql
+```postgresql
 CREATE TABLE friend_graph
 (
-    player_id_1 INTEGER
-        CONSTRAINT friend_graph_player_player_id_1_id_fk
-            -- We define our reference again and define the delete
-            REFERENCES player (id)
-            ON DELETE CASCADE,
-    player_id_2 INTEGER
-        CONSTRAINT friend_graph_player_player_id_2_id_fk
-            -- We define our reference again and define the delete
-            REFERENCES player (id)
-            ON DELETE CASCADE,
+    player_id_1 INT,
+    player_id_2 INT,
     -- We define our primary key
     CONSTRAINT friend_graph_pk
-        PRIMARY KEY (player_id_1, player_id_2)
+        PRIMARY KEY (player_id_1, player_id_2),
+    -- We define our reference again and define the delete
+    CONSTRAINT friend_graph_player_player_id_1_id_fk
+        FOREIGN KEY (player_id_1) REFERENCES player (id)
+            ON DELETE CASCADE,
+    -- We define our reference again and define the delete
+    CONSTRAINT friend_graph_player_player_id_2_id_fk
+        FOREIGN KEY (player_id_2) REFERENCES player (id)
+            ON DELETE CASCADE
 );
 ```
 

@@ -106,7 +106,8 @@ VALUES ('Mike'),
 Let's check what we ended up with:
 
 ```sql
-SELECT * FROM player;
+SELECT id, player_name, last_online
+FROM player;
 ```
 
 | id  | player\_name | last\_online               |

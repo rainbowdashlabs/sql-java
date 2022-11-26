@@ -39,14 +39,21 @@ nav:
         - 'MariaDB': 03/query_planer/mariadb.md
         - 'MySQL': 03/query_planer/mysql.md
         - 'SqLite': 03/query_planer/sqlite.md
-      - 'Data Consistency':
-          - 'Introduction': 03/data_consistency/introduction.md
-          - 'Null Values': 03/data_consistency/null_values.md
-          - 'Default Values': 03/data_consistency/default_values.md
-          - 'Unique Indice': 03/data_consistency/unique_indice.md
-          - 'Primary Keys': 03/data_consistency/primary_keys.md
-          - 'Auto Increment': 03/data_consistency/auto_increment.md
-          - 'Foreign Keys': 03/data_consistency/foreign_keys.md
+      - 'Data Consistency': 03/data_consistency.md
+      - 'Data Consistency Methods':
+        - 'Null Values': 03/data_consistency/null_values.md
+        - 'Default Values': 03/data_consistency/default_values.md
+        - 'Unique Indice': 03/data_consistency/unique_indice.md
+        - 'Primary Keys': 03/data_consistency/primary_keys.md
+        - 'Auto Increment': 03/data_consistency/auto_increment.md
+        - 'Foreign Keys': 03/data_consistency/foreign_keys.md
+        - 'Checks': 03/data_consistency/checks.md
+      - 'More about Indice': 03/more_indice.md
+      - 'Even more about Indice':
+        - 'Sorted Indice': 03/more_indice/sorted_indice.md
+        - 'Conditional indice': 03/more_indice/conditional_indice.md
+        - 'Indice and expressions': 03/more_indice/indice_and_expressions.md
+
 theme:
   features:
     - navigation.instant

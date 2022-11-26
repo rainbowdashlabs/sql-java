@@ -13,7 +13,9 @@ When we search for an entry in our table the query plan will tell us how the dat
 For example if we execute
 
 ```sql
-SELECT * FROM player WHERE id = 5;
+SELECT id, player_name, last_online
+FROM player
+WHERE id = 5;
 ```
 
 Our database will go over all rows in our database and will return all entries where the id is 5. However, at some 
@@ -31,7 +33,9 @@ are actually used by your query.
 All we need to do to see the query plan is add a `EXPLAIN` in front of our query.
 
 ```sql
-EXPLAIN SELECT * FROM player WHERE id = 5;
+SELECT id, player_name, last_online
+FROM player
+WHERE id = 5;
 ```
 
 One important thing to note as well is that explain will not execute the query itself. So all values will be 
