@@ -55,7 +55,7 @@ FROM money WHERE TRUE;
 INSERT INTO player(player_name) VALUES (SELECT 'player name' FROM GENERATE_SERIES(1, 1500));
 
 -- Generate some random money values
-INSERT INTO money (SELECT id, ROUND(RANDOM() * 10000) FROM player);
+INSERT INTO money SELECT id, ROUND(RANDOM() * 10000) FROM player;
 
 EXPLAIN SELECT player_id, money
         FROM money
