@@ -56,6 +56,7 @@ nav:
       - 'Upsert and Conflict handling': 03/upsert.md
       - 'Aggregation': 03/aggregation.md
       - 'Normalization': 03/normalization.md
+      - 'Joins': 03/joins.md
 
 theme:
   features:
