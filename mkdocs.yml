@@ -55,6 +55,7 @@ nav:
         - 'Indice and expressions': 03/more_indice/indice_and_expressions.md
       - 'Upsert and Conflict handling': 03/upsert.md
       - 'Aggregation': 03/aggregation.md
+      - 'Normalization': 03/normalization.md
 
 theme:
   features:
