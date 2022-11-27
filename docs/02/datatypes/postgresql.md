@@ -16,30 +16,31 @@ always about precision.
 
 ### INTEGER
 
-Java: Integer, Long | [Documentation](https://www.postgresql.org/docs/14/datatype-numeric.html#DATATYPE-INT)
+Java: Integer, Long | [Documentation](https://www.postgresql.org/docs/current/datatype-numeric.html#DATATYPE-INT)
 
-The integer in MariaDB are divided into several sizes. They will require different disk space depending on the size you
+The integer in PostgreSQL are divided into several sizes. They will require different disk space depending on the 
+size you
 choose. Choose your integer type based on the maximum and minimum size you expect the values to be.
 
-- SMALLINT: -32,768 and 3,2767
+- SMALLINT: -32,768 and 32,767
 - INTEGER: -2,147,483,648 and 2,147,483,647
 - BIGINT: Every value larger than INT
 
 ### DECIMAL
 
-Java: Double | [Documentation](https://www.postgresql.org/docs/14/datatype-numeric.html#DATATYPE-NUMERIC-DECIMAL)
+Java: Double | [Documentation](https://www.postgresql.org/docs/current/datatype-numeric.html#DATATYPE-NUMERIC-DECIMAL)
 
 A number with a "exact" fixed point.
 
 ### DOUBLE
 
-Java: Double | [Documentation](https://www.postgresql.org/docs/14/datatype-numeric.html#DATATYPE-FLOAT)
+Java: Double | [Documentation](https://www.postgresql.org/docs/current/datatype-numeric.html#DATATYPE-FLOAT)
 
 A number with a double precision floating point
 
 ### BOOLEAN
 
-Java: Boolean | [Documentation](https://www.postgresql.org/docs/14/datatype-boolean.html)
+Java: Boolean | [Documentation](https://www.postgresql.org/docs/current/datatype-boolean.html)
 
 Booleans are stored as tinyint internally.
 
@@ -49,7 +50,7 @@ We have several string types which we need to choose based on the expected size 
 
 ### CHAR
 
-Java: String | [Documentation](https://www.postgresql.org/docs/14/datatype-character.html)
+Java: String | [Documentation](https://www.postgresql.org/docs/current/datatype-character.html)
 
 A character is used for strings with the same size. E.g. Country Codes. The length needs to be defined on creation.
 Characters will be padded with spaces if some characters are missing to reach the specified length. The maximum size of
@@ -59,14 +60,14 @@ a CHAR is about 1 GB. If you need more use TEXT or VARCHAR
 
 ### TEXT
 
-Java: String | [Documentation](https://www.postgresql.org/docs/14/datatype-character.html)
+Java: String | [Documentation](https://www.postgresql.org/docs/current/datatype-character.html)
 
 The text type in postgres allows storing of texts of unlimited variable length. This is a large difference to other
 databases which habe several differt text types with different max length.
 
 ### VARCHAR
 
-Java: String | [Documentation](https://www.postgresql.org/docs/14/datatype-character.html)
+Java: String | [Documentation](https://www.postgresql.org/docs/current/datatype-character.html)
 
 The varchar is a string with a variable maximum size. Unlike CHAR is does not add any padding.
 
@@ -79,7 +80,7 @@ length
 
 ### Enum
 
-Java: String or Enum name | [Documentation](https://www.postgresql.org/docs/14/datatype-enum.html)
+Java: String or Enum name | [Documentation](https://www.postgresql.org/docs/current/datatype-enum.html)
 
 Differently to MariaDB and MySQL the enum values are not defined in the table but in its own type. Postgres allows to
 add own types via the create type command.
@@ -94,10 +95,10 @@ It also allows iteration and explicit ordering.
 
 ### JSON and JSONB
 
-Java: String | [Documentation](https://www.postgresql.org/docs/14/datatype-json.html)
+Java: String | [Documentation](https://www.postgresql.org/docs/current/datatype-json.html)
 
 JSON is the primitive text only representation which adds syntax validation to a column for json. It also allows to use
-a large number of json [specific operators](https://www.postgresql.org/docs/14/functions-json.html).
+a large number of json [specific operators](https://www.postgresql.org/docs/current/functions-json.html).
 
 JSONB is a binary representation of the object itself. Unlike JSON it allows to create indices on values of specific
 keys. This enables postgres to provide some kind of document based database behaviour.
@@ -106,7 +107,7 @@ keys. This enables postgres to provide some kind of document based database beha
 
 ### BINARY (BYTEA)
 
-Java: Anything | [Documentation](https://www.postgresql.org/docs/14/datatype-binary.html)
+Java: Anything | [Documentation](https://www.postgresql.org/docs/current/datatype-binary.html)
 
 Stores binary data as bytes or hex. The BYTEA type takes no size argument.
 
@@ -114,22 +115,22 @@ Stores binary data as bytes or hex. The BYTEA type takes no size argument.
 
 ### DATE
 
-Java: LocalDate | [Documentation](https://www.postgresql.org/docs/14/datatype-datetime.html)
+Java: LocalDate | [Documentation](https://www.postgresql.org/docs/current/datatype-datetime.html)
 
 ### TIME
 
-Java: LocalTime | [Documentation](https://www.postgresql.org/docs/14/datatype-datetime.html)
+Java: LocalTime | [Documentation](https://www.postgresql.org/docs/current/datatype-datetime.html)
 
 ### TIMESTAMP
 
-Java: LocalDateTime | [Documentation](https://www.postgresql.org/docs/14/datatype-datetime.html)
+Java: LocalDateTime | [Documentation](https://www.postgresql.org/docs/current/datatype-datetime.html)
 
-Postgres does not have a dedicated DATETIME type. Instead it has a TIMESTAMP which is basically a normal timestamp
+Postgres does not have a dedicated DATETIME type. Instead, it has a TIMESTAMP which is basically a normal timestamp
 without timezone and TIMESTAMPTZ which is a timestamp with a timezone
 
 ### INTERVAL
 
-Java: String | [Documentation](https://www.postgresql.org/docs/14/datatype-datetime.html#DATATYPE-INTERVAL-INPUT))
+Java: String | [Documentation](https://www.postgresql.org/docs/current/datatype-datetime.html#DATATYPE-INTERVAL-INPUT))
 
 As a special type postgres has the INTERVAL type. This type allows simple creation of intervals by parsing strings.
 
@@ -147,14 +148,14 @@ SELECT now() - '1 D 10 H 10 M'::interval; -- (3)
 
 ## Arrays
 
-All postgres datatypes can be used as an [array](https://www.postgresql.org/docs/14/arrays.html).
+All postgres datatypes can be used as an [array](https://www.postgresql.org/docs/current/arrays.html).
 
 Arrays are declared as `type[]`. They have a lot of
-extra [operators](https://www.postgresql.org/docs/14/functions-array.html) for comparison or modification.
+extra [operators](https://www.postgresql.org/docs/current/functions-array.html) for comparison or modification.
 
 ## Composite Types
 
-PostgreSQL allows creation of [composite types](https://www.postgresql.org/docs/14/rowtypes.html) which are essentially
+PostgreSQL allows creation of [composite types](https://www.postgresql.org/docs/current/rowtypes.html) which are essentially
 classes and allow the creation of objects.
 
 Like enums they are created with the create type command

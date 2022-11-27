@@ -34,12 +34,11 @@ VALUES (1, 2),
        (1, 10),
        (4, 10);
 
-CREATE TABLE money AS (
-    SELECT id, 1000.0 AS money
-    FROM player
-);
+CREATE TABLE money AS
+SELECT id, 1000.0 AS money
+FROM player;
 
 UPDATE money
 SET money = money - 600
 WHERE id = 10
-  AND money >= 600
+  AND money >= 600;

@@ -21,7 +21,7 @@ dependencies {
 group = "de.chojo"
 version = "1.0"
 description = "basicsqlplugin"
-java.sourceCompatibility = JavaVersion.VERSION_11
+java.sourceCompatibility = JavaVersion.VERSION_18
 
 publishing {
     publications.create<MavenPublication>("maven") {

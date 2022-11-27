@@ -1,7 +1,7 @@
-# Introduction
+# Chapter 1
 
-Welcome to the introduction. You are probably here because you want to work or are already working with databases.
-Databases are often crucial when it comes to storing data. We have many different databases out there. All of them
+Welcome to chapter one. You are probably here because you want to work or are already working with databases.
+Databases are often crucial when it comes to storing data. We have many databases out there. All of them
 satify different use cases and are specialised on different tasks and data sets. Some store data in documents, some in
 tables or something else.
 

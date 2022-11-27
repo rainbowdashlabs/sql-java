@@ -16,6 +16,7 @@ nav:
     - 'About Databases': 01/about_databases.md
     - 'Project Setup': 01/setup.md
   - 'Chapter 2 Basic Data Operations':
+    - 'Introduction': 02/introduction.md
     - 'Operators': 02/operators.md
     - 'SQL Datatypes': 02/sql_datatypes.md
     - 'Datatypes':
@@ -30,6 +31,34 @@ nav:
     - 'Select': 02/select.md
     - 'Update': 02/update.md
     - 'Delete': 02/delete.md
+  - 'Chapter 3 Data Consistency and advanced operations':
+      - 'Introduction': 03/introduction.md
+      - 'Query Planer': 03/query_planer.md
+      - 'Query Planer Details':
+        - 'Postgres': 03/query_planer/postgres.md
+        - 'MariaDB': 03/query_planer/mariadb.md
+        - 'MySQL': 03/query_planer/mysql.md
+        - 'SqLite': 03/query_planer/sqlite.md
+      - 'Data Consistency': 03/data_consistency.md
+      - 'Data Consistency Methods':
+        - 'Null Values': 03/data_consistency/null_values.md
+        - 'Default Values': 03/data_consistency/default_values.md
+        - 'Unique Indice': 03/data_consistency/unique_indice.md
+        - 'Primary Keys': 03/data_consistency/primary_keys.md
+        - 'Auto Increment': 03/data_consistency/auto_increment.md
+        - 'Foreign Keys': 03/data_consistency/foreign_keys.md
+        - 'Checks': 03/data_consistency/checks.md
+      - 'More about Indice': 03/more_indice.md
+      - 'Even more about Indice':
+        - 'Sorted Indice': 03/more_indice/sorted_indice.md
+        - 'Conditional indice': 03/more_indice/conditional_indice.md
+        - 'Indice and expressions': 03/more_indice/indice_and_expressions.md
+      - 'Upsert and Conflict handling': 03/upsert.md
+      - 'Aggregation': 03/aggregation.md
+      - 'Normalization': 03/normalization.md
+      - 'Joins': 03/joins.md
+      - 'Views': 03/views.md
+
 theme:
   features:
     - navigation.instant

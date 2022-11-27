@@ -66,6 +66,20 @@ Returns:
 
 The column `player_name` is now names `name` in our result set
 
+## Table alias
+
+Tables can have aliases too. You won't need them now, but in general those are defined right behind the table name.
+
+Those are used to define a unique table name when you use multiple tables. It is also used to abreviate long table 
+names, when you need to use the name explicitly.
+
+```sql
+SELECT pl.id,
+player_name as name
+FROM player pl;
+```
+
+
 ## WHERE
 
 The where statement might be the most important keyword in sql. The where keyword evaluates to a boolean for each row
@@ -340,7 +354,7 @@ on large tables. Luckily there are ways to make this faster. We will cover this 
 
 ## Summing Up
 
-We have no learned the four most important keywords for searching, sorting and limiting the retrieved data. The 
+We have now learned the four most important keywords for searching, sorting and limiting the retrieved data. The 
 keywords have to be used in a specific order and cant be altered in a free way.
 
 The general syntax for this is:
