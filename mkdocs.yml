@@ -57,6 +57,7 @@ nav:
       - 'Aggregation': 03/aggregation.md
       - 'Normalization': 03/normalization.md
       - 'Joins': 03/joins.md
+      - 'Views': 03/views.md
 
 theme:
   features:
