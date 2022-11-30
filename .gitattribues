@@ -1,0 +1,3 @@
+mvnw.cmd text eol=crlf
+gradlew.bat text eol=crlf
+
