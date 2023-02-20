@@ -70,7 +70,7 @@ ON CONFLICT (player_name)
 ```
 
 If we wanted to upsert the age of lexy we would need to write the age twice in our query. This can get quite messy 
-on larger queries. Luckily Postgres and SqLite have our back and provide a temporary table named `exclude` which holds 
+on larger queries. Luckily Postgres and SqLite have our back and provide a temporary table named `excluded` which holds 
 the values we wanted to insert. So instead of the above we can simply write.
 
 ```postgresql
