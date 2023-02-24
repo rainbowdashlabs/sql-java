@@ -33,6 +33,7 @@ our player names, because ids are quite hard to read.
 SELECT player_name, money
 FROM player p 
 LEFT JOIN money m ON p.id = m.player_id
+ORDER BY p.id
 ```
 
 | player\_name | money |
