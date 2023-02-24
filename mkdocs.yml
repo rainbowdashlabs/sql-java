@@ -32,32 +32,45 @@ nav:
     - 'Update': 02/update.md
     - 'Delete': 02/delete.md
   - 'Chapter 3 Data Consistency and advanced operations':
-      - 'Introduction': 03/introduction.md
-      - 'Query Planer': 03/query_planer.md
-      - 'Query Planer Details':
-        - 'Postgres': 03/query_planer/postgres.md
-        - 'MariaDB': 03/query_planer/mariadb.md
-        - 'MySQL': 03/query_planer/mysql.md
-        - 'SqLite': 03/query_planer/sqlite.md
-      - 'Data Consistency': 03/data_consistency.md
-      - 'Data Consistency Methods':
-        - 'Null Values': 03/data_consistency/null_values.md
-        - 'Default Values': 03/data_consistency/default_values.md
-        - 'Unique Indice': 03/data_consistency/unique_indice.md
-        - 'Primary Keys': 03/data_consistency/primary_keys.md
-        - 'Auto Increment': 03/data_consistency/auto_increment.md
-        - 'Foreign Keys': 03/data_consistency/foreign_keys.md
-        - 'Checks': 03/data_consistency/checks.md
-      - 'More about Indice': 03/more_indice.md
-      - 'Even more about Indice':
-        - 'Sorted Indice': 03/more_indice/sorted_indice.md
-        - 'Conditional indice': 03/more_indice/conditional_indice.md
-        - 'Indice and expressions': 03/more_indice/indice_and_expressions.md
-      - 'Upsert and Conflict handling': 03/upsert.md
-      - 'Aggregation': 03/aggregation.md
-      - 'Normalization': 03/normalization.md
-      - 'Joins': 03/joins.md
-      - 'Views': 03/views.md
+    - 'Introduction': 03/introduction.md
+    - 'Query Planer': 03/query_planer.md
+    - 'Query Planer Details':
+      - 'Postgres': 03/query_planer/postgres.md
+      - 'MariaDB': 03/query_planer/mariadb.md
+      - 'MySQL': 03/query_planer/mysql.md
+      - 'SqLite': 03/query_planer/sqlite.md
+    - 'Data Consistency': 03/data_consistency.md
+    - 'Data Consistency Methods':
+      - 'Null Values': 03/data_consistency/null_values.md
+      - 'Default Values': 03/data_consistency/default_values.md
+      - 'Unique Indice': 03/data_consistency/unique_indice.md
+      - 'Primary Keys': 03/data_consistency/primary_keys.md
+      - 'Auto Increment': 03/data_consistency/auto_increment.md
+      - 'Foreign Keys': 03/data_consistency/foreign_keys.md
+      - 'Checks': 03/data_consistency/checks.md
+    - 'More about Indice': 03/more_indice.md
+    - 'Even more about Indice':
+      - 'Sorted Indice': 03/more_indice/sorted_indice.md
+      - 'Conditional indice': 03/more_indice/conditional_indice.md
+      - 'Indice and expressions': 03/more_indice/indice_and_expressions.md
+    - 'Upsert and Conflict handling': 03/upsert.md
+    - 'Aggregation': 03/aggregation.md
+    - 'Normalization': 03/normalization.md
+    - 'Joins': 03/joins.md
+    - 'Views': 03/views.md
+  - 'Chapter 4 Java JDBC and SQL':
+    - 'Introduction':  04/introduction.md
+    - 'What is JDBC': 04/jdbc.md
+    - 'Try with resources': 04/try_with_resources.md
+    - 'Driver Implementation': 04/driver.md
+    - 'Basic Datasource': 04/datasource.md
+    - 'JDBC Usage':
+      - 'Prepared statement': 04/prepared_statements.md
+      - 'Read single rows': 04/select_single.md
+      - 'Read multiple rows': 04/select_multi.md
+      - 'Update': 04/update.md
+      - 'Delete': 04/delete.md
+      - 'Insert': 04/insert.md
 
 theme:
   features:

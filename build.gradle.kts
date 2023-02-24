@@ -3,7 +3,6 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 plugins {
     id("com.github.johnrengelman.shadow") version "7.1.2"
     java
-    `maven-publish`
 }
 
 repositories {
@@ -21,11 +20,10 @@ dependencies {
 group = "de.chojo"
 version = "1.0"
 description = "basicsqlplugin"
-java.sourceCompatibility = JavaVersion.VERSION_18
 
-publishing {
-    publications.create<MavenPublication>("maven") {
-        from(components["java"])
+java{
+    toolchain{
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
 

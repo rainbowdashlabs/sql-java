@@ -33,12 +33,9 @@ public class DataSourceProvider {
         // We create a new SQL connection pool data source for MariaDB
         MariaDbPoolDataSource dataSource = new MariaDbPoolDataSource();
         // we set our credentials
-        dataSource.setServerName(database.getHost());
+        dataSource.setUrl("mariadb://%s:%s/%s".formatted(database.getHost(), database.getPort(), database.getDatabase()));
         dataSource.setPassword(database.getPassword());
-        dataSource.setPortNumber(database.getPort());
-        dataSource.setDatabaseName(database.getDatabase());
         dataSource.setUser(database.getUser());
-        dataSource.setMaxPoolSize(20);
         // Test connection
         testDataSource(plugin, dataSource);
 
