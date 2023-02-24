@@ -14,9 +14,12 @@ username and password. This will be enough for now and is enough to connect.
 This is the minimal setup and there is a ton of configuration stuff you can do with those urls. I will link the
 documentation for the parameter for each database.
 
-Each class will have one method which creates a DataSource and a main method which calls this method. Since this is not
-a software architecture tutorial, but probably a beginner guide, I will note that this is not a best practice in terms
-of structure.
+Each class will have one method which creates a DataSource and a main method which calls this method. Once we have
+created our datasource we will retrieve a connection from it as a resource, create a statement, execute it and let the
+statement and connection being closed automatically again. Since this is not a software architecture tutorial, but
+probably a beginner guide, I will note that this is not a best practice in terms of structure.
+
+From now on I will always assume that a DataSource is present. I will not show the creation of it. 
 
 ## Postgres
 
@@ -31,6 +34,9 @@ import java.sql.SQLException;
 public class PostgresData {
     public static void main(String[] args) throws SQLException {
         DataSource dataSource = createDataSource();
+        try (Connection conn = dataSource.getConnection(); Statement stmt = conn.createStatement()) {
+            stmt.execute("SELECT 1");
+        }
     }
 
     public static DataSource createDataSource() throws SQLException {
@@ -56,6 +62,9 @@ import java.sql.SQLException;
 public class MySqlData {
     public static void main(String[] args) throws SQLException {
         DataSource dataSource = createDataSource();
+        try (Connection conn = dataSource.getConnection(); Statement stmt = conn.createStatement()) {
+            stmt.execute("SELECT 1");
+        }
     }
 
     public static DataSource createDataSource() throws SQLException {
@@ -81,6 +90,9 @@ import java.sql.SQLException;
 public class MariaDbData {
     public static void main(String[] args) throws SQLException {
         DataSource dataSource = createDataSource();
+        try (Connection conn = dataSource.getConnection(); Statement stmt = conn.createStatement()) {
+            stmt.execute("SELECT 1");
+        }
     }
 
     public static DataSource createDataSource() throws SQLException {
@@ -95,6 +107,8 @@ public class MariaDbData {
 
 ## SqLite
 
+SqLite does not have additional url parameter
+
 ```java
 import org.sqlite.SQLiteDataSource;
 
@@ -104,6 +118,9 @@ import java.sql.SQLException;
 public class SqLiteData {
     public static void main(String[] args) throws SQLException {
         DataSource dataSource = createDataSource();
+        try (Connection conn = dataSource.getConnection(); Statement stmt = conn.createStatement()) {
+            stmt.execute("SELECT 1");
+        }
     }
 
     public static DataSource createDataSource() throws SQLException {
