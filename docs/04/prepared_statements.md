@@ -25,10 +25,11 @@ public class PreparedStatementUsage {
     static DataSource dataSource;
 
     public static void main(String[] args) {
-        try (Connection conn = dataSource.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("SELECT player_name FROM player WHERE id = ?")) {
-            stmt.setInt(1, 10);
-            ResultSet resultSet = stmt.executeQuery();
+        try /*(1)*/(Connection conn = dataSource.getConnection(); //(2)
+             PreparedStatement stmt = /*(3)*/ conn.prepareStatement( 
+                     /*(4)*/ "SELECT player_name FROM player WHERE id = ?")) {
+            stmt.setInt(1, 10); //(5)
+            ResultSet resultSet = stmt.executeQuery(); //(6)
             // here comes more
         } catch (SQLException e) {
             e.printStackTrace();
@@ -36,6 +37,14 @@ public class PreparedStatementUsage {
     }
 }
 ```
+
+1. Declare our try with resources block
+2. Retrieve a connection from our datasource
+3. Create a new prepared statement
+4. Define our query with a placeholder -> `id = ?`
+5. Set the first parameter in our query to the value 10
+6. Execute the query
+
 
 Let's go through it step by step.
 
