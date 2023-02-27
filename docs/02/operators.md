@@ -34,7 +34,7 @@ SELECT 5 / 2.0;
 ```
 
 All our databases have additional mathematical operators and build in functions like squareroot, absolute and more.
-However they are different in syntax. I will just link them here if you need something special.
+However, they are different in syntax. I will just link them here if you need something special.
 
 [MySQL](https://dev.mysql.com/doc/refman/8.0/en/numeric-functions.html)
 | [SQLite](https://www.sqlite.org/lang_corefunc.html) | [MariaDB](https://mariadb.com/kb/en/numeric-functions/)
@@ -163,7 +163,7 @@ SELECT 5.0 <= 5.0;
 
 ### BETWEEN
 
-Additionally we have the between operator which basically checks if a value is between two different values.
+Additionally, we have the between operator which basically checks if a value is between two different values.
 
 The lower and upper bounds are inclusive. The order doesn't matter.
 
@@ -220,16 +220,16 @@ SELECT 'abcdef' LIKE '%cde%'; -- (4)
 
 **Note on case sensitivitiy**
 
-In MySQL, SQLite and MariaDB the `LIKE` operator is **case insensitive**.
+In MySQL, SQLite and MariaDB the `LIKE` operator is **case-insensitive**.
 
-PostgreSQL uses `LIKE` for **case sensitive** and `ILIKE` for **case insensitive** matching.
+PostgreSQL uses `LIKE` for **case-sensitive** and `ILIKE` for **case-insensitive** matching.
 
 ### Regex
 
 In MySQL and MariaDB have the REGEXP operator. SQLite has this operator as well but does not has a implementation of it
 by default. It will throw an error if used.
 
-PostgreSQL uses the `~` operator for case sensitive regex matching and `~*` for case insensitive.
+PostgreSQL uses the `~` operator for case-sensitive regex matching and `~*` for case-insensitive.
 
 Noteable is also that the REGEXP and `~` operators do not check if the whole string matches the expression. It just
 checks for a subsequence.
@@ -244,8 +244,8 @@ SELECT 'abcdef' REGEXP '[CDE]'; -- (2)
 -> TRUE
 ```
 
-1. Case insensitive matching. We check if the string contains CDE
-2. Case insensitive matching. We check if the string contains any of `c`, `d` or `e`.
+1. Case-insensitive matching. We check if the string contains CDE
+2. Case-insensitive matching. We check if the string contains any of `c`, `d` or `e`.
 
 ```sql title="PostgreSQL"
 SELECT 'abcdef' ~ 'CDE'; -- (1)
@@ -258,6 +258,6 @@ SELECT 'abcdef' ~* '[CDE]'; -- (3)
 -> TRUE
 ```
 
-1. Case sensitive matching. We check if the string contains `CDE` with the correct casing.
-2. Case insensitive matching. We check if the string contains `CDE`
-3. Case insnesitive matching. We check if the string contains any of `c`, `d` or `e`.
+1. Case-sensitive matching. We check if the string contains `CDE` with the correct casing.
+2. Case-insensitive matching. We check if the string contains `CDE`
+3. Case-insensitive matching. We check if the string contains any of `c`, `d` or `e`.

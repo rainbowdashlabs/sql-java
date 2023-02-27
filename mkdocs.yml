@@ -31,6 +31,7 @@ nav:
     - 'Select': 02/select.md
     - 'Update': 02/update.md
     - 'Delete': 02/delete.md
+    - 'Returning changed data': 02/returning.md
   - 'Chapter 3 Data Consistency and advanced operations':
     - 'Introduction': 03/introduction.md
     - 'Query Planer': 03/query_planer.md
