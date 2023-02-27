@@ -21,7 +21,8 @@ injection.
 ## ResultSet
 
 The ResultSet is what we get when we read data from our database. It allows to access the value of different columns and
-going through the rows we selected.
+going through the rows we selected. You can imagine it as a table with the rows and colums we selected in our statement.
+It also contains additional metadata about the operation we performed.
 
 ## DataSource
 

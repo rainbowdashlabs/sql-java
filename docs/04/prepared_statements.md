@@ -42,7 +42,7 @@ Let's go through it step by step.
 1. Declare our try with resources block
 2. Retrieve a connection from our datasource
 3. Create a new prepared statement
-4. Define our query with a placeholder -> id = **?**
+4. Define our query with a placeholder -> `id = ?`
 5. Set the first parameter in our query to the value 10
 6. Execute the query
 
