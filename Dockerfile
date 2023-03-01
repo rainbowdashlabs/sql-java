@@ -8,7 +8,9 @@ RUN find docs/ -type f -print0 | xargs -0 sed -i 's/```mysql/```sql/g'
 RUN find docs/ -type f -print0 | xargs -0 sed -i 's/```sqlite/```sql/g'
 RUN find docs/ -type f -print0 | xargs -0 sed -i 's/```postgresql/```sql/g'
 
-RUN mkdocs build
+RUN mkdocs build -f config/de/mkdocs.yml
+RUN mkdocs build -f config/en/mkdocs.yml
+COPY docs/index.html site/index.html
 
 FROM nginx:alpine
 

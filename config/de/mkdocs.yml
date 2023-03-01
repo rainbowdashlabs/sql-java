@@ -1,0 +1,128 @@
+site_name: SQL & Java - Dein Guide für Java und SQL
+site_url: https://sql.chojo.de/
+site_description: Deine Seite wenn du mit Java und SQL starten willst!
+repo_url: https://github.com/rainbowdashlabs/sql-java/
+repo_name: SQL and Java
+docs_dir: ../../docs/de
+site_dir: ../../site/de
+plugins:
+  - git-revision-date-localized:
+      type: date
+      fallback_to_build_date: true
+      enable_creation_date: true
+  - search:
+      lang: de                                      # Set language for search
+nav:
+  - Home: index.md
+  - 'Kapitel 1 Der Anfang':
+      - 'Vorwort': 01/preface.md
+      - 'Einleitung': 01/introduction.md
+      - 'Über Datenbanken': 01/about_databases.md
+      - 'Projekt aufsetzen': 01/setup.md
+  - 'Kapitel 2 Grundlegende Daten Operationen':
+      - 'Einleitung': 02/introduction.md
+      - 'Operatoren': 02/operators.md
+      - 'SQL Datatypen': 02/sql_datatypes.md
+      - 'Datatypen':
+          - 'SQLite': 02/datatypes/sqlite.md
+          - 'MariaDB und MySQL': 02/datatypes/mariadb_mysql.md
+          - 'PostgreSQL': 02/datatypes/postgresql.md
+      - 'Naming Conventions': 02/naming.md
+      - 'Code Style': 02/code_style.md
+      - 'Database erstellen': 02/database_creation.md
+      - 'Tabellen': 02/tables.md
+      - 'Insert': 02/insert.md
+      - 'Select': 02/select.md
+      - 'Update': 02/update.md
+      - 'Delete': 02/delete.md
+      - 'Modifizierte Daten lesen': 02/returning.md
+  - 'Kapitel 3 Data Konsistenz und erweiterte Operationen':
+      - 'Einleitung': 03/introduction.md
+      - 'Query Planer': 03/query_planer.md
+      - 'Query Planer Details':
+          - 'Postgres': 03/query_planer/postgres.md
+          - 'MariaDB': 03/query_planer/mariadb.md
+          - 'MySQL': 03/query_planer/mysql.md
+          - 'SqLite': 03/query_planer/sqlite.md
+      - 'Data Konsistenz': 03/data_consistency.md
+      - 'Data Konstenz Mittel & Wege':
+          - 'Null Werte': 03/data_consistency/null_values.md
+          - 'Default Werte': 03/data_consistency/default_values.md
+          - 'Einzigartige Indizes': 03/data_consistency/unique_indice.md
+          - 'Primary Keys': 03/data_consistency/primary_keys.md
+          - 'Auto Increment': 03/data_consistency/auto_increment.md
+          - 'Foreign Keys': 03/data_consistency/foreign_keys.md
+          - 'Checks': 03/data_consistency/checks.md
+      - 'Mehr über Indices': 03/more_indice.md
+      - 'Noch mehr über Indices':
+          - 'Sortierte Indices': 03/more_indice/sorted_indice.md
+          - 'Bedinge Indices': 03/more_indice/conditional_indice.md
+          - 'Indice und Ausdrücke': 03/more_indice/indice_and_expressions.md
+      - 'Upsert und Konflikte': 03/upsert.md
+      - 'Aggregation': 03/aggregation.md
+      - 'Normalisierung': 03/normalization.md
+      - 'Joins': 03/joins.md
+      - 'Views': 03/views.md
+  - 'Kapitel 4 Java JDBC und SQL':
+      - 'Einleitung': 04/introduction.md
+      - 'Was ist JDBC': 04/jdbc.md
+      - 'Try with resources': 04/try_with_resources.md
+      - 'Driver Implementatierung': 04/driver.md
+      - 'Datasource Grundlagen': 04/datasource.md
+      - 'JDBC Nutzung':
+          - 'Prepared statement': 04/prepared_statements.md
+          - 'Lesen einzelner Zeilen': 04/select_single.md
+          - 'Lesen mehrerer Zeilen': 04/select_multi.md
+          - 'Update und Delete': 04/update_delete.md
+          - 'Insert': 04/insert.md
+  - 'Chapter 5 Advanced Java':
+      - 'Einleitung': 05/introduction.md
+      - 'Return Types': 05/return.md
+      - 'Async Calling': 05/async.md
+      - 'HikariCP und Connection Pooling': 05/hikari.md
+      - 'Versioning': 05/versioning.md
+      - 'Snippets': 05/snippets.md
+
+theme:
+  features:
+    - navigation.instant
+    - navigation.tracking
+    # - navigation.expand
+    # - navigation.tabs
+    # - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - content.code.annotate
+  language: en
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: pink
+      accent: light blue
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: pink
+      accent: light blue
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+markdown_extensions:
+  - "pymdownx.highlight":
+      anchor_linenums: true
+  - "pymdownx.inlinehilite"
+  - "pymdownx.snippets"
+  - "pymdownx.superfences"
+
+extra:
+  alternate:
+    - name: English
+      link: /en/
+      lang: en
+    - name: Deutsch
+      link: /de/
+      lang: de
