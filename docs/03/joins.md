@@ -6,7 +6,7 @@ connecting this data when we need data from multiple tables at the same time.
 Joins allow us to connect tables based on keys in the table. That's another reason why it is important to have unique 
 identifiers for entity. Without those joining tables is quite a pain.
 
-For joins we differ between `LEFT JOIN` (which is the same as `JOIN` and `RIGHT JOIN` just inversed) 
+For joins, we differ between `LEFT JOIN` (which is the same as `JOIN` and `RIGHT JOIN` just inverse) 
 and `INNER JOIN`. Some more special joins are `CROSS JOIN` and `FULL OUTER JOIN` (This one is not supported by all 
 databases. We won't cover it here).
 
@@ -26,7 +26,7 @@ LEFT JOIN right_table r
     ON l.id = r.id
 ```
 
-Fine. That's quite abstract... Let's see how this looks with our data. For now we are going to add the money next to 
+Fine. That's quite abstract... Let's see how this looks with our data. For now, we are going to add the money next to 
 our player names, because ids are quite hard to read.
 
 ```postgresql
@@ -122,5 +122,5 @@ INNER JOIN channel_subscription cs ON player.id = cs.player_id;
 | John         | 1           |
 
 
-The `INNER JOIN` here is basically the same as our `RIGHT JOIN` above. But instead of chosing the table with the 
-more sparse data we just use the smalles subset of our tables.
+The `INNER JOIN` here is basically the same as our `RIGHT JOIN` above. But instead of choosing the table with the 
+more sparse data we just use the smallest subset of our tables.

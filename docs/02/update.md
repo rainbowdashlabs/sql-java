@@ -2,7 +2,7 @@
 
 Now we can insert and read data. But what if we want to update already inserted data?
 
-Thats where the `UPDATE` statements comes to use. To update data we will also need to use the `WHERE` statement
+That's where the `UPDATE` statements comes to use. To update data we will also need to use the `WHERE` statement
 introduced in the earlier [chapter](../02/select.md#where).
 
 Remember our already pretty known table of players.
@@ -39,7 +39,7 @@ WHERE condition
 
 With this knowledge, let's try to update the `last_login` time of Lexy based on her id `10` to the current time.
 
-We gonna need a built in function again to retrieve the current time.
+We're going to need a built-in function again to retrieve the current time.
 
 - SqLite: `CAST(STRFTIME('%s', 'NOW') AS INTEGER)` we dont have timestamps. We use the current time as unix timestamp.
 - MariaDB/MySQL: `current_timestamp()` returns the current timestamp. You can also use just `current_timestamp` which is
@@ -96,12 +96,12 @@ You should get a timestamp with the current time in her `last_online` column.
 
 ## Update with current value
 
-Of course we can also use the current value of the column we want to update.
+Of course, we can also use the current value of the column we want to update.
 
 Remember our money table we created in the [insert chapter](../02/insert.md#create-tables-with-content)? We need this
 now again.
 
-Lets say we want to take 600 of our currency from lexy, but only if she has at least 600.
+Let's say we want to take 600 of our currency from lexy, but only if she has at least 600.
 
 The syntax for this is quite the same then the one earlier. We just reference the column value itself
 
@@ -129,7 +129,7 @@ WHERE id = 10
 </details>
 
 
-Lets check what changed:
+Let's check what changed:
 
 ```sql
 SELECT id, money
@@ -141,6 +141,6 @@ WHERE id = 10
 |:----|:------|
 | 10  | 400   |
 
-We can now see that Lexy has only 400 of our currency. 600 less than initally. If we execute our update again this 
-value will still be the same. This mechanic can be really usefull if you want to be sure that the player really has 
+We can now see that Lexy has only 400 of our currency. 600 less than initially. If we execute our update again this 
+value will still be the same. This mechanic can be really useful if you want to be sure that the player really has 
 the amount of money and directly withdraw the money.

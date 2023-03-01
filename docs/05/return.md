@@ -6,7 +6,7 @@ some kind of return type in any case.
 
 ## Optionals
 
-Optionals are a java class. They are prefered when a call returns 0 or 1 results. They can be constructed by
+Optionals are a java class. They are preferred when a call returns 0 or 1 results. They can be constructed by
 calling `Optional.of()`, `Optional.ofNullable()` or `Optional.empty()`.
 
 ```java
@@ -46,7 +46,7 @@ public class ReturnOptional {
 ## List and Map
 
 When returning multiple entities it is applicable to return them as a list. Of course a map would be possible as well,
-but in most of the cases you will notice that objects in a list is usually sufficent.
+but in most of the cases you will notice that objects in a list is usually sufficient.
 
 ```java
 import javax.sql.DataSource;

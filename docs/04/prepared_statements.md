@@ -10,7 +10,7 @@ has only advantages using a `PreparedStatement` instead of a `Statement`
 4. They are precompiled and allow caching on the database side.
 5. Speeds up communication through a non-SQL binary protocol
 
-Read a more detailed explanation at [baeldung](https://www.baeldung.com/java-statement-preparedstatement)
+Read a more detailed explanation at [Baeldung](https://www.baeldung.com/java-statement-preparedstatement)
 
 A `PreparedStatement` is retrieved from the `Connection` the same way as a `Statement`.
 

@@ -1,6 +1,6 @@
 # Aggregation
 
-Beside storing and reading data, databases can perform noumerous statistical actions on our data.
+Beside storing and reading data, databases can perform numerous statistical actions on our data.
 
 The most common operations are counting, min, max, sum and average calculation of values. that's why we will focus
 on this. Your database has way more aggregates and especially postgres is very strong when it comes to aggregation.
@@ -124,7 +124,7 @@ already, right?
 
 But why are we using `count(1)`? The one inside our count is just a random value. It could be anything. Usually
 people use a `*` there. Using the 1 has the advantage that the database directly know that we won't need any other
-data beside thed ata we need for our `WHERE` clause. That's why I personally prefer always the number 1.
+data beside the data we need for our `WHERE` clause. That's why I personally prefer always the number 1.
 
 ## Min, Max, Sum and Average
 
@@ -153,7 +153,7 @@ Now we probably have all the information we probably need for our money table.
 
 ## Grouping
 
-Now we probably not always want to simply count entries in a table. Grouping is essential for data opperations and
+Now we probably not always want to simply count entries in a table. Grouping is essential for data operations and
 aggregations. Grouping will group all entries which have the same value in a specified columns and allow aggregation
 of the columns which are grouped together.
 
@@ -198,8 +198,8 @@ When working with something like our `friend_graph` it might be hard to actually
 since the player can be in `player_id_1` or `player_id_2`. Sadly there is no good way to count them in a single
 select statement. For this we will need three select statements. Two to count for each id and one more to combine
 the counts of both. We will use `UNION` to combine both counts of our query, which we will wrap into a subquery and
-after that we copmput the sum of our two player counts. This is a more advanced topic, and we will use some
-more stuff here which is not yet unkown. Maybe you will come back alter and fully understand it, or you will just use
+after that we compute the sum of our two player counts. This is a more advanced topic, and we will use some
+more stuff here which is not yet unknown. Maybe you will come back alter and fully understand it, or you will just use
 this as a reference if you encounter the same problem again.
 
 ```postgresql
@@ -215,14 +215,14 @@ GROUP BY player_id_2
 
 Then query above gives us this table:
 
-| id | friend\_count |
-| :--- | :--- |
-| 4 | 2 |
-| 2 | 1 |
-| 1 | 3 |
-| 3 | 2 |
-| 4 | 2 |
-| 2 | 2 |
+| id  | friend\_count |
+|:----|:--------------|
+| 4   | 2             |
+| 2   | 1             |
+| 1   | 3             |
+| 3   | 2             |
+| 4   | 2             |
+| 2   | 2             |
 
 All we actually need to do now is to `GROUP BY` our `id` and compute the `SUM` of our friend count.
 

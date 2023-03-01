@@ -89,7 +89,7 @@ WHERE id = 11;
 |:----|:-------------|:-------------|
 | 11  | Jonathan     | null         |
 
-As we can see last_online is null. But we want it to be always a value. That's why we whould add a `NOT NULL` here
+As we can see last_online is null. But we want it to be always a value. That's why we would add a `NOT NULL` here
 as well.
 
 Our table will look like this in the end.

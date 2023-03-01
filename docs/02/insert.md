@@ -43,10 +43,10 @@ use:
 - MariaDB/MySQL: `timestamp('2022-05-11 00:00')`\
   We use the timestamp function to parse our string
 - SqLite: `CAST(STRFTIME('%s', '2022-05-11 00:00') AS INTEGER)`\
-  We save timestamps as epoch seconds since sqlite doesn't really has a timestamp type
+  We save timestamps as epoch seconds since sqlite doesn't really have a timestamp type
 
-Now try to recreate the table from above with the previously mentioned methods and statements. Usually the time an 
-be ommited when it is set to 00:00.
+Now try to recreate the table from above with the previously mentioned methods and statements. Usually the time can 
+be omitted when it is set to 00:00.
   
 <details>
 <summary>Solution</summary>
@@ -160,7 +160,7 @@ This will create a table like this:
 
 This method has some stuff you have to take care of. The database will decide about the data type of the column. 
 When we use `1000.0` we get a numeric type. When we use `1000` we will get an integer type. It is also important to 
-use an alias on newly created columns which have only a type. Use the `as` keyword here. If you dont define an alias 
+use an alias on newly created columns which have only a type. Use the `as` keyword here. If you don't define an alias 
 the column will have some fallback default value which is usually not what you want. 
 
 

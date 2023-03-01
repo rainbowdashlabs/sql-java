@@ -26,7 +26,7 @@ Every `Closeable` inside the try parenthesis are closed once the execution leave
 image, so we will take a look at some code.
 
 Objects do not need to be created inside the try parenthesis. It is only about the assignment. You can also assign
-multiple closables
+multiple closable
 
 <!-- @formatter:off -->
 
@@ -98,7 +98,7 @@ done
 
 We call our `io()` method. That method creates the auto closable inside the try parenthesis. We then call the read
 method which returns the string `Done`. If we look at our output we can see that the close method is indeed called once
-the return statement is exectuted.
+the return statement is executed.
 
 The same happens when an exception is thrown instead of a return. That is the most important part.
 

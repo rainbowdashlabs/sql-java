@@ -20,7 +20,7 @@ be really annoying
 
 ## Columns
 
-- Avoid duplication of the table name. If you table is named `user` and has a id column name it `id` instead of
+- Avoid duplication of the table name. If your table is named `user` and has an id column name it `id` instead of
   `user_id`.
 - Even if it is possible that a column has the same name as its type, this should be avoided.
 ### Primary key columns
@@ -37,11 +37,11 @@ The `user_id` column in `money` is a reference to the `id` column in `user`
 
 ### Dates
 
-Dates should not onlybe named date, but have a descriptive name like `inserted_date` or `edit_date`
+Dates should not only be named date, but have a descriptive name like `inserted_date` or `edit_date`
 
 ### Booleans
 
-Boolean colums should have questioning names like `is_enabled`
+Boolean columns should have questioning names like `is_enabled`
 
 ## Keys and indices
 
@@ -75,7 +75,7 @@ Examples
 <origin_tablename>_<related_tablename>_fk
 ```
 
-- Contain related tablename
+- Contain related table name
 - suffixed with `fk`
 
 ## Views

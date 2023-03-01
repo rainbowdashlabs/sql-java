@@ -30,7 +30,7 @@ choose. Choose your integer type based on the maximum and minimum size you expec
 
 Java: Double | [Documentation](https://www.postgresql.org/docs/current/datatype-numeric.html#DATATYPE-NUMERIC-DECIMAL)
 
-A number with a "exact" fixed point.
+A number with an "exact" fixed point.
 
 ### DOUBLE
 
@@ -63,7 +63,7 @@ a CHAR is about 1 GB. If you need more use TEXT or VARCHAR
 Java: String | [Documentation](https://www.postgresql.org/docs/current/datatype-character.html)
 
 The text type in postgres allows storing of texts of unlimited variable length. This is a large difference to other
-databases which habe several differt text types with different max length.
+databases which have several text types with different max length.
 
 ### VARCHAR
 
@@ -71,7 +71,7 @@ Java: String | [Documentation](https://www.postgresql.org/docs/current/datatype-
 
 The varchar is a string with a variable maximum size. Unlike CHAR is does not add any padding.
 
-Unlike other databases a varchar witout an explicit limit is unlimited and equal to the TEXT in behaviour
+Unlike other databases a varchar without an explicit limit is unlimited and equal to the TEXT in behaviour
 
 Theoretically the maximum size is 65,532 characters. If you use utf8 which requires up to 4 bytes per char you are down to 21,844 characters in the worst case.
 
@@ -173,4 +173,4 @@ ROW
 ('Some Name', 10)
 ```
 
-The name of the composite type doesnt matter. It is only about the correct types in the correct order.
+The name of the composite type doesn't matter. It is only about the correct types in the correct order.

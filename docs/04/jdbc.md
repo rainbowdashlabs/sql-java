@@ -9,7 +9,7 @@ how to implement a Connection, Statement, PreparedStatement, ResultSet, DataSour
 
 ## Connection
 
-The connection interface defines the methods for a database connection. It allows us to send statments and prepared
+The connection interface defines the methods for a database connection. It allows us to send statements and prepared
 statements to our database.
 
 ## Statement and PreparedStatement
@@ -21,7 +21,7 @@ injection.
 ## ResultSet
 
 The ResultSet is what we get when we read data from our database. It allows to access the value of different columns and
-going through the rows we selected. You can imagine it as a table with the rows and colums we selected in our statement.
+going through the rows we selected. You can imagine it as a table with the rows and columns we selected in our statement.
 It also contains additional metadata about the operation we performed.
 
 ## DataSource

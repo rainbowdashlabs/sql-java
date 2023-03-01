@@ -1,6 +1,6 @@
 # Versioning
 
-Having a database is one thing, but maintaining a database and aplying updates is another thing. I will show you two
+Having a database is one thing, but maintaining a database and applying updates is another thing. I will show you two
 ways to maintain your database version. One will be a self build, which is simple but solid the other one will be a
 third party tool which is the most used in the industry.
 
@@ -107,5 +107,5 @@ Of course, you need to store your required database version somewhere in your pl
 ## Flyway
 
 [Flyway](https://flywaydb.org/) is a tool to apply database patches. It is probably the most common tool in the industry
-and provides some additional features like migrate, clean, validate and repair. It also provides roling back and more,
-but those features are only available in the paied version of flyway, which might make it less attractive.
+and provides some additional features like migrate, clean, validate and repair. It also provides rolling back and more,
+but those features are only available in the paid version of flyway, which might make it less attractive.

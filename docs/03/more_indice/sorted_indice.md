@@ -1,4 +1,4 @@
-# Sorted Indice
+# Sorted Indices
 
 In general indices are always sorted, because that's how they work. We can use this to speed up searches
 where we want to sort a table based on a value. With creating an index on the column we want to sort by we can

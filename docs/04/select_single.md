@@ -30,7 +30,7 @@ You can see that the cursor moved one row further, and we are now on a row with 
 able to read something from our current row. We do that with the methods of `ResultSet` which start with `get`. In our
 case we want to read a `String`, that means we will use the `ResultSet#getString()` method. You will notice that there
 are two versions of this method. This is because we can define the column we want to select in two ways. The first
-version would be by its name `resultSet.getString("player_name")`. This version is generally prefered since it will not
+version would be by its name `resultSet.getString("player_name")`. This version is generally preferred since it will not
 break if you change the select statement and is more readable. The second version would be the column id. Those ids
 start at 1 again. That means that we would need to select the first column in our case `resultSet.getString(1)`.
 

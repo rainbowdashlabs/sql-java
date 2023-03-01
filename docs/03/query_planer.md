@@ -26,7 +26,7 @@ with the id 5 and stop since it knows that there will be only one matching entry
 index on a column is sorted. Which means the database doesn't have to read all rows which come before 5, but can 
 nearly directly jump to it without reading all columns before this.
 
-That whis happens can only be seen via the query plans. And that is why it is so important to know and read them. 
+What happens can only be seen via the query plans. And that is why it is so important to know and read them. 
 They will allow you to better understand your database and also allows you to check if the indices you have added 
 are actually used by your query.
 

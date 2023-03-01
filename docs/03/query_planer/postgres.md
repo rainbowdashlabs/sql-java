@@ -1,7 +1,7 @@
 # Postgres
 
 The postgres query planner is extremely powerful and provides a high detail over the executed tasks. Nodes are
-represented by intendations in the query plan. Nodes are executed from the inner to the outer node. This is
+represented by indentations in the query plan. Nodes are executed from the inner to the outer node. This is
 not important yet since our query plans for now will be very simple and probably won't even have that many nodes anyway.
 
 To get a deeper insight into the postgres query plans take a look at that [page](https://www.postgresql.org/docs/current/using-explain.html).
@@ -38,7 +38,7 @@ Second node:
 - `Filter:` is the type of our next node. A filter node.
 - `(id = 5)` is the filter itself.
 
-Let's try to build a more complex example. You will see some new keywords here, but don't wory about it for now:
+Let's try to build a more complex example. You will see some new keywords here, but don't worry about it for now:
 
 ```sql
 SELECT p1.id, p1.player_name, p2.id, p2.player_name
@@ -48,7 +48,7 @@ FROM friend_graph f
          WHERE f.player_1 = 2 OR f.player_2 = 2; 
 ```
 
-This might look a bit messy, but its actally quite easy to understand:
+This might look a bit messy, but its actually quite easy to understand:
 
 ```
 Hash Right Join  (cost=74.06..123.89 rows=734 width=72)
@@ -80,10 +80,10 @@ difference is that we are checking for two conditions in our filter and not only
               ->  Hash  (cost=43.90..43.90 rows=23 width=8)
 ```
 
-We need to look at these nodes together. We are joining our table. That basically means that we are just glueing 
+We need to look at these nodes together. We are joining our table. That basically means that we are just gluing 
 some more columns on our initial table the friends graph. We do this based on some condition. For these conditions we 
-need to hash the columns we use. In the end we need to read the whole player table again to find all mathcing players. 
-And that's already everyting in this node
+need to hash the columns we use. In the end we need to read the whole player table again to find all matching players. 
+And that's already everything in this node
 
 ```
 Hash Right Join  (cost=74.06..123.89 rows=734 width=72)
@@ -101,7 +101,7 @@ the extensive postgres docs linked above.
 
 ## Analyze
 
-Postgres has an additional keyword, which is `ANALYZE`. This keyword will exdcute the query and show the differences
+Postgres has an additional keyword, which is `ANALYZE`. This keyword will execute the query and show the differences
 between the estimates of `EXPLAIN` and the actual runtime of the query. It also provides some other additional
 information.
 

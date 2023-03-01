@@ -1,4 +1,4 @@
-# Unique indice
+# Unique indices
 
 Now we have another flaw in our table. We have our id which we assign to each player. This id should be unique, but
 it is not how we already noticed. We can have multiple players with the same id currently.
@@ -24,7 +24,7 @@ VALUES (11, 'Jonathan');
 It will work the first time, but it won't the second because we try to insert the id a second time.
 
 Of course, we can also add more columns to our index, which will make a combination unique. An example would be that
-a player can subscribe to a channel. But only one time. In that case the channel and player can occurr multiple
+a player can subscribe to a channel. But only one time. In that case the channel and player can occur multiple
 times in their column but the combination of the player and channel would have to be unique.
 
 ```sql

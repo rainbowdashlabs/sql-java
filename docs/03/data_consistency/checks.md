@@ -8,7 +8,7 @@ You already know some checks. Every time we used `CONSTRAINT` we added a check. 
 (foreign_keys.md) or in our [primary key](primary_keys.md). `NOT NULL` is an inline check as well. But there is
 actually more! We can also add manual checks ourselves.
 
-Time to enhance our money table even more, by adding a check which ensures that money is always equal or greater as
+Time to enhance our money table even more, by adding a check which ensures that money is always equal or greater than
 0, which will ensure that we never have a negative amount of money.
 
 ```sql

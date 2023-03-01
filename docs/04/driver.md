@@ -1,7 +1,7 @@
 # Driver Implementations
 
 Every database has its own driver implementation. Like mentioned before, those drivers are responsible to translate
-between java and your database. They map java datatypes to their sql types and vice versa.
+between java and your database. They map a java datatype to their sql types and vice versa.
 
 You can usually find those drivers via Google when you search for `<database> jdbc`. You also probably want to use a
 build tool to integrate those drivers into your application. But I am sure you know how to do this.

@@ -1,4 +1,4 @@
-# Indice and expressions
+# Indices and expressions
 
 In the previous section we already saw that we can use expressions for our queries. Doing this we can fix a lot of
 stuff in our tables now with some more concrete examples!
@@ -104,7 +104,7 @@ CREATE UNIQUE INDEX friend_graph_relation_uindex
 
 Time to test if our indices actually work!
 
-We are going to clear the table first in order to not accidently insert conflicting entries.
+We are going to clear the table first in order to not accidentally insert conflicting entries.
 
 ```postgresql
 DELETE FROM friend_graph;

@@ -5,7 +5,7 @@ talk about games like minecraft. It halts the thread until the response from the
 only a few milliseconds, but a few milliseconds multiple times accumulate to some larger problems.
 
 That is why we mainly work asynchronous when it is critical that the current thread is not halted. For normal
-applycations we work with `CompletableFutures`. Bealdung did a
+applications we work with `CompletableFutures`. Baeldung did a
 great [guide](https://www.baeldung.com/java-completablefuture) for this and I will refrain from telling
 much.
 

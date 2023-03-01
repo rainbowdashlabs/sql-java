@@ -5,7 +5,7 @@ time already.
 
 ## Relations
 
-Normaly entries have some kind of relation. To define this we use the term `One to Many` (1:n) `Many to One` (n:1), 
+Normally entries have some kind of relation. To define this we use the term `One to Many` (1:n) `Many to One` (n:1), 
 `One to One` (1:1).
 `Many to Many` (n:n) is usually something you don't have and if you do it is most probably a sign of bad normalization.
 
@@ -27,7 +27,7 @@ I cant even come up with a good example for a many-to-many relation. It is simpl
 
 ## Normal forms
 
-Often when we normalize data we use the terms of a normal form. The pure concept is always subject to diskussions 
+Often when we normalize data we use the terms of a normal form. The pure concept is always subject to discussions 
 and becomes a bit fuzzy the more you try to normalize.
 
 [Wikipedia](https://en.wikipedia.org/wiki/Database_normalization#Example_of_a_step_by_step_normalization) has some 

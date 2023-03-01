@@ -8,7 +8,7 @@ frameworks exist.
 That is where [HikariCP](https://github.com/brettwooldridge/HikariCP) comes into use. HikariCP wraps connections into their own connection. Instead of closing the
 connection when `close()` is called they move the connection back into a pool and will return it again when we request a
 connection from our datasource. Since we used a `DataSource` before switching to Hikari is no problem, because it
-creates a `DataSource` as well. All we need to change is drop our url we defined for our JDBC dirver to connect into
+creates a `DataSource` as well. All we need to change is drop our url we defined for our JDBC driver to connect into
 our `HikariDataSource` instead and define a pool size.
 
 To use Hikari we need to import it first:

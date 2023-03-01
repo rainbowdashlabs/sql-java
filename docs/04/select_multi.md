@@ -63,6 +63,6 @@ public class SelectMulti {
 
 The while will jump to the next row as long as there is one. It will also not fail if there is no row at all.
 
-Of couse instead of printing out your result you might want to create a list or a map to store them. We will look into
+Of course instead of printing out your result you might want to create a list or a map to store them. We will look into
 returning data in a later section.
 

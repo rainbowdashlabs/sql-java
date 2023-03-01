@@ -1,13 +1,13 @@
 # Auto increment
 
 You remember how we always set the player id by ourselves? This doesn't feel right, right? How should we remember
-which ID we used already, epsecially with our unique index now on our player id . So lets change this once again.
+which ID we used already, especially with our unique index now on our player id . So lets change this once again.
 This time we will add a default value again, but in another way than we are used to do.
 
 This default value is called auto increment and will simply count up every time we use it. This makes it impossible
 to use an id twice and we no longer need to think about the id we used last.
 
-Saddly this is a bit different depending on the database we use.
+Sadly this is a bit different depending on the database we use.
 
 *No matter if you need or not, the auto increment column should be set as the primary key of the table in 99.9% of the
 cases. There is simply no reason why not to do it. Some databases even require it to be a key or even the primary
@@ -24,7 +24,7 @@ In postgres we can profit from SMALLSERIAL, SERIAL and BIGSERIAL. Those differ i
 | BIGSERIAL   | BIGINT   | 1 to 9,223,372,036,854,775,807 |
 
 All we need to do in order to use them is swapping our `INTEGER` with the `SERIAL` datatype in our table. Note that
-this value can be still set manually. Since it can also set to null we will mark it as NOT NULL aditionally.
+this value can be still set manually. Since it can also set to null we will mark it as NOT NULL additionally.
 
 *Remember to drop your table first*
 

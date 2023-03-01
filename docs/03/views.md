@@ -3,7 +3,7 @@
 Views are crucial for wrapping complex queries into some kind of "virtual table".
 Views allow you to create something based on a query which will be dynamically created every time you call this view.
 
-For example, you could simply wrap our friend count into a view and instead of selectinv this cursed union code you
+For example, you could simply wrap our friend count into a view and instead of selecting this cursed union code you
 can simply select it like a table. Views are created with the `CREATE VIEW` keyword followed by a `SELECT` statement.
 
 ```postgresql

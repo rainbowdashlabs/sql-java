@@ -3,8 +3,8 @@
 The `SELECT` statement is another very important statement. Now that we have inserted data in our tables we want to read
 them as well.
 
-The `SELECT` statement always returns a so called result set. This set contains all our requested data. Notice that 
-altough that it is called a "set", this doesnt man that the results are unique in any way.
+The `SELECT` statement always returns a so-called result set. This set contains all our requested data. Notice that 
+although that it is called a "set", this doesn't man that the results are unique in any way.
 
 ## Basic select
 
@@ -32,7 +32,7 @@ This statement will give you the content of `id` and `name` of the table `player
 | 10  | Lexi         |
 
 If you ever see or write a statement like this you might select way more than you need. Usage of plain select statement
-can be generally discourraged. In 99% of these cases there are better and more refined statements.
+can be generally discouraged. In 99% of these cases there are better and more refined statements.
 
 > **Read what you need**
 
@@ -70,7 +70,7 @@ The column `player_name` is now names `name` in our result set
 
 Tables can have aliases too. You won't need them now, but in general those are defined right behind the table name.
 
-Those are used to define a unique table name when you use multiple tables. It is also used to abreviate long table 
+Those are used to define a unique table name when you use multiple tables. It is also used to abbreviate long table 
 names, when you need to use the name explicitly.
 
 ```sql
@@ -124,7 +124,7 @@ WHERE id > 5;
 
 All we need here is a simple check on the id column.
 
-We can also get more specific here. Lets add one more check for all names which start with the letter `m`. (case
+We can also get more specific here. Let's add one more check for all names which start with the letter `m`. (case
 insensitive)
 
 | id  | player\_name | last\_online               |
@@ -146,7 +146,7 @@ WHERE id > 5
   AND player_name LIKE 'm%';
 ```
 
-The `LIKE` keyword compares case insensitive. the `%` is a wildcard for an infinit amount of other characters.
+The `LIKE` keyword compares case-insensitive. the `%` is a wildcard for an infinite amount of other characters.
 
 **PostgreSQL**
 
@@ -159,7 +159,7 @@ WHERE id > 5
   AND player_name ILIKE 'm%';
 ```
 
-Unlike the other databases the `LIKE` is case sensitive in Postgres. Thats why we need to use `ILIKE` here.
+Unlike the other databases the `LIKE` is case-sensitive in Postgres. That's why we need to use `ILIKE` here.
 
 
 </details>
@@ -168,10 +168,10 @@ You can continue chaining more conditions or try an `OR` instead of the `AND` an
 
 ## ORDER BY
 
-Currently, our players are retrieved in the order the were inserted into the database. This might not only be the order
+Currently, our players are retrieved in the order they were inserted into the database. This might not only be the order
 we want.
 
-Lets say we want our players in the order the were last seen with the most recent players first and the inactive players
+Let's say we want our players in the order they were last seen with the most recent players first and the inactive players
 last. We can do this by using the `ORDER BY` keyword on the `last_online` column.
 
 The general syntax is:
@@ -272,10 +272,10 @@ FROM my_table
 LIMIT [n |ALL];
 ```
 
-The `LIMIT` keyword restricts the amount of your results to the entered number `n`. As an alternativ you can use
-`ALL` or `NULL` to disable the parameter. Thats something frameworks use sometimes to disable a limit.
+The `LIMIT` keyword restricts the amount of your results to the entered number `n`. As an alternative you can use
+`ALL` or `NULL` to disable the parameter. That's something frameworks use sometimes to disable a limit.
 
-Earlier we already sorted the players by the most recent online times. Lets try to only get the last 5 most recent
+Earlier we already sorted the players by the most recent online times. Let's try to only get the last 5 most recent
 players by adding the limit clause to our previous query.
 
 *Hint: The limit is always the last parameter of your query.*
@@ -304,7 +304,7 @@ LIMIT 5;
 
 ## OFFSET
 
-The `OFFSET` keyword is often used to facilitate some kind of pagination in results. Thats also why it is often combined
+The `OFFSET` keyword is often used to facilitate some kind of pagination in results. That's also why it is often combined
 with limit.
 
 The `OFFSET` keyword skips the first `n` lines of the result sets.
@@ -318,7 +318,7 @@ FROM my_table
 OFFSET n;
 ```
 
-Lets try to enhance our query from the limit part even more. We already got the first 5 entries. Now we want to get 
+Let's try to enhance our query from the limit part even more. We already got the first 5 entries. Now we want to get 
 the next 5 entries by adding a `OFFSET` of `5` while keeping the `LIMIT` and `ORDER BY` keywords.
 
 *Hint: The `OFFSET` keyword is directly located before the `LIMIT` keyword*
@@ -346,7 +346,7 @@ LIMIT 5;
 
 </details>
 
-Whats basically happening here is:
+What's basically happening here is:
 
 First we order the whole table by the `last_online` column. After this we skip the first `5` rows and read the next 
 `5` rows. It is important to remember that we first need to sort the whole table currently. That can be very costly 

@@ -1,6 +1,6 @@
 # MariaDB and MySQL
 
-MariaDB and MySQL are very similar when it comes to datatypes. However there are some small differences.
+MariaDB and MySQL are very similar when it comes to datatypes. However, there are some small differences.
 
 ## Numeric types
 
@@ -31,7 +31,7 @@ choose. Choose your integer type based on the maximum and minimum size you expec
 Java: Double | [MariaDB](https://mariadb.com/kb/en/decimal/)
 | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/fixed-point-types.html)
 
-A number with a "exact" fixed point.
+A number with an "exact" fixed point.
 
 ### DOUBLE
 
@@ -72,7 +72,7 @@ length.
 
 Java: String
 
-The text type is divided into several sizes. The will disallow values larger than the maximum size.
+The text type is divided into several sizes. They will disallow values larger than the maximum size.
 
 - TINYTEXT: Up to 255 chars - [MariaDB](https://mariadb.com/kb/en/tinytext/)
   | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/blob.html)
@@ -91,7 +91,8 @@ Java: String | [MariaDB](https://mariadb.com/kb/en/varchar/)
 The varchar is a string with a variable maximum size. The maximum size here is a bit more complex, since it depends on
 the encoding of the database. Unlike CHAR is does not add any padding.
 
-Theoretically the maximum size is 65,532 characters. If you use utf8 which requires up to 4 bytes per char you are down to
+Theoretically the maximum size is 65,532 characters. If you use utf8 which requires up to 4 bytes per char you are down
+to
 21,844 characters in the worst case.
 
 One advancement over TEXT is that varchar columns can be fully indexed while TEXT columns are truncated to a specified
@@ -124,12 +125,12 @@ mariadb.
 
 Java: String | **[MySQL only](https://dev.mysql.com/doc/refman/8.0/en/set.html)**
 
-Similar to a enum a set can only contain predefined input which are separeated by `,`.
+Similar to an enum a set can only contain predefined input which are separated by `,`.
 
 Given a set like this:
 
 ```sql
-SET('a', 'b', 'c', 'd')
+SET ('a', 'b', 'c', 'd')
 ```
 
 We can have several values like:
@@ -184,8 +185,8 @@ Java: LocalDateTime | [MariaDB](https://mariadb.com/kb/en/datetime/)
 | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/datetime.html)
 
 Combination of DATE and TIME. They will be stored in the current timezone. They will also validate that the time is
-valid in the current timezone. Some times can be invalid due to dailight saving times also refered as winter and summer
-time.
+valid in the current timezone. Some times can be invalid due to daylight saving times also referred as winter- and
+summertime.
 
 ### TIMESTAMP
 

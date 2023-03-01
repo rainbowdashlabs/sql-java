@@ -13,7 +13,7 @@ and all the other cool stuff.
 Of course, we will use all our previous knowledge here as well. Let's sum up quickly what we want to achieve:
 
 - Every player should only appear once -> Primary key on player_id
-- The money should be 0 initally -> Default to 0
+- The money should be 0 initially -> Default to 0
 - Only players which are present in our player table should have a money amount listed -> Foreign key from money.
   player_id to player.id
 - When a player gets deleted we also want to delete the money entry -> On delete cascade the deletion on other tables.
@@ -54,7 +54,7 @@ And that's already it. Time to play around. We currently have a bunch of players
 | 9   | Milana       | 2022-11-26 12:32:39.021491 |
 | 10  | Lexi         | 2022-11-26 12:32:39.021491 |
 
-**Validate that we can not insert unkown players**
+**Validate that we can not insert unknown players**
 
 ```sql
 INSERT INTO money(player_id)

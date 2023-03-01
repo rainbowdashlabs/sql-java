@@ -15,7 +15,7 @@ FROM table_name
 WHERE column_1 = value_1; 
 ```
 
-Lets try to write a statement which would delete the user with id 10 from our users table:
+Let's try to write a statement which would delete the user with id 10 from our users table:
 
 
 

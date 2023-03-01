@@ -2,10 +2,10 @@
 
 Welcome to chapter one. You are probably here because you want to work or are already working with databases.
 Databases are often crucial when it comes to storing data. We have many databases out there. All of them
-satify different use cases and are specialised on different tasks and data sets. Some store data in documents, some in
+satisfy different use cases and are specialised on different tasks and data sets. Some store data in documents, some in
 tables or something else.
 
-Maybe you have already choosen a database and started programming. Maybe you are encountering errors like timed out
+Maybe you have already chosen a database and started programming. Maybe you are encountering errors like timed out
 connections, low tick speed on your minecraft server or a strange increased memory consumption. Or maybe you are lucky
 and found this text before you start blindly. If you are the second one I congratulate you!
 You have probably saved a lot of time. If you are the first type, don't worry we will get this sorted out, but it will

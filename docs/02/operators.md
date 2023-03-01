@@ -2,10 +2,10 @@
 
 We actually have a lot of operators in SQL and even more in our databases if we use one with an extended SQL flavour.
 
-Some of the operators on this page may have shorter or different aliases in our databases. I will focus on the
+Some operators on this page may have shorter or different aliases in our databases. I will focus on the
 intersection of the operators to keep it simple for now.
 
-Lets start with the one which are equal in all databases we use
+Let's start with the one which are equal in all databases we use
 
 ## Mathematical
 
@@ -15,11 +15,11 @@ Lets start with the one which are equal in all databases we use
 - Multiply `*`
 - Modulo `%`
 
-You probably know these already and you are best friends. Like in every other language we also have these in sql.
+You probably know these already, and you are best friends. Like in every other language we also have these in sql.
 
 What you will need to keep in mind is that sql like java does some type conversion on its own.
 
-Multiplying a integer with a decimal number will result in a decimal number. There are several build in functions and
+Multiplying an integer with a decimal number will result in a decimal number. There are some build in functions and
 other explicit type conversion which can change this, but for now just bear with the fact.
 
 ```sql
@@ -33,7 +33,7 @@ SELECT 5 / 2.0;
 -> 2.5
 ```
 
-All our databases have additional mathematical operators and build in functions like squareroot, absolute and more.
+All our databases have additional mathematical operators and build in functions like square root, absolute and more.
 However, they are different in syntax. I will just link them here if you need something special.
 
 [MySQL](https://dev.mysql.com/doc/refman/8.0/en/numeric-functions.html)
@@ -42,7 +42,7 @@ However, they are different in syntax. I will just link them here if you need so
 
 ## Logical
 
-### AND and OR
+### AND/OR
 
 The java 'and' (`&&`) operator becomes `AND` in sql and the 'or' (`||`) operator becomes `OR`.
 
@@ -92,7 +92,7 @@ SELECT TRUE AND NOT FALSE;
 
 #### EQUAL
 
-Different than in java we can check for equality with a simple `=`
+Different from java we can check for equality with a simple `=`
 
 ```sql
 SELECT 1 = 2;
@@ -119,14 +119,14 @@ SELECT NOT 1 = 2;
 
 ### IS and null equality
 
-Checking for null is a bit different. Our problem is that a equality check on null will return null.
+Checking for null is a bit different. Our problem is that an equality check on null will return null.
 
 ```sql
 SELECT NULL = NULL;
 -> NULL
 ```
 
-That is where we use the `is` keyword, which can be combined with the not keyword to faciliate a `!=` operator
+That is where we use the `is` keyword, which can be combined with the not keyword to facilitate a `!=` operator
 
 ```sql
 SELECT NULL IS NULL;
@@ -138,7 +138,7 @@ SELECT NULL IS NOT NULL;
 
 ### Greater and Less
 
-Everything which has a size is size comparable. This counts for string, numeric values, dates and more.
+Everything which has a size is size comparable. This counts for string, numeric values, date and more.
 
 Like in java we have the same operators here.
 
@@ -213,12 +213,12 @@ SELECT 'abcdef' LIKE '%cde%'; -- (4)
 
 ```
 
-1. We check if the string is like abc, but we do not add a wilcard at the end
+1. We check if the string is like abc, but we do not add a wildcard at the end
 2. We check if the string starts with abc. We also add a wildcard in the end which matches all following characters.
 3. We just check if the third char is a `c`. We also add a wildcard
 4. We check if the string contains `cde` with two wildcards
 
-**Note on case sensitivitiy**
+**Note on case sensitivity**
 
 In MySQL, SQLite and MariaDB the `LIKE` operator is **case-insensitive**.
 
@@ -226,12 +226,12 @@ PostgreSQL uses `LIKE` for **case-sensitive** and `ILIKE` for **case-insensitive
 
 ### Regex
 
-In MySQL and MariaDB have the REGEXP operator. SQLite has this operator as well but does not has a implementation of it
+In MySQL and MariaDB have the REGEXP operator. SQLite has this operator as well but does not have an implementation of it
 by default. It will throw an error if used.
 
 PostgreSQL uses the `~` operator for case-sensitive regex matching and `~*` for case-insensitive.
 
-Noteable is also that the REGEXP and `~` operators do not check if the whole string matches the expression. It just
+Notable is also that the REGEXP and `~` operators do not check if the whole string matches the expression. It just
 checks for a subsequence.
 
 The usage in general is the same.

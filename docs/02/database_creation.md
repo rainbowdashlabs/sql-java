@@ -3,7 +3,7 @@
 Now that we know what we know what we can have in our database and how to name our stuff we can proceed to finally 
 work with it.
 
-Make sure that you are connected to your RDBMS. Use a ssh tunnel like I showed you in the [setup](../01/setup.md) 
+Make sure that you are connected to your RDBMS. Use an ssh tunnel like I showed you in the [setup](../01/setup.md) 
 page when you are connection to a remote database.
 
 Database creation is actually very simple on all our databases.
@@ -26,15 +26,15 @@ Our desktop clients allow us to create the database via the ui.
 
 **DataGrip**
 
-Right click on your Database entry and select `New > Database`
+Right-click on your Database entry and select `New > Database`
 
-Right click on your new database and select `Jump to query console` and select the default one.
+Right-click on your new database and select `Jump to query console` and select the default one.
 
 **DBeaver**
 
-Right click on your database entry and select `Create New Database`
+Right-click on your database entry and select `Create New Database`
 
-Right click on your new database and select `SQL Editor > Open SQL Console`
+Right-click on your new database and select `SQL Editor > Open SQL Console`
 
 **HeidiSQL**
 
@@ -65,7 +65,7 @@ Cou can change this by selecting the new schema at the top right of your console
 
 Make a right click on your database and select `Create > Schema`
 
-Right click on your new schema and select `SQL Editor > Open SQL Console`. Instead of being bound to the public 
+Right-click on your new schema and select `SQL Editor > Open SQL Console`. Instead of being bound to the public 
 schema your console is now bound to the new schema.
 
 As an alternative you can also change the schema at the top of the console window click on `public@<database_name>` 
@@ -79,6 +79,6 @@ TBD
 ## Database configuration
 The configuration of your database like encoding and timezone will be orientated on your system settings.
 
-The options you can change on your database are numerous and I wont cover this here.
+The options you can change on your database are numerous and I won't cover this here.
 
 As a beginner the default settings should be sufficient for all what you want to do.

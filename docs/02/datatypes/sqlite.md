@@ -1,6 +1,6 @@
 # SQLite
 
-SQLite has the smalles set of data types.
+SQLite has the smallest set of data types.
 
 ## INTEGER
 
@@ -12,7 +12,7 @@ An integer with 8 to 64 bits
 
 Java: float, double
 
-Any number with a floating point. Stored in in 64 bits.
+Any number with a floating point. Stored in 64 bits.
 
 ## TEXT
 
@@ -30,7 +30,7 @@ A blob is basically a binary representation of something. It will be returned in
 
 Java: Boolean
 
-A boolean in sqlite is a integer internally.
+A boolean in sqlite is an integer internally.
 
 ## Date and Time
 
