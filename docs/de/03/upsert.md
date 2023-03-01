@@ -1,36 +1,36 @@
-# Upsert and Conflict Handling
+# Upsert und Konfliktbehandlung
 
-Now we added a lot of ways to block input in our tables.
-We have primary keys, unique keys and foreign keys which block input of invalid or duplicated data into our tables.
+Jetzt haben wir viele Möglichkeiten, Eingaben in unseren Tabellen zu blockieren.
+Wir haben Primärschlüssel, eindeutige Schlüssel und Foreign keys, die die Eingabe von ungültigen oder doppelten Daten in unsere Tabellen blockieren.
 
-Failures of foreign keys are intended.
-Those should always be handled on the application side.
-However, failures on unique keys can be handled by us.
-For that we use a construct which is called `UPSERT`.
-The name already hints that this is a mix of `UPDATE` and `INSERT`.
-It basically says, insert and if something prevents me from inserting I want to update the data.
+Fehler bei Foreign keys sind beabsichtigt.
+Diese sollten immer auf der Anwendungsseite behandelt werden.
+Fehler bei eindeutigen Schlüsseln können jedoch von uns behandelt werden.
+Dafür verwenden wir ein Konstrukt, das `UPSERT` genannt wird.
+Der Name deutet bereits an, dass es sich um eine Mischung aus `UPDATE` und `INSERT` handelt.
+Im Grunde heißt es: Einfügen und wenn mich etwas am Einfügen hindert, dann möchte ich die Daten aktualisieren.
 
-Depending on the database you use the syntax is a bit different.
+Je nachdem, welche Datenbank du verwendest, ist die Syntax ein bisschen anders.
 
-## Ignoring conflicts on input
+## Konflikte bei der Eingabe ignorieren
 
 ### Postgres & SqLite
 
-For postgres and SqLite we are going to insert Lexy once again and fail gracefully.
+Für Postgres und SqLite fügen wir Lexy erneut ein und scheitern dabei gnädig.
 
 ```postgresql
--- This is our usual insert statement
+-- Dies ist unsere übliche Insert-Anweisung
 INSERT INTO player(player_name)
 VALUES ('Lexy')
-       -- Here we define where the conflict will appear. In this case we care about the conflict on the player name
+       -- Hier legen wir fest, wo der Konflikt auftreten soll. In diesem Fall geht es um den Konflikt mit dem Spielernamen
 ON CONFLICT (player_name)
-    -- All we say here is that we wanna do nothing and discard the possible error.
+    -- Hier sagen wir nur, dass wir nichts tun und den möglichen Fehler verwerfen wollen.
     DO NOTHING;
 ```
 
 ### MariaDB & MySQL
 
-For MariaDB and MySQL we can use the `INSERT IGNORE` syntax which will simply ignore errors which occur on an insert.
+Für MariaDB und MySQL können wir die Syntax `INSERT IGNORE` verwenden, die Fehler, die beim Einfügen auftreten, einfach ignoriert.
 
 ```mariadb
 INSERT IGNORE INTO player(player_name)
@@ -39,29 +39,29 @@ VALUES ('Lexy');
 
 ## Upsert
 
-The upsert statement is the more important part.
-We will use this to insert our player into our online table and refresh the last online time in case it exists already.
+Die Upsert-Anweisung ist der wichtigere Teil.
+Mit ihr fügen wir unseren Spieler in unsere Online-Tabelle ein und aktualisieren die letzte Online-Zeit, falls sie bereits existiert.
 
-The paradigm is always: Try to insert and if I cant let me modify the conflicted row.
+Das Paradigma ist immer: Versuche einzufügen und wenn das nicht geht, lass mich die Zeile mit dem Konflikt ändern.
 
 ### Postges & SqLite 
 
-For postgres and SqLite we are going to insert Lexy once again and this time update the online time in case a player with this name is already present. 
+Für Postgres und SqLite fügen wir Lexy erneut ein und aktualisieren diesmal die Online-Zeit, falls bereits ein Spieler mit diesem Namen vorhanden ist. 
 
 ```postgresql
--- This is our usual insert statement
+-- Dies ist unsere übliche Einfügeanweisung
 INSERT INTO player(player_name)
 VALUES ('Lexy')
-       -- Here we define where the conflict will appear. In this case we care about the conflict on the player name
+       -- Hier legen wir fest, wo der Konflikt auftreten soll. In diesem Fall geht es um den Konflikt mit dem Spielernamen
 ON CONFLICT (player_name)
-    -- All we say here is that we wanna do nothing and discard the possible error.
-    -- In SqLite we use CURRENT_TIMESTAMP here instead of now
+    -- Hier sagen wir nur, dass wir nichts tun und den möglichen Fehler verwerfen wollen.
+    -- In SqLite verwenden wir hier CURRENT_TIMESTAMP anstelle von now
     DO UPDATE SET last_online = NOW();
 ```
 
-#### Exclude table
+#### Tabelle ausschließen
 
-Let's assume we have a new row in our player table called age.
+Nehmen wir an, wir haben eine neue Zeile in unserer Spielertabelle namens Alter.
 
 ```postgresql
 INSERT INTO player(player_name, age)
@@ -70,10 +70,10 @@ ON CONFLICT (player_name)
     DO UPDATE SET age = 21;
 ```
 
-If we wanted to upsert the age of lexy we would need to write the age twice in our query.
-This can get quite messy on larger queries.
-Luckily Postgres and SqLite have our back and provide a temporary table named `excluded` which holds the values we wanted to insert.
-So instead of the above we can simply write.
+Wenn wir das Alter von Lexy hochsetzen wollten, müssten wir das Alter zweimal in unsere Abfrage schreiben.
+Das kann bei größeren Abfragen ziemlich unübersichtlich werden.
+Zum Glück haben Postgres und SqLite eine temporäre Tabelle mit dem Namen `excluded`, die die Werte enthält, die wir einfügen wollten.
+Wir können also stattdessen einfach schreiben.
 
 ```postgresql
 INSERT INTO player(player_name, age)
@@ -84,11 +84,11 @@ ON CONFLICT (player_name)
 
 ### MariaDB & MySQL
 
-For MariaDB and MySQL we can use the `ON DUPLICATE KEY UPDATE` clause which allows us to change the values in the conflicted row.
+Bei MariaDB und MySQL können wir die Klausel `ON DUPLICATE KEY UPDATE` verwenden, mit der wir die Werte in der Zeile mit dem Konflikt ändern können.
 
 ```mariadb
 INSERT INTO player(player_name)
 VALUES ('Lexy')
--- We define that we want to do something if any duplicate appears on a key or unique index
+-- Wir legen fest, dass wir etwas tun wollen, wenn ein Duplikat auf einem Schlüssel oder eindeutigen Index auftaucht
 ON DUPLICATE KEY UPDATE last_online = CURRENT_TIMESTAMP;
 ```

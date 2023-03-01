@@ -1,12 +1,12 @@
-# Conditional indices
+# Bedingte Indizes
 
-Till now all we did was adding an index for one or more rows.
-Of course this is nice if we want to search for single entries or want to sort our table.
-But there are other cases.
-For example, we might want to find all entries which are odd in the money table.
-This might be a more constructed example for the sake of simplicity, but it is a good example to show you how conditional indices work.
+Bis jetzt haben wir nur einen Index für eine oder mehrere Zeilen hinzugefügt.
+Das ist natürlich praktisch, wenn wir nach einzelnen Einträgen suchen oder unsere Tabelle sortieren wollen.
+Aber es gibt auch andere Fälle.
+Wir wollen zum Beispiel alle ungeraden Einträge in der money-Tabelle finden.
+Dieses Beispiel könnte der Einfachheit halber etwas konstruierter sein, aber es ist ein gutes Beispiel, um dir zu zeigen, wie bedingte Indizes funktionieren.
 
-First lets take a look at our original query we want to execute:
+Werfen wir zunächst einen Blick auf unsere ursprüngliche Abfrage, die wir ausführen wollen:
 
 ```sql
 SELECT player_id, money
@@ -14,18 +14,18 @@ FROM money
 WHERE money % 2 != 0;
 ```
 
-Feel free to take a look at the query plan, and you will notice that we do not use any index here, even tho we have an index on the money column.
+Wenn du dir den Abfrageplan ansiehst, wirst du feststellen, dass wir hier keinen Index verwenden, obwohl wir einen Index für die Spalte money haben.
 
-Let's add an index for our calculation!
-Instead of just adding a column value to our index we will now add the transformed column value to our index, which will be basically our check we performed earlier.
+Lass uns einen Index für unsere Berechnung hinzufügen!
+Anstatt nur einen Spaltenwert zu unserem Index hinzuzufügen, fügen wir nun den umgewandelten Spaltenwert zu unserem Index hinzu, der im Grunde unsere zuvor durchgeführte Prüfung darstellt.
 
 ```sql
 CREATE INDEX money_is_odd 
     ON money((money % 2 != 0))
 ```
 
-Not that we write the expression in another set of braces.
-This is required, because our database expects a value there and not an expression.
+Nicht, dass wir den Ausdruck in einen weiteren Satz geschweifter Klammern schreiben.
+Das ist notwendig, weil unsere Datenbank dort einen Wert und keinen Ausdruck erwartet.
 
 ```sql
 SELECT player_id, money
@@ -33,9 +33,9 @@ FROM money
 WHERE money % 2 != 0;
 ```
 
-If we take another look at our query plan now we will notice that we are indeed using an index for our check!
+Wenn wir uns unseren Abfrageplan jetzt noch einmal ansehen, werden wir feststellen, dass wir tatsächlich einen Index für unsere Prüfung verwenden!
 
-Let's try to do the same with an even check:
+Versuchen wir das Gleiche mit einer geraden Prüfung zu tun:
 
 ```sql
 SELECT player_id, money
@@ -43,9 +43,9 @@ FROM money
 WHERE money % 2 = 0;
 ```
 
-Sadly, if we check the query plan here we see that our database does not know that the solution would be simply an inverted index, but that is actually fine. We now have two choices:
+Wenn wir uns den Abfrageplan hier ansehen, sehen wir leider, dass unsere Datenbank nicht weiß, dass die Lösung einfach ein invertierter Index wäre, aber das ist eigentlich in Ordnung. Wir haben jetzt zwei Möglichkeiten:
 
-1. Adding a second index for even numbers
+1. Wir fügen einen zweiten Index für gerade Zahlen hinzu
 
 ```sql
 CREATE INDEX money_is_even
@@ -55,7 +55,7 @@ SELECT player_id, money
 FROM money
 WHERE money % 2 = 0;
 ```
-2. Simply inverting our condition result!
+2. Invertiere einfach das Ergebnis unserer Bedingung!
 
 ```sql
 SELECT player_id, money
@@ -63,7 +63,7 @@ FROM money
 WHERE NOT money % 2 != 0;
 ```
 
-The choice might be quite clear already.
-Indices take up space, so thinking a bit longer to see if you can actually reuse an existing index instead of creating a new one is usually always worth it.
-In general indices will be only used if the expression inside the query is also present inside the index itself.
-More on this in the next chapter!
+Die Wahl ist vielleicht schon ziemlich klar.
+Indizes brauchen Platz, deshalb lohnt es sich, etwas länger zu überlegen, ob du einen bestehenden Index wiederverwenden kannst, anstatt einen neuen zu erstellen.
+Im Allgemeinen werden Indizes nur dann verwendet, wenn der Ausdruck in der Abfrage auch im Index selbst enthalten ist.
+Mehr dazu im nächsten Kapitel!

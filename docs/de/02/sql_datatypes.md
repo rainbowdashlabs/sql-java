@@ -1,55 +1,54 @@
-# SQL Datatypes
+# SQL Datentypen
 
-SQL has its own datatypes.
-Some of them are equal to the java types, some of them are not.
-To confuse us more MySQL, MariaDB, SQLite and PostgreSQL support different data types.
-Some of them may behave differently, although they have the same name.
+SQL hat seine eigenen Datentypen.
+Einige davon sind mit den Java-Typen identisch, andere nicht.
+Um uns noch mehr zu verwirren, unterstützen MySQL, MariaDB, SQLite und PostgreSQL unterschiedliche Datentypen.
+Einige von ihnen verhalten sich unterschiedlich, obwohl sie den gleichen Namen haben.
 
-I will provide a short list here which shows the most correct mapping of java datatypes to their sql counterpart.
+Ich werde hier eine kurze Liste mit den meisten korrekten Zuordnungen von Java-Datentypen zu ihrem SQL-Gegenstück aufführen.
 
-However, I will not cover all types, since some databases like PostgreSQL have very specific datatypes which are used only in very special cases.
-I will only cover datatypes which might be important for you in the most cases.
+Ich werde jedoch nicht alle Typen abdecken, da einige Datenbanken wie PostgreSQL sehr spezifische Datentypen haben, die nur in sehr speziellen Fällen verwendet werden.
+Ich werde nur die Datentypen behandeln, die für dich in den meisten Fällen wichtig sein könnten.
 
-Have a link at the documentation if you want to dive deeper.
+Schau dir die Dokumentation an, wenn du tiefer eintauchen willst.
 
-[MySQL](https://dev.mysql.com/doc/refman/8.0/en/data-types.html) | [SQLite](https://www.sqlite.org/datatype3.html)
-| [MariaDB](https://mariadb.com/kb/en/data-types/) | [PostgreSQL](https://www.postgresql.org/docs/9.5/datatype.html)
+[MySQL](https://dev.mysql.com/doc/refman/8.0/en/data-types.html) | [SQLite](https://www.sqlite.org/datatype3.html) | [MariaDB](https://mariadb.com/kb/en/data-types/) | [PostgreSQL](https://www.postgresql.org/docs/9.5/datatype.html)
 
-## Cheatsheet for quick reference
+## Cheatsheet für die Schnellreferenz
 
-| **Java Type** | **Range/Length**                 | **MySQL / MariaDB** | **SQLite**           | **PostgreSQL**   |
-|:--------------|:---------------------------------|:--------------------|:---------------------|:-----------------|
-| String        | Fixed < 255 with padding         | CHAR                |                      | CHAR(Up to 1 GB) |
-| String        | < 255                            | TINYTEXT, VARCHAR   | TEXT                 | TEXT, VARCHAR    |
-| String        | < 65,353                         | TEXT, VARCHAR       | TEXT                 | TEXT, VARCHAR    |
-| String        | < 16,777,215                     | MEDIUMTEXT          | TEXT                 | TEXT, VARCHAR    |
-| String        | < 4,294,967,295                  | LONGTEXT            | TEXT                 | TEXT, VARCHAR    |
-| String        | unlimited                        |                     | TEXT                 | TEXT, VARCHAR    |
-| Integer/Short | -128 and 127                     | TINYINT             | INTEGER              | SMALLINT         |
-| Integer/Short | -32,768 and 32,767               | SMALLINT            | INTEGER              | SMALLINT         |
-| Integer       | -8,288,608 and 8,388,607         | MEDIUMINT           | INTEGER              | INTEGER          |
-| Integer       | -2,147,483,648 and 2,147,483,647 | INT(INTEGER)        | INTEGER              | INTEGER          |
-| Long          |                                  | BIGINT              | INTEGER (64 bit max) | BIGINT           |
-| Double        | exact fixed point                | DECIMAL             | REAL                 | DECIMAL(NUMERIC) |
-| Double        | double precision                 | DOUBLE              | REAL                 | DOUBLE           |
-| Float         | single precision                 | FLOAT               | REAL                 |                  |
-| Boolean       |                                  | BOOLEAN             | BOOLEAN(INTEGER)     | BOOLEAN          |
-| Bytes         | Fixed < 255 with padding         | BINARY              |                      |                  |
-| Bytes         | < 255                            | TINYBLOB, VARBINARY | BLOB                 | BYTEA            |
-| Bytes         | < 65,353                         | BLOB, VARBINARY     | BLOB                 | BYTEA            |
-| Bytes         | < 16,777,215                     | MEDIUMBLOB          | BLOB                 | BYTEA            |
-| Bytes         | < 4,294,967,295                  | LONGBLOB            | BLOB                 | BYTEA            |
-| LocalDate     |                                  | DATE                | TEXT, REAL, INTEGER  | DATE             |
-| LocalTime     |                                  | TIME                | TEXT, REAL, INTEGER  | TIME             |
-| LocalDateTime |                                  | TIMESTAMP           | TEXT, REAL, INTEGER  | TIMESTAMPTZ      |
-| Timestamp     |                                  | TIMESTAMP           | TEXT, REAL, INTEGER  | TIMESTAMP        |
+| **Java Typ**  | **Bereich/Länge**                | **MySQL / MariaDB** | **SQLite**            | **PostgreSQL**    |
+|:--------------|:---------------------------------|:--------------------|:----------------------|:------------------|
+| String        | Fest < 255 mit Auffüllung        | CHAR                |                       | CHAR(Bis zu 1 GB) |
+| String        | < 255                            | TINYTEXT, VARCHAR   | TEXT                  | TEXT, VARCHAR     |
+| String        | < 65.353                         | TEXT, VARCHAR       | TEXT                  | TEXT, VARCHAR     |
+| String        | < 16.777.215                     | MEDIUMTEXT          | TEXT                  | TEXT, VARCHAR     |
+| String        | < 4.294.967.295                  | LONGTEXT            | TEXT                  | TEXT, VARCHAR     |
+| String        | unbegrenzt                       |                     | TEXT                  | TEXT, VARCHAR     |
+| Integer/Short | -128 und 127                     | TINYINT             | INTEGER               | SMALLINT          |
+| Integer/Short | -32.768 und 32.767               | SMALLINT            | INTEGER               | SMALLINT          |
+| Integer       | -8.288.608 und 8.388.607         | MEDIUMINT           | INTEGER               | INTEGER           | 
+| Integer       | -2.147.483.648 und 2.147.483.647 | INT(INTEGER)        | INTEGER               | INTEGER           | 
+| Long          |                                  | BIGINT              | INTEGER (max. 64 Bit) | BIGINT            |
+| Double        | exact fixed point                | DECIMAL             | REAL                  | DECIMAL(NUMERIC)  |
+| Double        | doppelte Genauigkeit             | DOUBLE              | REAL                  | DOUBLE            |
+| Float         | einfache Genauigkeit             | FLOAT               | REAL                  |                   |
+| Boolean       |                                  | BOOLEAN             | BOOLEAN(INTEGER)      | BOOLEAN           |
+| Bytes         | Fixed < 255 with padding         | BINARY              |                       |                   |
+| Bytes         | < 255                            | TINYBLOB, VARBINARY | BLOB                  | BYTEA             |
+| Bytes         | < 65.353                         | BLOB, VARBINARY     | BLOB                  | BYTEA             |
+| Bytes         | < 16.777.215                     | MEDIUMBLOB          | BLOB                  | BYTEA             |
+| Bytes         | < 4.294.967.295                  | LONGBLOB            | BLOB                  | BYTEA             |
+| LocalDate     |                                  | DATE                | TEXT, REAL, INTEGER   | DATE              |
+| LocalTime     |                                  | TIME                | TEXT, REAL, INTEGER   | TIME              |
+| LocalDateTime |                                  | TIMESTAMP           | TEXT, REAL, INTEGER   | TIMESTAMPTZ       |
+| Timestamp     |                                  | TIMESTAMP           | TEXT, REAL, INTEGER   | TIMESTAMP         |
 
 ## Null
 
-`NULL` in sql is the same as in java in all our databases.
-However, we have no such think like a null pointer exception in sql.
-Everytime you do something with null sql will try to do something with it.
-That is why performing logical operations with null values can become tricky and error-prone like you have seen on the previous page.
+NULL in sql ist dasselbe wie in java in all unseren Datenbanken.
+Allerdings gibt es in Sql keine NullPointerException.
+Jedes Mal, wenn du etwas mit NULL machst, versucht Sql, etwas damit zu tun.
+Deshalb kann die Durchführung logischer Operationen mit NULL-Werten schwierig und fehleranfällig sein, wie du auf der vorherigen Seite gesehen hast.
 
-I will show you the different datatypes on the next pages for each database.
-You may skip the databases you not care about.
+Ich werde dir auf den nächsten Seiten die verschiedenen Datentypen für jede Datenbank zeigen.
+Du kannst die Datenbanken auslassen, die dich nicht interessieren.

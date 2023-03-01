@@ -1,17 +1,17 @@
-# Introduction
+# Kapitel 4
 
-We finally reached the point you were probably waiting for.
-If you skipped here, be aware that I will not explain any SQL queries in this section anymore.
-I take everything that was explained in previous chapters as granted.
+Endlich sind wir an dem Punkt angekommen, auf den du wahrscheinlich gewartet hast.
+Wenn du diesen Punkt übersprungen hast, solltest du wissen, dass ich in diesem Kapitel keine SQL-Abfragen mehr erklären werde.
+Alles, was in den vorherigen Kapiteln erklärt wurde, nehme ich als gegeben hin.
 
-**Please go back if you do not understand something**
+**Bitte geh zurück, wenn du etwas nicht verstehst**
 
-This chapter is all about the JDBC and how we can use it to interact with our database.
-That means we will finally start to use java and query our database via our java application!
-Some important words you should know and understand their meaning at the end of the chapter are datasource, jdbc, driver and try with resources.
-The last one is a general concept of java, but we will look into it here as well since it will be crucial for our further steps.
+In diesem Kapitel dreht sich alles um JDBC und wie wir es nutzen können, um mit unserer Datenbank zu interagieren.
+Das heißt, wir werden endlich anfangen, Java zu benutzen und unsere Datenbank über unsere Java-Anwendung abzufragen!
+Einige wichtige Begriffe, die du kennen und deren Bedeutung du am Ende des Kapitels verstehen solltest, sind DataSource, jdbc, driver und try with resources.
+Der letzte Begriff ist ein allgemeines Konzept von Java, aber wir werden ihn auch hier behandeln, da er für unsere weiteren Schritte entscheidend sein wird.
 
-We will learn all the operations we learned to do in SQL previously.
-Since the differences between the databases are now smaller in general I will use postgres in general.
-If there are differences, especially when it comes to the driver implementation itself I will of course still show how it is done with each database.
-Just keep in mind that the queries I show might not work if you are using another database.
+Wir werden alle Operationen lernen, die wir zuvor in SQL gelernt haben.
+Da die Unterschiede zwischen den Datenbanken nun im Allgemeinen geringer sind, werde ich Postgres im Allgemeinen verwenden.
+Wenn es Unterschiede gibt, vor allem bei der Implementierung des Treibers selbst, werde ich natürlich trotzdem zeigen, wie es bei jeder Datenbank gemacht wird.
+Bedenke nur, dass die Abfragen, die ich zeige, möglicherweise nicht funktionieren, wenn du eine andere Datenbank verwendest.

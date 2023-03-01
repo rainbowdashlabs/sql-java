@@ -1,15 +1,15 @@
-# Code Style
+# Code-Stil
 
-SQL code should be easily readable.
-If you use the naming conventions provided earlier this will happen nearly by itself.
-Don't think about the actual code for now.
-You don't need to understand it yet.
+SQL-Code sollte leicht lesbar sein.
+Wenn du die oben angegebenen Namenskonventionen verwendest, geht das fast von alleine.
+Mach dir vorerst keine Gedanken über den eigentlichen Code.
+Du brauchst ihn noch nicht zu verstehen.
 
-I will disable syntax highlighting here to make it more clear.
+Ich werde die Syntaxhervorhebung hier deaktivieren, um ihn übersichtlicher zu machen.
 
-## Keywords
+## Schlüsselwörter
 
-All SQL keywords should be `UPPER_CASE` this will make clear which words are names and which are keywords.
+Alle SQL-Schlüsselwörter sollten in GROSSBUCHSTABEN geschrieben werden, damit klar wird, welche Wörter Namen und welche Schlüsselwörter sind.
 
 ```
 -- Bad
@@ -19,10 +19,10 @@ select col from my_table;
 SELECT col FROM my_table;
 ```
 
-## Quote only if required
+## Quotiere nur, wenn es nötig ist
 
-Many people tend to quote a lot which isn't needed.
-If you use a good naming scheme you will probably never need to quote your stuff.
+Viele Leute neigen dazu, viel zu zitieren, was nicht nötig ist.
+Wenn du ein gutes Benennungsschema verwendest, wirst du deine Texte wahrscheinlich nie zitieren müssen.
 
 ```
 -- Bad
@@ -32,11 +32,11 @@ SELECT `col` FROM `my_table`;
 SELECT col FROM my_table;
 ```
 
-## Line breaks are good
+## Zeilenumbrüche sind gut
 
-Line breaks will make larger queries way more readable.
-A good rule is to precede each keyword with a line break.
-You may add more line breaks based on your own choice.
+Zeilenumbrüche machen größere Abfragen viel lesbarer.
+Eine gute Regel ist, jedem Schlüsselwort einen Zeilenumbruch voranzustellen.
+Du kannst nach eigenem Ermessen weitere Zeilenumbrüche hinzufügen.
 
 ```
 -- Bad
@@ -62,16 +62,16 @@ WHERE
 LIMIT 1;
 ```
 
-## Meaningful alias
+## Aussagekräftiger Alias
 
-Give your table a meaningful alias.
-Choose a descriptive shorter name instead of single characters like `x`, `y` or `z`.
+Gib deiner Tabelle einen aussagekräftigen Alias.
+Wähle einen beschreibenden, kürzeren Namen anstelle von einzelnen Zeichen wie "x", "y" oder "z".
 
-## Use common table expressions (CTE) instead of subqueries
+## Verwende Common Table Expressions (CTE) anstelle von Unterabfragen
 
-CTE can make your complex code way more readable.
+CTE kann deinen komplexen Code viel lesbarer machen.
 
-Take a look at this subquery example which shows the friend count of all players which were seen in the last 10 days.
+Sieh dir dieses Beispiel einer Unterabfrage an, die die Anzahl der Freunde aller Spieler anzeigt, die in den letzten 10 Tagen gesehen wurden.
 
 <!-- @formatter:off --> 
 ```sql
@@ -98,12 +98,12 @@ FROM ( -- (1)
 ```
 <!-- @formatter:on --> 
 
-1. We select all players which were online in the past 10 days.
-2. Our friend graph table is a unidirectional graph which contains one entry per friendship We use a UNION ALL to append the `player_2` column on the `player_1` column.
-3. We calculate the friend count. We group by the used_id and count how often every user id occurs.
-4. We combine our friend count with the active players and get a table with the friend count of all active players.
+1. Wir wählen alle Spieler aus, die in den letzten 10 Tagen online waren.
+2. Unsere Freundschaftsgraphtabelle ist ein unidirektionaler Graph, der einen Eintrag pro Freundschaft enthält. Wir verwenden ein UNION ALL, um die Spalte "Spieler_2" an die Spalte "Spieler_1" anzuhängen.
+3. Wir berechnen die Anzahl der Freunde. Wir gruppieren nach der used_id und zählen, wie oft jede Nutzer-ID vorkommt.
+4. Wir kombinieren unsere Freundeszahl mit den aktiven Spielern und erhalten eine Tabelle mit der Freundeszahl aller aktiven Spieler.
 
-When we use CTEs it would look like this.
+Wenn wir CTEs verwenden, würde es so aussehen.
 
 <!-- @formatter:off --> 
 ```sql
@@ -133,7 +133,7 @@ LEFT JOIN friend_count friend
 ```
 <!-- @formatter:on --> 
 
-1. We select all players which were online in the past 10 days.
-2. Our friend graph table is a unidirectional graph which contains one entry per friendship We use a UNION ALL to append the `player_2` column on the `player_1` column.
-3. We calculate the friend count. We group by the used_id and count how often every user id occurs.
-4. We combine our friend count with the active players and get a table with the friend count of all active players.
+1. Wir wählen alle Spieler aus, die in den letzten 10 Tagen online waren.
+2. Unsere Freundschaftsgraphtabelle ist ein unidirektionaler Graph, der einen Eintrag pro Freundschaft enthält. Wir verwenden ein UNION ALL, um die Spalte "Spieler_2" an die Spalte "Spieler_1" anzuhängen.
+3. Wir berechnen die Freundesanzahl. Wir gruppieren nach der used_id und zählen, wie oft jede Nutzer-ID vorkommt.
+4. Wir kombinieren unsere Freundesanzahl mit den aktiven Spielern und erhalten eine Tabelle mit der Freundesanzahl aller aktiven Spieler.

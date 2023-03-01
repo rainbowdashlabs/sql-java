@@ -1,38 +1,17 @@
 # Query Planer
 
-Every time we select data from our database in any way the database will first create a query plan.
-This query plan defines how the database will read the data.
-The query plans are different in nearly every database and provide a different level of detail.
-That's why I will cover each query planer in its own section.
+Jedes Mal, wenn wir auf irgendeine Weise Daten aus unserer Datenbank auswählen, erstellt die Datenbank zunächst einen Abfrageplan.
+Dieser Abfrageplan legt fest, wie die Datenbank die Daten lesen wird.
+Die Abfragepläne sind in fast jeder Datenbank anders und bieten einen anderen Detaillierungsgrad.
+Deshalb werde ich jeden Query Planer in einem eigenen Abschnitt behandeln.
 
-But before we look into the query plan layout itself we will first talk about the general use.
+Doch bevor wir uns mit dem Layout des Abfrageplans selbst beschäftigen, wollen wir zunächst über die allgemeine Verwendung sprechen.
 
-## Why use a query planer
+## Warum einen Query Planer verwenden?
 
-When we search for an entry in our table the query plan will tell us how the database searches for our entry.
+Wenn wir nach einem Eintrag in unserer Tabelle suchen, sagt uns der Abfrageplan, wie die Datenbank nach unserem Eintrag sucht.
 
-For example if we execute
-
-```sql
-SELECT id, player_name, last_online
-FROM player
-WHERE id = 5;
-```
-
-Our database will go over all rows in our database and will return all entries where the id is 5.
-However, at some point going over all entries will become expensive and slow.
-So we might add an index.
-You do not have to understand how an index work, but what it basically does is giving additional information to the query plan.
-For example that the id 5 only exists one time, if the index is unique.
-That way our database will only search for the first entry with the id 5 and stop since it knows that there will be only one matching entry.
-A nice addition as well is that an index on a column is sorted.
-Which means the database doesn't have to read all rows which come before 5, but can nearly directly jump to it without reading all columns before this.
-
-What happens can only be seen via the query plans.
-And that is why it is so important to know and read them.
-They will allow you to better understand your database and also allows you to check if the indices you have added are actually used by your query.
-
-All we need to do to see the query plan is add a `EXPLAIN` in front of our query.
+Wenn wir zum Beispiel Folgendes ausführen
 
 ```sql
 SELECT id, player_name, last_online
@@ -40,10 +19,31 @@ FROM player
 WHERE id = 5;
 ```
 
-One important thing to note as well is that explain will not execute the query itself.
-So all values will be 
-estimates and not real values.
-Those query plans are created based on internal statistics on a table.
-Making large changes to the data of a table might cause query plans to be not correct sometimes.
+Unsere Datenbank wird alle Zeilen in unserer Datenbank durchgehen und alle Einträge zurückgeben, deren id 5 ist.
+Irgendwann wird es jedoch teuer und langsam, alle Einträge zu durchsuchen.
+Deshalb können wir einen Index hinzufügen.
+Du musst nicht verstehen, wie ein Index funktioniert, aber im Grunde gibt er dem Abfrageplan zusätzliche Informationen.
+Zum Beispiel, dass die ID 5 nur einmal existiert, wenn der Index eindeutig ist.
+Auf diese Weise wird unsere Datenbank nur nach dem ersten Eintrag mit der ID 5 suchen und dann aufhören, da sie weiß, dass es nur einen passenden Eintrag gibt.
+Ein schöner Zusatz ist auch, dass ein Index auf einer Spalte sortiert ist.
+Das bedeutet, dass die Datenbank nicht alle Zeilen lesen muss, die vor der Zahl 5 liegen, sondern fast direkt zu ihr springen kann, ohne alle Spalten davor zu lesen.
 
-Now lets get going.
+Was dabei passiert, lässt sich nur anhand der Abfragepläne erkennen.
+Und deshalb ist es so wichtig, sie zu kennen und zu lesen.
+Sie helfen dir, deine Datenbank besser zu verstehen, und du kannst überprüfen, ob die Indizes, die du hinzugefügt hast, auch tatsächlich von deiner Abfrage verwendet werden.
+
+Um den Abfrageplan zu sehen, müssen wir nur ein `EXPLAIN` vor unserer Abfrage hinzufügen.
+
+```sql
+SELECT id, player_name, last_online
+FROM player
+WHERE id = 5;
+```
+
+Ein wichtiger Punkt ist, dass explain die Abfrage nicht selbst ausführt.
+Alle Werte sind also 
+Schätzungen und keine echten Werte.
+Diese Abfragepläne werden auf der Grundlage interner Statistiken über eine Tabelle erstellt.
+Wenn du große Änderungen an den Daten einer Tabelle vornimmst, können die Abfragepläne manchmal nicht korrekt sein.
+
+Jetzt können wir loslegen.

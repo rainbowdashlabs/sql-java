@@ -1,31 +1,31 @@
 # Asynchronous
 
-You may have learned that IO on the current thread is usually not a good idea.
-Especially on the main thread when we talk about games like minecraft.
-It halts the thread until the response from the database is read.
-those are usually only a few milliseconds, but a few milliseconds multiple times accumulate to some larger problems.
+Du hast vielleicht gelernt, dass IO im aktuellen Thread normalerweise keine gute Idee ist.
+Vor allem nicht auf dem Hauptthread, wenn es um Spiele wie Minecraft geht.
+Er hält den Thread an, bis die Antwort aus der Datenbank gelesen ist.
+Das sind in der Regel nur ein paar Millisekunden, aber ein paar Millisekunden summieren sich mehrfach zu größeren Problemen.
 
-That is why we mainly work asynchronous when it is critical that the current thread is not halted.
-For normal applications we work with `CompletableFutures`.
-Baeldung did a great [guide](https://www.baeldung.com/java-completablefuture) for this and I will refrain from telling much.
+Deshalb arbeiten wir hauptsächlich asynchron, wenn es wichtig ist, dass der aktuelle Thread nicht angehalten wird.
+Für normale Anwendungen arbeiten wir mit `CompletableFutures`.
+Baeldung hat dazu einen großartigen [Leitfaden] (https://www.baeldung.com/java-completablefuture) verfasst, den ich an dieser Stelle nicht weiter erläutern möchte.
 
-## Asynchronous in Minecraft
+## Asynchron in Minecraft
 
-For minecraft we not only need to leave the main thread, but also get back to it to work with the bukkit api again.
+Für Minecraft müssen wir nicht nur den Hauptthread verlassen, sondern auch wieder zu ihm zurückkehren, um erneut mit der Bukkit-Api zu arbeiten.
 
-To accomplish that we will use a class which first runs the code on another thread and handles the result on the main thread of the server.
+Um das zu erreichen, werden wir eine Klasse verwenden, die den Code zunächst auf einem anderen Thread ausführt und das Ergebnis auf dem Hauptthread des Servers verarbeitet.
 
-Lucko did something cool for one of his [projects](https://github.com/lucko/synapse/blob/master/synapse-impl-abstract/src/main/java/me/lucko/synapse/impl/CompletableFutureResult.java), which I adjusted to my needs.
+Lucko hat für eines seiner [Projekte] (https://github.com/lucko/synapse/blob/master/synapse-impl-abstract/src/main/java/me/lucko/synapse/impl/CompletableFutureResult.java) etwas Cooles gemacht, das ich an meine Bedürfnisse angepasst habe.
 
-This class allows to execute something async and handle the result on the main thread afterwards by using the bukkit scheduler.
+Diese Klasse ermöglicht es, etwas asynchron auszuführen und das Ergebnis anschließend auf dem Hauptthread zu verarbeiten, indem der Bukkit-Scheduler verwendet wird.
 
-<details>
-<summary>Async calling class</summary>
+<Details>
+<summary>Asynchron aufrufende Klasse</summary>
 
 ```java
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.Nullable; import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
@@ -33,7 +33,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.logging.Level;
 
-// proudly stolen from https://github.com/lucko/synapse/tree/master
+// stolz geklaut von https://github.com/lucko/synapse/tree/master
 public class BukkitFutureResult<T> {
     private final Plugin plugin;
     private final CompletableFuture<T> future;
@@ -106,10 +106,10 @@ public class CompletableBukkitFuture {
 
 </details>
 
-### Use BukkitAsyncAction
+### BukkitAsyncAction verwenden
 
-All you need to do to convert your synced call to the database into an async call is wrapping the method call itself into a `BukkitFutureResult`.
-Everything we supply to the `CompletableBukkitFuture` will be executed on an external thread, while we can handle the result of our async call with the `whenComplete` call.
+Alles, was du tun musst, um deinen synchronisierten Aufruf der Datenbank in einen asynchronen Aufruf zu verwandeln, ist, den Methodenaufruf selbst in ein `BukkitFutureResult` zu verpacken.
+Alles, was wir dem `CompletableBukkitFuture` übergeben, wird in einem externen Thread ausgeführt, während wir das Ergebnis unseres asynchronen Aufrufs mit dem Aufruf `whenComplete` behandeln können.
 
 ```java
 import de.chojo.chapter5.threading.BukkitFutureResult;
@@ -155,6 +155,6 @@ public class ReturnOptionalAsync {
 }
 ```
 
-If you have multiple calls to the database it is advisable to call all methods in one thread and not creating a new `Future` for every database calls.
-Context changes are expensive and should be avoided when possible.
-Especially the bukkit async action will produce a delay up to one tick aka 50 ms for every backsync.
+Wenn du mehrere Aufrufe an die Datenbank hast, ist es ratsam, alle Methoden in einem Thread aufzurufen und nicht für jeden Datenbankaufruf einen neuen `Future` zu erstellen.
+Kontextwechsel sind teuer und sollten nach Möglichkeit vermieden werden.
+Vor allem die asynchrone Aktion von Bukkit führt bei jeder Rücksynchronisation zu einer Verzögerung von bis zu einem Tick aka 50 ms.

@@ -104,7 +104,8 @@ Remember our money table we created in the [insert chapter](../02/insert.md#crea
 We need this now again.
 
 Let's say we want to take 600 of our currency from lexy, but only if she has at least 600.
-The syntax for this is quite the same then the one earlier. We just reference the column value itself
+The syntax for this is quite the same then the one earlier.
+We just reference the column value itself.
 
 ```sql
 UPDATE player
@@ -140,6 +141,7 @@ WHERE id = 10
 |:----|:------|
 | 10  | 400   |
 
-We can now see that Lexy has only 400 of our currency. 600 less than initially. If we execute our update again this 
-value will still be the same. This mechanic can be really useful if you want to be sure that the player really has 
-the amount of money and directly withdraw the money.
+We can now see that Lexy has only 400 of our currency.
+600 less than initially.
+If we execute our update again this value will still be the same.
+This mechanic can be really useful if you want to be sure that the player really has the amount of money and directly withdraw the money.

@@ -1,74 +1,74 @@
 # Foreign Keys
 
-We already know about [primary keys](../03/data_consistency/primary_keys.md) but there is at least one more important key type.
-This is called the foreign key.
-All it does is checking if a value in a column is present in a column of another table.
-Sounds complicated? Trust me it isn't!
+Wir kennen bereits die [Primärschlüssel](../03/data_consistency/primary_keys.md), aber es gibt noch mindestens einen weiteren wichtigen Schlüsseltyp.
+Das ist der sogenannte Foreign key.
+Er prüft lediglich, ob ein Wert in einer Spalte in einer Spalte einer anderen Tabelle vorhanden ist.
+Klingt kompliziert? Glaub mir, das ist es nicht!
 
-Do you remember our money problem back in chapter 1 where we deleted a player, but his money was still listed in the money table?
-We needed to delete it manually back then.
-Foreign keys allow us to do something cooler instead.
+Erinnerst du dich an unser Geldproblem in Kapitel 1, bei dem wir einen Spieler gelöscht haben, sein Geld aber immer noch in der Geldtabelle aufgeführt war?
+Damals mussten wir es manuell löschen.
+Mit Foreign Keys können wir stattdessen etwas viel Cooleres machen.
 
-Let's redefine our money table and add a foreign key this time on our new nice player table with the auto increment and all the other cool stuff.
+Definieren wir unsere Geldtabelle neu und fügen einen Foreign key hinzu, diesmal für unsere neue nette Spielertabelle mit der automatischen Inkrementierung und all den anderen coolen Dingen.
 
-Of course, we will use all our previous knowledge here as well.
-Let's sum up quickly what we want to achieve:
+Natürlich werden wir auch hier unser ganzes bisheriges Wissen anwenden.
+Fassen wir schnell zusammen, was wir erreichen wollen:
 
-- Every player should only appear once -> Primary key on player_id
-- The money should be 0 initially -> Default to 0
-- Only players which are present in our player table should have a money amount listed -> Foreign key from money.
-  player_id to player.id
-- When a player gets deleted we also want to delete the money entry -> On delete cascade the deletion on other tables.
+- Jeder Spieler soll nur einmal vorkommen -> Primärschlüssel auf player_id
+- Das money soll anfangs 0 sein -> Standardwert ist 0
+- Nur Spieler, die in unserer Spielertabelle vorhanden sind, sollen einen Geldbetrag aufgeführt haben -> Foreign key from money.
+  player_id zu player.id
+- Wenn ein Spieler gelöscht wird, soll auch der Geldeintrag gelöscht werden -> Beim Löschen wird die Löschung in anderen Tabellen kaskadiert.
 
-Let's get into action!
+Auf geht's in die Tat!
 
 ```sql
 CREATE TABLE money
 (
-    -- We name id player_id because it references the column id in the player table.
-    -- Since this is the primary key we do not need to set it NOT NULL
+    -- Wir nennen die id player_id, weil sie auf die Spalte id in der Tabelle player verweist.
+    -- Da dies der Primärschlüssel ist, brauchen wir ihn nicht auf NOT NULL zu setzen
     player_id INT PRIMARY KEY,
-    -- We define our money column and set the default value to 0.
-    money     DECIMAL DEFAULT 0 NOT NULL,
-    -- We define our foreign key name. The naming schema is simply 
-    -- <curr_table>_<target_table>_<curr_col>_<target_col>_fk
-    -- Again names do not matter, but need to be unique, so it is a common practice to name them like this.
-    CONSTRAINT money_player_player_id_id_fk
-        -- We define a foreign key on our player_id column and bin it to the id column of the player table.
+    -- Wir definieren unsere money-Spalte und setzen den Standardwert auf 0.
+    money DECIMAL DEFAULT 0 NOT NULL,
+    -- Wir definieren den Namen unseres Foreign keys. Das Benennungsschema ist einfach 
+    <curr_table>_<target_table>_<curr_col>_<target_col>_fk
+    -- Gegenseitig spielen die Namen keine Rolle, aber sie müssen eindeutig sein, daher ist es üblich, sie so zu benennen.
+    CONSTRAINT money_player_player_id_fk
+        -- Wir definieren einen Foreign key für unsere player_id-Spalte und binden ihn an die id-Spalte der Spielertabelle.
         FOREIGN KEY (player_id) REFERENCES player (id)
-            -- In case the id is deleted in our player table we want to delete
+            -- Falls die id in unserer Spielertabelle gelöscht wird, wollen wir sie
             ON DELETE CASCADE
 );
 ```
 
-And that's already it.
-Time to play around.
-We currently have a bunch of players in our player table already:
+Und das war's auch schon.
+Zeit zum Herumspielen.
+Zurzeit haben wir bereits eine Reihe von Spielern in unserer Spielertabelle:
 
-| id  | player\_name | last\_online               |
+| id | player\_name | last\_online |
 |:----|:-------------|:---------------------------|
-| 1   | Mike         | 2022-11-26 12:32:39.021491 |
-| 2   | Sarah        | 2022-11-26 12:32:39.021491 |
-| 3   | John         | 2022-11-26 12:32:39.021491 |
-| 4   | Lilly        | 2022-11-26 12:32:39.021491 |
-| 5   | Matthias     | 2022-11-26 12:32:39.021491 |
-| 6   | Lenny        | 2022-11-26 12:32:39.021491 |
-| 7   | Summer       | 2022-11-26 12:32:39.021491 |
-| 8   | Marry        | 2022-11-26 12:32:39.021491 |
-| 9   | Milana       | 2022-11-26 12:32:39.021491 |
-| 10  | Lexi         | 2022-11-26 12:32:39.021491 |
+| 1 | Mike | 2022-11-26 12:32:39.021491 |
+| 2 | Sarah | 2022-11-26 12:32:39.021491 |
+| 3 | John | 2022-11-26 12:32:39.021491 |
+| 4 | Lilly | 2022-11-26 12:32:39.021491 |
+| 5 | Matthias | 2022-11-26 12:32:39.021491 |
+| 6 | Lenny | 2022-11-26 12:32:39.021491 |
+| 7 | Summer | 2022-11-26 12:32:39.021491 |
+| 8 | Marry | 2022-11-26 12:32:39.021491 |
+| 9 | Milana | 2022-11-26 12:32:39.021491 |
+| 10 | Lexi | 2022-11-26 12:32:39.021491 |
 
-**Validate that we can not insert unknown players**
+**Überprüfe, dass wir keine unbekannten Spieler einfügen können**
 
 ```sql
 INSERT INTO money(player_id)
 VALUES (11);
 ```
 
-This fails because we have no player in our player table with id 11.
-The foreign key prevents us from inserting unknown players.
+Dies schlägt fehl, weil wir keinen Spieler mit der ID 11 in unserer Spielertabelle haben.
+Der Foreign key verhindert, dass wir unbekannte Spieler einfügen können.
 
-**Validate that we can insert known players**
+**Überprüfe, ob wir bekannte Spieler einfügen können**
 
 ```sql
 INSERT INTO money(player_id)
@@ -79,14 +79,14 @@ FROM money
 WHERE player_id = 10;
 ```
 
-| player\_id | money |
+| player_id | money |
 |:-----------|:------|
-| 10         | 0     |
+| 10 | 0 |
 
-Seems like it worked!
-We have added a player with id 10 which is the id of Lexi and the money was set to 0 automatically.
+Es scheint zu funktionieren!
+Wir haben einen Spieler mit der ID 10 hinzugefügt, die die ID von Lexi ist, und das money wurde automatisch auf 0 gesetzt.
 
-**Validate that money entry gets deleted when we delete a player**
+**Überprüfe, dass der Eintrag money gelöscht wird, wenn wir einen Spieler löschen**
 
 ```sql
 DELETE
@@ -98,69 +98,69 @@ FROM money
 WHERE player_id = 10;
 ```
 
-Now we get nothing when reading the money table.
-That's great!
-Lexis money was deleted the moment we deleted the entry from the player table.
+Jetzt erhalten wir nichts mehr, wenn wir die Tabelle money lesen.
+Das ist großartig!
+Lexis money wurde in dem Moment gelöscht, in dem wir den Eintrag in der player-Tabelle gelöscht haben.
 
-## More complex foreign keys
+## Komplexere Foreign keys
 
-Now we have a good understanding of a simple foreign key on a single column, but we have a more complex task to solve.
-We still have our friend graph, which can still contain friendship connections of non-existent players.
-That is a problem we want to solve now, and it will be a bit more complex.
+Jetzt haben wir ein gutes Verständnis für einen einfachen Foreign key auf einer einzelnen Spalte, aber wir haben noch eine komplexere Aufgabe zu lösen.
+Wir haben immer noch unseren Freundschaftsgraphen, der immer noch Freundschaftsverbindungen von nicht existierenden Spielern enthalten kann.
+Das ist ein Problem, das wir jetzt lösen wollen, und es wird ein bisschen komplexer sein.
 
-Our last table was quite simple for every entry in the player table we only could have one entry in our money table.
-But the friend_graph contains multiple entries for a single player and even in two columns and not only in one!
+Unsere letzte Tabelle war ganz einfach: Für jeden Eintrag in der Spielertabelle konnten wir nur einen Eintrag in unserer money-Tabelle haben.
+Aber der friend_graph enthält mehrere Einträge für einen einzigen Spieler und sogar in zwei Spalten und nicht nur in einer!
 
-Just in case that you no longer know how our table looks like:
+Nur für den Fall, dass du nicht mehr weißt, wie unsere Tabelle aussieht:
 
-| player\_1 | player\_2 |
+| player_1 | player_2 |
 |:----------|:----------|
-| 1         | 2         |
-| 2         | 3         |
-| 4         | 3         |
-| 5         | 3         |
-| 7         | 2         |
-| 6         | 1         |
-| 6         | 2         |
-| 1         | 10        |
-| 4         | 10        |
+| 1 | 2 |
+| 2 | 3 |
+| 4 | 3 |
+| 5 | 3 |
+| 7 | 2 |
+| 6 | 1 |
+| 6 | 2 |
+| 1 | 10 |
+| 4 | 10 |
 
-We can't use a primary key for player 1 OR 2, but we still can use a primary key for player 1 AND 2.
+Wir können keinen Primärschlüssel für Spieler 1 ODER 2 verwenden, aber wir können trotzdem einen Primärschlüssel für Spieler 1 UND 2 verwenden.
 
 ```postgresql
 CREATE TABLE friend_graph
 (
     player_id_1 INT,
     player_id_2 INT,
-    -- We define our primary key
+    -- Wir definieren unseren Primärschlüssel
     CONSTRAINT friend_graph_pk
         PRIMARY KEY (player_id_1, player_id_2),
-    -- We define our reference again and define the delete
+    -- Wir definieren wieder unsere Referenz und legen das Löschen fest
     CONSTRAINT friend_graph_player_player_id_1_id_fk
         FOREIGN KEY (player_id_1) REFERENCES player (id)
             ON DELETE CASCADE,
-    -- We define our reference again and define the delete
+    -- Wir definieren unsere Referenz erneut und legen das Löschen fest
     CONSTRAINT friend_graph_player_player_id_2_id_fk
         FOREIGN KEY (player_id_2) REFERENCES player (id)
             ON DELETE CASCADE
 );
 ```
 
-And that is it already.
-Still pretty simple.
-Instead of creating a foreign key on a single column we just create two for each column.
+Und das war's auch schon.
+Immer noch ziemlich einfach.
+Anstatt einen Foreign key für eine einzelne Spalte zu erstellen, legen wir einfach zwei für jede Spalte an.
 
-Feel free to validate that it works with similar tests like we used above!
+Du kannst gerne mit ähnlichen Tests wie oben überprüfen, ob es funktioniert!
 
-We still have an issue here in terms of consistency.
-We can have a duplicate entry here since `player_1` can be a friend with `player_2` and `player_2` can be a friend with `player_1`.
-That is not prevented by the primary key.
+Wir haben hier immer noch ein Problem in Bezug auf die Konsistenz.
+Wir können hier einen doppelten Eintrag haben, da `player_1` ein Freund von `player_2` und `player_2` ein Freund von `player_1` sein kann.
+Das wird durch den Primärschlüssel nicht verhindert.
 
-| player\_1 | player\_2 |
+| player_1 | player_2 |
 |:----------|:----------|
-| 1         | 2         |
-| 2         | 1         |
+| 1 | 2 |
+| 2 | 1 |
 
-There are multiple ways to solve this issue.
-We could either always insert the lower id into `player_1` and the higher into `player_2` or use an XOR on both ids in order to create a unique key for the friendship.
-For now, we won't bother with it, because we lack the knowledge for both.
+Es gibt mehrere Möglichkeiten, dieses Problem zu lösen.
+Wir könnten entweder immer die niedrigere ID in "player_1" und die höhere in "player_2" einfügen oder ein XOR auf beide IDs anwenden, um einen eindeutigen Schlüssel für die Freundschaft zu erstellen.
+Im Moment machen wir uns damit nicht die Mühe, weil uns für beides das Wissen fehlt.

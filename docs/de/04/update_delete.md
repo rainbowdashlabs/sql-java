@@ -1,12 +1,12 @@
-# Update and Delete
+# Aktualisieren und Löschen
 
-Why do we handle both in here?
-Because they are essentially the same on the database side.
-An `UPDATE` changes an existing row and so does a `DELETE`.
-We also use the same way when dispatching them to the database.
+Warum behandeln wir beides hier?
+Weil sie auf der Datenbankseite im Wesentlichen dasselbe sind.
+Ein `UPDATE` ändert eine bestehende Zeile und ein `DELETE` ebenso.
+Wir verwenden auch den gleichen Weg, um sie an die Datenbank zu senden.
 
-Instead of calling `executeQuery` we call `executeUpdate`.
-There is a method called `execute` as well, which we could use as well, but `executeUpdate` provides use the amount of changed rows directly.
+Anstelle von `executeQuery` rufen wir `executeUpdate` auf.
+Es gibt auch eine Methode namens `execute`, die wir ebenfalls verwenden könnten, aber `executeUpdate` liefert direkt die Anzahl der geänderten Zeilen.
 
 ```java
 import javax.sql.DataSource;
@@ -24,7 +24,7 @@ public class Delete {
                      """)) {
             stmt.setInt(1, 10);
             int changed = stmt.executeUpdate();
-            System.out.printf("Deleted %d row%n", changed);
+            System.out.printf("Gelöscht %d Zeile%n", geändert);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -32,11 +32,11 @@ public class Delete {
 }
 ```
 
-Ideally we should print `Deleted 1 row` now.
-That is the amount of rows we deleted with our query.
-This a great way to check whether the query had an effect on our data.
+Idealerweise sollten wir jetzt `Löschte 1 Zeile` ausgeben.
+Das ist die Anzahl der Zeilen, die wir mit unserer Abfrage gelöscht haben.
+Das ist eine gute Möglichkeit, um zu überprüfen, ob die Abfrage eine Auswirkung auf unsere Daten hatte.
 
-If we combine this query with a [`RETURNING` keyword](../02/returning.md) we can instead call `executeQuery` and read our results like we did in the previous section.
+Wenn wir diese Abfrage mit einem [Schlüsselwort `RETURNING`](../02/returning.md) kombinieren, können wir stattdessen `executeQuery` aufrufen und unsere Ergebnisse lesen, wie wir es im vorherigen Abschnitt getan haben.
 
 ```java
 import javax.sql.DataSource;
@@ -55,8 +55,8 @@ public class DeleteReturning {
                      """)) {
             stmt.setInt(1, 10);
             ResultSet resultSet = stmt.executeQuery();
-            while (resultSet.next()) { // We could use if here as well since we do only expect one row.
-                System.out.printf("Deleted player %s%n", resultSet.getString("player_name"));
+            while (resultSet.next()) { // Wir könnten hier auch if verwenden, da wir nur eine Zeile erwarten.
+                System.out.printf("Gelöschter Spieler %s%n", resultSet.getString("player_name"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

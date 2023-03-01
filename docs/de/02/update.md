@@ -1,56 +1,56 @@
-# Update
+# Aktualisieren
 
-Now we can insert and read data.
-But what if we want to update already inserted data?
+Jetzt können wir Daten einfügen und lesen.
+Aber was ist, wenn wir bereits eingefügte Daten aktualisieren wollen?
 
-That's where the `UPDATE` statements comes to use.
-To update data we will also need to use the `WHERE` statement introduced in the earlier [chapter](../02/select.md#where).
+Hier kommt die `UPDATE`-Anweisung zum Einsatz.
+Um Daten zu aktualisieren, müssen wir auch die `WHERE`-Anweisung verwenden, die im vorherigen [Kapitel] (../02/select.md#where) eingeführt wurde.
 
-Remember our already pretty known table of players.
+Erinnere dich an unsere bereits gut bekannte Tabelle mit den Spielern.
 
-| id  | player\_name | last\_online               |
+| id | player\_name | last\_online |
 |:----|:-------------|:---------------------------|
-| 1   | Mike         | 2022-05-11 00:00:00.000000 |
-| 2   | Sarah        | 2022-04-04 00:00:00.000000 |
-| 3   | John         | 2022-04-08 00:00:00.000000 |
-| 4   | Lilly        | 2022-04-01 00:00:00.000000 |
-| 5   | Matthias     | 2022-03-06 00:00:00.000000 |
-| 6   | Lenny        | 2022-03-08 00:00:00.000000 |
-| 7   | Summer       | 2022-05-22 00:00:00.000000 |
-| 8   | Marry        | 2022-06-04 00:00:00.000000 |
-| 9   | Milana       | 2022-02-12 00:00:00.000000 |
-| 10  | Lexi         | 2022-02-22 00:00:00.000000 |
+| 1 | Mike | 2022-05-11 00:00:00.000000 |
+| 2 | Sarah | 2022-04-04 00:00:00.000000 |
+| 3 | John | 2022-04-08 00:00:00.000000 |
+| 4 | Lilly | 2022-04-01 00:00:00.000000 |
+| 5 | Matthias | 2022-03-06 00:00:00.000000 |
+| 6 | Lenny | 2022-03-08 00:00:00.000000 |
+| 7 | Sommer | 2022-05-22 00:00:00.000000 |
+| 8 | Heiraten | 2022-06-04 00:00:00.000000 |
+| 9 | Milana | 2022-02-12 00:00:00.000000 |
+| 10 | Lexi | 2022-02-22 00:00:00.000000 |
 
-We are currently saving the last time the player was online in the `last_online` column.
+In der Spalte "last_online" wird das letzte Mal gespeichert, als der Spieler online war.
 
-When Lexy is online again we might need to update the `last_online` value for her again.
-We have now two options.
-The first one is deleting the entry and inserting a new one.
-This is very dirty and also not a good practice.
-That's why we use the `UPDATE` statement and define in the `WHERE` clause where we want to update and what we want to update.
+Wenn Lexy wieder online ist, müssen wir den Wert für "last_online" gegenseitig aktualisieren.
+Wir haben jetzt zwei Möglichkeiten.
+Die erste ist, den Eintrag zu löschen und einen neuen einzufügen.
+Das ist sehr unsauber und auch keine gute Praxis.
+Deshalb verwenden wir die Anweisung `UPDATE` und legen in der `WHERE`-Klausel fest, wo wir aktualisieren wollen und was wir aktualisieren wollen.
 
-The general syntax is:
+Die allgemeine Syntax lautet:
 
 ```sql
 UPDATE player
-SET column_x = value_x,
-    column_y = value_y
-WHERE condition
+SET spalte_x = wert_x,
+    spalte_y = wert_y
+WHERE Bedingung
 ```
 
-## Basic Update
+## Grundlegende Aktualisierung
 
-With this knowledge, let's try to update the `last_login` time of Lexy based on her id `10` to the current time.
+Mit diesem Wissen wollen wir nun versuchen, die "last_login"-Zeit von Lexy anhand ihrer ID "10" auf die aktuelle Zeit zu aktualisieren.
 
-We're going to need a built-in function again to retrieve the current time.
+Wir brauchen wieder eine integrierte Funktion, um die aktuelle Zeit zu ermitteln.
 
-- SqLite: `CAST(STRFTIME('%s', 'NOW') AS INTEGER)` we dont have timestamps. We use the current time as unix timestamp.
-- MariaDB/MySQL: `current_timestamp()` returns the current timestamp. You can also use just `current_timestamp` which is a constant for the current transaction.
-- PostgreSQL: `now()` returns the current timestamp
+- SqLite: `CAST(STRFTIME('%s', 'NOW') AS INTEGER)` wir haben keine Zeitstempel. Wir verwenden die aktuelle Zeit als Unix-Timestamp.
+- MariaDB/MySQL: `current_timestamp()` gibt den aktuellen Zeitstempel zurück. Du kannst auch nur `current_timestamp` verwenden, das ist eine Konstante für die aktuelle Transaktion.
+- PostgreSQL: `now()` gibt den aktuellen Zeitstempel zurück
 
-**Solutions:**
+**Lösungen:**
 
-<details>
+<Details>
 <summary>SqLite</summary>
 
 
@@ -62,7 +62,7 @@ WHERE id = 10;
 
 </details>
 
-<details>
+<Details>
 <summary>MariaDB/MySQL</summary>
 
 ```sql
@@ -73,7 +73,7 @@ WHERE id = 10;
 
 </details>
 
-<details>
+<Details>
 <summary>PostgreSQL</summary>
 
 ```sql
@@ -84,7 +84,7 @@ WHERE id = 10;
 
 </details>
 
-If you now select the entry of Lexy with:
+Wenn du nun den Eintrag von Lexy mit auswählst:
 
 ```sql
 SELECT id,
@@ -94,29 +94,30 @@ FROM player
 WHERE id = 10
 ```
 
-You should get a timestamp with the current time in her `last_online` column.
+Du solltest einen Zeitstempel mit der aktuellen Uhrzeit in ihrer Spalte `last_online` erhalten.
 
-## Update with current value
+## Mit aktuellem Wert aktualisieren
 
-Of course, we can also use the current value of the column we want to update.
+Natürlich können wir auch den aktuellen Wert der Spalte verwenden, die wir aktualisieren wollen.
 
-Remember our money table we created in the [insert chapter](../02/insert.md#create-tables-with-content)? 
-We need this now again.
+Erinnerst du dich an unsere money-Tabelle, die wir im [insert chapter](../02/insert.md#create-tables-with-content) erstellt haben? 
+Die brauchen wir jetzt wieder.
 
-Let's say we want to take 600 of our currency from lexy, but only if she has at least 600.
-The syntax for this is quite the same then the one earlier. We just reference the column value itself
+Nehmen wir an, wir wollen 600 unserer Währung von lexy nehmen, aber nur, wenn sie mindestens 600 hat.
+Die Syntax dafür ist dieselbe wie die von vorhin.
+Wir verweisen einfach auf den Spaltenwert selbst.
 
 ```sql
 UPDATE player
-SET column_x = value_x,
-    column_y = value_y + <value>
-WHERE condition
+SET spalte_x = wert_x,
+    spalte_y = wert_y + <wert>
+WHERE Bedingung
 ```
 
-Try to remove the money and adjust the condition with the check for the money.
+Versuche, das money zu entfernen und passe die Bedingung mit der Prüfung für das money an.
 
-<details>
-<summary>Solution</summary>
+<Details>
+<summary>Lösung</summary>
 
 ```sql
 UPDATE money
@@ -128,7 +129,7 @@ WHERE id = 10
 </details>
 
 
-Let's check what changed:
+Lass uns überprüfen, was sich geändert hat:
 
 ```sql
 SELECT id, money
@@ -136,10 +137,11 @@ FROM money
 WHERE id = 10
 ```
 
-| id  | money |
+| id | money |
 |:----|:------|
-| 10  | 400   |
+| 10 | 400 |
 
-We can now see that Lexy has only 400 of our currency. 600 less than initially. If we execute our update again this 
-value will still be the same. This mechanic can be really useful if you want to be sure that the player really has 
-the amount of money and directly withdraw the money.
+Wir können jetzt sehen, dass Lexy nur 400 unserer Währung hat.
+600 weniger als ursprünglich.
+Wenn wir unser Update erneut ausführen, wird der wird dieser Wert immer noch derselbe sein.
+Dieser Mechanismus kann sehr nützlich sein, wenn du sicher sein willst, dass der Spieler wirklich über Geld hat und das Geld direkt abheben kann.

@@ -1,26 +1,26 @@
 # Aggregation
 
-Beside storing and reading data, databases can perform numerous statistical actions on our data.
+Neben dem Speichern und Lesen von Daten können Datenbanken zahlreiche statistische Aktionen mit unseren Daten durchführen.
 
-The most common operations are counting, min, max, sum and average calculation of values.
-That's why we will focus on this.
-Your database has way more aggregates and especially postgres is very strong when it comes to aggregation.
+Die gebräuchlichsten Operationen sind das Zählen, Minimal-, Maximal-, Summen- und Durchschnittsberechnung von Werten.
+Deshalb werden wir uns darauf konzentrieren.
+Deine Datenbank hat viel mehr Aggregate und besonders Postgres ist sehr stark, wenn es um Aggregation geht.
 
-For this section we will use our `friend_graph` again.
-In order to do a meaningful amount of operations on it, we will need to add some more data to our graph.
+Für diesen Abschnitt werden wir erneut unseren `friend_graph` verwenden.
+Um eine sinnvolle Anzahl von Operationen durchführen zu können, müssen wir unserem Graphen weitere Daten hinzufügen.
 
-We also will need to create some date in our `money` and `channel_subscription` table since this was probably deleted at some point in the process.
+Außerdem müssen wir einige Daten in unserer Tabelle `money` und `channel_subscription` anlegen, da diese wahrscheinlich irgendwann gelöscht wurde.
 
 
-<details>
-<summary>Data creation</summary>
+<Details>
+<summary>Datenerstellung</summary>
 
-<details>
+<Details>
 <summary>Postgres</summary>
 
 ```postgresql
 INSERT INTO money (SELECT id, ROUND(RANDOM() * 10000) FROM player)
-ON CONFLICT DO NOTHING;
+BEI KONFLIKT NICHTS TUN;
 
 INSERT INTO friend_graph
 VALUES (1, 2),
@@ -44,14 +44,14 @@ ON CONFLICT DO NOTHING;
 </details>
 
 
-<details>
+<Details>
 <summary>SqLite</summary>
 
 ```sqlite
 INSERT INTO money
-SELECT id, ROUND(RANDOM() * 10000)
+SELECT id, RUND(RANDOM() * 10000)
 FROM player
-ON CONFLICT DO NOTHING;
+BEI KONFLIKT NICHTS TUN;
 
 INSERT INTO friend_graph
 VALUES (1, 2),
@@ -76,7 +76,7 @@ ON CONFLICT DO NOTHING;
 
 
 
-<details>
+<Details>
 <summary>MariaDB & MySQL</summary>
 
 ```mysql
@@ -104,47 +104,47 @@ VALUES (1, 1),
 
 </details>
 
-## Counting
+## Zählen
 
-Counting is one of the common cases in sql.
-We usually want to count entries which match a specific condition.
-For example, we want to count all friends of the player with id 2.
-This is quite simple because all we do is call the `count` function in a `SELECT` with a `WHERE` statement.
-Not much new here and you will recognize most of the stuff.
+Zählen ist einer der häufigsten Fälle in SQL.
+Normalerweise wollen wir die Einträge zählen, die eine bestimmte Bedingung erfüllen.
+Zum Beispiel wollen wir alle Freunde des Spielers mit der ID 2 zählen.
+Das ist ganz einfach, denn wir müssen nur die Funktion `count` in einem `SELECT` mit einer `WHERE`-Anweisung aufrufen.
+Hier gibt es nicht viel Neues und du wirst das meiste davon wiedererkennen.
 
 ```postgresql
--- We always use an alias here since this avoids naming conflicts when using the data in other queries.
--- If we would not set an alias the column would have the name of the function we call.
+-- Wir verwenden hier immer einen Alias, da dies Namenskonflikte bei der Verwendung der Daten in anderen Abfragen vermeidet.
+-- Wenn wir keinen Alias setzen würden, hätte die Spalte den Namen der Funktion, die wir aufrufen.
 SELECT COUNT(1) AS friend_count
 FROM friend_graph
 WHERE player_id_1 = 2
    OR player_id_2 = 2;
 ```
 
-We now know the amount of friends of player two, which is 3 for me with the data shown above.
-This works well already, right?
+Wir kennen jetzt die Anzahl der Freunde von Spieler zwei, die bei mir mit den oben gezeigten Daten 3 ist.
+Das funktioniert doch schon ganz gut, oder?
 
-But why are we using `count(1)`?
-The one inside our count is just a random value.
-It could be anything.
-Usually people use a `*` there.
-Using the 1 has the advantage that the database directly know that we won't need any other data beside the data we need for our `WHERE` clause.
-That's why I personally prefer always the number 1.
+Aber warum benutzen wir `count(1)`?
+Die Eins in unserer Zählung ist einfach ein Zufallswert.
+Das kann alles Mögliche sein.
+Normalerweise verwenden die Leute dort ein "*".
+Die 1 hat den Vorteil, dass die Datenbank direkt weiß, dass wir neben den Daten, die wir für unsere `WHERE`-Klausel benötigen, keine weiteren Daten benötigen.
+Deshalb bevorzuge ich persönlich immer die Zahl 1.
 
-## Min, Max, Sum and Average
+## Min, Max, Summe und Durchschnitt
 
-The `MIN`, `MAX`, `SUM` and `AVG` (average) aggregates work all the same way.
-Select your data and wrap the data you want to calculate into an aggregate function.
+Die Aggregate `MIN`, `MAX`, `SUM` und `AVG` (Durchschnitt) funktionieren alle auf die gleiche Weise.
+Wähle deine Daten aus und packe die Daten, die du berechnen willst, in eine Aggregatfunktion.
 
-Let's get the min value of our money table:
+Holen wir uns den Mindestwert unserer money-Tabelle:
 
 ```postgresql
--- Again remember to use an alias.
+-- Denke erneut daran, einen Alias zu verwenden.
 SELECT MIN(money) AS min_money
 FROM money
 ```
 
-The cool stuff is that as long as we aggregate data the same rows we can use multiple aggregates the same time:
+Der Clou ist, dass wir mehrere Aggregate gleichzeitig verwenden können, solange wir die gleichen Zeilen aggregieren:
 
 ```postgresql
 SELECT MIN(money) AS min_money,
@@ -154,17 +154,17 @@ SELECT MIN(money) AS min_money,
 FROM money
 ```
 
-Now we probably have all the information we probably need for our money table.
+Jetzt haben wir wahrscheinlich alle Informationen, die wir für unsere money-Tabelle brauchen.
 
-## Grouping
+## Gruppieren
 
-Now we probably not always want to simply count entries in a table.
-Grouping is essential for data operations and aggregations.
-Grouping will group all entries which have the same value in a specified columns and allow aggregation of the columns which are grouped together.
+Nun wollen wir wahrscheinlich nicht immer nur die Einträge in einer Tabelle zählen.
+Die Gruppierung ist für Datenoperationen und Aggregationen unerlässlich.
+Die Gruppierung fasst alle Einträge zusammen, die in einer bestimmten Spalte den gleichen Wert haben, und ermöglicht die Aggregation der zusammengefassten Spalten.
 
-With that we can for example count how many channels a player has subscribed.
-For that all we need to do is `GROUP BY` our player_id column and `COUNT` how many players are in each group.
-If we express this as a query it looks like this:
+Damit können wir zum Beispiel zählen, wie viele Kanäle ein Spieler abonniert hat.
+Dazu müssen wir nur unsere player_id-Spalte "gruppieren" und "zählen", wie viele Spieler in jeder Gruppe sind.
+Wenn wir das als Abfrage formulieren, sieht es so aus:
 
 ```postgresql
 SELECT player_id, COUNT(1) AS channel_count
@@ -172,15 +172,15 @@ FROM channel_subscription
 GROUP BY player_id;
 ```
 
-| player\_id | channel\_count |
+| player_id | channel_count |
 |:-----------|:---------------|
-| 3          | 1              |
-| 2          | 3              |
-| 1          | 2              |
+| 3 | 1 |
+| 2 | 3 |
+| 1 | 2 |
 
-And now we can see that player 3 has subscribed to 1 channel while player 2 has subscribed to three channel.
-Notable on grouping is that you can only select columns which are mentioned in your `GROUP BY` clause or inside an aggregate function like sum and other stuff.
-It might not make sense, but we could for example count the sum of the channel ids as well.
+Jetzt können wir sehen, dass Spieler 3 einen Kanal abonniert hat, während Spieler 2 drei Kanäle abonniert hat.
+Bei der Gruppierung ist zu beachten, dass du nur die Spalten auswählen kannst, die in deiner `GROUP BY`-Klausel oder in einer Aggregatfunktion wie Summe und anderen Dingen erwähnt werden.
+Es macht vielleicht keinen Sinn, aber wir könnten zum Beispiel auch die Summe der Kanal-IDs zählen.
 
 ```postgresql
 SELECT player_id, COUNT(1) AS channel_count, SUM(channel_id) AS channel_sum
@@ -188,72 +188,72 @@ FROM channel_subscription
 GROUP BY player_id;
 ```
 
-| player\_id | channel\_count | channel\_sum |
+| player_id | channel_count | channel_sum |
 |:-----------|:---------------|:-------------|
-| 3          | 1              | 1            |
-| 2          | 3              | 6            |
-| 1          | 2              | 3            |
+| 3 | 1 | 1 |
+| 2 | 3 | 6 |
+| 1 | 2 | 3 |
 
-If you tried to select the `channel_id` without the sum function you would get an error, because the database doesn't know what to do with this column.
+Wenn du versuchen würdest, die `channel_id` ohne die Summenfunktion auszuwählen, würdest du einen Fehler erhalten, weil die Datenbank nicht weiß, was sie mit dieser Spalte machen soll.
 
-## Group by with another aggregate
+## Gruppieren mit einem anderen Aggregat
 
-When working with something like our `friend_graph` it might be hard to actually count all the friends of a player, since the player can be in `player_id_1` or `player_id_2`.
-Sadly there is no good way to count them in a single select statement.
-For this we will need three select statements.
-Two to count for each id and one more to combine the counts of both.
-We will use `UNION` to combine both counts of our query, which we will wrap into a subquery and after that we compute the sum of our two player counts.
-This is a more advanced topic, and we will use some more stuff here which is not yet unknown.
-Maybe you will come back alter and fully understand it, or you will just use this as a reference if you encounter the same problem again.
+Wenn du mit etwas wie unserem `friend_graph` arbeitest, kann es schwierig sein, alle Freunde eines Spielers zu zählen, da der Spieler in `player_id_1` oder `player_id_2` sein kann.
+Leider gibt es keine gute Möglichkeit, sie in einer einzigen Select-Anweisung zu zählen.
+Dafür brauchen wir drei Select-Anweisungen.
+Zwei, um für jede ID zu zählen und eine weitere, um die Zählungen beider Ids zu kombinieren.
+Wir verwenden `UNION`, um die beiden Zählungen unserer Abfrage zu kombinieren, die wir in eine Unterabfrage packen und dann die Summe der beiden Spielerzahlen berechnen.
+Das ist ein fortgeschrittenes Thema, und wir werden hier noch einige Dinge verwenden, die noch nicht bekannt sind.
+Vielleicht kommst du später noch einmal zurück und verstehst es ganz, oder du benutzt es einfach als Referenz, wenn du erneut auf das gleiche Problem stößt.
 
 ```postgresql
 SELECT player_id_1 AS id, COUNT(1) AS friend_count
 FROM friend_graph
 GROUP BY player_id_1
--- UNION by default performs deduplication of entries. Since we don't want the we use ALL, which skips this step
+-- UNION führt standardmäßig eine Deduplizierung der Einträge durch. Da wir das nicht wollen, verwenden wir ALL, was diesen Schritt überspringt
 UNION ALL
 SELECT player_id_2 AS id, COUNT(1) AS friend_count
 FROM friend_graph
 GROUP BY player_id_2
 ```
 
-Then query above gives us this table:
+Mit der obigen Abfrage erhalten wir dann diese Tabelle:
 
-| id  | friend\_count |
+| id | friend_count |
 |:----|:--------------|
-| 4   | 2             |
-| 2   | 1             |
-| 1   | 3             |
-| 3   | 2             |
-| 4   | 2             |
-| 2   | 2             |
+| 4 | 2 |
+| 2 | 1 |
+| 1 | 3 |
+| 3 | 2 |
+| 4 | 2 |
+| 2 | 2 |
 
-All we actually need to do now is to `GROUP BY` our `id` and compute the `SUM` of our friend count.
+Alles, was wir jetzt noch tun müssen, ist, unsere ID zu gruppieren und die Summe der Freundesanzahl zu berechnen.
 
 ```postgresql
 SELECT id, SUM(friend_count)
--- This construct is called a subquery. Insted of directly reading a table we read the results of another query.
+-- Dieses Konstrukt nennt man eine Subquery. Anstatt direkt eine Tabelle zu lesen, lesen wir die Ergebnisse einer anderen Abfrage.
 FROM (SELECT player_id_1 AS id, COUNT(1) AS friend_count
       FROM friend_graph
       GROUP BY player_id_1
       UNION ALL
       SELECT player_id_2 AS id, COUNT(1) AS friend_count
       FROM friend_graph
-      GROUP BY player_id_2) counts -- this is an alias for our subquery.
--- We group our entries
+      GROUP BY player_id_2) counts -- Dies ist ein Alias für unsere Subquery.
+-- Wir gruppieren unsere Einträge
 GROUP BY id;
 ```
 
-In the end we finally get our result:
+Am Ende erhalten wir schließlich unser Ergebnis:
 
-| id  | sum |
+| id | summe |
 |:----|:----|
-| 3   | 2   |
-| 4   | 4   |
-| 2   | 3   |
-| 1   | 3   |
+| 3 | 2 |
+| 4 | 4 |
+| 2 | 3 |
+| 1 | 3 |
 
-These are the total counts we have.
-You don't understand it yet?
-Don't worry about it.
-If you need it you just come back again.
+Das sind die Gesamtzahlen, die wir haben.
+Du hast es noch nicht verstanden?
+Mach dir keine Gedanken darüber.
+Wenn du es brauchst, kommst du einfach wieder.

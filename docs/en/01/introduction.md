@@ -20,10 +20,12 @@ How do we read or write data?
 How do we create a good table layout?
 How do we connect to our database in our application or how can we take a look at our data?
 
-We will answer all these questions on the next pages. Keep it up and read everything carefully. You will probably get
-problems if you skip some part. Since we cant cover all existing databases we will focus on the more popular databases
-MySQL, MariaDB, PostgreSQL and SQLite on this page. It is fine if you don't know them yet. They will become your 
-best friends soon.
+We will answer all these questions on the next pages.
+Keep it up and read everything carefully.
+You will probably get problems if you skip some part.
+Since we cant cover all existing databases we will focus on the more popular databases MySQL, MariaDB, PostgreSQL and SQLite on this page.
+It is fine if you don't know them yet.
+They will become your best friends soon.
 
-We will start with connection and setting up our database with some desktop clients. After this we dive into java 
-and take a look at the different ways of connection to our databases.
+We will start with connection and setting up our database with some desktop clients.
+After this we dive into java and take a look at the different ways of connection to our databases.

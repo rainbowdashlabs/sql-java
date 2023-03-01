@@ -1,90 +1,81 @@
-# Setup
+# Einrichtung
 
-To get started with our database we first need two thing.
+Um mit unserer Datenbank zu beginnen, brauchen wir zunächst zwei Dinge.
 
-1. A database
-2. A client to access our database
+1. Eine Datenbank
+2. Einen Client für den Zugriff auf unsere Datenbank
 
-## Database Setup
+## Datenbank einrichten
 
-I won't explain the setup of every database here in detail.
-A lot of people did this already.
-I will link the debian, ubuntu and windows installation guides here.
-If you are an "I use arch btw" user you will find your own way like you always do.
+Ich werde hier nicht die Einrichtung jeder Datenbank im Detail erklären.
+Viele Leute haben das bereits getan.
+Ich werde die Installationsanleitungen für Debian, Ubuntu und Windows hier verlinken.
+Du bist ein "Ich benutze Arch btw"-Nutzer und wirst deinen eigenen Weg finden, so wie du es immer tust.
 
-If you are a docker user you know what to do.
+Du bist ein Docker Nutzer und weißt, was zu tun ist.
 
 ### MySQL
 
-Many guides out there will include an installation of apache with a phpmyadmin instance.
+Viele Anleitungen enthalten eine Installation von Apache mit einer phpmyadmin-Instanz.
 
-I highly discourage the usage of phpmyadmin.
-It has several known exploits and is in general a pure security issue on your server.
-There are much better ways.
+Ich rate dringend von der Verwendung von phpmyadmin ab.
+Es hat mehrere bekannte Schwachstellen und ist generell ein reines Sicherheitsproblem auf deinem Server.
+Es gibt viel bessere Möglichkeiten.
 
-[Debian](https://www.digitalocean.com/community/tutorials/how-to-install-the-latest-mysql-on-debian-10)
-| [Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04)
-| [Windows](https://dev.mysql.com/doc/refman/8.0/en/windows-installation.html)
+[Debian](https://www.digitalocean.com/community/tutorials/how-to-install-the-latest-mysql-on-debian-10) | [Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04) | [Windows](https://dev.mysql.com/doc/refman/8.0/en/windows-installation.html)
 
 ### MariaDB
 
-Many guides out there will include an installation of apache with a phpmyadmin instance.
+Viele Anleitungen enthalten eine Installation von Apache mit einer phpmyadmin-Instanz.
 
-I highly discourage the usage of phpmyadmin.
-It has several known exploits and is in general a pure security issue on your server.
-There are much better ways.
+Ich rate dringend von der Verwendung von phpmyadmin ab.
+Es hat mehrere bekannte Schwachstellen und ist im Allgemeinen ein reines Sicherheitsproblem für deinen Server.
+Es gibt viel bessere Möglichkeiten.
 
-[Debian](https://www.digitalocean.com/community/tutorials/how-to-install-mariadb-on-debian-10)
-| [Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-install-mariadb-on-ubuntu-20-04)
-| [Windows](https://mariadb.com/kb/en/installing-mariadb-msi-packages-on-windows/)
+[Debian](https://www.digitalocean.com/community/tutorials/how-to-install-mariadb-on-debian-10) | [Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-install-mariadb-on-ubuntu-20-04) | [Windows](https://mariadb.com/kb/en/installing-mariadb-msi-packages-on-windows/)
 
 ### PostgreSQL
 
-Some installation processes will suggest you to install pgadmin as well.
-I do not recommend this.
-It is a good tool, but superseded by the desktop tools I will show you next.
+Einige Installationsprozesse schlagen vor, dass du auch pgadmin installierst.
+Ich empfehle das nicht.
+Es ist zwar ein gutes Tool, wird aber von den Desktop-Tools abgelöst, die ich dir als Nächstes zeigen werde.
 
-[Debian](https://linuxize.com/post/how-to-install-postgresql-on-debian-10/)
-| [Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-20-04)
-| [Windows](https://www.postgresqltutorial.com/install-postgresql/)
+[Debian](https://linuxize.com/post/how-to-install-postgresql-on-debian-10/) | [Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-20-04) | [Windows](https://www.postgresqltutorial.com/install-postgresql/)
 
 ### SQLite
 
-No installation required. Your desktop tool of your choice can create this database for you.
+Keine Installation erforderlich. Das Desktop-Tool deiner Wahl kann diese Datenbank für dich erstellen.
 
-## Desktop Tool
+## Desktop-Tool
 
-After we have our database running we need to connect to it.
+Nachdem wir unsere Datenbank eingerichtet haben, müssen wir uns mit ihr verbinden.
 
-For this we need to choose our tool.
+Dazu müssen wir ein Tool deiner Wahl auswählen.
 
-**Free**
+**Frei**
 
-- Unix or Windows [DBeaver](https://dbeaver.io/)
+- Unix oder Windows [DBeaver](https://dbeaver.io/)
 - Windows [HeidiSQL](https://www.heidisql.com/)
 
-**Paid**
+**Bezahlt**
 
-- Unix and Windows [DataGrip](https://www.jetbrains.com/datagrip/) (Free if you are part
-  of [GitHub Education](https://education.github.com/))
+- Unix und Windows [DataGrip](https://www.jetbrains.com/datagrip/) (Kostenlos, wenn du Teil
+  von [GitHub Education](https://education.github.com/))
 
-## Connect
+## Verbinden
 
-If you have installed the database locally on your machine this part will be simple since you can skip the ssh tunnel fun.
+Wenn du die Datenbank lokal auf deinem Rechner installiert hast, ist dieser Teil einfach, da du den ssh-Tunnel-Spaß überspringen kannst.
 
-You may be tempted to open the port of your remote database to access it, but DON'T do this!
-Database software is in general not designed to be secure enough to withstand outside attacks.
-It's always better to keep it secure behind your firewall.
+Du könntest versucht sein, den Port deiner entfernten Datenbank zu öffnen, um auf sie zuzugreifen, aber tu das NICHT!
+Datenbanksoftware ist im Allgemeinen nicht so sicher, dass sie Angriffen von außen standhält.
+Es ist immer besser, sie hinter deiner Firewall zu schützen.
 
-All three tools have an option to use an ssh tunnel for connection to your database.
+Alle drei Tools bieten die Möglichkeit, einen SSH-Tunnel für die Verbindung zu deiner Datenbank zu verwenden.
 
-[If you haven't set up an ssh connection yet, you should do it now.
-](https://phoenixnap.com/kb/ssh-to-connect-to-remote-server-linux-or-windows)
+[Wenn du noch keine ssh-Verbindung eingerichtet hast, solltest du das jetzt tun.(https://phoenixnap.com/kb/ssh-to-connect-to-remote-server-linux-or-windows)
 
-Now you need to connect to your database via an ssh tunnel.
+Jetzt musst du dich über einen ssh-Tunnel mit deiner Datenbank verbinden.
 
-[DBeaver](https://dbeaver.com/docs/wiki/Create-Connection/)
-| [HeidiSQL](https://marcus-obst.de/wiki/Database%20-%20HeidiSQL%20SSH%20Tunnel%20Setup)
-| [DataGrip](https://www.jetbrains.com/help/datagrip/configuring-ssh-and-ssl.html#ssh)
+[DBeaver](https://dbeaver.com/docs/wiki/Create-Connection/) | [HeidiSQL](https://marcus-obst.de/wiki/Database%20-%20HeidiSQL%20SSH%20Tunnel%20Setup) | [DataGrip](https://www.jetbrains.com/help/datagrip/configuring-ssh-and-ssl.html#ssh)
 
-That's it. Now you are ready for some fun with the database.
+Das war's schon. Jetzt kannst du mit der Datenbank loslegen.

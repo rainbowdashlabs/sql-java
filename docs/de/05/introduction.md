@@ -1,9 +1,9 @@
-# Introduction
+# Kapitel 5
 
-Now we can read from our database and write into it properly.
-Now we just have to finish up some loose ends.
-For example wrapping our calls into some nice methods, choosing appropriate return values.
-We also still miss a proper connection pooling solution and database versioning.
+Jetzt können wir aus unserer Datenbank lesen und richtig in sie schreiben.
+Jetzt müssen wir nur noch ein paar lose Enden abschließen.
+Zum Beispiel müssen wir unsere Aufrufe in nette Methoden verpacken und geeignete Rückgabewerte wählen.
+Außerdem fehlen uns noch eine gute Lösung für das Connection Pooling und die Versionierung der Datenbank.
 
-This chapter is all about the remaining topics which had no place yet.
-Time to wrap things up!
+In diesem Kapitel geht es um die restlichen Themen, die bisher noch keinen Platz hatten.
+Zeit, die Dinge abzuschließen!

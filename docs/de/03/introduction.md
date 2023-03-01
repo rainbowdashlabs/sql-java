@@ -1,17 +1,17 @@
-# Chapter 3
+# Kapitel 3
 
-Welcome to chapter three.
-You have mastered the majority of the basics of sql.
-Now that you can manage the data in your database only some special but very important stuff is missing.
+Willkommen zu Kapitel drei.
+Du hast den größten Teil der Grundlagen von sql gemeistert.
+Jetzt kannst du die Daten in deiner Datenbank verwalten, nur einige spezielle, aber sehr wichtige Dinge fehlen noch.
 
-To better understand what is going on in our database we will take a look at the query planers first.
-We will use these over and over again in this chapter to check if our changes really help us with our queries. 
+Um besser zu verstehen, was in unserer Datenbank vor sich geht, schauen wir uns zunächst die Abfrageplaner an.
+Wir werden diese in diesem Kapitel immer wieder verwenden, um zu prüfen, ob unsere Änderungen uns bei unseren Abfragen wirklich helfen. 
 
-They key of a good database is data consistency.
-For this we have a lot of tools at our hand like auto increments to create an automatically incrementing and unique id for our entries, indices which can validate that a value in a column is unique over the whole table.
-Or stuff like foreign keys which help us to maintain data consistency over multiple tables.
+Der Schlüssel zu einer guten Datenbank ist die Datenkonsistenz.
+Dafür stehen uns viele Werkzeuge zur Verfügung, z. B. Autoinkremente, mit denen wir eine automatisch inkrementierende und eindeutige ID für unsere Einträge erstellen können, Indizes, mit denen wir überprüfen können, ob ein Wert in einer Spalte in der gesamten Tabelle eindeutig ist.
+Oder Foreign keys, die uns helfen, die Datenkonsistenz über mehrere Tabellen hinweg zu erhalten.
 
-Additionally, we have stuff called aggregations to transform our data and create cool overviews and statistics.
+Außerdem gibt es sogenannte Aggregationen, mit denen wir unsere Daten umwandeln und coole Übersichten und Statistiken erstellen können.
 
-In the end we will take a look at a basic normalization and a very important thing when using normalization.
-Joints are used to combine multiple tables to a new table allowing us to access new datasets.
+Zum Schluss werfen wir einen Blick auf eine grundlegende Normalisierung und einen sehr wichtigen Punkt bei der Verwendung von Normalisierung.
+Joints werden verwendet, um mehrere Tabellen zu einer neuen Tabelle zusammenzufassen, damit wir auf neue Datensätze zugreifen können.

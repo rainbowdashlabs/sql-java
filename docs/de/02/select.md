@@ -1,15 +1,15 @@
 # Select
 
-The `SELECT` statement is another very important statement.
-Now that we have inserted data in our tables we want to read them as well.
+Die Anweisung `SELECT` ist eine weitere sehr wichtige Anweisung.
+Nachdem wir nun Daten in unsere Tabellen eingefügt haben, wollen wir sie auch lesen.
 
-The `SELECT` statement always returns a so-called result set.
-This set contains all our requested data.
-Notice that although that it is called a "set", this doesn't man that the results are unique in any way.
+Die `SELECT`-Anweisung gibt immer eine sogenannte Ergebnismenge zurück.
+Diese Menge enthält alle von uns angeforderten Daten.
+Beachte, dass die Bezeichnung "Menge" nicht bedeutet, dass die Ergebnisse in irgendeiner Weise eindeutig sind.
 
 ## Basic select
 
-The pure basic select statement is quite simple:
+Die reine Basic-Select-Anweisung ist recht einfach:
 
 ```sql
 SELECT id,
@@ -17,34 +17,34 @@ SELECT id,
 FROM player;
 ```
 
-This statement will give you the content of `id` and `name` of the table `player`.
+Diese Anweisung gibt dir den Inhalt von `id` und `name` der Tabelle `player`.
 
-| id  | player\_name |
+| id | player_name |
 |:----|:-------------|
-| 1   | Mike         |
-| 2   | Sarah        |
-| 3   | John         |
-| 4   | Lilly        |
-| 5   | Matthias     |
-| 6   | Lenny        |
-| 7   | Summer       |
-| 8   | Marry        |
-| 9   | Milana       |
-| 10  | Lexi         |
+| 1 | Mike |
+| 2 | Sarah |
+| 3 | John |
+| 4 | Lilly |
+| 5 | Matthias |
+| 6 | Lenny |
+| 7 | Sommer |
+| 8 | Heiraten |
+| 9 | Milana |
+| 10 | Lexi |
 
-If you ever see or write a statement like this you might select way more than you need.
-Usage of plain select statement can be generally discouraged.
-In 99% of these cases there are better and more refined statements.
+Wenn du eine solche Anweisung siehst oder schreibst, wählst du vielleicht viel mehr aus, als du brauchst.
+Von der Verwendung der einfachen Select-Anweisung kann generell abgeraten werden.
+In 99% dieser Fälle gibt es bessere und verfeinerte Anweisungen.
 
-> **Read what you need**
+> **Lies, was du brauchst**
 
-This is in general always a good thing to remember.
-Never read more data from the database than you need.
-The following keywords will help doing this.
+Das ist im Allgemeinen immer eine gute Sache, die man sich merken sollte.
+Lies nie mehr Daten aus der Datenbank, als du brauchst.
+Die folgenden Schlüsselwörter helfen dir dabei.
 
 ## Column Alias
 
-Using the `as` keyword we can rename columns when we select them
+Mit dem Schlüsselwort `as` können wir Spalten umbenennen, wenn wir sie auswählen
 
 ```sql
 SELECT id,
@@ -52,30 +52,30 @@ SELECT id,
 FROM player;
 ```
 
-Returns:
+Gibt zurück:
 
-| id  | name     |
+| id | name |
 |:----|:---------|
-| 1   | Mike     |
-| 2   | Sarah    |
-| 4   | Lilly    |
-| 5   | Matthias |
-| 6   | Lenny    |
-| 7   | Summer   |
-| 8   | Marry    |
-| 9   | Milana   |
-| 10  | Lexi     |
-| 3   | John     |
+| 1 | Mike |
+| 2 | Sarah |
+| 4 | Lilly |
+| 5 | Matthias |
+| 6 | Lenny |
+| 7 | Sommer |
+| 8 | Heiraten |
+| 9 | Milana |
+| 10 | Lexi |
+| 3 | John |
 
-The column `player_name` is now names `name` in our result set
+Die Spalte `player_name` heißt jetzt `name` in unserer Ergebnismenge
 
-## Table alias
+## Tabellen-Alias
 
-Tables can have aliases too.
-You won't need them now, but in general those are defined right behind the table name.
+Auch Tabellen können Aliasnamen haben.
+Du wirst sie jetzt nicht brauchen, aber in der Regel werden sie direkt hinter dem Tabellennamen definiert.
 
-Those are used to define a unique table name when you use multiple tables.
-It is also used to abbreviate long table names, when you need to use the name explicitly.
+Sie werden verwendet, um einen eindeutigen Tabellennamen zu definieren, wenn du mehrere Tabellen verwendest.
+Sie werden auch verwendet, um lange Tabellennamen abzukürzen, wenn du den Namen explizit verwenden musst.
 
 ```sql
 SELECT pl.id,
@@ -86,33 +86,33 @@ FROM player pl;
 
 ## WHERE
 
-The where statement might be the most important keyword in sql.
-The where keyword evaluates to a boolean for each row and defines whether a row gets returned or not.
+Die where-Anweisung ist vielleicht das wichtigste Schlüsselwort in sql.
+Das where-Schlüsselwort wertet für jede Zeile einen Booleschen Wert aus und bestimmt, ob eine Zeile zurückgegeben wird oder nicht.
 
-Remember the [logical operators](dev/private/java/!tutorial/basicsql-pages/docs/en/02rivate/java/!tutorial/basicsql-pages/docs/en/02/operators.md#logical) earlier in the chapter.
+Erinnere dich an die [logischen Operatoren](dev/private/java/!tutorial/basicsql-pages/docs/de/02rivate/java/!tutorial/basicsql-pages/docs/de/02/operators.md#logical) weiter oben in diesem Kapitel.
 
 ```sql
-SELECT column_x,
-       column_y
+SELECT spalte_x,
+       spalte_y
 FROM my_table
-WHERE column_z = value_a; --(1)
+WHERE spalte_z = wert_a; --(1)
 ```
 
-1. The condition can be anything. It can be also multiple conditions or checks combined with `AND` or `OR`. The column you check does not need to be contained in the select statement itself.
+1. Die Bedingung kann alles sein. Es können auch mehrere Bedingungen oder Prüfungen sein, die mit `AND` oder `OR` kombiniert werden. Die Spalte, die du prüfst, muss nicht in der Select-Anweisung selbst enthalten sein.
 
-Try to select all players with an id greater than 5.
-In the end you should have a table like this:
+Versuche, alle Spieler mit einer ID größer als 5 auszuwählen.
+Am Ende solltest du eine Tabelle wie diese haben:
 
-| id  | player\_name | last\_online               |
+| id | player\_name | last\_online |
 |:----|:-------------|:---------------------------|
-| 6   | Lenny        | 2022-03-08 00:00:00.000000 |
-| 7   | Summer       | 2022-05-22 00:00:00.000000 |
-| 8   | Marry        | 2022-06-04 00:00:00.000000 |
-| 9   | Milana       | 2022-02-12 00:00:00.000000 |
-| 10  | Lexi         | 2022-02-22 00:00:00.000000 |
+| 6 | Lenny | 2022-03-08 00:00:00.000000 |
+| 7 | Sommer | 2022-05-22 00:00:00.000000 |
+| 8 | Heiraten | 2022-06-04 00:00:00.000000 |
+| 9 | Milana | 2022-02-12 00:00:00.000000 |
+| 10 | Lexi | 2022-02-22 00:00:00.000000 |
 
-<details>
-<summary>Solution</summary>
+<Details>
+<summary>Lösung</summary>
 
 ```sql
 SELECT id,
@@ -124,16 +124,16 @@ WHERE id > 5;
 
 </details>
 
-All we need here is a simple check on the id column.
-We can also get more specific here. Let's add one more check for all names which start with the letter `m`. (case insensitive)
+Alles, was wir hier brauchen, ist eine einfache Überprüfung der id-Spalte.
+Wir können hier auch spezifischer werden. Fügen wir eine weitere Prüfung für alle Namen hinzu, die mit dem Buchstaben "m" beginnen. (Groß- und Kleinschreibung wird nicht berücksichtigt)
 
-| id  | player\_name | last\_online               |
+| id | player\_name | last\_online |
 |:----|:-------------|:---------------------------|
-| 8   | Marry        | 2022-06-04 00:00:00.000000 |
-| 9   | Milana       | 2022-02-12 00:00:00.000000 |
+| 8 | Marry | 2022-06-04 00:00:00.000000 |
+| 9 | Milana | 2022-02-12 00:00:00.000000 |
 
-<details>
-<summary>Solution</summary>
+<Details>
+<summary>Lösung</summary>
 
 **MySQL, MariaDB, SqLite**
 
@@ -146,8 +146,8 @@ WHERE id > 5
   AND player_name LIKE 'm%';
 ```
 
-The `LIKE` keyword compares case-insensitive. 
-The `%` is a wildcard for an infinite amount of other characters.
+Das Schlüsselwort `LIKE` vergleicht unabhängig von der Groß- und Kleinschreibung. 
+Das `%` ist ein Platzhalter für eine unendliche Anzahl anderer Zeichen.
 
 **PostgreSQL**
 
@@ -160,51 +160,51 @@ WHERE id > 5
   AND player_name ILIKE 'm%';
 ```
 
-Unlike the other databases the `LIKE` is case-sensitive in Postgres.
-That's why we need to use `ILIKE` here.
+Im Gegensatz zu anderen Datenbanken wird bei Postgres bei `LIKE` zwischen Groß- und Kleinschreibung unterschieden.
+Deshalb müssen wir hier `ILIKE` verwenden.
 
 
 </details>
 
-You can continue chaining more conditions or try an `OR` instead of the `AND` and look how the output changes.
+Du kannst weitere Bedingungen aneinanderreihen oder ein `OR` anstelle des `AND` ausprobieren und schauen, wie sich die Ausgabe verändert.
 
 ## ORDER BY
 
-Currently, our players are retrieved in the order they were inserted into the database.
-This might not only be the order we want.
+Derzeit werden unsere Spieler in der Reihenfolge abgefragt, in der sie in die Datenbank eingefügt wurden.
+Das muss nicht unbedingt die Reihenfolge sein, die wir wollen.
 
-Let's say we want our players in the order they were last seen with the most recent players first and the inactive players last.
-We can do this by using the `ORDER BY` keyword on the `last_online` column.
+Nehmen wir an, wir wollen unsere Spieler in der Reihenfolge abrufen, in der sie zuletzt gesehen wurden, d.h. die neuesten Spieler zuerst und die inaktiven Spieler zuletzt.
+Das können wir erreichen, indem wir das Schlüsselwort `ORDER BY` für die Spalte `last_online` verwenden.
 
-The general syntax is:
+Die allgemeine Syntax lautet:
 
 ```sql
-SELECT column_x,
-       column_y
+SELECT spalte_x,
+       spalte_y
 FROM my_table
-ORDER BY column_x [DESC|ASC]; --(1)
+ORDER BY spalte_x [DESC|ASC]; --(1)
 ```
 
-1. The ASC (ascending) or DESC (descending) clause defines the sorting order. ASC is default.
+1. Die ASC (aufsteigend) oder DESC (absteigend) Klausel legt die Sortierreihenfolge fest. ASC ist die Standardeinstellung.
 
-Try to define a query to sort the player table by `last_online` in descending order.
-We want this table in the end:
+Versuche, eine Abfrage zu definieren, um die Tabelle player nach `last_online` in absteigender Reihenfolge zu sortieren.
+Wir wollen diese Tabelle am Ende haben:
 
-| id  | player\_name | last\_online               |
+| id | player\_name | last\_online |
 |:----|:-------------|:---------------------------|
-| 8   | Marry        | 2022-06-04 00:00:00.000000 |
-| 7   | Summer       | 2022-05-22 00:00:00.000000 |
-| 1   | Mike         | 2022-05-11 00:00:00.000000 |
-| 3   | John         | 2022-04-08 00:00:00.000000 |
-| 2   | Sarah        | 2022-04-04 00:00:00.000000 |
-| 4   | Lilly        | 2022-04-01 00:00:00.000000 |
-| 6   | Lenny        | 2022-03-08 00:00:00.000000 |
-| 5   | Matthias     | 2022-03-06 00:00:00.000000 |
-| 10  | Lexi         | 2022-02-22 00:00:00.000000 |
-| 9   | Milana       | 2022-02-12 00:00:00.000000 |
+| 8 | Heiraten | 2022-06-04 00:00:00.000000 |
+| 7 | Sommer | 2022-05-22 00:00:00.000000 |
+| 1 | Mike | 2022-05-11 00:00:00.000000 |
+| 3 | John | 2022-04-08 00:00:00.000000 |
+| 2 | Sarah | 2022-04-04 00:00:00.000000 |
+| 4 | Lilly | 2022-04-01 00:00:00.000000 |
+| 6 | Lenny | 2022-03-08 00:00:00.000000 |
+| 5 | Matthias | 2022-03-06 00:00:00.000000 |
+| 10 | Lexi | 2022-02-22 00:00:00.000000 |
+| 9 | Milana | 2022-02-12 00:00:00.000000 |
 
-<details>
-<summary>Solution</summary>
+<Details>
+<summary>Lösung</summary>
 
 ```sql
 SELECT id,
@@ -217,34 +217,34 @@ ORDER BY last_online DESC;
 </details>
 
 
-The `ORDER BY` clause defines the column we want to sort by.
-The `DESC` keyword tells SQL that we want a descending order.
-If we not define an order the elements will always be in ascending order.
+Die `ORDER BY` Klausel definiert die Spalte, nach der wir sortieren wollen.
+Das Schlüsselwort `DESC` sagt SQL, dass wir eine absteigende Reihenfolge wollen.
+Wenn wir keine Reihenfolge festlegen, werden die Elemente immer in aufsteigender Reihenfolge sortiert.
 
-We can also sort by multiple columns.
-In this case they will be first sorted by the first column and every value with an equal value will be sorted by the second value.
-Let's sort by the first char of the name and id as a second example.
-To get the first character of a string we need to use a functions again.
+Wir können auch nach mehreren Spalten sortieren.
+In diesem Fall werden sie zuerst nach der ersten Spalte sortiert und jeder Wert mit einem gleichen Wert wird nach dem zweiten Wert sortiert.
+Lassen Sie uns als zweites Beispiel nach dem ersten Zeichen des Namens und der ID sortieren.
+Um das erste Zeichen eines Strings zu erhalten, müssen wir wieder eine Funktion verwenden.
 
-`substr(player_name, 1, 1)` returns the first character of the `player_name`.
+substr(player_name, 1, 1)` gibt das erste Zeichen des player_name zurück.
 
-In the end we want a table like this:
+Am Ende wollen wir eine Tabelle wie diese:
 
-| id  | player\_name | last\_online               |
+| id | player\_name | last\_online |
 |:----|:-------------|:---------------------------|
-| 3   | John         | 2022-04-08 00:00:00.000000 |
-| 4   | Lilly        | 2022-04-01 00:00:00.000000 |
-| 6   | Lenny        | 2022-03-08 00:00:00.000000 |
-| 10  | Lexi         | 2022-02-22 00:00:00.000000 |
-| 1   | Mike         | 2022-05-11 00:00:00.000000 |
-| 5   | Matthias     | 2022-03-06 00:00:00.000000 |
-| 8   | Marry        | 2022-06-04 00:00:00.000000 |
-| 9   | Milana       | 2022-02-12 00:00:00.000000 |
-| 2   | Sarah        | 2022-04-04 00:00:00.000000 |
-| 7   | Summer       | 2022-05-22 00:00:00.000000 |
+| 3 | John | 2022-04-08 00:00:00.000000 |
+| 4 | Lilly | 2022-04-01 00:00:00.000000 |
+| 6 | Lenny | 2022-03-08 00:00:00.000000 |
+| 10 | Lexi | 2022-02-22 00:00:00.000000 |
+| 1 | Mike | 2022-05-11 00:00:00.000000 |
+| 5 | Matthias | 2022-03-06 00:00:00.000000 |
+| 8 | Heiraten | 2022-06-04 00:00:00.000000 |
+| 9 | Milana | 2022-02-12 00:00:00.000000 |
+| 2 | Sarah | 2022-04-04 00:00:00.000000 |
+| 7 | Sommer | 2022-05-22 00:00:00.000000 |
 
-<details>
-<summary>Solution</summary>
+<Details>
+<summary>Lösung</summary>
 
 ```sql
 SELECT id,
@@ -256,39 +256,39 @@ ORDER BY SUBSTR(player_name, 1, 1), id;
 
 </details>
 
-You can see that we first sort by the first character of the name and all names with the same first character are sorted by id.
+Du siehst, dass wir zuerst nach dem ersten Buchstaben des Namens sortieren und alle Namen mit demselben ersten Buchstaben nach der id.
 
 ## LIMIT
 
-The `LIMIT` keyword is also really important to avoid overly large reads.
-The general syntax is:
+Das Schlüsselwort `LIMIT` ist ebenfalls sehr wichtig, um übermäßig große Lesevorgänge zu vermeiden.
+Die allgemeine Syntax lautet:
 
 ```sql
-SELECT column_x,
-       column_y
+SELECT spalte_x,
+       spalte_y
 FROM my_table
 LIMIT [n |ALL];
 ```
 
-The `LIMIT` keyword restricts the amount of your results to the entered number `n`.
-As an alternative you can use `ALL` or `NULL` to disable the parameter.
-That's something frameworks use sometimes to disable a limit.
+Das Schlüsselwort `LIMIT` schränkt die Menge deiner Ergebnisse auf die eingegebene Zahl `n` ein.
+Alternativ kannst du auch `ALL` oder `NULL` verwenden, um den Parameter zu deaktivieren.
+Das ist etwas, was Frameworks manchmal benutzen, um ein Limit zu deaktivieren.
 
-Earlier we already sorted the players by the most recent online times.
-Let's try to only get the last 5 most recent players by adding the limit clause to our previous query.
+Zuvor haben wir die Spieler bereits nach den letzten Online-Zeiten sortiert.
+Versuchen wir nun, nur die letzten 5 Spieler zu erhalten, indem wir die Limit-Klausel zu unserer vorherigen Abfrage hinzufügen.
 
-*Hint: The limit is always the last parameter of your query.*
+*Tipp: Das Limit ist immer der letzte Parameter deiner Abfrage.
 
-| id  | player\_name | last\_online               |
+| id | player\_name | last\_online |
 |:----|:-------------|:---------------------------|
-| 8   | Marry        | 2022-06-04 00:00:00.000000 |
-| 7   | Summer       | 2022-05-22 00:00:00.000000 |
-| 1   | Mike         | 2022-05-11 00:00:00.000000 |
-| 3   | John         | 2022-04-08 00:00:00.000000 |
-| 2   | Sarah        | 2022-04-04 00:00:00.000000 |
+| 8 | Heiraten | 2022-06-04 00:00:00.000000 |
+| 7 | Sommer | 2022-05-22 00:00:00.000000 |
+| 1 | Mike | 2022-05-11 00:00:00.000000 |
+| 3 | John | 2022-04-08 00:00:00.000000 |
+| 2 | Sarah | 2022-04-04 00:00:00.000000 |
 
-<details>
-<summary>Solution</summary>
+<Details>
+<summary>Lösung</summary>
 
 ```sql
 SELECT id,
@@ -303,35 +303,35 @@ LIMIT 5;
 
 ## OFFSET
 
-The `OFFSET` keyword is often used to facilitate some kind of pagination in results.
-That's also why it is often combined with limit.
-The `OFFSET` keyword skips the first `n` lines of the result sets.
+Das Schlüsselwort `OFFSET` wird oft verwendet, um eine Art Paginierung der Ergebnisse zu ermöglichen.
+Deshalb wird es auch oft mit limit kombiniert.
+Mit dem Schlüsselwort `OFFSET` werden die ersten `n` Zeilen der Ergebnismengen übersprungen.
 
-The general syntax is:
+Die allgemeine Syntax lautet:
 
 ```sql
-SELECT column_x,
-       column_y
+SELECT spalte_x,
+       spalte_y
 FROM my_table
 OFFSET n;
 ```
 
-Let's try to enhance our query from the limit part even more.
-We already got the first 5 entries.
-Now we want to get the next 5 entries by adding a `OFFSET` of `5` while keeping the `LIMIT` and `ORDER BY` keywords.
+Versuchen wir, unsere Abfrage aus dem Limit-Teil noch zu erweitern.
+Wir haben bereits die ersten 5 Einträge erhalten.
+Jetzt wollen wir die nächsten 5 Einträge erhalten, indem wir einen `OFFSET` von `5` hinzufügen und dabei die Schlüsselwörter `LIMIT` und `ORDER BY` beibehalten.
 
-*Hint: The `OFFSET` keyword is directly located before the `LIMIT` keyword*
+*Hinweis: Das Schlüsselwort `OFFSET` steht direkt vor dem Schlüsselwort `LIMIT`.
 
-| id  | player\_name | last\_online               |
+| id | player\_name | last\_online |
 |:----|:-------------|:---------------------------|
-| 4   | Lilly        | 2022-04-01 00:00:00.000000 |
-| 6   | Lenny        | 2022-03-08 00:00:00.000000 |
-| 5   | Matthias     | 2022-03-06 00:00:00.000000 |
-| 10  | Lexi         | 2022-02-22 00:00:00.000000 |
-| 9   | Milana       | 2022-02-12 00:00:00.000000 |
+| 4 | Lilly | 2022-04-01 00:00:00.000000 |
+| 6 | Lenny | 2022-03-08 00:00:00.000000 |
+| 5 | Matthias | 2022-03-06 00:00:00.000000 |
+| 10 | Lexi | 2022-02-22 00:00:00.000000 |
+| 9 | Milana | 2022-02-12 00:00:00.000000 |
 
-<details>
-<summary>Solution</summary>
+<Details>
+<summary>Lösung</summary>
 
 ```sql
 SELECT id,
@@ -345,28 +345,28 @@ LIMIT 5;
 
 </details>
 
-What's basically happening here is:
+Was hier im Grunde genommen passiert, ist Folgendes:
 
-First we order the whole table by the `last_online` column.
-After this we skip the first `5` rows and read the next `5` rows.
-It is important to remember that we first need to sort the whole table currently.
-That can be very costly on large tables.
-Luckily there are ways to make this faster.
-We will cover this later.
+Zuerst ordnen wir die gesamte Tabelle nach der Spalte "last_online".
+Danach überspringen wir die ersten 5 Zeilen und lesen die nächsten 5 Zeilen.
+Es ist wichtig, daran zu denken, dass wir zuerst die gesamte Tabelle sortieren müssen.
+Das kann bei großen Tabellen sehr kostspielig sein.
+Zum Glück gibt es Möglichkeiten, das schneller zu machen.
+Wir werden das später behandeln.
 
-## Summing Up
+## Resümee
 
-We have now learned the four most important keywords for searching, sorting and limiting the retrieved data.
-The keywords have to be used in a specific order and cant be altered in a free way.
+Wir haben jetzt die vier wichtigsten Schlüsselwörter zum Suchen, Sortieren und Eingrenzen der abgerufenen Daten gelernt.
+Die Schlüsselwörter müssen in einer bestimmten Reihenfolge verwendet werden und können nicht frei verändert werden.
 
-The general syntax for this is:
+Die allgemeine Syntax dafür ist:
 
 ```sql
-SELECT column_x,
-       column_y
+SELECT spalte_x,
+       spalte_y
 FROM my_table
-WHERE condition
-ORDER BY column_z DESC
+WHERE Bedingung
+ORDER BY spalte_z DESC
 OFFSET n
 LIMIT m;
 ```

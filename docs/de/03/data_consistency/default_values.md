@@ -1,34 +1,34 @@
-# Default Values
+# Standardwerte
 
-Default values are a pretty nice thing.
-They will always be used when you insert something and leave the column empty.
-The value can be a static type like a number or something dynamic like the current date or time.
-It is a very useful thing.
-There is also a special default value which is the auto increment, which we will look at in a moment.
+Standardwerte sind eine ziemlich nette Sache.
+Sie werden immer verwendet, wenn du etwas einfügst und die Spalte leer lässt.
+Der Wert kann ein statischer Typ wie eine Zahl oder etwas Dynamisches wie das aktuelle Datum oder die Uhrzeit sein.
+Das ist eine sehr nützliche Sache.
+Es gibt auch einen speziellen Standardwert, nämlich die automatische Erhöhung, die wir uns gleich ansehen werden.
 
-But first we take a look at how default values work.
+Aber zuerst schauen wir uns an, wie Standardwerte funktionieren.
 
-Remember our old player table we had?
-We save the online time manually when creating the player.
-But we can actually assume that once we insert the player the first time it should be online as well.
-So lets set the `last_online` time to the current time when we execute our insert statement.
+Erinnerst du dich noch an unsere alte Spielertabelle, die wir hatten?
+Wir speichern die Online-Zeit manuell bei der Erstellung des Spielers.
+Aber wir können eigentlich davon ausgehen, dass der Spieler auch online sein sollte, wenn wir ihn das erste Mal einfügen.
+Setzen wir also die "last_online"-Zeit auf die aktuelle Zeit, wenn wir unsere Einfügeanweisung ausführen.
 
-*Remember to drop your table first*
+*Vergiss nicht, deine Tabelle zuerst zu löschen.
 
 ```sql
 CREATE TABLE player
 (
-    id          INTEGER,
+    id INTEGER,
     player_name TEXT NOT NULL,
-    -- This will work in postgres as well. However using now() instead is recommended
+    -- Dies funktioniert auch in Postgres. Es wird jedoch empfohlen, stattdessen now() zu verwenden
     last_online TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ```
 
-The `current_timestamp` will always return the current timestamp when we insert the data.
-In postgres you would usually use `now()` instead.
+Der `current_timestamp` gibt immer den aktuellen Zeitstempel zurück, wenn wir die Daten einfügen.
+In Postgres würdest du stattdessen normalerweise `now()` verwenden.
 
-Let's check that it actually works!
+Prüfen wir, ob es tatsächlich funktioniert!
 
 ```sql
 INSERT INTO player(id, player_name)
@@ -44,44 +44,44 @@ VALUES (1, 'Mike'),
        (10, 'Lexi')
 ```
 
-Note that we only specify `id` and `player_name` this time and do not set the `last_online` column.
-And now it is time to take a look at our data!
+Beachte, dass wir dieses Mal nur `id` und `player_name` angeben und die Spalte `last_online` nicht setzen.
+Und nun ist es an der Zeit, einen Blick auf unsere Daten zu werfen!
 
 ```sql
 SELECT id, player_name, last_online
 FROM player;
 ```
 
-And we get:
+Und wir erhalten:
 
-| id  | player\_name | last\_online               |
+| id | player\_name | last\_online |
 |:----|:-------------|:---------------------------|
-| 1   | Mike         | 2022-11-25 23:52:26.081797 |
-| 2   | Sarah        | 2022-11-25 23:52:26.081797 |
-| 3   | John         | 2022-11-25 23:52:26.081797 |
-| 4   | Lilly        | 2022-11-25 23:52:26.081797 |
-| 5   | Matthias     | 2022-11-25 23:52:26.081797 |
-| 6   | Lenny        | 2022-11-25 23:52:26.081797 |
-| 7   | Summer       | 2022-11-25 23:52:26.081797 |
-| 8   | Marry        | 2022-11-25 23:52:26.081797 |
-| 9   | Milana       | 2022-11-25 23:52:26.081797 |
-| 10  | Lexi         | 2022-11-25 23:52:26.081797 |
+| 1 | Mike | 2022-11-25 23:52:26.081797 |
+| 2 | Sarah | 2022-11-25 23:52:26.081797 |
+| 3 | John | 2022-11-25 23:52:26.081797 |
+| 4 | Lilly | 2022-11-25 23:52:26.081797 |
+| 5 | Matthias | 2022-11-25 23:52:26.081797 |
+| 6 | Lenny | 2022-11-25 23:52:26.081797 |
+| 7 | Summer | 2022-11-25 23:52:26.081797 |
+| 8 | Marry | 2022-11-25 23:52:26.081797 |
+| 9 | Milana | 2022-11-25 23:52:26.081797 |
+| 10 | Lexi | 2022-11-25 23:52:26.081797 |
 
-It worked!
-Of course your times will be your current time.
-Of course, you can insert anything there like mentioned already.
-It is a very nice way of ensuring that values are present every time you read from your row.
+Es hat geklappt!
+Natürlich werden deine Zeiten deine aktuelle Zeit sein.
+Natürlich kannst du dort, wie bereits erwähnt, alles einfügen.
+Es ist eine sehr schöne Methode, um sicherzustellen, dass die Werte jedes Mal vorhanden sind, wenn du aus deiner Zeile liest.
 
-However, there is still a small flaw in our table.
+Allerdings gibt es noch einen kleinen Fehler in unserer Tabelle.
 
-Execute this.
+Führe dies aus.
 
 ```sql
 INSERT INTO player(id, player_name, last_online)
 VALUES (11, 'Jonathan', NULL);
 ```
 
-Let's take a look at our new inserted player.
+Werfen wir einen Blick auf unseren neu eingefügten Spieler.
 
 ```sql
 SELECT id, player_name, last_online
@@ -89,30 +89,30 @@ FROM player
 WHERE id = 11;
 ```
 
-| id  | player\_name | last\_online |
+| id | player_name | last_online |
 |:----|:-------------|:-------------|
-| 11  | Jonathan     | null         |
+| 11 | Jonathan | null |
 
-As we can see last_online is null.
-But we want it to be always a value.
-That's why we would add a `NOT NULL` here as well.
+Wie wir sehen können, ist last_online null.
+Wir wollen aber, dass es immer ein Wert ist.
+Deshalb fügen wir auch hier ein `NOT NULL` ein.
 
-Our table will look like this in the end.
+Unsere Tabelle wird am Ende so aussehen.
 
-*Remember to drop your table first*
+*Vergiss nicht, deine Tabelle zuerst zu löschen*
 
 ```sql
 CREATE TABLE player
 (
-    id          INTEGER,
-    player_name TEXT      NOT NULL,
-    -- This will work in postgres as well. However using now() instead is recommended
+    id INTEGER,
+    player_name TEXT NOT NULL,
+    -- Dies funktioniert auch in Postgres. Es wird jedoch empfohlen, stattdessen now() zu verwenden
     last_online TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 ```
 
-Let's sum up what we have so far:
+Fassen wir zusammen, was wir bis jetzt haben:
 
-We can insert an id into our table, which can be still null, we will get to this a bit later.
-We also have a player name which is not allowed to be null.
-When we insert a player the `last_online` column will be set by the database.
+Wir können eine ID in unsere Tabelle einfügen, die auch null sein kann, dazu kommen wir später.
+Wir haben auch einen Spielernamen, der nicht null sein darf.
+Wenn wir einen Spieler einfügen, wird die Spalte "last_online" von der Datenbank gesetzt.

@@ -1,43 +1,43 @@
 # SQLite
 
-SQLite has the smallest set of data types.
+SQLite hat den kleinsten Satz von Datentypen.
 
 ## INTEGER
 
 Java: Integer, Long
 
-An integer with 8 to 64 bits
+Eine Ganzzahl mit 8 bis 64 Bits
 
 ## REAL
 
-Java: float, double
+Java: Float, Double
 
-Any number with a floating point. Stored in 64 bits.
+Eine beliebige Zahl mit einem Fließkomma. Wird in 64 Bits gespeichert.
 
 ## TEXT
 
 Java: String
 
-Any text you want to store
+Jeder beliebige Text, den du speichern möchtest
 
 ## BLOB
 
-Java: Anything binary
+Java: Alles, was binär ist
 
-A blob is basically a binary representation of something.
-It will be returned in the exact same way than it was input.
+Ein Blob ist im Grunde eine binäre Darstellung von etwas.
+Er wird genau so zurückgegeben, wie er eingegeben wurde.
 
 ## BOOLEAN
 
 Java: Boolean
 
-A boolean in sqlite is an integer internally.
+Ein Boolean in Sqlite ist intern eine ganze Zahl.
 
-## Date and Time
+## Datum und Uhrzeit
 
 Java: Instant, LocalDate, LocalDateTime
 
-SQLite stores dates and times as INTEGER with UNIX time, TEXT as serialized string or a REAL as julian day numbers.
-You will have to chose one type and have to convert them everytime you use a date or datetime.
-I'd recommend UNIX time.
-We will get to read and write later. Just bear with it for the moment.
+SQLite speichert Datums- und Zeitangaben als INTEGER mit UNIX-Zeit, TEXT als serialisierte Zeichenkette oder als REAL als julianische Tageszahlen.
+Du musst dich für einen Typ entscheiden und sie jedes Mal umwandeln, wenn du ein Datum oder eine Uhrzeit verwendest.
+Ich würde die UNIX-Zeit empfehlen.
+Wir werden später zum Lesen und Schreiben kommen. Halte dich im Moment einfach daran.

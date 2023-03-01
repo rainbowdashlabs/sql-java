@@ -1,54 +1,54 @@
-# Datasource Basics
+# Grundlagen der DataSource
 
-To connect to a database we use jdbc urls.
-They are the most reliable way and allow a high amount of customization.
-They follow a unified format which looks like that:
+Um eine Verbindung zu einer Datenbank herzustellen, verwenden wir jdbc urls.
+Sie sind die zuverlässigste Methode und ermöglichen ein hohes Maß an Anpassungsfähigkeit.
+Sie folgen einem einheitlichen Format, das wie folgt aussieht:
 
-`jdbc:<database>://url:port/database`
+jdbc:<Datenbank>://url:port/datenbank
 
-For now, I will show you how to create a DataSource for each database.
-We will switch to HikariCP later, which will no longer require us to define a datasource of a specific type.
+Im Folgenden zeige ich dir, wie du eine DataSource für jede Datenbank erstellst.
+Später werden wir zu HikariCP wechseln, wo wir keine DataSource eines bestimmten Typs mehr definieren müssen.
 
-For every database we will first initialize the data source of the required type, set the url.
-If required we set username and password.
-This will be enough for now and is enough to connect.
+Für jede Datenbank werden wir zunächst die Datenquelle des gewünschten Typs initialisieren und die URL festlegen.
+Falls erforderlich, legen wir auch den Benutzernamen und das Passwort fest.
+Das reicht für den Moment aus, um eine Verbindung herzustellen.
 
-This is the minimal setup and there is a ton of configuration stuff you can do with those urls.
-I will link the documentation for the parameter for each database.
+Das ist die minimale Einrichtung und es gibt eine Menge Konfigurationsmöglichkeiten, die du mit diesen URLs machen kannst.
+Ich werde die Dokumentation der Parameter für jede Datenbank verlinken.
 
-Each class will have one method which creates a DataSource and a main method which calls this method.
-Once we have created our datasource we will retrieve a connection from it as a resource, create a statement, execute it and let the statement and connection being closed automatically again.
-Since this is not a software architecture tutorial, but probably a beginner guide, I will note that this is not a best practice in terms of structure.
+Jede Klasse hat eine Methode, die eine DataSource erstellt, und eine Hauptmethode, die diese Methode aufruft.
+Sobald wir unsere DataSource erstellt haben, rufen wir eine Verbindung als Ressource ab, erstellen eine Anweisung, führen sie aus und lassen die Anweisung und die Verbindung wieder automatisch schließen.
+Da es sich hier nicht um ein Softwarearchitektur-Tutorial handelt, sondern eher um eine Anleitung für Anfänger, möchte ich anmerken, dass dies keine Best Practice in Bezug auf die Struktur ist.
 
-From now on I will always assume that a DataSource is present.
-I will not show the creation of it.
+Von nun an werde ich immer davon ausgehen, dass eine DataSource vorhanden ist.
+Ich werde nicht zeigen, wie sie erstellt wird.
 
-## Class loading issues.
+## Probleme beim Laden von Klassen.
 
-In general java will try to find the `Driver` implementation for the specified database.
-For postgres it will try to find the driver implementation for the postgres jdbc driver.
-Normally this class would already be loaded if we use the postgres data source directly, but in some example we will have late we won't use the postgres data source directly, but only the url to specify the database we want to connect to.
-In order to force java to load our `Driver` class we will need to use load the class via `Class.forName(String)`.
+Im Allgemeinen versucht Java, die Implementierung des Treibers für die angegebene Datenbank zu finden.
+Für Postgres wird es versuchen, die Treiberimplementierung für den Postgres-Jdbc-Treiber zu finden.
+Normalerweise würde diese Klasse bereits geladen werden, wenn wir die Postgres-Datenquelle direkt verwenden, aber in einigen Beispielen werden wir später nicht die Postgres-Datenquelle direkt verwenden, sondern nur die URL, um die Datenbank anzugeben, mit der wir uns verbinden wollen.
+Um Java zu zwingen, unsere "Driver"-Klasse zu laden, müssen wir die Klasse über "Class.forName(String)" laden.
 
-This could look like this:
+Das könnte folgendermaßen aussehen:
 
-```java
+``java
 public class ClassForName {
     public static void main(String[] args) {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException("Driver not found.", e);
+            throw new RuntimeException("Treiber nicht gefunden.", e);
         }
     }
 }
 ```
 
-`org.postgresql.Driver` is where the Driver class is located for postgres.
-Your IDE can easily show you all available implementations.
-The class implementing the `Driver` interface is usually named `Driver` as well.
+In `org.postgresql.Driver` befindet sich die Treiberklasse für Postgres.
+Deine IDE kann dir leicht alle verfügbaren Implementierungen zeigen.
+Die Klasse, die die Schnittstelle `Driver` implementiert, heißt normalerweise auch `Driver`.
 
-_Note:_ When you are using relocation you will of course need to load the relocated class.
+Hinweis:_ Wenn du Relocation verwendest, musst du natürlich auch die relocated Klasse laden.
 
 ## Postgres
 
@@ -136,7 +136,7 @@ public class MariaDbData {
 
 ## SqLite
 
-SqLite does not have additional url parameter
+SqLite hat keinen zusätzlichen url-Parameter
 
 ```java
 import org.sqlite.SQLiteDataSource;
@@ -154,12 +154,11 @@ public class SqLiteData {
 
     public static DataSource createDataSource() throws SQLException {
         SQLiteDataSource dataSource = new SQLiteDataSource();
-        // This will create a database in memory without data persistence
+        // Damit wird eine Datenbank im Speicher ohne Datenpersistenz erstellt
         dataSource.setUrl("jdbc:sqlite::memory:");
-        // This will create a dabatase and store it in a file called data.db
+        // Dies erstellt eine Datenbank und speichert sie in einer Datei namens data.db
         dataSource.setUrl("jdbc:sqlite:data.db");
         return dataSource;
     }
 }
 ```
-

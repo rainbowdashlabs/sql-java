@@ -1,10 +1,10 @@
 # Views
 
-Views are crucial for wrapping complex queries into some kind of "virtual table".
-Views allow you to create something based on a query which will be dynamically created every time you call this view.
+Views sind wichtig, um komplexe Abfragen in eine Art "virtuelle Tabelle" zu verpacken.
+Mit Views kannst du etwas erstellen, das auf einer Abfrage basiert und jedes Mal dynamisch erstellt wird, wenn du diese View aufrufst.
 
-For example, you could simply wrap our friend count into a view and instead of selecting this cursed union code you can simply select it like a table.
-Views are created with the `CREATE VIEW` keyword followed by a `SELECT` statement.
+Du könntest zum Beispiel einfach unsere Freundesanzahl in eine Ansicht packen und statt diesen verfluchten Gewerkschaftscode auszuwählen, kannst du sie einfach wie eine Tabelle auswählen.
+Views werden mit dem Schlüsselwort `CREATE VIEW` erstellt, gefolgt von einer `SELECT`-Anweisung.
 
 ```postgresql
 CREATE VIEW friend_count AS
@@ -16,38 +16,38 @@ FROM (SELECT player_id_1 AS player_id, COUNT(1) AS friend_count
       UNION ALL
       SELECT player_id_2 AS player_id, COUNT(1) AS friend_count
       FROM friend_graph
-      GROUP BY player_id_2) counts
+      GROUP BY player_id_2) zählt
 GROUP BY player_id;
 ```
 
-Once we executed this code all we need to do to read our friend count is to select everything from our `friend_count` view.
-However, our database doesn't differ between table and view when selecting.
-We will treat our view like a table.
+Sobald wir diesen Code ausgeführt haben, müssen wir nur noch die Freundesanzahl aus unserer Ansicht `friend_count` auslesen.
+Allerdings unterscheidet unsere Datenbank bei der Auswahl nicht zwischen Tabelle und View.
+Wir werden unseren View wie eine Tabelle behandeln.
 
 ```postgresql
 SELECT player_id, sum
 FROM friend_count;
 ```
 
-| player\_id | sum |
+| player_id | sum |
 |:-----------|:----|
-| 3          | 2   |
-| 4          | 4   |
-| 2          | 3   |
-| 1          | 3   |
+| 3 | 2 |
+| 4 | 4 |
+| 2 | 3 |
+| 1 | 3 |
 
-Having views on a table is a good way to hide larger sql statements.
-Keep in mind that everytime the view is called 
-the underlying query is called as well.
-This is why views can't really speed up your aggregation.
+Views auf eine Tabelle sind eine gute Möglichkeit, um größere SQL-Anweisungen zu verstecken.
+Denke daran, dass bei jedem Aufruf der View 
+auch die zugrunde liegende Abfrage aufgerufen wird.
+Aus diesem Grund können Views deine Aggregation nicht wirklich beschleunigen.
 
-## Materialized views
+## Materialisierte Ansichten
 
-**Postgres only**
+**Nur Postgres**
 
-If you are using postgres you are lucky, because postgres has something called materialized views.
-Those are actual tables created by a query.
-You define those the same way as views and just add the `MATERIALIZED` keyword:
+Wenn du Postgres verwendest, hast du Glück, denn Postgres verfügt über so genannte materialisierte Ansichten.
+Das sind echte Tabellen, die von einer Abfrage erstellt werden.
+Du definierst sie genauso wie die Views und fügst einfach das Schlüsselwort "MATERIALIZED" hinzu:
 
 ```postgresql
 CREATE MATERIALIZED VIEW friend_count_mat AS
@@ -59,16 +59,16 @@ FROM (SELECT player_id_1 AS player_id, COUNT(1) AS friend_count
       UNION ALL
       SELECT player_id_2 AS player_id, COUNT(1) AS friend_count
       FROM friend_graph
-      GROUP BY player_id_2) counts
+      GROUP BY player_id_2) zählt
 GROUP BY player_id;
 ```
 
-The big difference here is that this view gets not regenerated when it is read and this will indeed make your database queries much faster if you only need to aggregate your data from time to time.
+Der große Unterschied ist, dass diese Ansicht nicht neu generiert wird, wenn sie gelesen wird, und das macht deine Datenbankabfragen in der Tat viel schneller, wenn du deine Daten nur von Zeit zu Zeit aggregieren musst.
 
-A materialized view needs to be refreshed by you, which you can simply do by calling:
+Eine materialisierte Ansicht muss von dir aktualisiert werden, was du ganz einfach durch einen Aufruf tun kannst:
 
 ```postgresql
 REFRESH MATERIALIZED VIEW friend_count_mat;
 ```
 
-This will refresh your view with the query it used for creation.
+Dadurch wird deine Ansicht mit der Abfrage aktualisiert, die sie bei der Erstellung verwendet hat.

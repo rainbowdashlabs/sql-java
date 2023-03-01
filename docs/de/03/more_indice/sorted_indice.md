@@ -1,25 +1,25 @@
-# Sorted Indices
+# Sortierte Indizes
 
-In general indices are always sorted, because that's how they work.
-We can use this to speed up searches where we want to sort a table based on a value.
-With creating an index on the column we want to sort by we can directly skip the sort, because the database will just look at the already sorted index.
+Im Allgemeinen sind Indizes immer sortiert, weil sie so funktionieren.
+Das können wir nutzen, um Suchvorgänge zu beschleunigen, bei denen wir eine Tabelle nach einem Wert sortieren wollen.
+Wenn wir einen Index für die Spalte erstellen, nach der wir sortieren wollen, können wir die Sortierung direkt überspringen, denn die Datenbank schaut sich nur den bereits sortierten Index an.
 
-We most probably want to sort our users by the amount of money we have!
+Wahrscheinlich wollen wir unsere Nutzer nach der Menge des Geldes sortieren, das wir haben!
 
-*Remember to insert some data into your money table first c: You might need to add some more if you want the index to be used.*
+*Vergiss nicht, zuerst einige Daten in deine money-Tabelle einzufügen c: Du musst eventuell noch mehr hinzufügen, wenn du willst, dass der Index verwendet wird.*
 
-<details>
-<summary>Data generation for postgres</summary>
+<Details>
+<summary>Datengenerierung für Postgres</summary>
 
 ```sql
--- clear table
+-- Tabelle löschen
 DELETE
 FROM money;
 
--- We need to generate some more values to force the index usage
-INSERT INTO player(player_name) (SELECT 'player name' FROM GENERATE_SERIES(1, 1500));
+-- Wir müssen weitere Werte generieren, um die Verwendung des Index zu erzwingen
+INSERT INTO player(player_name) (SELECT 'player_name' FROM GENERATE_SERIES(1, 1500));
 
--- Generate some random money values
+-- Generiere einige zufällige money-Werte
 INSERT INTO money (SELECT id, ROUND(RANDOM() * 10000) FROM player);
 ```
 
@@ -32,26 +32,26 @@ ORDER BY money DESC
 LIMIT 5;
 ```
 
-| player\_id | money |
+| player_id | money |
 |:-----------|:------|
-| 1406       | 9994  |
-| 1358       | 9993  |
-| 1430       | 9989  |
-| 178        | 9985  |
-| 1113       | 9977  |
+| 1406 | 9994 |
+| 1358 | 9993 |
+| 1430 | 9989 |
+| 178 | 9985 |
+| 1113 | 9977 |
 
-If you want you can check the query plan now as we did in the previous [section](../en/03/query_planer.md). 
-You will see that we currently use no index at all.
-This will of course change once we add an index on the money column.
+Wenn du möchtest, kannst du den Abfrageplan jetzt überprüfen, so wie wir es im vorherigen [Abschnitt](../03/query_planer.md) getan haben. 
+Du wirst sehen, dass wir derzeit überhaupt keinen Index verwenden.
+Das wird sich natürlich ändern, wenn wir einen Index für die Spalte money hinzufügen.
 
 ```sql
--- we use CREATE INDEX instead of CREATE UNIQUE INDEX this time
+-- Wir verwenden dieses Mal CREATE INDEX statt CREATE UNIQUE INDEX
 CREATE INDEX money_money_index
-    -- We also define that we want to sort the index in an descending order. Ascending is the default.
+    -- Wir legen auch fest, dass wir den Index absteigend sortieren wollen. Die Standardeinstellung ist aufsteigend.
     ON money (money DESC);
 ```
 
-Check the query plan for this query now.
+Schau dir jetzt den Abfrageplan für diese Abfrage an.
 
 ```sql
 SELECT player_id, money
@@ -60,8 +60,8 @@ ORDER BY money DESC
 LIMIT 5;
 ```
 
-Now you will see that we indeed use an index scan.
-Also, if we only order by one value we are even using the index when we order the other direction.
+Du wirst sehen, dass wir tatsächlich einen Index-Scan verwenden.
+Und wenn wir nur nach einem Wert sortieren, benutzen wir den Index auch, wenn wir in die andere Richtung sortieren.
 
 ```sql
 SELECT player_id, money
@@ -70,6 +70,6 @@ ORDER BY money
 LIMIT 5;
 ```
 
-This query will use the index in a reversed order.
-Of course this won't work anymore when we order by multiple values.
-If you sort by multiple values you will need to add an index matching the same order of columns and sort direction as well.
+Bei dieser Abfrage wird der Index in umgekehrter Reihenfolge verwendet.
+Das funktioniert natürlich nicht mehr, wenn wir nach mehreren Werten sortieren.
+Wenn du nach mehreren Werten sortierst, musst du auch einen Index hinzufügen, der die gleiche Reihenfolge der Spalten und die gleiche Sortierrichtung hat.

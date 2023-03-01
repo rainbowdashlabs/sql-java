@@ -1,7 +1,7 @@
 # INSERT
 
-Now that we have created our tables we want to add data to them.
-Let's start with our players
+Jetzt, wo wir unsere Tabellen erstellt haben, wollen wir ihnen Daten hinzufügen.
+Beginnen wir mit unseren Spielern
 
 | id  | player\_name | last\_online     |
 |:----|:-------------|:-----------------|
@@ -16,8 +16,8 @@ Let's start with our players
 | 9   | Milana       | 2022-02-12 00:00 |
 | 10  | Lexi         | 2022-02-22 00:00 |
 
-In order to insert data we will need to use the `INSERT` statement.
-The general syntax to insert one row into a table is:
+Um Daten einzufügen, müssen wir die Anweisung `INSERT` verwenden.
+Die allgemeine Syntax zum Einfügen einer Zeile in eine Tabelle lautet:
 
 ```sql
 INSERT INTO table_name(column_1, column_2)
@@ -33,21 +33,21 @@ VALUES (value_1, value_2),
        (value_1, value_2);
 ```
 
-To proceed you need to know how to convert a string into a timestamp.
-This is different depending on the database you use:
+Du musst wissen, wie du einen String in einen Zeitstempel umwandeln kannst.
+Das hängt von der Datenbank ab, die du verwendest:
 
 - Postgres: `'2022-05-11 00:00'::TIMESTAMP`\
-  We can simply cast a string to a timestamp
+  Wir können einen String einfach in einen Zeitstempel umwandeln
 - MariaDB/MySQL: `timestamp('2022-05-11 00:00')`\
-  We use the timestamp function to parse our string
+  Wir benutzen die Timestamp-Funktion, um unseren String zu parsen
 - SqLite: `CAST(STRFTIME('%s', '2022-05-11 00:00') AS INTEGER)`\
-  We save timestamps as epoch seconds since sqlite doesn't really have a timestamp type
+  Wir speichern die Zeitstempel als Epochensekunden, da Sqlite nicht wirklich einen Zeitstempeltyp hat
 
-Now try to recreate the table from above with the previously mentioned methods and statements.
-Usually the time can be omitted when it is set to 00:00.
-  
+Versuche nun, die Tabelle von oben mit den zuvor genannten Methoden und Anweisungen neu zu erstellen.
+Normalerweise kann die Zeit weggelassen werden, wenn sie auf 00:00 gesetzt ist.
+
 <details>
-<summary>Solution</summary>
+<summary>Lösung</summary>
 
 **MariaDB/MySQL**
 ```sql
@@ -95,8 +95,8 @@ VALUES (1, 'Mike', CAST(STRFTIME('%s', '2022-05-11 00:00') AS INTEGER)),
   
 </details>
 
-Lets to the same with the friend_graph.
-Try to insert following values into the `friend_graph` table.
+Lass uns das Gleiche mit dem friend_graph machen.
+Versuche, die folgenden Werte in die Tabelle "friend_graph" einzufügen.
 
 | player\_1 | player\_2 |
 |:----------|:----------|
@@ -111,7 +111,7 @@ Try to insert following values into the `friend_graph` table.
 | 4         | 10        |
 
 <details>
-<summary>Solution</summary>
+<summary>Lösung</summary>
 
 ```sql
 INSERT INTO friend_graph(player_1, player_2)
@@ -128,12 +128,12 @@ VALUES (1, 2),
 
 </details>
 
-## Create tables with content
+## Tabellen mit Inhalt erstellen
 
-You can also use an alternative syntax to directly create a table with content.
+Du kannst auch eine alternative Syntax verwenden, um direkt eine Tabelle mit Inhalt zu erstellen.
 
-Let's say we want to create a table with money of the players.
-The table should contain the id and a fixed amount of money for each player for now.
+Nehmen wir an, wir wollen eine Tabelle mit dem Geld der Spieler erstellen.
+Die Tabelle soll zunächst die ID und einen festen Geldbetrag für jeden Spieler enthalten.
 
 ```sql
 CREATE TABLE money AS 
@@ -142,7 +142,7 @@ CREATE TABLE money AS
 
 ```
 
-This will create a table like this:
+Dadurch wird eine Tabelle wie diese erstellt:
 
 | id  | money |
 |:----|:------|
@@ -157,15 +157,15 @@ This will create a table like this:
 | 9   | 1000  |
 | 10  | 1000  |
 
-This method has some stuff you have to take care of.
-The database will decide about the data type of the column.
-When we use `1000.0` we get a numeric type.
-When we use `1000` we will get an integer type.
-It is also important to use an alias on newly created columns which have only a type.
-Use the `as` keyword here.
-If you don't define an alias the column will have some fallback default value which is usually not what you want. 
+Bei dieser Methode musst du einige Dinge beachten.
+Die Datenbank wird über den Datentyp der Spalte entscheiden.
+Wenn wir `1000.0` verwenden, erhalten wir einen numerischen Typ.
+Wenn wir "1000" verwenden, erhalten wir einen Integer-Typ.
+Es ist auch wichtig, einen Alias für neu erstellte Spalten zu verwenden, die nur einen Typ haben.
+Verwende dazu das Schlüsselwort "as".
+Wenn du keinen Alias definierst, hat die Spalte einen Standardwert, der normalerweise nicht das ist, was du willst. 
 
 
-## Conflicts
-You may have noticed that until now we can insert the players as often as we want and our ids will no longer be unique.
-We will deal with this later.
+## Konflikte
+Du hast vielleicht schon bemerkt, dass wir die Spieler so oft einfügen können, wie wir wollen, und dass unsere IDs dann nicht mehr eindeutig sind.
+Damit werden wir uns später beschäftigen.

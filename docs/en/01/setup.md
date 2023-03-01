@@ -22,9 +22,7 @@ I highly discourage the usage of phpmyadmin.
 It has several known exploits and is in general a pure security issue on your server.
 There are much better ways.
 
-[Debian](https://www.digitalocean.com/community/tutorials/how-to-install-the-latest-mysql-on-debian-10)
-| [Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04)
-| [Windows](https://dev.mysql.com/doc/refman/8.0/en/windows-installation.html)
+[Debian](https://www.digitalocean.com/community/tutorials/how-to-install-the-latest-mysql-on-debian-10) | [Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04) | [Windows](https://dev.mysql.com/doc/refman/8.0/en/windows-installation.html)
 
 ### MariaDB
 
@@ -34,9 +32,7 @@ I highly discourage the usage of phpmyadmin.
 It has several known exploits and is in general a pure security issue on your server.
 There are much better ways.
 
-[Debian](https://www.digitalocean.com/community/tutorials/how-to-install-mariadb-on-debian-10)
-| [Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-install-mariadb-on-ubuntu-20-04)
-| [Windows](https://mariadb.com/kb/en/installing-mariadb-msi-packages-on-windows/)
+[Debian](https://www.digitalocean.com/community/tutorials/how-to-install-mariadb-on-debian-10) | [Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-install-mariadb-on-ubuntu-20-04) | [Windows](https://mariadb.com/kb/en/installing-mariadb-msi-packages-on-windows/)
 
 ### PostgreSQL
 
@@ -44,9 +40,7 @@ Some installation processes will suggest you to install pgadmin as well.
 I do not recommend this.
 It is a good tool, but superseded by the desktop tools I will show you next.
 
-[Debian](https://linuxize.com/post/how-to-install-postgresql-on-debian-10/)
-| [Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-20-04)
-| [Windows](https://www.postgresqltutorial.com/install-postgresql/)
+[Debian](https://linuxize.com/post/how-to-install-postgresql-on-debian-10/) | [Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-20-04) | [Windows](https://www.postgresqltutorial.com/install-postgresql/)
 
 ### SQLite
 
@@ -78,13 +72,10 @@ It's always better to keep it secure behind your firewall.
 
 All three tools have an option to use an ssh tunnel for connection to your database.
 
-[If you haven't set up an ssh connection yet, you should do it now.
-](https://phoenixnap.com/kb/ssh-to-connect-to-remote-server-linux-or-windows)
+[If you haven't set up an ssh connection yet, you should do it now.](https://phoenixnap.com/kb/ssh-to-connect-to-remote-server-linux-or-windows)
 
 Now you need to connect to your database via an ssh tunnel.
 
-[DBeaver](https://dbeaver.com/docs/wiki/Create-Connection/)
-| [HeidiSQL](https://marcus-obst.de/wiki/Database%20-%20HeidiSQL%20SSH%20Tunnel%20Setup)
-| [DataGrip](https://www.jetbrains.com/help/datagrip/configuring-ssh-and-ssl.html#ssh)
+[DBeaver](https://dbeaver.com/docs/wiki/Create-Connection/) | [HeidiSQL](https://marcus-obst.de/wiki/Database%20-%20HeidiSQL%20SSH%20Tunnel%20Setup) | [DataGrip](https://www.jetbrains.com/help/datagrip/configuring-ssh-and-ssl.html#ssh)
 
 That's it. Now you are ready for some fun with the database.

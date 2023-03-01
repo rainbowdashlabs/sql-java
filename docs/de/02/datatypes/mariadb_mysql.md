@@ -1,123 +1,123 @@
-# MariaDB and MySQL
+# MariaDB und MySQL
 
-MariaDB and MySQL are very similar when it comes to datatypes. However, there are some small differences.
+MariaDB und MySQL sind sich sehr ähnlich, wenn es um Datentypen geht. Es gibt jedoch einige kleine Unterschiede.
 
-## Numeric types
+## Numerische Typen
 
-Numeric types sometimes have a "size".
-This size is not directly a validation.
-It is most common the size of the number and defines how much of that size is used to store the decimal.
-Sized never have a size which validates the input.
-It is always about precision.
+Numerische Typen haben manchmal eine "Größe".
+Diese Größe ist nicht direkt eine Validierung.
+Sie ist meistens die Größe der Zahl und legt fest, wie viel von dieser Größe zum Speichern der Dezimalzahl verwendet wird.
+Sized haben nie eine Größe, die die Eingabe validiert.
+Es geht immer um die Genauigkeit.
 
 ### INTEGER
 
 Java: Integer, Long
 
-The integer in MariaDB are divided into several sizes.
-They will require different disk space depending on the size you choose.
-Choose your integer type based on the maximum and minimum size you expect the values to be.
+Die Ganzzahlen in MariaDB sind in verschiedene Größen unterteilt.
+Je nachdem, welche Größe du wählst, benötigen sie unterschiedlich viel Speicherplatz.
+Wähle deinen Integer-Typ anhand der maximalen und minimalen Größe, die du für die Werte erwartest.
 
-- TINYINT: Between -128 and 127 - [MariaDB](https://mariadb.com/kb/en/tinyint/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/integer-types.html)
-- SMALLINT: -32,768 and 32,767 - [MariaDB](https://mariadb.com/kb/en/smallint/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/integer-types.html)
-- MEDIUMINT: -8,288,608 and 8,388,607 - [MariaDB](https://mariadb.com/kb/en/mediumint/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/integer-types.html)
-- INT or INTEGER: -2,147,483,648 and 2,147,483,647 - [MariaDB](https://mariadb.com/kb/en/int/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/integer-types.html)
-- BIGINT: Every value larger than INT - [MariaDB](https://mariadb.com/kb/en/bigint/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/integer-types.html)
+- TINYINT: Zwischen -128 und 127 - [MariaDB](https://mariadb.com/kb/en/tinyint/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/integer-types.html)
+- SMALLINT: -32.768 und 32.767 - [MariaDB](https://mariadb.com/kb/en/smallint/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/integer-types.html)
+- MEDIUMINT: -8.288.608 und 8.388.607 - [MariaDB](https://mariadb.com/kb/en/mediumint/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/integer-types.html)
+- INT oder INTEGER: -2.147.483.648 und 2.147.483.647 - [MariaDB](https://mariadb.com/kb/en/int/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/integer-types.html)
+- BIGINT: Jeder Wert größer als INT - [MariaDB](https://mariadb.com/kb/en/bigint/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/integer-types.html)
 
 ### DECIMAL
 
 Java: Double | [MariaDB](https://mariadb.com/kb/en/decimal/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/fixed-point-types.html)
 
-A number with an "exact" fixed point.
+Eine Zahl mit einem "exakten" Fixpunkt.
 
 ### DOUBLE
 
 Java: Double | [MariaDB](https://mariadb.com/kb/en/double/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/floating-point-types.html)
 
-A number with a double precision floating point
+Eine Zahl mit doppelter Fließkommapräzision
 
 ### FLOAT
 
 Java: Float | [MariaDB](https://mariadb.com/kb/en/float/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/floating-point-types.html)
 
-A number with a single precision floating point
+Eine Zahl mit einfacher Fließkomma-Präzision
 
 ### BOOLEAN
 
 Java: Boolean | [MariaDB](https://mariadb.com/kb/en/boolean/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/other-vendor-data-types.html)
 
-Booleans are stored as tinyint internally.
+Boolesche Werte werden intern als tinyint gespeichert.
 
-## Text types
+## Texttypen
 
-We have several string types which we need to choose based on the expected size of the value.
+Es gibt verschiedene Texttypen, die wir je nach der erwarteten Größe des Wertes auswählen müssen.
 
 ### CHAR
 
 Java: String | [MariaDB](https://mariadb.com/kb/en/char/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/char.html)
 
-A character is used for strings with the same size. E.g. Country Codes.
-It has a maximum length of 255. The length needs to be defined on creation.
-Characters will be padded with spaces if some characters are missing to reach the specified length.
+Ein Zeichen wird für Strings mit der gleichen Größe verwendet. Z.B. Länder-Codes.
+Es hat eine maximale Länge von 255. Die Länge muss bei der Erstellung festgelegt werden.
+Die Zeichen werden mit Leerzeichen aufgefüllt, wenn einige Zeichen fehlen, um die angegebene Länge zu erreichen.
 
-`CHAR(length)`
+`CHAR(Länge)`
 
 ### TEXT
 
 Java: String
 
-The text type is divided into several sizes. They will disallow values larger than the maximum size.
+Der Texttyp ist in verschiedene Größen unterteilt. Sie lassen keine Werte zu, die größer als die maximale Größe sind.
 
-- TINYTEXT: Up to 255 chars - [MariaDB](https://mariadb.com/kb/en/tinytext/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/blob.html)
-- TEXT: Up to 65,353 chars - [MariaDB](https://mariadb.com/kb/en/text/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/blob.html)
-- MEDIUMTEXT: Up to 16,777,215 chars - [MariaDB](https://mariadb.com/kb/en/mediumtext/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/blob.html)
-- LONGTEXT: Up to 4,294,967,295 chars - [MariaDB](https://mariadb.com/kb/en/longtext/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/blob.html)
+- TINYTEXT: Bis zu 255 Zeichen - [MariaDB](https://mariadb.com/kb/en/tinytext/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/blob.html)
+- TEXT: Bis zu 65.353 Zeichen - [MariaDB](https://mariadb.com/kb/en/text/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/blob.html)
+- MEDIUMTEXT: Bis zu 16.777.215 Zeichen - [MariaDB](https://mariadb.com/kb/en/mediumtext/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/blob.html)
+- LONGTEXT: Bis zu 4.294.967.295 Zeichen - [MariaDB](https://mariadb.com/kb/en/longtext/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/blob.html)
 
 ### VARCHAR
 
 Java: String | [MariaDB](https://mariadb.com/kb/en/varchar/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/char.html)
 
-The varchar is a string with a variable maximum size.
-The maximum size here is a bit more complex, since it depends on the encoding of the database.
-Unlike CHAR is does not add any padding.
+VARCHAR ist ein String mit einer variablen Maximalgröße.
+Die maximale Größe ist hier etwas komplexer, da sie von der Kodierung der Datenbank abhängt.
+Im Gegensatz zu CHAR wird hier kein Padding hinzugefügt.
 
-Theoretically the maximum size is 65,532 characters.
-If you use utf8 which requires up to 4 bytes per char you are down to 21,844 characters in the worst case.
+Theoretisch beträgt die maximale Größe 65.532 Zeichen.
+Wenn du utf8 verwendest, das bis zu 4 Byte pro Zeichen benötigt, kommst du im schlimmsten Fall auf 21.844 Zeichen.
 
-One advancement over TEXT is that varchar columns can be fully indexed while TEXT columns are truncated to a specified length.
+Ein Vorteil gegenüber TEXT ist, dass varchar-Spalten vollständig indiziert werden können, während TEXT-Spalten auf eine bestimmte Länge gekürzt werden.
 
 ### Enum
 
-Java: String or Enum name | [MariaDB](https://mariadb.com/kb/en/enum/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/enum.html)
+Java: String oder Enum name | [MariaDB](https://mariadb.com/kb/en/enum/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/enum.html)
 
-The enum type is a special string which adds input validation to the column. Only values defined in the column can be added.
+Der Enum-Typ ist ein spezieller String, der der Spalte eine Eingabevalidierung hinzufügt. Es können nur Werte hinzugefügt werden, die in der Spalte definiert sind.
 
-```ENUM('value1','value2',...)```
+```ENUM('Wert1','Wert2',...)```
 
 ### JSON
 
 Java: String | [MariaDB](https://mariadb.com/kb/en/json-data-type/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/json.html)
 
 **MySQL**
-JSON is stored as a LONGTEXT column but converted into an internal format for better access.
+JSON wird als LONGTEXT-Spalte gespeichert, aber für einen besseren Zugriff in ein internes Format umgewandelt.
 
 **MariaDB**
 
-JSON is an alias for LONGTEXT and adds a check that ensures a valid json syntax on insertion. JSON is a normal string in MariaDB.
+JSON ist ein Alias für LONGTEXT und fügt eine Prüfung hinzu, die beim Einfügen eine gültige JSON-Syntax sicherstellt. JSON ist ein normaler String in MariaDB.
 
 ### SET
 
-Java: String | **[MySQL only](https://dev.mysql.com/doc/refman/8.0/en/set.html)**
+Java: String | **[Nur MySQL](https://dev.mysql.com/doc/refman/8.0/en/set.html)**
 
-Similar to an enum a set can only contain predefined input which are separated by `,`.
+Ähnlich wie ein Enum kann ein Set nur vordefinierte Eingaben enthalten, die durch `,` getrennt sind.
 
-Given a set like this:
+Bei einem Set wie diesem:
 
 ```sql
 SET ('a', 'b', 'c', 'd')
 ```
 
-We can have several values like:
+Wir können mehrere Werte haben wie:
 
 - `''`
 - `'a'`
@@ -125,35 +125,35 @@ We can have several values like:
 - `'a,c'`
 - ...
 
-## Binary types
+## Binäre Typen
 
 ### BLOB
 
 Java: Anything
 
-The blob type is divided into several sizes.
-It is used to store any binary data you want.
+Der Blob-Typ ist in mehrere Größen unterteilt.
+Er wird verwendet, um beliebige Binärdaten zu speichern.
 
-- TINYBLOB: Up to 255 bytes - [MariaDB](https://mariadb.com/kb/en/tinyblob/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/blob.html)
-- BLOB: Up to 65,353 bytes - [MariaDB](https://mariadb.com/kb/en/blob/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/blob.html)
-- MEDIUMBLOB: Up to 16,777,215 bytes - [MariaDB](https://mariadb.com/kb/en/mediumblob/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/blob.html)
-- LONGBLOB: Up to 4,294,967,295 bytes aka 4GB - [MariaDB](https://mariadb.com/kb/en/longblob/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/blob.html)
+- TINYBLOB: Bis zu 255 Bytes - [MariaDB](https://mariadb.com/kb/en/tinyblob/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/blob.html)
+- BLOB: Bis zu 65.353 Bytes - [MariaDB](https://mariadb.com/kb/en/blob/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/blob.html)
+- MEDIUMBLOB: Bis zu 16.777.215 Bytes - [MariaDB](https://mariadb.com/kb/en/mediumblob/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/blob.html)
+- LONGBLOB: Bis zu 4.294.967.295 Bytes alias 4GB - [MariaDB](https://mariadb.com/kb/en/longblob/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/blob.html)
 
 ### BINARY
 
-Java: Anything | [MariaDB](https://mariadb.com/kb/en/binary/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/binary-varbinary.html)
+Java: Beliebig | [MariaDB](https://mariadb.com/kb/en/binary/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/binary-varbinary.html)
 
-Stores a fixed length binary value.
+Speichert einen binären Wert mit fester Länge.
 
-```BINARY(length)```
+BINARY(length)````
 
-## Date and Time
+## Datum und Uhrzeit
 
 ### DATE
 
 Java: LocalDate | [MariaDB](https://mariadb.com/kb/en/date/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/datetime.html)
 
-### TIME
+### ZEIT
 
 Java: LocalTime | [MariaDB](https://mariadb.com/kb/en/time/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/time.html)
 
@@ -161,22 +161,22 @@ Java: LocalTime | [MariaDB](https://mariadb.com/kb/en/time/) | [MySQL](https://d
 
 Java: LocalDateTime | [MariaDB](https://mariadb.com/kb/en/datetime/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/datetime.html)
 
-Combination of DATE and TIME.
-They will be stored in the current timezone.
-They will also validate that the time is valid in the current timezone.
-Some times can be invalid due to daylight saving times also referred as winter- and summertime.
+Kombination aus DATE und TIME.
+Sie werden in der aktuellen Zeitzone gespeichert.
+Sie überprüfen auch, ob die Uhrzeit in der aktuellen Zeitzone gültig ist.
+Einige Zeiten können aufgrund der Sommerzeit ungültig sein, die auch als Winter- und Sommerzeit bezeichnet wird.
 
 ### TIMESTAMP
 
 Java: LocalDateTime | [MariaDB](https://mariadb.com/kb/en/timestamp/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/datetime.html)
 
-A timestamp will be converted to UTC on insertion and changed to the sessions timezone on read again.
+Ein Zeitstempel wird beim Einfügen in UTC umgewandelt und beim gegenseitigen Lesen in die Zeitzone der Sitzung geändert.
 
 ### YEAR
 
-Java: Integer or String | [MariaDB](https://mariadb.com/kb/en/year-data-type/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/year.html)
+Java: Integer oder String | [MariaDB](https://mariadb.com/kb/en/year-data-type/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/year.html)
 
-A year represents a year in two or four digit format. They are limited in range.
+Ein Jahr steht für eine Jahreszahl im zwei- oder vierstelligen Format. Ihr Bereich ist begrenzt.
 
-- Four digits (`YEAR(4)`): 1901 -> 2155 and 0000
-- Two digits (`YEAR(2)`): 70 -> 69 representing 1970 -> 2069
+- Vier Ziffern (`YEAR(4)`): 1901 -> 2155 und 0000
+- Zwei Ziffern (`JAHR(2)`): 70 -> 69 für 1970 -> 2069

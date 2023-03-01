@@ -1,63 +1,63 @@
-# Versioning
+# Versionierung
 
-Having a database is one thing, but maintaining a database and applying updates is another thing.
-I will show you two ways to maintain your database version.
-One will be a self build, which is simple but solid the other one will be a third party tool which is the most used in the industry.
+Eine Datenbank zu haben ist eine Sache, aber sie zu pflegen und zu aktualisieren ist eine andere.
+Ich werde dir zwei Möglichkeiten zeigen, wie du die Version deiner Datenbank pflegen kannst.
+Die eine ist eine einfache, aber solide Eigenentwicklung, die andere ist ein Tool eines Drittanbieters, das in der Branche am häufigsten verwendet wird.
 
-## Building a SQL Updater
+## Erstellen eines SQL Updaters
 
-Now that we are connected we need to ensure that we will find the tables in our database we are looking for.
-Most people do this in their code by writing very long table create statements.
-We won't do this.
-We will ship our required table layout in a file in our plugin.
-It's considered the best practise to not include large sql statements in your code directly.
+Jetzt, wo wir verbunden sind, müssen wir sicherstellen, dass wir die gesuchten Tabellen in unserer Datenbank finden.
+Die meisten Leute machen das in ihrem Code, indem sie sehr lange Anweisungen zum Erstellen von Tabellen schreiben.
+Wir werden das nicht tun.
+Wir werden unser gewünschtes Tabellenlayout in einer Datei in unserem Plugin ausliefern.
+Es gilt als beste Praxis, große SQL-Anweisungen nicht direkt in deinen Code einzubauen.
 
-Create a file `dbsetup.sql` in your resources.
-We now write all statements to create our tables in this file.
+Erstelle eine Datei `dbsetup.sql` in deinen Ressourcen.
+In diese Datei schreiben wir nun alle Anweisungen, um unsere Tabellen zu erstellen.
 
-``` sql
-CREATE TABLE IF NOT EXISTS something
+```sql
+CREATE TABLE IF NOT EXISTS etwas
 (
     [...]
 );
 
-CREATE TABLE IF NOT EXISTS somewhat
+CREATE TABLE IF NOT EXISTS etwas
 (
     [...]
 );
 [...]
 ```
 
-Please notice that we end each statement with a `;` this is required to know where the statement ends.
-We also use the `IF NOT EXISTS` keyword everywhere, otherwise our setup would fail on the next startup.
+Beachte bitte, dass wir jede Anweisung mit einem `;` abschließen, damit wir wissen, wo die Anweisung endet.
+Außerdem verwenden wir überall das Schlüsselwort `IF NOT EXISTS`, sonst würde unser Setup beim nächsten Start fehlschlagen.
 
-Now we need to execute this in our database. 
-For this we will create a `initDb()` method in our plugin and call it after our datasource assignment.
+Jetzt müssen wir die Anweisung in unserer Datenbank ausführen. 
+Dazu erstellen wir eine Methode `initDb()` in unserem Plugin und rufen sie nach unserer DataSource-Zuweisung auf.
 
-This method will read our `dbsetup.sql` file and execute the statements one by one into our database.
-Please note that this method will throw a SQLException whenever something went wrong.
-This will abort the setup, since there is no sense to run our plugin without a properly initialized database.
+Diese Methode liest unsere Datei `dbsetup.sql` und führt die Anweisungen eine nach der anderen in unserer Datenbank aus.
+Bitte beachte, dass diese Methode eine SQLException auslöst, wenn etwas schief gelaufen ist.
+Dies führt zum Abbruch der Installation, da es keinen Sinn macht, unser Plugin ohne eine korrekt initialisierte Datenbank auszuführen.
 
-``` java
+```java
 private void initDb() throws SQLException, IOException {
-    // first lets read our setup file.
-    // This file contains statements to create our inital tables.
-    // it is located in the resources.
+    // Zuerst lesen wir unsere Setup-Datei.
+    // Diese Datei enthält Anweisungen, um unsere ersten Tabellen zu erstellen.
+    // Sie befindet sich in den Ressourcen.
     String setup;
     try (InputStream in = getClassLoader().getResourceAsStream("dbsetup.sql")) {
-        // Java 9+ way
+        // Java 9+ Weg
         setup = new String(in.readAllBytes());
-        // Legacy way
+        // Legacy-Weg
         setup = new BufferedReader(new InputStreamReader(in)).lines().collect(Collectors.joining("\n"));
     } catch (IOException e) {
         getLogger().log(Level.SEVERE, "Could not read db setup file.", e);
         throw e;
     }
-    // Mariadb can only handle a single query per statement. We need to split at ;.
+    // Mariadb kann nur eine einzige Abfrage pro Statement verarbeiten. Wir müssen bei ; aufteilen.
     String[] queries = setup.split(";$");
-    // execute each query to the database.
+    // führe jede Abfrage an die Datenbank aus.
     for (String query : queries) {
-        // If you use the legacy way you have to check for empty queries here.
+        // Wenn du die alte Methode verwendest, musst du hier auf leere Abfragen prüfen.
         if (query.isBlank()) continue;
         try (Connection conn = dataSource.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -68,45 +68,45 @@ private void initDb() throws SQLException, IOException {
 }
 ```
 
-After our script is executed all tables should be created, and we are ready to go.
+Nachdem unser Skript ausgeführt wurde, sollten alle Tabellen erstellt sein, und wir können loslegen.
 
-### Versioning
+### Versionierung
 
-Versioning a database is hard and there are not many best practises, however I am using a system with setup, incremental
-patches and migration files to accomplish this. This system is probably not required for most plugins, so you can skip
-this if you are not interested.
+Die Versionierung einer Datenbank ist schwierig und es gibt nicht viele Best Practices, aber ich verwende ein System mit Setup, inkrementellen
+Patches und Migrationsdateien, um dies zu bewerkstelligen. Dieses System wird wahrscheinlich für die meisten Plugins nicht benötigt, also kannst du
+Du kannst es also überspringen, wenn es dich nicht interessiert.
 
-If you want to keep track of your database version create a single table like:
+Wenn du den Überblick über deine Datenbankversion behalten willst, erstelle eine einzelne Tabelle wie:
 
 ```sql
 CREATE TABLE IF NOT EXISTS plugin_name_db_version (
 	version INT NOT NULL,
-	patch   INT NOT NULL
+	patch INT NOT NULL
 );
 ```
 
-This table should contain the version and patch version of your database.
-You can check on a startup which database version your database has.
-Now you can include incremental patch files in your plugin with a structure like this:
+Diese Tabelle sollte die Version und die Patch-Version deiner Datenbank enthalten.
+Du kannst beim Start überprüfen, welche Datenbankversion deine Datenbank hat.
+Jetzt kannst du inkrementelle Patch-Dateien in dein Plugin einbinden, die wie folgt aufgebaut sind:
 
 ```yaml
-database/1/setup.sql
-database/1/patch_1.sql
-database/1/patch_2.sql
-database/1/patch_3.sql
-database/1/migrate.sql
-database/2/setup.sql
-database/2/patch_1.sql
-database/2/patch_2.sql
+datenbank/1/setup.sql
+datenbank/1/patch_1.sql
+datenbank/1/patch_2.sql
+datenbank/1/patch_3.sql
+datenbank/1/migrate.sql
+datenbank/2/setup.sql
+datenbank/2/patch_1.sql
+datenbank/2/patch_2.sql
 ```
 
-`setup` files contain a full new database setup. These are used if no database is present.
-`patch` files are applied on the `setup` until the current version is reached.
-If the major version needs to be changed, all patches will be applied first and then the `migrate` script is executed.
-Of course, you need to store your required database version somewhere in your plugin.
+`setup`-Dateien enthalten ein komplettes neues Datenbank-Setup. Sie werden verwendet, wenn keine Datenbank vorhanden ist.
+`Patch`-Dateien werden auf das `Setup` angewendet, bis die aktuelle Version erreicht ist.
+Wenn die Hauptversion geändert werden muss, werden zuerst alle Patches angewendet und dann wird das Skript `migrate` ausgeführt.
+Natürlich musst du deine gewünschte Datenbankversion irgendwo in deinem Plugin speichern.
 
 ## Flyway
 
-[Flyway](https://flywaydb.org/) is a tool to apply database patches.
-It is probably the most common tool in the industry and provides some additional features like migrate, clean, validate and repair.
-It also provides rolling back and more, but those features are only available in the paid version of flyway, which might make it less attractive.
+[Flyway](https://flywaydb.org/) ist ein Tool zum Anwenden von Datenbank-Patches.
+Es ist wahrscheinlich das am weitesten verbreitete Tool in der Branche und bietet einige zusätzliche Funktionen wie Migrieren, Bereinigen, Validieren und Reparieren.
+Es bietet auch Rollback und mehr, aber diese Funktionen sind nur in der kostenpflichtigen Version von Flyway verfügbar, was es vielleicht weniger attraktiv macht.

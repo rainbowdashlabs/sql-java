@@ -1,40 +1,40 @@
-# HikariCP and connection pooling
+# HikariCP und Verbindungspooling
 
-You might notice that we open our connection as a resource, which will inevitable close the connection once we leave our try block.
-That is not really what we want.
-Opening connections is expensive, and ideally we would keep those connections and reuse them.
-Implementing this is not the responsibility of JDBC and that is why connection pooling frameworks exist.
+Du hast vielleicht bemerkt, dass wir unsere Verbindung als Ressource öffnen, die die Verbindung zwangsläufig schließt, sobald wir unseren Try-Block verlassen.
+Das ist nicht wirklich das, was wir wollen.
+Das Öffnen von Verbindungen ist teuer, und idealerweise würden wir diese Verbindungen behalten und wiederverwenden.
+Dies zu implementieren ist nicht die Aufgabe von JDBC und deshalb gibt es Connection Pooling Frameworks.
 
-That is where [HikariCP](https://github.com/brettwooldridge/HikariCP) comes into use.
-HikariCP wraps connections into their own connection.
-Instead of closing the connection when `close()` is called they move the connection back into a pool and will return it again when we request a connection from our datasource.
-Since we used a `DataSource` before switching to Hikari is no problem, because it creates a `DataSource` as well.
-All we need to change is drop our url we defined for our JDBC driver to connect into our `HikariDataSource` instead and define a pool size.
+Hier kommt [HikariCP](https://github.com/brettwooldridge/HikariCP) zum Einsatz.
+HikariCP wickelt Verbindungen in ihre eigene Verbindung ein.
+Anstatt die Verbindung zu schließen, wenn `close()` aufgerufen wird, verschiebt es die Verbindung zurück in einen Pool und gibt sie erneut zurück, wenn wir eine Verbindung von unserer DataSource anfordern.
+Da wir vor dem Wechsel zu Hikari eine DataSource verwendet haben, ist das kein Problem, denn Hikari erstellt auch eine DataSource.
+Alles, was wir ändern müssen, ist, dass wir die URL, die wir für unseren JDBC-Treiber definiert haben, weglassen und uns stattdessen mit unserer `HikariDataSource` verbinden und eine Poolgröße definieren.
 
-To use Hikari we need to import it first:
+Um Hikari zu verwenden, müssen wir es zuerst importieren:
 
-**Latest version**
+**Aktuelle Version**
 
-![Latest version](https://img.shields.io/maven-central/v/com.zaxxer/HikariCP)
+![Neueste Version](https://img.shields.io/maven-central/v/com.zaxxer/HikariCP)
 
 **Gradle**
 
-```kts
+**Kkts
 implementation("com.zaxxer", "HikariCP", "version")
 ```
 
 **Maven**
 
-```xml
+``xml
 
 <dependency>
     <groupId>com.zaxxer</groupId>
     <artifactId>HikariCP</artifactId>
-    <version>version</version>
+    <version>Version</version>
 </dependency>
 ```
 
-Once we imported HikariCP we need to create our DataSource.
+Nachdem wir HikariCP importiert haben, müssen wir unsere DataSource erstellen.
 
 ```java
 import com.zaxxer.hikari.HikariConfig;
@@ -54,35 +54,35 @@ public class PostgresHikariCP {
     }
 
     public static DataSource createDataSource() throws SQLException, ClassNotFoundException {
-        // We load the driver class into the class path
+        // Wir laden die Treiberklasse in den Klassenpfad
         Class.forName("org.postgresql.Driver");
-        // Create a new config
+        // Erstelle eine neue Konfiguration
         HikariConfig config = new HikariConfig();
-        // Set the url we used before already to connect to our database
+        // Lege die URL fest, die wir bereits für die Verbindung zu unserer Datenbank verwendet haben
         config.setJdbcUrl("jdbc:postgres://localhost:5432/db");
-        // Insert our credentials
+        // Einfügen unserer Anmeldedaten
         config.setUsername("username");
         config.setPassword("password");
-        // We define a maximum pool size.
+        // Wir legen eine maximale Poolgröße fest.
         config.setMaximumPoolSize(5);
-        // Define the min idle connections.
+        // Wir legen die minimalen Leerlaufverbindungen fest.
         config.setMinimumIdle(2);
-        // Create a new DataSource based on our config
+        // Erstelle eine neue DataSource basierend auf unserer Konfiguration
         return new HikariDataSource(config);
     }
 }
 ```
 
-And now we will use pooled connections whenever we request a connection from our datasource.
+Und jetzt werden wir gepoolte Verbindungen verwenden, wenn wir eine Verbindung von unserer DataSource anfordern.
 
-## Choose the correct pool and idle amount
+## Wähle den richtigen Pool und die Leerlaufmenge
 
-Most applications will work fine with 3 to 5 connections per pool.
-You always need to ask how many parallel connections you will need.
-You might also add some monitoring for it if you need.
-The idle connection should be set to 1 at least, but two usually is better.
+Die meisten Anwendungen funktionieren gut mit 3 bis 5 Verbindungen pro Pool.
+Du musst dich immer fragen, wie viele parallele Verbindungen du brauchst.
+Du kannst auch ein Monitoring dafür einrichten, wenn du es brauchst.
+Die Idle-Verbindung sollte mindestens auf 1 gesetzt werden, aber zwei sind normalerweise besser.
 
-## More configuration
+## Weitere Konfiguration
 
-We are just scraping the surface when using HikariCP.
-There are tons of customization we can do on it and I highly recommend taking a look at the [documentation](https://github.com/brettwooldridge/HikariCP#gear-configuration-knobs-baby).
+Wir kratzen nur an der Oberfläche, wenn wir HikariCP verwenden.
+Es gibt tonnenweise Möglichkeiten zur Anpassung und ich empfehle dir, einen Blick in die [Dokumentation](https://github.com/brettwooldridge/HikariCP#gear-configuration-knobs-baby) zu werfen.

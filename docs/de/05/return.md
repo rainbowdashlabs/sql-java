@@ -1,15 +1,15 @@
 # Return Types
 
-Now we learned countless ways to read and write data.
-What is missing are methods and return types which indicate whether our operation was a success.
-For that we have different options that we will look into here.
-You want to have some kind of return type in any case.
+Jetzt haben wir unzählige Möglichkeiten kennengelernt, Daten zu lesen und zu schreiben.
+Was fehlt, sind Methoden und Rückgabetypen, die anzeigen, ob unsere Operation erfolgreich war.
+Dafür gibt es verschiedene Möglichkeiten, die wir uns hier ansehen werden.
+Du willst auf jeden Fall eine Art Rückgabetyp haben.
 
-## Optionals
+*# Optionals
 
-Optionals are a java class.
-They are preferred when a call returns 0 or 1 results.
-They can be constructed by calling `Optional.of()`, `Optional.ofNullable()` or `Optional.empty()`.
+Optionals sind eine Java-Klasse.
+Sie werden bevorzugt, wenn ein Aufruf 0 oder 1 Ergebnisse zurückgibt.
+Sie können durch den Aufruf von `Optional.of()`, `Optional.ofNullable()` oder `Optional.empty()` erstellt werden.
 
 ```java
 import javax.sql.DataSource;
@@ -45,10 +45,10 @@ public class ReturnOptional {
 }
 ```
 
-## List and Map
+## Liste und Karte
 
-When returning multiple entities it is applicable to return them as a list.
-Of course a map would be possible as well, but in most of the cases you will notice that objects in a list is usually sufficient.
+Wenn mehrere Objekte zurückgegeben werden sollen, ist es sinnvoll, sie als Liste zurückzugeben.
+Natürlich wäre auch eine Map möglich, aber in den meisten Fällen wirst du feststellen, dass Objekte in einer Liste ausreichen.
 
 ```java
 import javax.sql.DataSource;
@@ -106,14 +106,14 @@ public class ReturnListMap {
 }
 ```
 
-You will notice that we create our collection after we query our data.
-That causes that we do not create a collection when there is an error in our query.
-Of course, we still create one even if we have zero results, but that is something we can ignore.
+Du wirst feststellen, dass wir unsere Sammlung erstellen, nachdem wir unsere Daten abgefragt haben.
+Das bedeutet, dass wir keine Sammlung erstellen, wenn unsere Abfrage einen Fehler enthält.
+Natürlich erstellen wir auch dann eine Sammlung, wenn wir keine Ergebnisse haben, aber das können wir ignorieren.
 
-## Boolean
+## Boolesch
 
-Booleans can be used to identify whether our query changed data or not.
-That means we can use it for `INSERT`, `DELETE` and `UPDATE` queries.
+Boolesche Werte können verwendet werden, um festzustellen, ob unsere Abfrage Daten verändert hat oder nicht.
+Das heißt, wir können sie für `INSERT`, `DELETE` und `UPDATE` Abfragen verwenden.
 
 ```java
 import javax.sql.DataSource;
@@ -126,7 +126,7 @@ public class ReturnBoolean {
 
     public static boolean createPlayer() {
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("""
+             PreparedStatement stmt = conn.prepareStatement(""
                      INSERT INTO player(player_name) VALUES (?)
                      """)) {
             stmt.setString(1, "Lexi");
@@ -139,15 +139,15 @@ public class ReturnBoolean {
 }
 ```
 
-Now our method will return true when the player was created.
-We always know whether it failed to create or not.
-The same works for delete and update, but those have some other way which might give you more insights in some situations.
+Jetzt wird unsere Methode true zurückgeben, wenn der Spieler erstellt wurde.
+Wir wissen immer, ob die Erstellung fehlgeschlagen ist oder nicht.
+Das Gleiche gilt für das Löschen und Aktualisieren, aber diese Methoden haben eine andere Methode, die dir in manchen Situationen mehr Aufschluss geben kann.
 
 ## Row Count
 
-The row count is nearly the same method as we did for the boolean.
-Instead of checking that our value is larger than 0 we simply return it.
-That way we know how many entries we updated or deleted with our query.
+Die Zeilenzählung ist fast die gleiche Methode wie bei den booleschen Werten.
+Anstatt zu prüfen, ob unser Wert größer als 0 ist, geben wir ihn einfach zurück.
+Auf diese Weise wissen wir, wie viele Einträge wir mit unserer Abfrage aktualisiert oder gelöscht haben.
 
 ```java
 import javax.sql.DataSource;
@@ -160,7 +160,7 @@ public class ReturnRowCount {
 
     public static int deleteOldPlayers() {
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("""
+             PreparedStatement stmt = conn.prepareStatement(""
                      DELETE FROM player WHERE last_online < now() - '1 year'
                      """)) {
             return stmt.executeUpdate();
@@ -172,15 +172,15 @@ public class ReturnRowCount {
 }
 ```
 
-Our method will delete all players which were not online during the last year.
-It returns how many players were deleted afterwards.
+Unsere Methode löscht alle Spieler, die im letzten Jahr nicht online waren.
+Sie gibt zurück, wie viele Spieler danach gelöscht wurden.
 
-## Cheat Sheet
+## Spickzettel
 
-| Operation | Results | Type              |
+| Vorgang | Ergebnisse | Typ |
 |-----------|---------|-------------------|
-| Read      | 0-1     | Optional          |
-| Read      | >0      | List/Map          |
-| Insert    |         | boolean           |
-| Delete    |         | boolean/row count |
-| Update    |         | boolean/row count |
+| Lesen | 0-1 | Optional |
+| Lesen | >0 | Liste/Karte |
+| Einfügen | | boolesch |
+| Löschen | | Boolesche/Zeilenanzahl |
+| Aktualisieren | Boolesche/Zeilenanzahl |

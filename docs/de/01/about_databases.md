@@ -1,79 +1,79 @@
-# Databases
+# Datenbanken
 
-## Common databases
+## Die gängigen Datenbanken
 
-We have a lot of different databases out there. 
-They work in many ways and are used for different use cases.
-There is no ultimate database which can handle every type of data although some are very good with many data types.
+Es gibt eine Menge verschiedener Datenbanken. 
+Sie funktionieren auf viele Arten und werden für unterschiedliche Anwendungsfälle genutzt.
+Es gibt keine ultimative Datenbank, die mit jeder Art von Daten umgehen kann, obwohl einige sehr gut mit vielen Datentypen umgehen können.
 
-When we speak about data types we usually differ between structured and unstructured data.
+Wenn wir über Datentypen sprechen, unterscheiden wir normalerweise zwischen strukturierten und unstrukturierten Daten.
 
-Some databases are specialised on searching in unstructured data like [Solr](https://solr.apache.org/) or [ElasticSearch](https://www.elastic.co/elastic-stack/) which is most common used for searching and aggregating logs.
-One more common database for unstructured data is [MongoDB](https://www.mongodb.com/).
-We call those databases document based databases since we store data in documents.
+Einige Datenbanken sind auf die Suche in unstrukturierten Daten spezialisiert, wie z. B. [Solr] (https://solr.apache.org/) oder [ElasticSearch] (https://www.elastic.co/elastic-stack/), die am häufigsten für die Suche und Aggregation von Logs verwendet werden.
+Eine weitere gängige Datenbank für unstrukturierte Daten ist [MongoDB](https://www.mongodb.com/).
+Wir nennen diese Datenbanken dokumentenbasierte Datenbanken, da wir Daten in Dokumenten speichern.
 
-On the other hand we have our databases for structured data. You might have heard of [MySQL](https://www.mysql.com/) and [MariaDB](https://mariadb.org/) already.
-These two are siblings and MariaDB is developed on top of MySQL and can act as a drop in replacement and can provide some enhancements.
-One more popular and more enterprise database is [PostgreSQL](https://www.postgresql.org/) which is used in data science and projects with large datasets.
-One more special database is [SQLite](https://www.sqlite.org) which is a serverless database without any running server.
-Its used when the amount of data is small and the application should run without further setup steps. 
-It is loaded into memory and therefore limited by the available memory on your system.
+Auf der anderen Seite haben wir unsere Datenbanken für strukturierte Daten. Du hast vielleicht schon von [MySQL](https://www.mysql.com/) und [MariaDB](https://mariadb.org/) gehört.
+Diese beiden sind Geschwister und MariaDB wurde auf der Basis von MySQL entwickelt und kann als Ersatz dienen und einige Verbesserungen bieten.
+Eine weitere populäre Datenbank für Unternehmen ist [PostgreSQL](https://www.postgresql.org/), die in der Datenwissenschaft und bei Projekten mit großen Datenmengen eingesetzt wird.
+Eine weitere spezielle Datenbank ist [SQLite](https://www.sqlite.org), eine serverlose Datenbank, die ohne einen laufenden Server auskommt.
+Sie wird verwendet, wenn die Datenmenge gering ist und die Anwendung ohne weitere Einrichtungsschritte laufen soll. 
+Sie wird in den Speicher geladen und ist daher durch den verfügbaren Speicher deines Systems begrenzt.
 
-We will focus relational databases on this page.
-More precisely we will focus on SqLite, MySql, MariaDB and PostgreSQL.
+Auf dieser Seite werden wir uns auf relationale Datenbanken konzentrieren.
+Genauer gesagt werden wir uns auf SqLite, MySql, MariaDB und PostgreSQL konzentrieren.
 
-## Is my data structured or unstructured?
+## Sind meine Daten strukturiert oder unstrukturiert?
 
-In the most cases your data is structured.
-Many people tend to use databases for unstructured data because it seems less work in the beginning.
-In general nearly all data which looks unstructured on first sight can be structured.
+In den meisten Fällen sind deine Daten strukturiert.
+Viele Menschen neigen dazu, Datenbanken für unstrukturierte Daten zu verwenden, weil das anfangs weniger Arbeit zu sein scheint.
+Im Allgemeinen können fast alle Daten, die auf den ersten Blick unstrukturiert aussehen, strukturiert sein.
 
-Don't use a document based database just because you want to dump your data somewhere.
-Start learning working with relational data and make use of all the great benefits.
+Verwende keine dokumentenbasierte Datenbank, nur weil du deine Daten irgendwo ablegen willst.
+Fange an zu lernen, mit relationalen Daten zu arbeiten, und nutze die vielen Vorteile, die sich daraus ergeben.
 
-## Different Databases different flavours
+## Verschiedene Datenbanken, verschiedene Geschmäcker
 
-When calling data from one of our databases we use [SQL (Structured Query Language)](https://en.wikipedia.org/wiki/SQL).
+Wenn wir Daten aus einer unserer Datenbanken abrufen, verwenden wir [SQL (Structured Query Language)](https://en.wikipedia.org/wiki/SQL).
 
-All our databases use SQL, but not the same SQL.
-Although they will all have similar syntax they use different [flavours](https://en.wikipedia.org/wiki/SQL#Procedural_extensions) of SQL.
-Most of your queries will work the same in all databases or will just require small adjustments.
+Alle unsere Datenbanken verwenden SQL, aber nicht dasselbe SQL.
+Obwohl sie alle eine ähnliche Syntax haben, verwenden sie unterschiedliche [Flavours](https://en.wikipedia.org/wiki/SQL#Procedural_extensions) von SQL.
+Die meisten deiner Abfragen funktionieren in allen Datenbanken gleich oder müssen nur leicht angepasst werden.
 
-MySQL and SQLite use [SQL/PSM (SQL/Persistent Stored Module)](https://en.wikipedia.org/wiki/SQL/PSM) which is the most standardized type of SQL.
+MySQL und SQLite verwenden [SQL/PSM (SQL/Persistent Stored Module)](https://en.wikipedia.org/wiki/SQL/PSM), das ist die standardisierteste Art von SQL.
 
-MariaDB uses [SQL/PSM](https://en.wikipedia.org/wiki/SQL/PSM) and [PL/SQL](https://en.wikipedia.org/wiki/PL/SQL) which allows writing procedural statements with loops and other stuff.
-It has its origin in the [OracleDB](https://www.oracle.com/database/).
+MariaDB verwendet [SQL/PSM](https://en.wikipedia.org/wiki/SQL/PSM) und [PL/SQL](https://en.wikipedia.org/wiki/PL/SQL), das das Schreiben von prozeduralen Anweisungen mit Schleifen und anderen Dingen ermöglicht.
+Sie hat ihren Ursprung in der [OracleDB](https://www.oracle.com/database/).
 
-PostgreSQL uses [PL/pgSQL](https://en.wikipedia.org/wiki/PL/pgSQL) which is an extension of the [PL/SQL](https://en.wikipedia.org/wiki/PL/SQL) and enhances the general possibilities of SQL on a level which allows highly complex operations.
-Some people say that you can write your complete backend in PL/pgSQL.
+PostgreSQL verwendet [PL/pgSQL](https://en.wikipedia.org/wiki/PL/pgSQL), das eine Erweiterung von [PL/SQL](https://en.wikipedia.org/wiki/PL/SQL) ist und die allgemeinen Möglichkeiten von SQL auf eine Ebene erweitert, die hochkomplexe Operationen ermöglicht.
+Manche Leute sagen, dass du dein komplettes Backend in PL/pgSQL schreiben kannst.
 
-## Database or DBMS
+## Datenbank oder DBMS
 
-When we speak of a database we usually mix up three things:
+Wenn wir von einer Datenbank sprechen, verwechseln wir meist drei Dinge:
 
 ### DBMS
 
-DBMS means [Database Management System](https://en.wikipedia.org/wiki/Database#Database_management_system). 
-These systems are designed to manage your databases.
-Since SQL databases are for relational data our DBMS are actually RDBMS (Relational Database Management System).
+DBMS bedeutet [Database Management System](https://en.wikipedia.org/wiki/Database#Database_management_system). 
+Diese Systeme sind dazu da, deine Datenbanken zu verwalten.
+Da SQL-Datenbanken für relationale Daten sind, sind unsere DBMS eigentlich RDBMS (Relational Database Management System).
 
-### Database
+### Datenbank
 
-A database is a database inside your DBMS.
-It will hold your data in tables, store procedures and do other stuff.
+Eine Datenbank ist eine Datenbank innerhalb deines DBMS.
+Sie enthält deine Daten in Tabellen, speichert Prozeduren und macht andere Dinge.
 
 ### Schema
 
-Some databases like PostgreSQL have one more subdivision in a database called [Schema](https://www.postgresqltutorial.com/postgresql-schema/).
+Einige Datenbanken wie PostgreSQL haben eine weitere Unterteilung in einer Datenbank, die [Schema] (https://www.postgresqltutorial.com/postgresql-schema/) genannt wird.
 
-Although MariaDB and MySQL call their databases "Database" in statements they refer to them as [schemas internally](https://www.tutorialspoint.com/difference-between-schema-and-database-in-mysql) as well.
+Obwohl MariaDB und MySQL ihre Datenbanken in den Statements "Datenbank" nennen, bezeichnen sie sie intern auch als [Schema](https://www.tutorialspoint.com/difference-between-schema-and-database-in-mysql).
 
-A second subdivision into schemas has the advancement of better organization. 
-It is common to access data through different schemas, but uncommon to access data in different databases at the same time, although some RDBMS might allow this.
+Eine zweite Unterteilung in Schemas hat den Vorteil einer besseren Organisation. 
+Es ist üblich, über verschiedene Schemas auf Daten zuzugreifen, aber unüblich, gleichzeitig auf Daten in verschiedenen Datenbanken zuzugreifen, obwohl einige RDBMS dies zulassen.
 
-### Structure of a RDBMS
+### Struktur eines RDBMS
 
-In general, we can visualize our structure as follows:
+Im Allgemeinen können wir uns unsere Struktur wie folgt vorstellen:
 
 **MariaDB and MySQL**
 
