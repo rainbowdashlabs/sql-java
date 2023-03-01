@@ -1,10 +1,3 @@
-- Return types
-    - Optional
-    - List
-    - Map
-    - boolean
-    - Row count
-
 # Return Types
 
 Now we learned countless ways to read and write data. What is missing are methods and return types which indicate
