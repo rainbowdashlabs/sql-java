@@ -22,8 +22,8 @@ In der Spielertabelle wird jeder Spieler mit einem Namen und einer ID gespeicher
 | 4 | Lilly | 2022-04-01 00:00 |
 | 5 | Matthias | 2022-03-06 00:00 |
 | 6 | Lenny | 2022-03-08 00:00 |
-| 7 | Sommer | 2022-05-22 00:00 |
-| 8 | Heiraten | 2022-06-04 00:00 |
+| 7 | Summer | 2022-05-22 00:00 |
+| 8 | Marry | 2022-06-04 00:00 |
 | 9 | Milana | 2022-02-12 00:00 |
 | 10 | Lexi | 2022-02-22 00:00 |
 
@@ -51,7 +51,7 @@ Die allgemeine Syntax lautet:
 
 <!-- @formatter:off -->
 ```sql
-CREATE TABLE tabelle_name
+CREATE TABLE table_name
 (
     col_name TYPE,
     spalte_name TYP
@@ -68,14 +68,14 @@ Um diese Tabellen zu erstellen, verwende diese Anweisungen:
 CREATE TABLE player
 (
     id INTEGER,
-    spieler_name TEXT,
-    letzte_online TIMESTAMP
+    player_name TEXT,
+    last_online TIMESTAMP
 );
 
 CREATE TABLE friend_graph
 (
-    spieler_1 INTEGER,
-    spieler_2 INTEGER
+    player_1 INTEGER,
+    player_2 INTEGER
 );
 ```
 

@@ -1,16 +1,18 @@
 # Foreign Keys
 
-We already know about [primary keys](dev/private/java/!tutorial/basicsql-pages/docs/en/03/data_consistency/primary_keys.md) but there is at least one more important key type. This is
-called the foreign key. All it does is checking if a value in a column is present in a column of another table.
+We already know about [primary keys](../03/data_consistency/primary_keys.md) but there is at least one more important key type.
+This is called the foreign key.
+All it does is checking if a value in a column is present in a column of another table.
 Sounds complicated? Trust me it isn't!
 
-Do you remember our money problem back in chapter 1 where we deleted a player, but his money was still listed in the
-money table? We needed to delete it manually back then. Foreign keys allow us to do something cooler instead.
+Do you remember our money problem back in chapter 1 where we deleted a player, but his money was still listed in the money table?
+We needed to delete it manually back then.
+Foreign keys allow us to do something cooler instead.
 
-Let's redefine our money table and add a foreign key this time on our new nice player table with the auto increment
-and all the other cool stuff.
+Let's redefine our money table and add a foreign key this time on our new nice player table with the auto increment and all the other cool stuff.
 
-Of course, we will use all our previous knowledge here as well. Let's sum up quickly what we want to achieve:
+Of course, we will use all our previous knowledge here as well.
+Let's sum up quickly what we want to achieve:
 
 - Every player should only appear once -> Primary key on player_id
 - The money should be 0 initially -> Default to 0
@@ -39,7 +41,9 @@ CREATE TABLE money
 );
 ```
 
-And that's already it. Time to play around. We currently have a bunch of players in our player table already:
+And that's already it.
+Time to play around.
+We currently have a bunch of players in our player table already:
 
 | id  | player\_name | last\_online               |
 |:----|:-------------|:---------------------------|
@@ -61,8 +65,8 @@ INSERT INTO money(player_id)
 VALUES (11);
 ```
 
-This fails because we have no player in our player table with id 11. The foreign key prevents us from inserting
-unknown players.
+This fails because we have no player in our player table with id 11.
+The foreign key prevents us from inserting unknown players.
 
 **Validate that we can insert known players**
 
@@ -79,8 +83,8 @@ WHERE player_id = 10;
 |:-----------|:------|
 | 10         | 0     |
 
-Seems like it worked! We have added a player with id 10 which is the id of Lexi and the money was set to 0
-automatically.
+Seems like it worked!
+We have added a player with id 10 which is the id of Lexi and the money was set to 0 automatically.
 
 **Validate that money entry gets deleted when we delete a player**
 
@@ -94,14 +98,15 @@ FROM money
 WHERE player_id = 10;
 ```
 
-Now we get nothing when reading the money table. That's great! Lexis money was deleted the moment we deleted the
-entry from the player table.
+Now we get nothing when reading the money table.
+That's great!
+Lexis money was deleted the moment we deleted the entry from the player table.
 
 ## More complex foreign keys
 
-Now we have a good understanding of a simple foreign key on a single column, but we have a more complex task to
-solve. We still have our friend graph, which can still contain friendship connections of non-existent players. That
-is a problem we want to solve now, and it will be a bit more complex.
+Now we have a good understanding of a simple foreign key on a single column, but we have a more complex task to solve.
+We still have our friend graph, which can still contain friendship connections of non-existent players.
+That is a problem we want to solve now, and it will be a bit more complex.
 
 Our last table was quite simple for every entry in the player table we only could have one entry in our money table.
 But the friend_graph contains multiple entries for a single player and even in two columns and not only in one!
@@ -141,19 +146,21 @@ CREATE TABLE friend_graph
 );
 ```
 
-And that is it already. Still pretty simple. Instead of creating a foreign key on a single column we just create two
-for each column.
+And that is it already.
+Still pretty simple.
+Instead of creating a foreign key on a single column we just create two for each column.
 
 Feel free to validate that it works with similar tests like we used above!
 
-We still have an issue here in terms of consistency. We can have a duplicate entry here since player 1 can be
-a friend with player 2 and player 2 can be a friend with player 1. That is not prevented by the primary key.
+We still have an issue here in terms of consistency.
+We can have a duplicate entry here since `player_1` can be a friend with `player_2` and `player_2` can be a friend with `player_1`.
+That is not prevented by the primary key.
 
 | player\_1 | player\_2 |
 |:----------|:----------|
 | 1         | 2         |
 | 2         | 1         |
 
-There are multiple ways to solve this issue. We could either always insert the lower id into player_1 and the higher
-into player_2 or use an XOR on both ids in order to create a unique key for the friendship. For now, we won't bother
-with it, because we lack the knowledge for both.
+There are multiple ways to solve this issue.
+We could either always insert the lower id into `player_1` and the higher into `player_2` or use an XOR on both ids in order to create a unique key for the friendship.
+For now, we won't bother with it, because we lack the knowledge for both.

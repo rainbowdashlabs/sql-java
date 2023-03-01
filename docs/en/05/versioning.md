@@ -1,15 +1,16 @@
 # Versioning
 
-Having a database is one thing, but maintaining a database and applying updates is another thing. I will show you two
-ways to maintain your database version. One will be a self build, which is simple but solid the other one will be a
-third party tool which is the most used in the industry.
+Having a database is one thing, but maintaining a database and applying updates is another thing.
+I will show you two ways to maintain your database version.
+One will be a self build, which is simple but solid the other one will be a third party tool which is the most used in the industry.
 
 ## Building a SQL Updater
 
-Now that we are connected we need to ensure that we will find the tables in our database we are looking for. Most people
-do this in their code by writing very long table create statements. We won't do this. We will ship our required table
-layout in a file in our plugin. It's considered the best practise to not include large sql statements in your code
-directly
+Now that we are connected we need to ensure that we will find the tables in our database we are looking for.
+Most people do this in their code by writing very long table create statements.
+We won't do this.
+We will ship our required table layout in a file in our plugin.
+It's considered the best practise to not include large sql statements in your code directly.
 
 Create a file `dbsetup.sql` in your resources.
 We now write all statements to create our tables in this file.
@@ -27,14 +28,14 @@ CREATE TABLE IF NOT EXISTS somewhat
 [...]
 ```
 
-Please notice that we end each statement with a `;` this is required to know where the statement ends. We also use
-the `IF NOT EXISTS` keyword everywhere, otherwise our setup would fail on the next startup.
+Please notice that we end each statement with a `;` this is required to know where the statement ends.
+We also use the `IF NOT EXISTS` keyword everywhere, otherwise our setup would fail on the next startup.
 
-Now we need to execute this in our database.\
+Now we need to execute this in our database. 
 For this we will create a `initDb()` method in our plugin and call it after our datasource assignment.
 
-This method will read our `dbsetup.sql` file and execute the statements one by one into our database.\
-Please note that this method will throw a SQLException whenever something went wrong.\
+This method will read our `dbsetup.sql` file and execute the statements one by one into our database.
+Please note that this method will throw a SQLException whenever something went wrong.
 This will abort the setup, since there is no sense to run our plugin without a properly initialized database.
 
 ``` java
@@ -106,6 +107,6 @@ Of course, you need to store your required database version somewhere in your pl
 
 ## Flyway
 
-[Flyway](https://flywaydb.org/) is a tool to apply database patches. It is probably the most common tool in the industry
-and provides some additional features like migrate, clean, validate and repair. It also provides rolling back and more,
-but those features are only available in the paid version of flyway, which might make it less attractive.
+[Flyway](https://flywaydb.org/) is a tool to apply database patches.
+It is probably the most common tool in the industry and provides some additional features like migrate, clean, validate and repair.
+It also provides rolling back and more, but those features are only available in the paid version of flyway, which might make it less attractive.

@@ -4,32 +4,32 @@ Jetzt, wo wir unsere Tabellen erstellt haben, wollen wir ihnen Daten hinzufügen
 
 Beginnen wir mit unseren Spielern
 
-| id | player\_name | last\_online |
+| id  | player\_name | last\_online     |
 |:----|:-------------|:-----------------|
-| 1 | Mike | 2022-05-11 00:00 |
-| 2 | Sarah | 2022-04-04 00:00 |
-| 3 | john | 2022-04-08 00:00 |
-| 4 | Lilly | 2022-04-01 00:00 |
-| 5 | Matthias | 2022-03-06 00:00 |
-| 6 | Lenny | 2022-03-08 00:00 |
-| 7 | Sommer | 2022-05-22 00:00 |
-| 8 | Heiraten | 2022-06-04 00:00 |
-| 9 | Milana | 2022-02-12 00:00 |
-| 10 | Lexi | 2022-02-22 00:00 |
+| 1   | Mike         | 2022-05-11 00:00 |
+| 2   | Sarah        | 2022-04-04 00:00 |
+| 3   | john         | 2022-04-08 00:00 |
+| 4   | Lilly        | 2022-04-01 00:00 |
+| 5   | Matthias     | 2022-03-06 00:00 |
+| 6   | Lenny        | 2022-03-08 00:00 |
+| 7   | Summer       | 2022-05-22 00:00 |
+| 8   | Marry        | 2022-06-04 00:00 |
+| 9   | Milana       | 2022-02-12 00:00 |
+| 10  | Lexi         | 2022-02-22 00:00 |
 
 Um Daten einzufügen, müssen wir die Anweisung `INSERT` verwenden.
 
 Die allgemeine Syntax zum Einfügen einer Zeile in eine Tabelle lautet:
 
 ```sql
-INSERT INTO tabelle_name(spalte_1, spalte_2)
+INSERT INTO table_name(spalte_1, spalte_2)
 VALUES (wert_1, wert_2)
 ```
 
 Du kannst auch mehrere Zeilen auf einmal einfügen mit:
 
 ```sql
-INSERT INTO tabelle_name(spalte_1, spalte_2)
+INSERT INTO table_name(spalte_1, spalte_2)
 VALUES (wert_1, wert_2),
        (wert_1, wert_2),
        (wert_1, wert_2);
@@ -115,7 +115,7 @@ Lass uns das Gleiche mit dem friend_graph machen. Versuche, folgende Werte in di
 <summary>Lösung</summary>
 
 ```sql
-INSERT INTO friend_graph(spieler_1, spieler_2)
+INSERT INTO friend_graph(player_1, player_2)
 VALUES (1, 2),
        (2, 3),
        (4, 3),

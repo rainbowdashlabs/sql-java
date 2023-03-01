@@ -1,9 +1,10 @@
 # Update
 
-Now we can insert and read data. But what if we want to update already inserted data?
+Now we can insert and read data.
+But what if we want to update already inserted data?
 
-That's where the `UPDATE` statements comes to use. To update data we will also need to use the `WHERE` statement
-introduced in the earlier [chapter](dev/private/java/!tutorial/basicsql-pages/docs/en/02rivate/java/!tutorial/basicsql-pages/docs/en/02/select.md#where).
+That's where the `UPDATE` statements comes to use.
+To update data we will also need to use the `WHERE` statement introduced in the earlier [chapter](../02/select.md#where).
 
 Remember our already pretty known table of players.
 
@@ -22,9 +23,11 @@ Remember our already pretty known table of players.
 
 We are currently saving the last time the player was online in the `last_online` column.
 
-When Lexy is online again we might need to update the `last_online` value for her again. We have now two options. The
-first one is deleting the entry and inserting a new one. This is very dirty and also not a good practice. That's why we
-use the `UPDATE` statement and define in the `WHERE` clause where we want to update and what we want to update.
+When Lexy is online again we might need to update the `last_online` value for her again.
+We have now two options.
+The first one is deleting the entry and inserting a new one.
+This is very dirty and also not a good practice.
+That's why we use the `UPDATE` statement and define in the `WHERE` clause where we want to update and what we want to update.
 
 The general syntax is:
 
@@ -42,8 +45,7 @@ With this knowledge, let's try to update the `last_login` time of Lexy based on 
 We're going to need a built-in function again to retrieve the current time.
 
 - SqLite: `CAST(STRFTIME('%s', 'NOW') AS INTEGER)` we dont have timestamps. We use the current time as unix timestamp.
-- MariaDB/MySQL: `current_timestamp()` returns the current timestamp. You can also use just `current_timestamp` which is
-  a constant for the current transaction.
+- MariaDB/MySQL: `current_timestamp()` returns the current timestamp. You can also use just `current_timestamp` which is a constant for the current transaction.
 - PostgreSQL: `now()` returns the current timestamp
 
 **Solutions:**
@@ -98,11 +100,10 @@ You should get a timestamp with the current time in her `last_online` column.
 
 Of course, we can also use the current value of the column we want to update.
 
-Remember our money table we created in the [insert chapter](dev/private/java/!tutorial/basicsql-pages/docs/en/02rivate/java/!tutorial/basicsql-pages/docs/en/02/insert.md#create-tables-with-content)? We need this
-now again.
+Remember our money table we created in the [insert chapter](../02/insert.md#create-tables-with-content)? 
+We need this now again.
 
 Let's say we want to take 600 of our currency from lexy, but only if she has at least 600.
-
 The syntax for this is quite the same then the one earlier. We just reference the column value itself
 
 ```sql
@@ -112,9 +113,7 @@ SET column_x = value_x,
 WHERE condition
 ```
 
-Try to remove the money and adjust the condition with the check for the money
-
-
+Try to remove the money and adjust the condition with the check for the money.
 
 <details>
 <summary>Solution</summary>

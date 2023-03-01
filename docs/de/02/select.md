@@ -12,7 +12,7 @@ Die reine Basic-Select-Anweisung ist recht einfach:
 
 ```sql
 SELECT id,
-       spieler_name
+       player_name
 FROM player;
 ```
 
@@ -26,8 +26,8 @@ Diese Anweisung gibt dir den Inhalt von `id` und `name` der Tabelle `player`.
 | 4 | Lilly |
 | 5 | Matthias |
 | 6 | Lenny |
-| 7 | Sommer |
-| 8 | Heiraten |
+| 7 | Summer |
+| 8 | Marry |
 | 9 | Milana |
 | 10 | Lexi |
 
@@ -45,7 +45,7 @@ Mit dem Schlüsselwort `as` können wir Spalten umbenennen, wenn wir sie auswäh
 
 ```sql
 SELECT id,
-       spieler_name as name
+       player_name as name
 FROM player;
 ```
 
@@ -58,8 +58,8 @@ Gibt zurück:
 | 4 | Lilly |
 | 5 | Matthias |
 | 6 | Lenny |
-| 7 | Sommer |
-| 8 | Heiraten |
+| 7 | Summer |
+| 8 | Marry |
 | 9 | Milana |
 | 10 | Lexi |
 | 3 | John |
@@ -75,7 +75,7 @@ Namen abzukürzen, wenn du den Namen explizit verwenden musst.
 
 ```sql
 SELECT pl.id,
-spieler_name as name
+player_name as name
 FROM player pl;
 ```
 
@@ -90,7 +90,7 @@ Erinnere dich an die [logischen Operatoren](../02/operators.md#logical) weiter o
 ```sql
 SELECT spalte_x,
        spalte_y
-FROM meine_tabelle
+FROM my_table
 WHERE spalte_z = wert_a; --(1)
 ```
 
@@ -104,8 +104,8 @@ Am Ende solltest du eine Tabelle wie diese haben:
 | id | player\_name | last\_online |
 |:----|:-------------|:---------------------------|
 | 6 | Lenny | 2022-03-08 00:00:00.000000 |
-| 7 | Sommer | 2022-05-22 00:00:00.000000 |
-| 8 | Heiraten | 2022-06-04 00:00:00.000000 |
+| 7 | Summer | 2022-05-22 00:00:00.000000 |
+| 8 | Marry | 2022-06-04 00:00:00.000000 |
 | 9 | Milana | 2022-02-12 00:00:00.000000 |
 | 10 | Lexi | 2022-02-22 00:00:00.000000 |
 
@@ -114,8 +114,8 @@ Am Ende solltest du eine Tabelle wie diese haben:
 
 ```sql
 SELECT id,
-       spieler_name,
-       letzte_online
+       player_name,
+       last_online
 FROM player
 WHERE id > 5;
 ```
@@ -139,8 +139,8 @@ unsensibel)
 
 ```sql
 SELECT id,
-       spieler_name,
-       letzte_online
+       player_name,
+       last_online
 FROM player
 WHERE id > 5
   AND player_name LIKE 'm%';
@@ -152,8 +152,8 @@ Das Schlüsselwort `LIKE` vergleicht unabhängig von der Groß- und Kleinschreib
 
 ```sql
 SELECT id,
-       spieler_name,
-       letzte_online
+       player_name,
+       last_online
 FROM player
 WHERE id > 5
   AND player_name ILIKE 'm%';
@@ -179,7 +179,7 @@ Die allgemeine Syntax lautet:
 ```sql
 SELECT spalte_x,
        spalte_y
-FROM meine_tabelle
+FROM my_table
 ORDER BY spalte_x [DESC|ASC]; --(1)
 ```
 
@@ -191,8 +191,8 @@ Wir wollen diese Tabelle am Ende haben:
 
 | id | player\_name | last\_online |
 |:----|:-------------|:---------------------------|
-| 8 | Heiraten | 2022-06-04 00:00:00.000000 |
-| 7 | Sommer | 2022-05-22 00:00:00.000000 |
+| 8 | Marry | 2022-06-04 00:00:00.000000 |
+| 7 | Summer | 2022-05-22 00:00:00.000000 |
 | 1 | Mike | 2022-05-11 00:00:00.000000 |
 | 3 | John | 2022-04-08 00:00:00.000000 |
 | 2 | Sarah | 2022-04-04 00:00:00.000000 |
@@ -207,8 +207,8 @@ Wir wollen diese Tabelle am Ende haben:
 
 ```sql
 SELECT id,
-       spieler_name,
-       letzte_online
+       player_name,
+       last_online
 FROM player
 ORDER BY last_online DESC;
 ```
@@ -230,28 +230,28 @@ substr(Spielername, 1, 1)` gibt das erste Zeichen des Spielernamens zurück.
 
 Am Ende wollen wir eine Tabelle wie diese:
 
-| id | player_name | last\_online |
-|:----|:-------------|:---------------------------|
-| 3 | John | 2022-04-08 00:00:00.000000 |
-| 4 | Lilly | 2022-04-01 00:00:00.000000 |
-| 6 | Lenny | 2022-03-08 00:00:00.000000 |
-| 10 | Lexi | 2022-02-22 00:00:00.000000 |
-| 1 | Mike | 2022-05-11 00:00:00.000000 |
-| 5 | Matthias | 2022-03-06 00:00:00.000000 |
-| 8 | Heiraten | 2022-06-04 00:00:00.000000 |
-| 9 | Milana | 2022-02-12 00:00:00.000000 |
-| 2 | Sarah | 2022-04-04 00:00:00.000000 |
-| 7 | Sommer | 2022-05-22 00:00:00.000000 |
+| id  | player_name | last\_online               |
+|:----|:------------|:---------------------------|
+| 3   | John        | 2022-04-08 00:00:00.000000 |
+| 4   | Lilly       | 2022-04-01 00:00:00.000000 |
+| 6   | Lenny       | 2022-03-08 00:00:00.000000 |
+| 10  | Lexi        | 2022-02-22 00:00:00.000000 |
+| 1   | Mike        | 2022-05-11 00:00:00.000000 |
+| 5   | Matthias    | 2022-03-06 00:00:00.000000 |
+| 8   | Marry    | 2022-06-04 00:00:00.000000 |
+| 9   | Milana      | 2022-02-12 00:00:00.000000 |
+| 2   | Sarah       | 2022-04-04 00:00:00.000000 |
+| 7   | Summer      | 2022-05-22 00:00:00.000000 |
 
 <Details>
 <summary>Lösung</summary>
 
 ```sql
 SELECT id,
-       spieler_name,
-       letzte_online
+       player_name,
+       last_online
 FROM player
-ORDER BY SUBSTR(spieler_name, 1, 1), id;
+ORDER BY SUBSTR(player_name, 1, 1), id;
 ```
 
 </details>
@@ -268,7 +268,7 @@ Die allgemeine Syntax lautet:
 ```sql
 SELECT spalte_x,
        spalte_y
-FROM meine_tabelle
+FROM my_table
 LIMIT [n |ALL];
 ```
 
@@ -280,21 +280,21 @@ Spieler zu erhalten, indem wir die Limit-Klausel zu unserer vorherigen Abfrage h
 
 *Tipp: Das Limit ist immer der letzte Parameter deiner Abfrage.
 
-| id | player\_name | last\_online |
+| id  | player\_name | last\_online               |
 |:----|:-------------|:---------------------------|
-| 8 | Heiraten | 2022-06-04 00:00:00.000000 |
-| 7 | Sommer | 2022-05-22 00:00:00.000000 |
-| 1 | Mike | 2022-05-11 00:00:00.000000 |
-| 3 | John | 2022-04-08 00:00:00.000000 |
-| 2 | Sarah | 2022-04-04 00:00:00.000000 |
+| 8   | Marry        | 2022-06-04 00:00:00.000000 |
+| 7   | Summer       | 2022-05-22 00:00:00.000000 |
+| 1   | Mike         | 2022-05-11 00:00:00.000000 |
+| 3   | John         | 2022-04-08 00:00:00.000000 |
+| 2   | Sarah        | 2022-04-04 00:00:00.000000 |
 
 <Details>
 <summary>Lösung</summary>
 
 ```sql
 SELECT id,
-       spieler_name,
-       letzte_online
+       player_name,
+       last_online
 FROM player
 ORDER BY last_online DESC
 LIMIT 5;
@@ -314,7 +314,7 @@ Die allgemeine Syntax lautet:
 ```sql
 SELECT spalte_x,
        spalte_y
-FROM meine_tabelle
+FROM my_table
 OFFSET n;
 ```
 
@@ -336,8 +336,8 @@ die nächsten 5 Einträge erhalten, indem wir einen `OFFSET` von `5` hinzufügen
 
 ```sql
 SELECT id,
-       spieler_name,
-       letzte_online
+       player_name,
+       last_online
 FROM player
 ORDER BY last_online DESC
 OFFSET 5
@@ -362,7 +362,7 @@ Die allgemeine Syntax dafür ist:
 ```sql
 SELECT spalte_x,
        spalte_y
-FROM meine_tabelle
+FROM my_table
 WHERE Bedingung
 ORDER BY spalte_z DESC
 OFFSET n

@@ -20,8 +20,8 @@ Wir setzen den ersten Wert auf 5 und den zweiten Wert auf 10. So erhalten wir ei
 Cursor -> 0 |      
           1 | 5  | Matthias    
           2 | 6  | Lenny       
-          3 | 7  | Sommer      
-          4 | 8  | Heiraten       
+          3 | 7  | Summer      
+          4 | 8  | Marry       
           5 | 9  | Milana      
           6 | 10 | Lexi        
 ```

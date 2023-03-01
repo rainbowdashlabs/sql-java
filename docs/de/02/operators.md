@@ -48,12 +48,12 @@ Der Java 'und' (`&&`) Operator wird in sql zu `AND` und der 'oder' (`||`) Operat
 
 Wir können unsere logischen Prüfungen auch in Gruppen mit geschweiften Klammern zusammenfassen.
 
-``sql
-SELECT TRUE UND FALSE;
--> FALSCH
+```sql
+SELECT TRUE AND FALSE;
+-> FALSE
 
-SELECT FALSE ODER (TRUE ODER FALSE) UND TRUE;
--> WAHR
+SELECT FALSE OR (TRUE OR FALSE) AND TRUE;
+-> TRUE
 ```
 
 **VORSICHT VOR NULL**
@@ -61,7 +61,7 @@ Ein Nullwert in einem booleschen Vergleich kann zu ungewollten Ergebnissen führ
 
 ```sql
 NULL OR TRUE;
--> WAHR
+-> TRUE
 
 NULL OR FALSE;
 -> NULL
@@ -69,8 +69,8 @@ NULL OR FALSE;
 NULL AND TRUE;
 -> NULL
 
-NULL UND FALSCH;
--> FALSCH
+NULL AND FALSE;
+-> FALSE
 ```
 
 ### NOT Schlüsselwort
@@ -81,11 +81,11 @@ Das Schlüsselwort not invertiert jeden booleschen Wert. Das ist ähnlich wie da
 SELECT NOT TRUE;
 -> FALSE
 
-SELECT NOT (FALSE UND TRUE);
--> WAHR
+SELECT NOT (FALSE AND TRUE);
+-> TRUE
 
-SELECT TRUE UND NICHT FALSE;
--> WAHR
+SELECT TRUE AND NOT FALSE;
+-> TRUE
 ```
 
 ### Gleichheit
@@ -94,7 +94,7 @@ SELECT TRUE UND NICHT FALSE;
 
 Anders als in Java können wir die Gleichheit mit einem einfachen `=` prüfen
 
-````Sql
+```Sql
 SELECT 1 = 2;
 -> FALSE
 ```
@@ -129,10 +129,10 @@ SELECT NULL = NULL;
 An dieser Stelle verwenden wir das Schlüsselwort `is`, das mit dem Schlüsselwort not kombiniert werden kann, um einen `!=` Operator zu ermöglichen
 
 ```sql
-SELECT NULL IST NULL;
--> WAHR
+SELECT NULL IS NULL;
+-> TRUE
 
-SELECT NULL IST NICHT NULL;
+SELECT NULL IS NOT NULL;
 -> FALSE
 ```
 
@@ -152,38 +152,37 @@ SELECT 'abc' > 'ab';
 -> TRUE
 
 SELECT 5 >= 5;
--> WAHR
+-> TRUE
 
 SELECT 5.0 < 5.01;
--> WAHR
+-> TRUE
 
 SELECT 5.0 <= 5.0;
--> WAHR
+-> TRUE
 ```
 
 ### BETWEEN
 
 Außerdem gibt es den Operator between, der überprüft, ob ein Wert zwischen zwei verschiedenen Werten liegt.
 
-Die untere und obere Grenze sind inklusive. Die Reihenfolge spielt keine Rolle.
+Die untere und obere Grenze ist inklusive. Die Reihenfolge spielt keine Rolle.
 
 ```sql
-~~
-WÄHLE 1 ZWISCHEN 0 UND 5;
-~~
+
+SELECT 1 BETWEEN 0 AND 5;
 -> WAHR
 
-SELECT 0 ZWISCHEN 5 UND 0;
+SELECT 0 BETWEEN 5 AND 0;
 -> WAHR
 
-WÄHLE 5 ZWISCHEN 0 UND 5;
+SELECT 5 BETWEEN 0 AND 5;
 -> WAHR
 ```
 
 Du kannst auch das Schlüsselwort `NOT` verwenden
 
 ```sql
-SELECT 1 NICHT ZWISCHEN 0 UND 5;
+SELECT 1 NOT BETWEEN 0 AND 5;
 -> FALSE
 ```
 
@@ -198,19 +197,18 @@ Der Like-Operator verwendet eine einfache Syntax für den Mustervergleich
 - `%` ist ein Platzhalter für mehrere Zeichen
 - `_` ist ein Platzhalter für ein Zeichen
 
-`%`Sql
+```sql
 SELECT 'abcdef' LIKE 'abc'; -- (1)
 -> FALSE
 
 SELECT 'abcdef' LIKE 'abc%'; -- (2)
--> WAHR
+-> TRUE
 
 SELECT 'abcdef' LIKE '__c%'; -- (3)
--> WAHR
+-> TRUE
 
 SELECT 'abcdef' LIKE '%cde%'; -- (4)
--> WAHR
-
+-> TRUE
 ```
 
 1. Wir prüfen, ob der String wie abc ist, aber wir fügen keinen Platzhalter am Ende hinzu
@@ -238,10 +236,10 @@ Die Verwendung ist im Allgemeinen die gleiche.
 
 ```sql title="MariaDB und MySQL"
 SELECT 'abcdef' REGEXP 'CDE'; -- (1)
--> WAHR
+-> TRUE
 
 SELECT 'abcdef' REGEXP '[CDE]'; -- (2)
--> WAHR
+-> TRUE
 ```
 
 1. Groß- und Kleinschreibung wird nicht berücksichtigt. Wir prüfen, ob die Zeichenkette CDE enthält
@@ -252,10 +250,10 @@ SELECT 'abcdef' ~ 'CDE'; -- (1)
 -> FALSE
 
 SELECT 'abcdef' ~* 'CDE'; -- (2)
--> WAHR
+-> TRUE
 
 SELECT 'abcdef' ~* '[CDE]'; -- (3)
--> WAHR
+-> TRUE
 ```
 
 1. Abgleich unter Berücksichtigung der Groß-/Kleinschreibung. Wir prüfen, ob der String `CDE` mit der richtigen Groß- und Kleinschreibung enthält.

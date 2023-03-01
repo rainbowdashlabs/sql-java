@@ -1,27 +1,23 @@
 # Asynchronous
 
-You may have learned that IO on the current thread is usually not a good idea. Especially on the main thread when we
-talk about games like minecraft. It halts the thread until the response from the database is read. those are usually
-only a few milliseconds, but a few milliseconds multiple times accumulate to some larger problems.
+You may have learned that IO on the current thread is usually not a good idea.
+Especially on the main thread when we talk about games like minecraft.
+It halts the thread until the response from the database is read.
+those are usually only a few milliseconds, but a few milliseconds multiple times accumulate to some larger problems.
 
-That is why we mainly work asynchronous when it is critical that the current thread is not halted. For normal
-applications we work with `CompletableFutures`. Baeldung did a
-great [guide](https://www.baeldung.com/java-completablefuture) for this and I will refrain from telling
-much.
+That is why we mainly work asynchronous when it is critical that the current thread is not halted.
+For normal applications we work with `CompletableFutures`.
+Baeldung did a great [guide](https://www.baeldung.com/java-completablefuture) for this and I will refrain from telling much.
 
 ## Asynchronous in Minecraft
 
 For minecraft we not only need to leave the main thread, but also get back to it to work with the bukkit api again.
 
-To accomplish that we will use a class which first runs the code on another thread and handles the result on the main
-thread of the server.
+To accomplish that we will use a class which first runs the code on another thread and handles the result on the main thread of the server.
 
-Lucko did something cool for one of
-his [projects](https://github.com/lucko/synapse/blob/master/synapse-impl-abstract/src/main/java/me/lucko/synapse/impl/CompletableFutureResult.java),
-which I adjusted to my needs.
+Lucko did something cool for one of his [projects](https://github.com/lucko/synapse/blob/master/synapse-impl-abstract/src/main/java/me/lucko/synapse/impl/CompletableFutureResult.java), which I adjusted to my needs.
 
-This class allows to execute something async and handle the result on the main thread afterwards by using the bukkit
-scheduler.
+This class allows to execute something async and handle the result on the main thread afterwards by using the bukkit scheduler.
 
 <details>
 <summary>Async calling class</summary>
@@ -112,9 +108,8 @@ public class CompletableBukkitFuture {
 
 ### Use BukkitAsyncAction
 
-All you need to do to convert your synced call to the database into an async call is wrapping the method call itself
-into a `BukkitFutureResult`. Everything we supply to the `CompletableBukkitFuture` will be executed on an external
-thread, while we can handle the result of our async call with the `whenComplete` call.
+All you need to do to convert your synced call to the database into an async call is wrapping the method call itself into a `BukkitFutureResult`.
+Everything we supply to the `CompletableBukkitFuture` will be executed on an external thread, while we can handle the result of our async call with the `whenComplete` call.
 
 ```java
 import de.chojo.chapter5.threading.BukkitFutureResult;
@@ -160,6 +155,6 @@ public class ReturnOptionalAsync {
 }
 ```
 
-If you have multiple calls to the database it is advisable to call all methods in one thread and not creating a
-new `Future` for every database calls. Context changes are expensive and should be avoided when possible. Especially the
-bukkit async action will produce a delay up to one tick aka 50 ms for every backsync.
+If you have multiple calls to the database it is advisable to call all methods in one thread and not creating a new `Future` for every database calls.
+Context changes are expensive and should be avoided when possible.
+Especially the bukkit async action will produce a delay up to one tick aka 50 ms for every backsync.

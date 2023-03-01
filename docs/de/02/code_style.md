@@ -14,7 +14,7 @@ Alle SQL-Schlüsselwörter sollten in GROSSBUCHSTABEN geschrieben werden, damit 
 select col from my_table;
 
 -- Gut
-SELECT col FROM meine_tabelle;
+SELECT col FROM my_table;
 ```
 
 ## Zitiere nur, wenn es nötig ist
@@ -24,10 +24,10 @@ zitieren.
 
 ```
 -- Schlecht
-SELECT `col` FROM `meine_tabelle`;
+SELECT `col` FROM `my_table`;
 
 -- Gut
-SELECT col FROM meine_tabelle;
+SELECT col FROM my_table;
 ```
 
 ## Zeilenumbrüche sind gut
@@ -37,12 +37,12 @@ kannst nach eigenem Ermessen weitere Zeilenumbrüche hinzufügen
 
 ```
 -- Schlecht
-SELECT col1, col2 FROM meine_tabelle WHERE col1 = 'etwas' AND col2 = 'sonst' LIMIT 1;
+SELECT col1, col2 FROM my_table WHERE col1 = 'etwas' AND col2 = 'sonst' LIMIT 1;
 
 -- Gut
 SELECT sp1,
     Spalte2
-FROM meine_tabelle
+FROM my_table
 WHERE Spalte1 = 'irgendwas'
     AND col2 = 'sonst'
 LIMIT 1;
@@ -52,7 +52,7 @@ SELECT
     col1,
     Spalte2
 FROM
-    meine_tabelle
+    my_table
 WHERE
     Spalte1 = 'etwas'
     AND col2 = 'sonst'
@@ -76,16 +76,16 @@ SELECT -- (4)
        COALESCE(friend.count, 0)
 FROM ( -- (1)
          SELECT id
-         FROM spieler
+         FROM player
          WHERE last_online > NOW() - '10 DAYS':: INTERVAL
      ) aktiv
          LEFT JOIN ( -- (3)
     SELECT user_id, COUNT(1) AS friend_count
     FROM ( -- (2)
-             SELECT spieler_1 AS spieler_id
+             SELECT player_1 AS spieler_id
              FROM friend_graph
              UNION ALL
-             SELECT spieler_2 AS spieler_id
+             SELECT player_2 AS spieler_id
              FROM friend_graph
          ) flat_friend_graph
     GROUP BY user_id
@@ -106,14 +106,14 @@ Wenn wir CTEs verwenden, würde es so aussehen.
 ```sql
 WITH active_players AS ( -- (1)
     SELECT id
-    FROM spieler
+    FROM player
     WHERE last_online > NOW() - INTERVAL '10 DAYS'
 ),
 flat_friend_graph AS ( -- (2)
-    SELECT spieler_1 AS spieler_id
+    SELECT player_1 AS spieler_id
 FROM friend_graph
     UNION ALL
-    SELECT spieler_2 AS spieler_id
+    SELECT player_2 AS spieler_id
     FROM friend_graph
 ),
 friend_count AS ( -- (3)

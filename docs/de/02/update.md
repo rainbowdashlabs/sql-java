@@ -15,8 +15,8 @@ Erinnere dich an unsere bereits gut bekannte Tabelle mit den Spielern.
 | 4   | Lilly        | 2022-04-01 00:00:00.000000 |
 | 5   | Matthias     | 2022-03-06 00:00:00.000000 |
 | 6   | Lenny        | 2022-03-08 00:00:00.000000 |
-| 7   | Sommer       | 2022-05-22 00:00:00.000000 |
-| 8   | Heiraten     | 2022-06-04 00:00:00.000000 |
+| 7   | Summer       | 2022-05-22 00:00:00.000000 |
+| 8   | Marry     | 2022-06-04 00:00:00.000000 |
 | 9   | Milana       | 2022-02-12 00:00:00.000000 |
 | 10  | Lexi         | 2022-02-22 00:00:00.000000 |
 
@@ -86,8 +86,8 @@ Wenn du nun den Eintrag von Lexy mit auswählst:
 
 ```sql
 SELECT id,
-       spieler_name,
-       letzte_Online
+       player_name,
+       last_online
 FROM player
 WHERE id = 10
 ```
@@ -133,7 +133,7 @@ Lass uns überprüfen, was sich geändert hat:
 
 ```sql
 SELECT id, Geld
-FROM geld
+FROM money
 WHERE id = 10
 ```
 

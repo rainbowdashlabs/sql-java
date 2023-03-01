@@ -1,12 +1,14 @@
 # Upsert and Conflict Handling
 
-Now we added a lot of ways to block input in our tables. We have primary keys, unique keys and foreign keys which
-block input of invalid or duplicated data into our tables.
+Now we added a lot of ways to block input in our tables.
+We have primary keys, unique keys and foreign keys which block input of invalid or duplicated data into our tables.
 
-Failures of foreign keys are intended. Those should always be handled on the application side. However, failures on
-unique keys can be handled by us. For that we use a construct which is called `UPSERT`. The name already hints that
-this is a mix of `UPDATE` and `INSERT`. It basically says, insert and if something prevents me from inserting I want
-to update the data.
+Failures of foreign keys are intended.
+Those should always be handled on the application side.
+However, failures on unique keys can be handled by us.
+For that we use a construct which is called `UPSERT`.
+The name already hints that this is a mix of `UPDATE` and `INSERT`.
+It basically says, insert and if something prevents me from inserting I want to update the data.
 
 Depending on the database you use the syntax is a bit different.
 
@@ -37,15 +39,14 @@ VALUES ('Lexy');
 
 ## Upsert
 
-The upsert statement is the more important part. We will use this to insert our player into our online table and 
-refresh the last online time in case it exists already.
+The upsert statement is the more important part.
+We will use this to insert our player into our online table and refresh the last online time in case it exists already.
 
 The paradigm is always: Try to insert and if I cant let me modify the conflicted row.
 
 ### Postges & SqLite 
 
-For postgres and SqLite we are going to insert Lexy once again and this time update the online time in case a player 
-with this name is already present. 
+For postgres and SqLite we are going to insert Lexy once again and this time update the online time in case a player with this name is already present. 
 
 ```postgresql
 -- This is our usual insert statement
@@ -69,9 +70,10 @@ ON CONFLICT (player_name)
     DO UPDATE SET age = 21;
 ```
 
-If we wanted to upsert the age of lexy we would need to write the age twice in our query. This can get quite messy 
-on larger queries. Luckily Postgres and SqLite have our back and provide a temporary table named `excluded` which holds 
-the values we wanted to insert. So instead of the above we can simply write.
+If we wanted to upsert the age of lexy we would need to write the age twice in our query.
+This can get quite messy on larger queries.
+Luckily Postgres and SqLite have our back and provide a temporary table named `excluded` which holds the values we wanted to insert.
+So instead of the above we can simply write.
 
 ```postgresql
 INSERT INTO player(player_name, age)
@@ -82,8 +84,7 @@ ON CONFLICT (player_name)
 
 ### MariaDB & MySQL
 
-For MariaDB and MySQL we can use the `ON DUPLICATE KEY UPDATE` clause which allows us to change the values in the 
-conflicted row.
+For MariaDB and MySQL we can use the `ON DUPLICATE KEY UPDATE` clause which allows us to change the values in the conflicted row.
 
 ```mariadb
 INSERT INTO player(player_name)

@@ -1,13 +1,15 @@
 # Return Types
 
-Now we learned countless ways to read and write data. What is missing are methods and return types which indicate
-whether our operation was a success. For that we have different options that we will look into here. You want to have
-some kind of return type in any case.
+Now we learned countless ways to read and write data.
+What is missing are methods and return types which indicate whether our operation was a success.
+For that we have different options that we will look into here.
+You want to have some kind of return type in any case.
 
 ## Optionals
 
-Optionals are a java class. They are preferred when a call returns 0 or 1 results. They can be constructed by
-calling `Optional.of()`, `Optional.ofNullable()` or `Optional.empty()`.
+Optionals are a java class.
+They are preferred when a call returns 0 or 1 results.
+They can be constructed by calling `Optional.of()`, `Optional.ofNullable()` or `Optional.empty()`.
 
 ```java
 import javax.sql.DataSource;
@@ -45,8 +47,8 @@ public class ReturnOptional {
 
 ## List and Map
 
-When returning multiple entities it is applicable to return them as a list. Of course a map would be possible as well,
-but in most of the cases you will notice that objects in a list is usually sufficient.
+When returning multiple entities it is applicable to return them as a list.
+Of course a map would be possible as well, but in most of the cases you will notice that objects in a list is usually sufficient.
 
 ```java
 import javax.sql.DataSource;
@@ -104,14 +106,14 @@ public class ReturnListMap {
 }
 ```
 
-You will notice that we create our collection after we query our data. That causes that we do not create a collection
-when there is an error in our query. Of course, we still create one even if we have zero results, but that is something
-we can ignore.
+You will notice that we create our collection after we query our data.
+That causes that we do not create a collection when there is an error in our query.
+Of course, we still create one even if we have zero results, but that is something we can ignore.
 
 ## Boolean
 
-Booleans can be used to identify whether our query changed data or not. That means we can use it for `INSERT`, `DELETE`
-and `UPDATE` queries.
+Booleans can be used to identify whether our query changed data or not.
+That means we can use it for `INSERT`, `DELETE` and `UPDATE` queries.
 
 ```java
 import javax.sql.DataSource;
@@ -137,13 +139,15 @@ public class ReturnBoolean {
 }
 ```
 
-Now our method will return true when the player was created. We always know whether it failed to create or not. The same
-works for delete and update, but those have some other way which might give you more insights in some situations.
+Now our method will return true when the player was created.
+We always know whether it failed to create or not.
+The same works for delete and update, but those have some other way which might give you more insights in some situations.
 
 ## Row Count
 
-The row count is nearly the same method as we did for the boolean. Instead of checking that our value is larger than 0
-we simply return it. That way we know how many entries we updated or deleted with our query.
+The row count is nearly the same method as we did for the boolean.
+Instead of checking that our value is larger than 0 we simply return it.
+That way we know how many entries we updated or deleted with our query.
 
 ```java
 import javax.sql.DataSource;
@@ -168,8 +172,8 @@ public class ReturnRowCount {
 }
 ```
 
-Our method will delete all players which were not online during the last year. It returns how many players were deleted
-afterwards.
+Our method will delete all players which were not online during the last year.
+It returns how many players were deleted afterwards.
 
 ## Cheat Sheet
 

@@ -1,9 +1,8 @@
 # Operators
 
 We actually have a lot of operators in SQL and even more in our databases if we use one with an extended SQL flavour.
-
-Some operators on this page may have shorter or different aliases in our databases. I will focus on the
-intersection of the operators to keep it simple for now.
+Some operators on this page may have shorter or different aliases in our databases.
+I will focus on the intersection of the operators to keep it simple for now.
 
 Let's start with the one which are equal in all databases we use
 
@@ -15,12 +14,13 @@ Let's start with the one which are equal in all databases we use
 - Multiply `*`
 - Modulo `%`
 
-You probably know these already, and you are best friends. Like in every other language we also have these in sql.
+You probably know these already, and you are best friends.
+Like in every other language we also have these in sql.
 
 What you will need to keep in mind is that sql like java does some type conversion on its own.
 
-Multiplying an integer with a decimal number will result in a decimal number. There are some build in functions and
-other explicit type conversion which can change this, but for now just bear with the fact.
+Multiplying an integer with a decimal number will result in a decimal number.
+There are some build in functions and other explicit type conversion which can change this, but for now just bear with the fact.
 
 ```sql
 SELECT 1 * 1.0;
@@ -34,11 +34,10 @@ SELECT 5 / 2.0;
 ```
 
 All our databases have additional mathematical operators and build in functions like square root, absolute and more.
-However, they are different in syntax. I will just link them here if you need something special.
+However, they are different in syntax.
+I will just link them here if you need something special.
 
-[MySQL](https://dev.mysql.com/doc/refman/8.0/en/numeric-functions.html)
-| [SQLite](https://www.sqlite.org/lang_corefunc.html) | [MariaDB](https://mariadb.com/kb/en/numeric-functions/)
-| [PostgreSQL](https://www.postgresql.org/docs/9.3/functions-math.html)
+[MySQL](https://dev.mysql.com/doc/refman/8.0/en/numeric-functions.html) | [SQLite](https://www.sqlite.org/lang_corefunc.html) | [MariaDB](https://mariadb.com/kb/en/numeric-functions/) | [PostgreSQL](https://www.postgresql.org/docs/9.3/functions-math.html)
 
 ## Logical
 
@@ -226,13 +225,14 @@ PostgreSQL uses `LIKE` for **case-sensitive** and `ILIKE` for **case-insensitive
 
 ### Regex
 
-In MySQL and MariaDB have the REGEXP operator. SQLite has this operator as well but does not have an implementation of it
-by default. It will throw an error if used.
+In MySQL and MariaDB have the REGEXP operator.
+SQLite has this operator as well but does not have an implementation of it by default.
+It will throw an error if used.
 
 PostgreSQL uses the `~` operator for case-sensitive regex matching and `~*` for case-insensitive.
 
-Notable is also that the REGEXP and `~` operators do not check if the whole string matches the expression. It just
-checks for a subsequence.
+Notable is also that the REGEXP and `~` operators do not check if the whole string matches the expression.
+It just checks for a subsequence.
 
 The usage in general is the same.
 

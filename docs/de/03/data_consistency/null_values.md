@@ -8,7 +8,7 @@ Um eine Spalte als nicht löschbar zu kennzeichnen, fügen wir einfach `NOT NULL
 
 *Vergiss nicht, deine Tabelle zuerst zu löschen*
 
-``sql
+```sql
 CREATE TABLE player
 (
     id INTEGER,

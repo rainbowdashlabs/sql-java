@@ -1,11 +1,12 @@
 # Update and Delete
 
-Why do we handle both in here? Because they are essentially the same on the database side. An `UPDATE` changes an
-existing
-row and so does a `DELETE`. We also use the same way when dispatching them to the database.
+Why do we handle both in here?
+Because they are essentially the same on the database side.
+An `UPDATE` changes an existing row and so does a `DELETE`.
+We also use the same way when dispatching them to the database.
 
-Instead of calling `executeQuery` we call `executeUpdate`. There is a method called `execute` as well, which we could
-use as well, but `executeUpdate` provides use the amount of changed rows directly.
+Instead of calling `executeQuery` we call `executeUpdate`.
+There is a method called `execute` as well, which we could use as well, but `executeUpdate` provides use the amount of changed rows directly.
 
 ```java
 import javax.sql.DataSource;
@@ -31,11 +32,11 @@ public class Delete {
 }
 ```
 
-Ideally we should print `Deleted 1 row` now. That is the amount of rows we deleted with our query. This a great way to
-check whether the query had an effect on our data.
+Ideally we should print `Deleted 1 row` now.
+That is the amount of rows we deleted with our query.
+This a great way to check whether the query had an effect on our data.
 
-If we combine this query with a [`RETURNING` keyword](dev/private/java/!tutorial/basicsql-pages/docs/en/02rivate/java/!tutorial/basicsql-pages/docs/en/02/returning.md) we can instead call `executeQuery` and read our
-results like we did in the previous section.
+If we combine this query with a [`RETURNING` keyword](../02/returning.md) we can instead call `executeQuery` and read our results like we did in the previous section.
 
 ```java
 import javax.sql.DataSource;

@@ -45,25 +45,25 @@ Beachte, dass wir dieses Mal nur `id` und `player_name` angeben und die Spalte `
 
 Und nun ist es an der Zeit, einen Blick auf unsere Daten zu werfen!
 
-``sql
+```sql
 SELECT id, player_name, last_online
 FROM player;
 ```
 
 Und wir erhalten:
 
-| id | player\_name | last\_online |
+| id  | player\_name | last\_online               |
 |:----|:-------------|:---------------------------|
-| 1 | Mike | 2022-11-25 23:52:26.081797 |
-| 2 | Sarah | 2022-11-25 23:52:26.081797 |
-| 3 | John | 2022-11-25 23:52:26.081797 |
-| 4 | Lilly | 2022-11-25 23:52:26.081797 |
-| 5 | Matthias | 2022-11-25 23:52:26.081797 |
-| 6 | Lenny | 2022-11-25 23:52:26.081797 |
-| 7 | Sommer | 2022-11-25 23:52:26.081797 |
-| 8 | Heiraten | 2022-11-25 23:52:26.081797 |
-| 9 | Milana | 2022-11-25 23:52:26.081797 |
-| 10 | Lexi | 2022-11-25 23:52:26.081797 |
+| 1   | Mike         | 2022-11-25 23:52:26.081797 |
+| 2   | Sarah        | 2022-11-25 23:52:26.081797 |
+| 3   | John         | 2022-11-25 23:52:26.081797 |
+| 4   | Lilly        | 2022-11-25 23:52:26.081797 |
+| 5   | Matthias     | 2022-11-25 23:52:26.081797 |
+| 6   | Lenny        | 2022-11-25 23:52:26.081797 |
+| 7   | Summer       | 2022-11-25 23:52:26.081797 |
+| 8   | Marry        | 2022-11-25 23:52:26.081797 |
+| 9   | Milana       | 2022-11-25 23:52:26.081797 |
+| 10  | Lexi         | 2022-11-25 23:52:26.081797 |
 
 Es hat geklappt! Natürlich werden deine Zeiten deine aktuelle Zeit sein. Natürlich kannst du dort alles einfügen, was du
 bereits erwähnt. Das ist eine sehr schöne Methode, um sicherzustellen, dass die Werte jedes Mal vorhanden sind, wenn du aus deiner Zeile liest.
@@ -85,9 +85,9 @@ FROM player
 WHERE id = 11;
 ```
 
-| id | player_name | last_online |
-|:----|:-------------|:-------------|
-| 11 | Jonathan | null |
+| id  | player_name | last_online |
+|:----|:------------|:------------|
+| 11  | Jonathan    | null        |
 
 Wie wir sehen können, ist last_online null. Wir wollen aber, dass es immer ein Wert ist. Deshalb würden wir hier ein `NOT NULL` hinzufügen
 hinzufügen.
@@ -96,7 +96,7 @@ Unsere Tabelle wird am Ende so aussehen.
 
 *Vergiss nicht, deine Tabelle zuerst zu löschen*
 
-``sql
+```sql
 CREATE TABLE player
 (
     id INTEGER,

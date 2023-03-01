@@ -1,8 +1,10 @@
 # Prepared Statement
 
-You may have noticed that we did not use a prepared statement in the previous section. That was the first and last time
-that you have seen a `Statement` in this tutorial. From now on we will always use prepared statements. Why? Because it
-has only advantages using a `PreparedStatement` instead of a `Statement`
+You may have noticed that we did not use a prepared statement in the previous section.
+That was the first and last time that you have seen a `Statement` in this tutorial.
+From now on we will always use prepared statements.
+Why?
+Because it has only advantages using a `PreparedStatement` instead of a `Statement`.
 
 1. They prevent [SQL injection](https://www.w3schools.com/sql/sql_injection.asp)
 2. They allow batch execution of queries
@@ -55,5 +57,5 @@ Let's go through it step by step.
 5. Set the first parameter in our query to the value 10
 6. Execute the query
 
-Values in a prepared statement start with index 1. You will not have to set them in the correct order, but you have to
-set them all.
+Values in a prepared statement start with index 1.
+You will not have to set them in the correct order, but you have to set them all.

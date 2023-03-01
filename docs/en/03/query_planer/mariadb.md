@@ -1,7 +1,7 @@
 # MariaDB
 
-The query planer of MariaDB and MySQL are quite simple to understand. An in depth description can be found in the 
-docs of [MariaDB](https://mariadb.com/kb/en/explain/) and MySQL.
+The query planer of MariaDB and MySQL are quite simple to understand.
+An in depth description can be found in the docs of [MariaDB](https://mariadb.com/kb/en/explain/) and MySQL.
 
 We start with our basic query from earlier:
 
@@ -36,8 +36,8 @@ Let's start with each column and take a look at what they actually mean:
 
 ## Analyze
 
-Additionally, the `ANALYZE` keyword can give you an insight about the actual stuff going on. This will execute the 
-query and measure everything:
+Additionally, the `ANALYZE` keyword can give you an insight about the actual stuff going on.
+This will execute the query and measure everything:
 
 ```sql
 ANALYZE

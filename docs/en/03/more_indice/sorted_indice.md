@@ -1,13 +1,12 @@
 # Sorted Indices
 
-In general indices are always sorted, because that's how they work. We can use this to speed up searches
-where we want to sort a table based on a value. With creating an index on the column we want to sort by we can
-directly skip the sort, because the database will just look at the already sorted index.
+In general indices are always sorted, because that's how they work.
+We can use this to speed up searches where we want to sort a table based on a value.
+With creating an index on the column we want to sort by we can directly skip the sort, because the database will just look at the already sorted index.
 
 We most probably want to sort our users by the amount of money we have!
 
-*Remember to insert some data into your money table first c: You might need to add some more if you want the index 
-to be used.*
+*Remember to insert some data into your money table first c: You might need to add some more if you want the index to be used.*
 
 <details>
 <summary>Data generation for postgres</summary>
@@ -41,8 +40,9 @@ LIMIT 5;
 | 178        | 9985  |
 | 1113       | 9977  |
 
-If you want you can check the query plan now as we did in the previous [section](dev/private/java/!tutorial/basicsql-pages/docs/en/03/query_planer.md). You will see
-that we currently use no index at all. This will of course change once we add an index on the money column.
+If you want you can check the query plan now as we did in the previous [section](../en/03/query_planer.md). 
+You will see that we currently use no index at all.
+This will of course change once we add an index on the money column.
 
 ```sql
 -- we use CREATE INDEX instead of CREATE UNIQUE INDEX this time
@@ -60,8 +60,8 @@ ORDER BY money DESC
 LIMIT 5;
 ```
 
-Now you will see that we indeed use an index scan. Also, if we only order by one value we are even using the index 
-when we order the other direction.
+Now you will see that we indeed use an index scan.
+Also, if we only order by one value we are even using the index when we order the other direction.
 
 ```sql
 SELECT player_id, money
@@ -70,6 +70,6 @@ ORDER BY money
 LIMIT 5;
 ```
 
-This query will use the index in a reversed order. Of course this won't work anymore when we order by multiple 
-values. If you sort by multiple values you will need to add an index matching the same order of columns and sort 
-direction as well.
+This query will use the index in a reversed order.
+Of course this won't work anymore when we order by multiple values.
+If you sort by multiple values you will need to add an index matching the same order of columns and sort direction as well.

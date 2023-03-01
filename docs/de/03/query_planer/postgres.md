@@ -45,7 +45,7 @@ SELECT p1.id, p1.player_name, p2.id, p2.player_name
 FROM friend_graph f
          LEFT JOIN player p1 ON f.player_1 = p1.id
          LEFT JOIN player p2 ON f.player_2 = p2.id
-         WHERE f.spieler_1 = 2 OR f.spieler_2 = 2; 
+         WHERE f.player_1 = 2 OR f.player_2 = 2; 
 ```
 
 Das sieht vielleicht ein bisschen chaotisch aus, ist aber eigentlich ganz einfach zu verstehen:
@@ -60,14 +60,14 @@ Hash Right Join (cost=74.06..123.89 rows=734 width=72)
               -> Seq Scan on player p1 (cost=0.00..21.30 rows=1130 width=36)
               -> Hash (cost=43.90..43.90 rows=23 width=8)
                     -> Seq Scan on friend_graph f (cost=0.00..43.90 rows=23 width=8)
-                          Filter: ((spieler_1 = 2) OR (spieler_2 = 2))
+                          Filter: ((player_1 = 2) OR (player_2 = 2))
 ```
 
 Wir gehen es Schritt für Schritt durch und beginnen mit dem innersten Knoten.
 
 ```
                     -> Seq Scan on friend_graph f (cost=0.00..43.90 rows=23 width=8)
-                          Filter: ((spieler_1 = 2) OR (spieler_2 = 2))
+                          Filter: ((player_1 = 2) OR (player_2 = 2))
 ```
 
 Wir kennen diesen Knoten bereits aus dem vorherigen Plan. ein einfacher Scan über die gesamte Tabelle mit einer Bedingung. Der einzige 

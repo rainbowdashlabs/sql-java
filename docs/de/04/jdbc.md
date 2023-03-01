@@ -44,5 +44,5 @@ Verwendung.
 Der Treiber ist das Herzstück einer jeden JDBC-Implementierung. Er ist im Grunde der Übersetzer zwischen Java und deiner Datenbank. Du
 wirst den Treiber wahrscheinlich nie direkt benutzen, aber es ist gut zu wissen, dass es ihn gibt und dass er wichtig ist.
 
-Wenn du mehr wissen willst, schau dir den
+Wenn du mehr wissen willst, schau dir 
 den [wikipedia Artikel](https://en.wikipedia.org/wiki/Java_Database_Connectivity).

@@ -1,10 +1,11 @@
 # Select
 
-The `SELECT` statement is another very important statement. Now that we have inserted data in our tables we want to read
-them as well.
+The `SELECT` statement is another very important statement.
+Now that we have inserted data in our tables we want to read them as well.
 
-The `SELECT` statement always returns a so-called result set. This set contains all our requested data. Notice that 
-although that it is called a "set", this doesn't man that the results are unique in any way.
+The `SELECT` statement always returns a so-called result set.
+This set contains all our requested data.
+Notice that although that it is called a "set", this doesn't man that the results are unique in any way.
 
 ## Basic select
 
@@ -31,13 +32,15 @@ This statement will give you the content of `id` and `name` of the table `player
 | 9   | Milana       |
 | 10  | Lexi         |
 
-If you ever see or write a statement like this you might select way more than you need. Usage of plain select statement
-can be generally discouraged. In 99% of these cases there are better and more refined statements.
+If you ever see or write a statement like this you might select way more than you need.
+Usage of plain select statement can be generally discouraged.
+In 99% of these cases there are better and more refined statements.
 
 > **Read what you need**
 
-This is in general always a good thing to remember. Never read more data from the database than you need. The following
-keywords will help doing this.
+This is in general always a good thing to remember.
+Never read more data from the database than you need.
+The following keywords will help doing this.
 
 ## Column Alias
 
@@ -68,10 +71,11 @@ The column `player_name` is now names `name` in our result set
 
 ## Table alias
 
-Tables can have aliases too. You won't need them now, but in general those are defined right behind the table name.
+Tables can have aliases too.
+You won't need them now, but in general those are defined right behind the table name.
 
-Those are used to define a unique table name when you use multiple tables. It is also used to abbreviate long table 
-names, when you need to use the name explicitly.
+Those are used to define a unique table name when you use multiple tables.
+It is also used to abbreviate long table names, when you need to use the name explicitly.
 
 ```sql
 SELECT pl.id,
@@ -82,8 +86,8 @@ FROM player pl;
 
 ## WHERE
 
-The where statement might be the most important keyword in sql. The where keyword evaluates to a boolean for each row
-and defines whether a row gets returned or not.
+The where statement might be the most important keyword in sql.
+The where keyword evaluates to a boolean for each row and defines whether a row gets returned or not.
 
 Remember the [logical operators](dev/private/java/!tutorial/basicsql-pages/docs/en/02rivate/java/!tutorial/basicsql-pages/docs/en/02/operators.md#logical) earlier in the chapter.
 
@@ -94,11 +98,9 @@ FROM my_table
 WHERE column_z = value_a; --(1)
 ```
 
-1. The condition can be anything. It can be also multiple conditions or checks combined with `AND` or `OR`. The column
-   you check does not need to be contained in the select statement itself.
+1. The condition can be anything. It can be also multiple conditions or checks combined with `AND` or `OR`. The column you check does not need to be contained in the select statement itself.
 
 Try to select all players with an id greater than 5.
-
 In the end you should have a table like this:
 
 | id  | player\_name | last\_online               |
@@ -123,9 +125,7 @@ WHERE id > 5;
 </details>
 
 All we need here is a simple check on the id column.
-
-We can also get more specific here. Let's add one more check for all names which start with the letter `m`. (case
-insensitive)
+We can also get more specific here. Let's add one more check for all names which start with the letter `m`. (case insensitive)
 
 | id  | player\_name | last\_online               |
 |:----|:-------------|:---------------------------|
@@ -146,7 +146,8 @@ WHERE id > 5
   AND player_name LIKE 'm%';
 ```
 
-The `LIKE` keyword compares case-insensitive. the `%` is a wildcard for an infinite amount of other characters.
+The `LIKE` keyword compares case-insensitive. 
+The `%` is a wildcard for an infinite amount of other characters.
 
 **PostgreSQL**
 
@@ -159,7 +160,8 @@ WHERE id > 5
   AND player_name ILIKE 'm%';
 ```
 
-Unlike the other databases the `LIKE` is case-sensitive in Postgres. That's why we need to use `ILIKE` here.
+Unlike the other databases the `LIKE` is case-sensitive in Postgres.
+That's why we need to use `ILIKE` here.
 
 
 </details>
@@ -168,11 +170,11 @@ You can continue chaining more conditions or try an `OR` instead of the `AND` an
 
 ## ORDER BY
 
-Currently, our players are retrieved in the order they were inserted into the database. This might not only be the order
-we want.
+Currently, our players are retrieved in the order they were inserted into the database.
+This might not only be the order we want.
 
-Let's say we want our players in the order they were last seen with the most recent players first and the inactive players
-last. We can do this by using the `ORDER BY` keyword on the `last_online` column.
+Let's say we want our players in the order they were last seen with the most recent players first and the inactive players last.
+We can do this by using the `ORDER BY` keyword on the `last_online` column.
 
 The general syntax is:
 
@@ -186,7 +188,6 @@ ORDER BY column_x [DESC|ASC]; --(1)
 1. The ASC (ascending) or DESC (descending) clause defines the sorting order. ASC is default.
 
 Try to define a query to sort the player table by `last_online` in descending order.
-
 We want this table in the end:
 
 | id  | player\_name | last\_online               |
@@ -216,14 +217,13 @@ ORDER BY last_online DESC;
 </details>
 
 
-The `ORDER BY` clause defines the column we want to sort by. The `DESC` keyword tells SQL that we want a descending
-order. If we not define an order the elements will always be in ascending order.
+The `ORDER BY` clause defines the column we want to sort by.
+The `DESC` keyword tells SQL that we want a descending order.
+If we not define an order the elements will always be in ascending order.
 
-We can also sort by multiple columns. In this case they will be first sorted by the first column and every value with an
-equal value will be sorted by the second value.
-
+We can also sort by multiple columns.
+In this case they will be first sorted by the first column and every value with an equal value will be sorted by the second value.
 Let's sort by the first char of the name and id as a second example.
-
 To get the first character of a string we need to use a functions again.
 
 `substr(player_name, 1, 1)` returns the first character of the `player_name`.
@@ -256,13 +256,11 @@ ORDER BY SUBSTR(player_name, 1, 1), id;
 
 </details>
 
-You can see that we first sort by the first character of the name and all names with the same first character are sorted
-by id.
+You can see that we first sort by the first character of the name and all names with the same first character are sorted by id.
 
 ## LIMIT
 
 The `LIMIT` keyword is also really important to avoid overly large reads.
-
 The general syntax is:
 
 ```sql
@@ -272,11 +270,12 @@ FROM my_table
 LIMIT [n |ALL];
 ```
 
-The `LIMIT` keyword restricts the amount of your results to the entered number `n`. As an alternative you can use
-`ALL` or `NULL` to disable the parameter. That's something frameworks use sometimes to disable a limit.
+The `LIMIT` keyword restricts the amount of your results to the entered number `n`.
+As an alternative you can use `ALL` or `NULL` to disable the parameter.
+That's something frameworks use sometimes to disable a limit.
 
-Earlier we already sorted the players by the most recent online times. Let's try to only get the last 5 most recent
-players by adding the limit clause to our previous query.
+Earlier we already sorted the players by the most recent online times.
+Let's try to only get the last 5 most recent players by adding the limit clause to our previous query.
 
 *Hint: The limit is always the last parameter of your query.*
 
@@ -304,9 +303,8 @@ LIMIT 5;
 
 ## OFFSET
 
-The `OFFSET` keyword is often used to facilitate some kind of pagination in results. That's also why it is often combined
-with limit.
-
+The `OFFSET` keyword is often used to facilitate some kind of pagination in results.
+That's also why it is often combined with limit.
 The `OFFSET` keyword skips the first `n` lines of the result sets.
 
 The general syntax is:
@@ -318,8 +316,9 @@ FROM my_table
 OFFSET n;
 ```
 
-Let's try to enhance our query from the limit part even more. We already got the first 5 entries. Now we want to get 
-the next 5 entries by adding a `OFFSET` of `5` while keeping the `LIMIT` and `ORDER BY` keywords.
+Let's try to enhance our query from the limit part even more.
+We already got the first 5 entries.
+Now we want to get the next 5 entries by adding a `OFFSET` of `5` while keeping the `LIMIT` and `ORDER BY` keywords.
 
 *Hint: The `OFFSET` keyword is directly located before the `LIMIT` keyword*
 
@@ -348,14 +347,17 @@ LIMIT 5;
 
 What's basically happening here is:
 
-First we order the whole table by the `last_online` column. After this we skip the first `5` rows and read the next 
-`5` rows. It is important to remember that we first need to sort the whole table currently. That can be very costly 
-on large tables. Luckily there are ways to make this faster. We will cover this later.
+First we order the whole table by the `last_online` column.
+After this we skip the first `5` rows and read the next `5` rows.
+It is important to remember that we first need to sort the whole table currently.
+That can be very costly on large tables.
+Luckily there are ways to make this faster.
+We will cover this later.
 
 ## Summing Up
 
-We have now learned the four most important keywords for searching, sorting and limiting the retrieved data. The 
-keywords have to be used in a specific order and cant be altered in a free way.
+We have now learned the four most important keywords for searching, sorting and limiting the retrieved data.
+The keywords have to be used in a specific order and cant be altered in a free way.
 
 The general syntax for this is:
 

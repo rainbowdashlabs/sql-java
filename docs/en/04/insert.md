@@ -1,8 +1,7 @@
 # Inserting data
 
-For inserting data we will mainly use the `execute` method of our `PreparedStatement`. We will know that it worked when
-we get no exception and since we usually only insert a single line, we are not really interested into the changed lines
-as well.
+For inserting data we will mainly use the `execute` method of our `PreparedStatement`.
+We will know that it worked when we get no exception and since we usually only insert a single line, we are not really interested into the changed lines as well.
 
 ```java
 import javax.sql.DataSource;
@@ -27,8 +26,7 @@ public class Insert {
 }
 ```
 
-One exception where we would not use `execute` would be if we use a `RETURNING` [clause](dev/private/java/!tutorial/basicsql-pages/docs/en/02rivate/java/!tutorial/basicsql-pages/docs/en/02/returning.md) to get the
-new created id for our user.
+One exception where we would not use `execute` would be if we use a `RETURNING` [clause](../02/returning.md) to get the  new created id for our user.
 
 ```java
 import javax.sql.DataSource;
@@ -60,8 +58,8 @@ public class InsertReturning {
 ## Generated keys
 
 For databases without an `RETURNING` clause (Looking at you MySQL) you can retrieve the generated keys in another way.
-Our `PreparedStatement` not only allows us to execute, but also to check what our statement changed. If we provide that
-we want the generated keys by using a flag, the database will return the generated keys when we execute the statement.
+Our `PreparedStatement` not only allows us to execute, but also to check what our statement changed.
+If we provide that we want the generated keys by using a flag, the database will return the generated keys when we execute the statement.
 After that we can read those from the statement.
 
 ```java
@@ -95,8 +93,8 @@ public class InsertGeneratedKeys {
 }
 ```
 
-The issue with that is that a key is only returned if it was explicitly identified as key. If that fails you can still
-ask the database to explicitly return one or more columns.
+The issue with that is that a key is only returned if it was explicitly identified as key.
+If that fails you can still ask the database to explicitly return one or more columns.
 
 ```java
 import javax.sql.DataSource;

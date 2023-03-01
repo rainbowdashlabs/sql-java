@@ -1,7 +1,8 @@
 # Reading multiple entries from an ResultSet
 
-This time we will use a query you should know already. It is the query we used in chapter 2 to select all players with
-an id higher than 5. But this time we will make it a bit more configurable with the use of our `PreparedStatement`.
+This time we will use a query you should know already.
+It is the query we used in chapter 2 to select all players with an id higher than 5.
+But this time we will make it a bit more configurable with the use of our `PreparedStatement`.
 
 ```sql
 SELECT
@@ -13,7 +14,8 @@ WHERE id >= ?
   AND id <= ?
 ```
 
-We set the first value to 5 and the second value to 10. That will give us a `ResultSet` which looks like this:
+We set the first value to 5 and the second value to 10.
+That will give us a `ResultSet` which looks like this:
 
 ```      
         Row | id  | player_name
@@ -26,8 +28,8 @@ Cursor -> 0 |     |
           6 | 10  | Lexi        
 ```
 
-Instead of checking whether there is a next row and read this we want to read as long as there is a next row. We can not
-do this with an `if`, but we can do this with a `while`.
+Instead of checking whether there is a next row and read this we want to read as long as there is a next row.
+We can not do this with an `if`, but we can do this with a `while`.
 
 ```java
 import javax.sql.DataSource;
@@ -61,8 +63,9 @@ public class SelectMulti {
 }
 ```
 
-The while will jump to the next row as long as there is one. It will also not fail if there is no row at all.
+The while will jump to the next row as long as there is one.
+It will also not fail if there is no row at all.
 
-Of course instead of printing out your result you might want to create a list or a map to store them. We will look into
-returning data in a later section.
+Of course instead of printing out your result you might want to create a list or a map to store them.
+We will look into returning data in a later section.
 

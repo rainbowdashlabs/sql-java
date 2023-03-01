@@ -4,12 +4,12 @@
 
 Checks are also very important when ensuring that a value in a column meets certain requirements.
 
-You already know some checks. Every time we used `CONSTRAINT` we added a check. For example in our [foreign key]
-(foreign_keys.md) or in our [primary key](dev/private/java/!tutorial/basicsql-pages/docs/en/03/data_consistency/primary_keys.md). `NOT NULL` is an inline check as well. But there is
-actually more! We can also add manual checks ourselves.
+You already know some checks.
+Every time we used `CONSTRAINT` we added a check. For example in our [foreign key](foreign_keys.md) or in our [primary key](../03/data_consistency/primary_keys.md).
+`NOT NULL` is an inline check as well.
+But there is actually more! We can also add manual checks ourselves.
 
-Time to enhance our money table even more, by adding a check which ensures that money is always equal or greater than
-0, which will ensure that we never have a negative amount of money.
+Time to enhance our money table even more, by adding a check which ensures that money is always equal or greater than 0, which will ensure that we never have a negative amount of money.
 
 ```sql
 CREATE TABLE money
@@ -33,5 +33,4 @@ Let's try to insert something invalid:
 INSERT INTO money (player_id, money) VALUES (1, -10);
 ```
 
-It fails! Our check works and prevents us from adding negative values to our table! Of course this works with 
-updates as well.
+It fails! Our check works and prevents us from adding negative values to our table! Of course this works with updates as well.

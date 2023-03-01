@@ -11,7 +11,7 @@ Daher können wir davon ausgehen, dass die allgemeine `DELETE`-Anweisung wie fol
 
 ```sql
 DELETE
-FROM tabelle_name
+FROM table_name
 WHERE spalte_1 = wert_1; 
 ```
 
@@ -24,7 +24,7 @@ Versuchen wir nun, eine Anweisung zu schreiben, die den Nutzer mit der ID 10 aus
 
 ```sql
 DELETE
-FROM spieler
+FROM player
 WHERE id = 10;
 ```
 
@@ -42,14 +42,14 @@ Schreibe zwei Anweisungen.
 <Details>
 <summary>Lösung</summary>
 
-   ```sql
+```sql
 DELETE
 FROM friend_graph
-WHERE spieler_1 = 10
-   OR spieler_2 = 10;
+WHERE player_1 = 10
+   OR player_2 = 10;
 
 DELETE
-FROM geld
+FROM money
 WHERE id = 10;
 ```
 

@@ -3,7 +3,7 @@
 Um eine Verbindung zu einer Datenbank herzustellen, verwenden wir jdbc urls. Sie sind die zuverlässigste Methode und erlauben ein hohes Maß an Anpassungen. Sie
 folgen einem einheitlichen Format, das wie folgt aussieht:
 
-jdbc:<Datenbank>://url:port/datenbank
+`jdbc:<rdbms>://url:port/datenbank`
 
 Im Folgenden zeige ich dir, wie du eine DataSource für jede Datenbank erstellst. Später werden wir zu HikariCP wechseln, wo wir keine
 Wir werden später zu HikariCP wechseln, wo wir keine DataSource eines bestimmten Typs mehr definieren müssen.
@@ -29,7 +29,7 @@ Postgres-Datenquelle direkt verwenden, aber in einigen Beispielen werden wir sp�
 nur die URL, um die Datenbank anzugeben, mit der wir uns verbinden wollen. Um Java zu zwingen, die Klasse `Driver` zu laden, müssen wir
 müssen wir die Klasse über `Class.forName(String)` laden. Das könnte folgendermaßen aussehen:
 
-``java
+```java
 public class ClassForName {
     public static void main(String[] args) {
         try {

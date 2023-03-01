@@ -30,11 +30,11 @@ FROM friend_count;
 ```
 
 | player_id | sum |
-|:-----------|:----|
-| 3 | 2 |
-| 4 | 4 |
-| 2 | 3 |
-| 1 | 3 |
+|:----------|:----|
+| 3         | 2   |
+| 4         | 4   |
+| 2         | 3   |
+| 1         | 3   |
 
 Views für eine Tabelle sind eine gute Möglichkeit, größere SQL-Anweisungen zu verstecken. Denke daran, dass bei jedem Aufruf der View 
 auch die zugrunde liegende Abfrage aufgerufen wird. Aus diesem Grund können Views deine Aggregation nicht wirklich beschleunigen.

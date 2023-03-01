@@ -1,14 +1,17 @@
 # Default Values
 
-Default values are a pretty nice thing. They will always be used when you insert something and leave the column
-empty. The value can be a static type like a number or something dynamic like the current date or time. It is a very
-useful thing. There is also a special default value which is the auto increment, which we will look at in a moment.
+Default values are a pretty nice thing.
+They will always be used when you insert something and leave the column empty.
+The value can be a static type like a number or something dynamic like the current date or time.
+It is a very useful thing.
+There is also a special default value which is the auto increment, which we will look at in a moment.
 
 But first we take a look at how default values work.
 
-Remember our old player table we had? We save the online time manually when creating the player. But we can actually
-assume that once we insert the player the first time it should be online as well. So lets set the `last_online` time
-to the current time when we execute our insert statement.
+Remember our old player table we had?
+We save the online time manually when creating the player.
+But we can actually assume that once we insert the player the first time it should be online as well.
+So lets set the `last_online` time to the current time when we execute our insert statement.
 
 *Remember to drop your table first*
 
@@ -22,8 +25,8 @@ CREATE TABLE player
 );
 ```
 
-The `current_timestamp` will always return the current timestamp when we insert the data. In postgres you would
-usually use `now()` instead.
+The `current_timestamp` will always return the current timestamp when we insert the data.
+In postgres you would usually use `now()` instead.
 
 Let's check that it actually works!
 
@@ -42,7 +45,6 @@ VALUES (1, 'Mike'),
 ```
 
 Note that we only specify `id` and `player_name` this time and do not set the `last_online` column.
-
 And now it is time to take a look at our data!
 
 ```sql
@@ -65,8 +67,10 @@ And we get:
 | 9   | Milana       | 2022-11-25 23:52:26.081797 |
 | 10  | Lexi         | 2022-11-25 23:52:26.081797 |
 
-It worked! Of course your times will be your current time. Of course, you can insert anything there like mentioned
-already. It is a very nice way of ensuring that values are present every time you read from your row.
+It worked!
+Of course your times will be your current time.
+Of course, you can insert anything there like mentioned already.
+It is a very nice way of ensuring that values are present every time you read from your row.
 
 However, there is still a small flaw in our table.
 
@@ -89,8 +93,9 @@ WHERE id = 11;
 |:----|:-------------|:-------------|
 | 11  | Jonathan     | null         |
 
-As we can see last_online is null. But we want it to be always a value. That's why we would add a `NOT NULL` here
-as well.
+As we can see last_online is null.
+But we want it to be always a value.
+That's why we would add a `NOT NULL` here as well.
 
 Our table will look like this in the end.
 
@@ -108,5 +113,6 @@ CREATE TABLE player
 
 Let's sum up what we have so far:
 
-We can insert an id into our table, which can be still null, we will get to this a bit later. We also have a player
-name which is not allowed to be null. When we insert a player the `last_online` column will be set by the database.
+We can insert an id into our table, which can be still null, we will get to this a bit later.
+We also have a player name which is not allowed to be null.
+When we insert a player the `last_online` column will be set by the database.

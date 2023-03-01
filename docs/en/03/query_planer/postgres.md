@@ -1,8 +1,9 @@
 # Postgres
 
-The postgres query planner is extremely powerful and provides a high detail over the executed tasks. Nodes are
-represented by indentations in the query plan. Nodes are executed from the inner to the outer node. This is
-not important yet since our query plans for now will be very simple and probably won't even have that many nodes anyway.
+The postgres query planner is extremely powerful and provides a high detail over the executed tasks.
+Nodes are represented by indentations in the query plan.
+Nodes are executed from the inner to the outer node.
+This is not important yet since our query plans for now will be very simple and probably won't even have that many nodes anyway.
 
 To get a deeper insight into the postgres query plans take a look at that [page](https://www.postgresql.org/docs/current/using-explain.html).
 
@@ -38,7 +39,8 @@ Second node:
 - `Filter:` is the type of our next node. A filter node.
 - `(id = 5)` is the filter itself.
 
-Let's try to build a more complex example. You will see some new keywords here, but don't worry about it for now:
+Let's try to build a more complex example.
+You will see some new keywords here, but don't worry about it for now:
 
 ```sql
 SELECT p1.id, p1.player_name, p2.id, p2.player_name
@@ -70,8 +72,9 @@ We're going to go through it step by step and start with the most inner node.
                           Filter: ((player_1 = 2) OR (player_2 = 2))
 ```
 
-We know this node already from the previous plan. a simple scan on the whole table with one condition. The only 
-difference is that we are checking for two conditions in our filter and not only one.
+We know this node already from the previous plan.
+A simple scan on the whole table with one condition.
+The only difference is that we are checking for two conditions in our filter and not only one.
 
 ```
         ->  Hash Right Join  (cost=44.19..72.44 rows=130 width=40)
@@ -80,10 +83,13 @@ difference is that we are checking for two conditions in our filter and not only
               ->  Hash  (cost=43.90..43.90 rows=23 width=8)
 ```
 
-We need to look at these nodes together. We are joining our table. That basically means that we are just gluing 
-some more columns on our initial table the friends graph. We do this based on some condition. For these conditions we 
-need to hash the columns we use. In the end we need to read the whole player table again to find all matching players. 
-And that's already everything in this node
+We need to look at these nodes together.
+We are joining our table.
+That basically means that we are just gluing some more columns on our initial table the friends graph.
+We do this based on some condition.
+For these conditions we need to hash the columns we use.
+In the end we need to read the whole player table again to find all matching players.
+And that's already everything in this node.
 
 ```
 Hash Right Join  (cost=74.06..123.89 rows=734 width=72)
@@ -92,18 +98,18 @@ Hash Right Join  (cost=74.06..123.89 rows=734 width=72)
   ->  Hash  (cost=72.44..72.44 rows=130 width=40)
 ```
 
-This node is exactly the same node as the previous one. The only difference is that we are using the player_2 column 
-of our friend graph.
+This node is exactly the same node as the previous one.
+The only difference is that we are using the `player_2` column of our friend graph.
 
-I don't expect that you fully understand this stuff already, so don't be scared now. This is just for you to get a 
-better understanding of the query plans. Most of the knowledge comes from reading more plans and taking a look at 
-the extensive postgres docs linked above.
+I don't expect that you fully understand this stuff already, so don't be scared now.
+This is just for you to get a better understanding of the query plans.
+Most of the knowledge comes from reading more plans and taking a look at the extensive postgres docs linked above.
 
 ## Analyze
 
-Postgres has an additional keyword, which is `ANALYZE`. This keyword will execute the query and show the differences
-between the estimates of `EXPLAIN` and the actual runtime of the query. It also provides some other additional
-information.
+Postgres has an additional keyword, which is `ANALYZE`.
+This keyword will execute the query and show the differences between the estimates of `EXPLAIN` and the actual runtime of the query.
+It also provides some other additional information.
 
 Let's see what else we get when we take a look at our query from earlier:
 
@@ -124,8 +130,9 @@ Planning Time: 0.037 ms
 Execution Time: 0.022 ms
 ```
 
-You see a lot of familiar stuff here which you already saw in the `EXPLAIN` output earlier. But now we also get the
-actual data. What you can see is that the result of expected and actual rows is quite different. You can also see
-that our filter removed 9 rows from our result set which did not match the filter
+You see a lot of familiar stuff here which you already saw in the `EXPLAIN` output earlier.
+But now we also get the actual data.
+What you can see is that the result of expected and actual rows is quite different.
+You can also see that our filter removed 9 rows from our result set which did not match the filter.
 
 Additionally, you get the actual planning and execution time of the query itself.

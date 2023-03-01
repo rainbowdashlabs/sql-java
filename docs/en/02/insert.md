@@ -1,7 +1,6 @@
 # INSERT
 
 Now that we have created our tables we want to add data to them.
-
 Let's start with our players
 
 | id  | player\_name | last\_online     |
@@ -18,7 +17,6 @@ Let's start with our players
 | 10  | Lexi         | 2022-02-22 00:00 |
 
 In order to insert data we will need to use the `INSERT` statement.
-
 The general syntax to insert one row into a table is:
 
 ```sql
@@ -35,8 +33,8 @@ VALUES (value_1, value_2),
        (value_1, value_2);
 ```
 
-To proceed you need to know how to convert a string into a timestamp. This is different depending on the database you
-use:
+To proceed you need to know how to convert a string into a timestamp.
+This is different depending on the database you use:
 
 - Postgres: `'2022-05-11 00:00'::TIMESTAMP`\
   We can simply cast a string to a timestamp
@@ -45,8 +43,8 @@ use:
 - SqLite: `CAST(STRFTIME('%s', '2022-05-11 00:00') AS INTEGER)`\
   We save timestamps as epoch seconds since sqlite doesn't really have a timestamp type
 
-Now try to recreate the table from above with the previously mentioned methods and statements. Usually the time can 
-be omitted when it is set to 00:00.
+Now try to recreate the table from above with the previously mentioned methods and statements.
+Usually the time can be omitted when it is set to 00:00.
   
 <details>
 <summary>Solution</summary>
@@ -97,7 +95,8 @@ VALUES (1, 'Mike', CAST(STRFTIME('%s', '2022-05-11 00:00') AS INTEGER)),
   
 </details>
 
-Lets to the same with the friend_graph. Try to insert following values into the `friend_graph` table.
+Lets to the same with the friend_graph.
+Try to insert following values into the `friend_graph` table.
 
 | player\_1 | player\_2 |
 |:----------|:----------|
@@ -133,8 +132,8 @@ VALUES (1, 2),
 
 You can also use an alternative syntax to directly create a table with content.
 
-Let's say we want to create a table with money of the players. The table should contain the id and a fixed amount of 
-money for each player for now.
+Let's say we want to create a table with money of the players.
+The table should contain the id and a fixed amount of money for each player for now.
 
 ```sql
 CREATE TABLE money AS 
@@ -158,12 +157,15 @@ This will create a table like this:
 | 9   | 1000  |
 | 10  | 1000  |
 
-This method has some stuff you have to take care of. The database will decide about the data type of the column. 
-When we use `1000.0` we get a numeric type. When we use `1000` we will get an integer type. It is also important to 
-use an alias on newly created columns which have only a type. Use the `as` keyword here. If you don't define an alias 
-the column will have some fallback default value which is usually not what you want. 
+This method has some stuff you have to take care of.
+The database will decide about the data type of the column.
+When we use `1000.0` we get a numeric type.
+When we use `1000` we will get an integer type.
+It is also important to use an alias on newly created columns which have only a type.
+Use the `as` keyword here.
+If you don't define an alias the column will have some fallback default value which is usually not what you want. 
 
 
 ## Conflicts
-You may have noticed that until now we can insert the players as often as we want and our ids will no longer be 
-unique. We will deal with this later.
+You may have noticed that until now we can insert the players as often as we want and our ids will no longer be unique.
+We will deal with this later.

@@ -1,11 +1,9 @@
 # Naming conventions
 
 There are no official naming conventions for sql, but there are some established conventions for naming.
-
-More important than naming is consistency. Don't switch between different stiles.
-
+More important than naming is consistency.
+Don't switch between different stiles.
 More detailed information can be found [here](https://www.sqlshack.com/learn-sql-naming-conventions/).
-
 User created names should be `snake_case` in general
 
 ## Database and Schema
@@ -20,8 +18,7 @@ be really annoying
 
 ## Columns
 
-- Avoid duplication of the table name. If your table is named `user` and has an id column name it `id` instead of
-  `user_id`.
+- Avoid duplication of the table name. If your table is named `user` and has an id column name it `id` instead of `user_id`.
 - Even if it is possible that a column has the same name as its type, this should be avoided.
 ### Primary key columns
 
@@ -30,9 +27,7 @@ Most common is `id`
 ### Foreign key column
 
 If your column is part of a foreign key use the table name where the key references to.
-
 Imagine a table `user(id, name)` and a table `money(user_id, amount)`.
-
 The `user_id` column in `money` is a reference to the `id` column in `user`
 
 ### Dates

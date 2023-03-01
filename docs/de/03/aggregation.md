@@ -167,10 +167,10 @@ GROUP BY player_id;
 ```
 
 | player_id | channel_count |
-|:-----------|:---------------|
-| 3 | 1 |
-| 2 | 3 |
-| 1 | 2 |
+|:----------|:--------------|
+| 3         | 1             |
+| 2         | 3             |
+| 1         | 2             |
 
 Jetzt können wir sehen, dass Spieler 3 einen Kanal abonniert hat, während Spieler 2 drei Kanäle abonniert hat. Bemerkenswert
 bei der Gruppierung ist, dass du nur Spalten auswählen kannst, die in deiner `GROUP BY`-Klausel oder innerhalb einer Aggregat
@@ -184,10 +184,10 @@ GROUP BY player_id;
 ```
 
 | player_id | channel_count | channel_sum |
-|:-----------|:---------------|:-------------|
-| 3 | 1 | 1 |
-| 2 | 3 | 6 |
-| 1 | 2 | 3 |
+|:----------|:--------------|:------------|
+| 3         | 1             | 1           |
+| 2         | 3             | 6           |
+| 1         | 2             | 3           |
 
 Wenn du versuchen würdest, die `channel_id` ohne die Summenfunktion auszuwählen, würdest du einen Fehler erhalten, weil die Datenbank nicht
 nicht weiß, was sie mit dieser Spalte machen soll.
@@ -215,14 +215,14 @@ GROUP BY player_id_2
 
 Die obige Abfrage liefert uns diese Tabelle:
 
-| id | friend_count |
-|:----|:--------------|
-| 4 | 2 |
-| 2 | 1 |
-| 1 | 3 |
-| 3 | 2 |
-| 4 | 2 |
-| 2 | 2 |
+| id  | friend_count |
+|:----|:-------------|
+| 4   | 2            |
+| 2   | 1            |
+| 1   | 3            |
+| 3   | 2            |
+| 4   | 2            |
+| 2   | 2            |
 
 Alles, was wir jetzt noch tun müssen, ist, unsere "ID" zu gruppieren und die "Summe" der Anzahl unserer Freunde zu berechnen.
 
@@ -242,12 +242,12 @@ GROUP BY id;
 
 Am Ende erhalten wir schließlich unser Ergebnis:
 
-| id | summe |
-|:----|:----|
-| 3 | 2 |
-| 4 | 4 |
-| 2 | 3 |
-| 1 | 3 |
+| id  | summe |
+|:----|:------|
+| 3   | 2     |
+| 4   | 4     |
+| 2   | 3     |
+| 1   | 3     |
 
 Das sind die Gesamtzahlen, die wir haben. Du hast es noch nicht verstanden? Mach dir keine Gedanken darüber. Wenn du es brauchst, kommst du einfach 
 wieder zurück.

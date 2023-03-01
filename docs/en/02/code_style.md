@@ -1,7 +1,9 @@
 # Code Style
 
-SQL code should be easily readable. If you use the naming conventions provided earlier this will happen nearly by
-itself. Don't think about the actual code for now. You don't need to understand it yet.
+SQL code should be easily readable.
+If you use the naming conventions provided earlier this will happen nearly by itself.
+Don't think about the actual code for now.
+You don't need to understand it yet.
 
 I will disable syntax highlighting here to make it more clear.
 
@@ -19,8 +21,8 @@ SELECT col FROM my_table;
 
 ## Quote only if required
 
-Many people tend to quote a lot which isn't needed. If you use a good naming scheme you will probably never need to
-quote your stuff.
+Many people tend to quote a lot which isn't needed.
+If you use a good naming scheme you will probably never need to quote your stuff.
 
 ```
 -- Bad
@@ -32,8 +34,9 @@ SELECT col FROM my_table;
 
 ## Line breaks are good
 
-Line breaks will make larger queries way more readable. A good rule is to precede each keyword with a line break. You
-may add more line breaks based on your own choice
+Line breaks will make larger queries way more readable.
+A good rule is to precede each keyword with a line break.
+You may add more line breaks based on your own choice.
 
 ```
 -- Bad
@@ -61,7 +64,8 @@ LIMIT 1;
 
 ## Meaningful alias
 
-Give your table a meaningful alias. Choose a descriptive shorter name instead of single characters like `x`, `y` or `z`
+Give your table a meaningful alias.
+Choose a descriptive shorter name instead of single characters like `x`, `y` or `z`.
 
 ## Use common table expressions (CTE) instead of subqueries
 
@@ -90,13 +94,12 @@ FROM ( -- (1)
          ) flat_friend_graph
     GROUP BY user_id
 ) friend
-                   ON active.id = friend.player_id
+    ON active.id = friend.player_id
 ```
 <!-- @formatter:on --> 
 
 1. We select all players which were online in the past 10 days.
-2. Our friend graph table is a unidirectional graph which contains one entry per friendship We use a UNION ALL to append
-   the `player_2` column on the `player_1` column.
+2. Our friend graph table is a unidirectional graph which contains one entry per friendship We use a UNION ALL to append the `player_2` column on the `player_1` column.
 3. We calculate the friend count. We group by the used_id and count how often every user id occurs.
 4. We combine our friend count with the active players and get a table with the friend count of all active players.
 
@@ -131,7 +134,6 @@ LEFT JOIN friend_count friend
 <!-- @formatter:on --> 
 
 1. We select all players which were online in the past 10 days.
-2. Our friend graph table is a unidirectional graph which contains one entry per friendship We use a UNION ALL to append
-   the `player_2` column on the `player_1` column.
+2. Our friend graph table is a unidirectional graph which contains one entry per friendship We use a UNION ALL to append the `player_2` column on the `player_1` column.
 3. We calculate the friend count. We group by the used_id and count how often every user id occurs.
 4. We combine our friend count with the active players and get a table with the friend count of all active players.

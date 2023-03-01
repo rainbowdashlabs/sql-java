@@ -1,8 +1,8 @@
 # Avoiding null values
 
-When inserting a value into a table it can be always null in general. You can avoid this by marking a column as `NOT
-NULL` when defining the table. This is especially important when you want to set default values or restrict values
-on a column to unique values, because a null is always unique in SQL and column with a default value can still be null.
+When inserting a value into a table it can be always null in general.
+You can avoid this by marking a column as `NOT NULL` when defining the table.
+This is especially important when you want to set default values or restrict values on a column to unique values, because a null is always unique in SQL and column with a default value can still be null.
 
 In order to mark a column as not nullable all we do is add `NOT NULL` after our type.
 
