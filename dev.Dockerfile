@@ -6,7 +6,7 @@ EXPOSE 8000
 
 WORKDIR "/docs"
 
-COPY mkdocs.yml mkdocs.yml
+COPY config/mkdocs.yml mkdocs.yml
 
 COPY docs/ docs/
 

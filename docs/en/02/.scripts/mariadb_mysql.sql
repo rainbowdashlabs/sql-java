@@ -1,0 +1,51 @@
+CREATE TABLE player
+(
+    id          INTEGER,
+    player_name TEXT,
+    last_online TIMESTAMP
+);
+
+CREATE TABLE friend_graph
+(
+    player_1 INTEGER,
+    player_2 INTEGER
+);
+
+INSERT INTO player(id, player_name, last_online)
+VALUES (1, 'Mike', TIMESTAMP('2022-05-11 00:00')),
+       (2, 'Sarah', TIMESTAMP('2022-04-04 00:00')),
+       (3, 'john', TIMESTAMP('2022-04-08 00:00')),
+       (4, 'Lilly', TIMESTAMP('2022-04-02 00:00')),
+       (5, 'Matthias', TIMESTAMP('2022-03-06 00:00')),
+       (6, 'Lenny', TIMESTAMP('2022-03-08 00:00')),
+       (7, 'Summer', TIMESTAMP('2022-05-22 00:00')),
+       (8, 'Marry', TIMESTAMP('2022-06-04 00:00')),
+       (9, 'Milana', TIMESTAMP('2022-02-12 00:00')),
+       (10, 'Lexi', TIMESTAMP('2022-02-22 00:00'));
+
+INSERT INTO friend_graph(player_1, player_2)
+VALUES (1, 2),
+       (2, 3),
+       (4, 3),
+       (5, 3),
+       (7, 2),
+       (6, 1),
+       (6, 2),
+       (1, 10),
+       (4, 10);
+
+CREATE TABLE money AS
+SELECT id, 1000.0 AS money
+FROM player;
+
+UPDATE money
+SET money = money - 600
+WHERE id = 10
+  AND money >= 600;
+
+CREATE TABLE player
+(
+    id          INTEGER PRIMARY KEY,
+    player_name TEXT      NOT NULL,
+    last_online TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
