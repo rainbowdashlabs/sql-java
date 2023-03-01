@@ -16,7 +16,7 @@ In SQLite ist eine Datenbank gleichbedeutend mit einer Datei. Du hast deine Date
 
 Um unsere Datenbank zu erstellen, können wir den Befehl `CREATE` verwenden.
 
-``sql
+```sql
 CREATE DATABASE sql_starter; -- (1)
 ```
 
