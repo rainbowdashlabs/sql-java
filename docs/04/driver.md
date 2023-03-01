@@ -15,6 +15,9 @@ Let's take a look at the Drivers you will probably need. I will show you the way
 repository search, where you can find the latest version. All drivers implement the JDBC specification.
 
 ## [PostgreSQL](https://mvnrepository.com/artifact/org.postgresql/postgresql)
+**Latest version**
+
+![Latest version](https://img.shields.io/maven-central/v/org.postgresql/postgresql)
 
 ### Maven
 ```xml
@@ -31,6 +34,9 @@ implementation("org.postgresql", "postgresql", "version")
 ```
 
 ## [MariaDB](https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client)
+**Latest version**
+
+![Latest version](https://img.shields.io/maven-central/v/org.mariadb.jdbc/mariadb-java-client)
 
 ### Maven
 ```xml
@@ -47,6 +53,9 @@ implementation("org.mariadb.jdbc", "mariadb-java-client", "version")
 ```
 
 ## [MySQL](https://mvnrepository.com/artifact/com.mysql/mysql-connector-j)
+**Latest version**
+
+![Latest version](https://img.shields.io/maven-central/v/com.mysql/mysql-connector-j)
 
 ### Maven
 ```xml
@@ -63,6 +72,9 @@ implementation("com.mysql", "mysql-connector-j", "version")
 ```
 
 ## [SqLite](https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc)
+**Latest version**
+
+![Latest version](https://img.shields.io/maven-central/v/org.xerial/sqlite-jdbc)
 
 ### Maven
 ```xml
