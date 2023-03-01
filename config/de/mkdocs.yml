@@ -13,9 +13,8 @@ plugins:
   - search:
       lang: de                                      # Set language for search
 nav:
-  - Home: index.md
+  - Startseite: index.md
   - 'Kapitel 1 Der Anfang':
-      - 'Vorwort': 01/preface.md
       - 'Einleitung': 01/introduction.md
       - 'Über Datenbanken': 01/about_databases.md
       - 'Projekt aufsetzen': 01/setup.md

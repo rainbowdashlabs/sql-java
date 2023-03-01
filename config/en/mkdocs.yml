@@ -15,7 +15,6 @@ plugins:
 nav:
   - Home: index.md
   - 'Chapter 1 Getting Started':
-      - 'Preface': 01/preface.md
       - 'Introduction': 01/introduction.md
       - 'About Databases': 01/about_databases.md
       - 'Project Setup': 01/setup.md
