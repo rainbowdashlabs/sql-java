@@ -34,7 +34,7 @@ public class Delete {
 Ideally we should print `Deleted 1 row` now. That is the amount of rows we deleted with our query. This a great way to
 check whether the query had an effect on our data.
 
-If we combine this query with a [`RETURNING` keyword](02/returning.md) we can instead call `executeQuery` and read our
+If we combine this query with a [`RETURNING` keyword](../02/returning.md) we can instead call `executeQuery` and read our
 results like we did in the previous section.
 
 ```java

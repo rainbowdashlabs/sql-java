@@ -27,7 +27,7 @@ public class Insert {
 }
 ```
 
-One exception where we would not use `execute` would be if we use a `RETURNING` [clause](/02/returning.md) to get the
+One exception where we would not use `execute` would be if we use a `RETURNING` [clause](../02/returning.md) to get the
 new created id for our user.
 
 ```java
