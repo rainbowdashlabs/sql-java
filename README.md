@@ -1055,7 +1055,6 @@ stmt.setBytes(?, UUIDConverter.convert(player.getUniqueId()));
 // Convert bytes to UUID
 ResultSet rs = stmt.executeQuery();
 UUID uuid = UUIDConverter.convert(rs.getBytes("uuid"));
-
 ```
 
 # Conclusions
