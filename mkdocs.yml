@@ -1,8 +1,8 @@
 site_name: SQL & Java - Your getting started Guide
-site_url: https://rainbowdashlabs.github.io/BasicSQLPlugin/
+site_url: https://sql.chojo.de/
 site_description: Your goto page when you start with java and sql.
-repo_url: https://github.com/RainbowDashLabs/BasicSQLPlugin/
-repo_name: Basic SQL Plugin
+repo_url: https://github.com/rainbowdashlabs/sql-java/
+repo_name: SQL and Java
 plugins:
   - git-revision-date-localized:
       type: date

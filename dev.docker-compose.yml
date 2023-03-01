@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  docs:
+    volumes:
+      - "./docs/:/docs/docs"
+      - "./mkdocs.yml:/docs/mkdocs.yml"
+    build:
+      dockerfile: dev.Dockerfile
+    ports:
+      - "80:80"
