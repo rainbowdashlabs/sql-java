@@ -1,23 +1,29 @@
-# Kapitel 1
+# Chapter 1
 
-Willkommen zum ersten Kapitel. Du bist wahrscheinlich hier, weil du mit Datenbanken arbeiten möchtest oder bereits damit arbeitest.
-Datenbanken sind oft entscheidend, wenn es um die Speicherung von Daten geht. Es gibt viele Datenbanken da draußen. Alle von ihnen
-erfüllen unterschiedliche Anwendungsfälle und sind auf verschiedene Aufgaben und Datensätze spezialisiert. Manche speichern Daten in Dokumenten, manche in
-Tabellen oder etwas anderem.
+Welcome to chapter one.
+You are probably here because you want to work or are already working with databases.
+Databases are often crucial when it comes to storing data.
+We have many databases out there.
+All of them  satisfy different use cases and are specialised on different tasks and data sets.
+Some store data in documents, some in tables or something else.
 
-Vielleicht hast du dich schon für eine Datenbank entschieden und mit der Programmierung begonnen. Vielleicht stößt du auf Fehler wie zeitlich begrenzte
-Verbindungen, niedrige Tick-Geschwindigkeit auf deinem Minecraft-Server oder ein seltsam erhöhter Speicherverbrauch. Oder vielleicht hast du Glück
-und hast diesen Text gefunden, bevor du blindlings losgelegt hast. Wenn du zu den Letzteren gehörst, gratuliere ich dir!
-Du hast wahrscheinlich eine Menge Zeit gespart. Wenn du zum ersten Typ gehörst, mach dir keine Sorgen, wir kriegen das schon hin, aber es wird
-einige Arbeit sein.
+Maybe you have already chosen a database and started programming.
+Maybe you are encountering errors like timed out connections, low tick speed on your minecraft server or a strange increased memory consumption.
+Or maybe you are lucky and found this text before you start blindly.
+If you are the second one I congratulate you!
+You have probably saved a lot of time.
+If you are the first type, don't worry we will get this sorted out, but it will be some work.
 
-Zuerst müssen wir unsere Datenbank auswählen. Danach beginnt der eigentliche Spaß. Wie können wir Daten lesen oder schreiben? Wie erstellen wir
-ein gutes Tabellenlayout? Wie stellen wir in unserer Anwendung eine Verbindung zu unserer Datenbank her oder wie können wir einen Blick auf unsere Daten werfen?
+First we have to choose our database.
+After this the real fun begins.
+How do we read or write data?
+How do we create a good table layout?
+How do we connect to our database in our application or how can we take a look at our data?
 
-All diese Fragen werden wir auf den nächsten Seiten beantworten. Bleib dran und lies alles sorgfältig durch. Du bekommst wahrscheinlich
-Probleme bekommen, wenn du einen Teil auslässt. Da wir nicht alle existierenden Datenbanken abdecken können, werden wir uns auf die populärsten Datenbanken konzentrieren
-MySQL, MariaDB, PostgreSQL und SQLite auf dieser Seite. Es ist in Ordnung, wenn du sie noch nicht kennst. Sie werden bald zu deinen 
-bald deine besten Freunde sein.
+We will answer all these questions on the next pages. Keep it up and read everything carefully. You will probably get
+problems if you skip some part. Since we cant cover all existing databases we will focus on the more popular databases
+MySQL, MariaDB, PostgreSQL and SQLite on this page. It is fine if you don't know them yet. They will become your 
+best friends soon.
 
-Wir beginnen mit der Verbindung und dem Einrichten unserer Datenbank mit einigen Desktop-Clients. Danach tauchen wir in Java ein 
-und schauen uns die verschiedenen Möglichkeiten an, wie wir uns mit unseren Datenbanken verbinden können.
+We will start with connection and setting up our database with some desktop clients. After this we dive into java 
+and take a look at the different ways of connection to our databases.

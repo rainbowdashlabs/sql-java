@@ -1,112 +1,104 @@
-#Datenbanken
+# Databases
 
-## Allgemeine Datenbanken
+## Common databases
 
-Es gibt eine Menge verschiedener Datenbanken. Sie funktionieren auf viele Arten und werden für unterschiedliche Anwendungsfälle genutzt.
-Es gibt keine ultimative Datenbank, die mit allen Datentypen umgehen kann, obwohl einige sehr gut mit vielen Datentypen umgehen können.
-Typen.
+We have a lot of different databases out there. 
+They work in many ways and are used for different use cases.
+There is no ultimate database which can handle every type of data although some are very good with many data types.
 
-Wenn wir über Datentypen sprechen, unterscheiden wir normalerweise zwischen strukturierten und unstrukturierten Daten.
+When we speak about data types we usually differ between structured and unstructured data.
 
-Einige Datenbanken sind auf die Suche in unstrukturierten Daten spezialisiert, wie [Solr](https://solr.apache.org/)
-oder [ElasticSearch](https://www.elastic.co/elastic-stack/), die vor allem für die Suche und Aggregation von Protokollen verwendet werden.
-Eine weitere gängige Datenbank für unstrukturierte Daten ist [MongoDB](https://www.mongodb.com/). Wir nennen diese Datenbanken dokumenten
-basierte Datenbanken, da wir Daten in Dokumenten speichern.
+Some databases are specialised on searching in unstructured data like [Solr](https://solr.apache.org/) or [ElasticSearch](https://www.elastic.co/elastic-stack/) which is most common used for searching and aggregating logs.
+One more common database for unstructured data is [MongoDB](https://www.mongodb.com/).
+We call those databases document based databases since we store data in documents.
 
-Auf der anderen Seite haben wir unsere Datenbanken für strukturierte Daten. Du hast vielleicht schon einmal von [MySQL](https://www.mysql.com/)
-und [MariaDB](https://mariadb.org/) schon gehört. Diese beiden sind Geschwister und MariaDB wurde auf der Grundlage von MySQL entwickelt und kann
-kann als Ersatz dienen und einige Verbesserungen bieten. Eine weitere populäre und unternehmensorientierte Datenbank
-ist [PostgreSQL](https://www.postgresql.org/), die in der Datenwissenschaft und bei Projekten mit großen Datenmengen eingesetzt wird. Eine weitere
-spezielle Datenbank ist [SQLite](https://www.sqlite.org), eine serverlose Datenbank, die ohne einen laufenden Server auskommt. Sie wird verwendet
-wenn die Datenmenge klein ist und die Anwendung ohne weitere Einrichtungsschritte laufen soll. Sie wird in den 
-Speicher geladen und ist daher durch den verfügbaren Speicher deines Systems begrenzt.
+On the other hand we have our databases for structured data. You might have heard of [MySQL](https://www.mysql.com/) and [MariaDB](https://mariadb.org/) already.
+These two are siblings and MariaDB is developed on top of MySQL and can act as a drop in replacement and can provide some enhancements.
+One more popular and more enterprise database is [PostgreSQL](https://www.postgresql.org/) which is used in data science and projects with large datasets.
+One more special database is [SQLite](https://www.sqlite.org) which is a serverless database without any running server.
+Its used when the amount of data is small and the application should run without further setup steps. 
+It is loaded into memory and therefore limited by the available memory on your system.
 
-Auf dieser Seite werden wir uns auf relationale Datenbanken konzentrieren. Genauer gesagt werden wir uns auf MySql, MariaDB und PostgreSQL konzentrieren. SQLite
-ist MySQL sehr ähnlich.
+We will focus relational databases on this page.
+More precisely we will focus on SqLite, MySql, MariaDB and PostgreSQL.
 
-## Sind meine Daten strukturiert oder unstrukturiert?
+## Is my data structured or unstructured?
 
-In den meisten Fällen sind deine Daten strukturiert. Viele Leute neigen dazu, Datenbanken für unstrukturierte Daten zu verwenden, weil es anfangs weniger
-Arbeit zu sein scheint. Im Allgemeinen können fast alle Daten, die auf den ersten Blick unstrukturiert aussehen, strukturiert sein.
+In the most cases your data is structured.
+Many people tend to use databases for unstructured data because it seems less work in the beginning.
+In general nearly all data which looks unstructured on first sight can be structured.
 
-Verwende keine dokumentenbasierte Datenbank, nur weil du deine Daten irgendwo ablegen willst. Lerne die Arbeit mit
-relationalen Daten und nutze die vielen Vorteile.
+Don't use a document based database just because you want to dump your data somewhere.
+Start learning working with relational data and make use of all the great benefits.
 
-## Verschiedene Datenbanken, verschiedene Geschmäcker
+## Different Databases different flavours
 
-Wenn wir Daten aus einer unserer Datenbanken abrufen, verwenden wir [SQL (Structured Query Language)](https://en.wikipedia.org/wiki/SQL).
+When calling data from one of our databases we use [SQL (Structured Query Language)](https://en.wikipedia.org/wiki/SQL).
 
-Alle unsere Datenbanken verwenden SQL, aber nicht dasselbe SQL. Obwohl sie alle eine ähnliche Syntax haben, verwenden sie
-verschiedene [Geschmacksrichtungen](https://en.wikipedia.org/wiki/SQL#Procedural_extensions)
-von SQL. Die meisten deiner Abfragen funktionieren in allen Datenbanken gleich oder müssen nur leicht angepasst werden.
+All our databases use SQL, but not the same SQL.
+Although they will all have similar syntax they use different [flavours](https://en.wikipedia.org/wiki/SQL#Procedural_extensions) of SQL.
+Most of your queries will work the same in all databases or will just require small adjustments.
 
-MySQL und SQLite verwenden [SQL/PSM (SQL/Persistent Stored Module)](https://en.wikipedia.org/wiki/SQL/PSM), das ist die
-standardisierte Art von SQL
+MySQL and SQLite use [SQL/PSM (SQL/Persistent Stored Module)](https://en.wikipedia.org/wiki/SQL/PSM) which is the most standardized type of SQL.
 
-MariaDB verwendet [SQL/PSM](https://en.wikipedia.org/wiki/SQL/PSM) und [PL/SQL](https://en.wikipedia.org/wiki/PL/SQL), die
-das das Schreiben von prozeduralen Anweisungen mit Schleifen und anderen Dingen ermöglicht. Sie hat ihren Ursprung in
-der [OracleDB](https://www.oracle.com/database/).
+MariaDB uses [SQL/PSM](https://en.wikipedia.org/wiki/SQL/PSM) and [PL/SQL](https://en.wikipedia.org/wiki/PL/SQL) which allows writing procedural statements with loops and other stuff.
+It has its origin in the [OracleDB](https://www.oracle.com/database/).
 
-PostgreSQL verwendet [PL/pgSQL](https://en.wikipedia.org/wiki/PL/pgSQL), eine Erweiterung von
-von [PL/SQL](https://en.wikipedia.org/wiki/PL/SQL) und erweitert die allgemeinen Möglichkeiten von SQL auf eine Ebene, die
-hochkomplexe Operationen ermöglicht. Manche Leute sagen, dass du dein komplettes Backend in PL/pgSQL schreiben kannst.
+PostgreSQL uses [PL/pgSQL](https://en.wikipedia.org/wiki/PL/pgSQL) which is an extension of the [PL/SQL](https://en.wikipedia.org/wiki/PL/SQL) and enhances the general possibilities of SQL on a level which allows highly complex operations.
+Some people say that you can write your complete backend in PL/pgSQL.
 
-## Datenbank oder DBMS
+## Database or DBMS
 
-Wenn wir von einer Datenbank sprechen, verwechseln wir meist drei Dinge:
+When we speak of a database we usually mix up three things:
 
 ### DBMS
 
-DBMS bedeutet [Database Management System](https://en.wikipedia.org/wiki/Database#Database_management_system).
+DBMS means [Database Management System](https://en.wikipedia.org/wiki/Database#Database_management_system). 
+These systems are designed to manage your databases.
+Since SQL databases are for relational data our DBMS are actually RDBMS (Relational Database Management System).
 
-Diese Systeme sind dazu da, deine Datenbanken zu verwalten.
+### Database
 
-Da SQL-Datenbanken für relationale Daten sind, sind unsere DBMS eigentlich RDBMS (Relational Database Management System).
-
-### Datenbank
-
-Eine Datenbank ist eine Datenbank innerhalb deines DBMS. Sie enthält deine Daten in Tabellen, speichert Prozeduren und macht andere Dinge.
+A database is a database inside your DBMS.
+It will hold your data in tables, store procedures and do other stuff.
 
 ### Schema
 
-Einige Datenbanken wie PostgreSQL haben eine weitere Unterteilung in einer Datenbank
-genannt [Schema] (https://www.postgresqltutorial.com/postgresql-schema/).
+Some databases like PostgreSQL have one more subdivision in a database called [Schema](https://www.postgresqltutorial.com/postgresql-schema/).
 
-Obwohl MariaDB und MySQL ihre Datenbanken in den Statements "Database" nennen, bezeichnen sie sie
-intern als [Schema](https://www.tutorialspoint.com/difference-between-schema-and-database-in-mysql) bezeichnet.
+Although MariaDB and MySQL call their databases "Database" in statements they refer to them as [schemas internally](https://www.tutorialspoint.com/difference-between-schema-and-database-in-mysql) as well.
 
-Eine zweite Unterteilung in Schemas hat den Vorteil einer besseren Organisation. Es ist üblich, auf Daten über
-Es ist üblich, über verschiedene Schemas auf Daten zuzugreifen, aber ungewöhnlich, gleichzeitig auf Daten in verschiedenen Datenbanken zuzugreifen, obwohl einige RDBMS dies erlauben.
-dies.
+A second subdivision into schemas has the advancement of better organization. 
+It is common to access data through different schemas, but uncommon to access data in different databases at the same time, although some RDBMS might allow this.
 
-### Struktur eines RDBMS
+### Structure of a RDBMS
 
-Im Allgemeinen können wir uns unsere Struktur wie folgt vorstellen:
+In general, we can visualize our structure as follows:
 
-**MariaDB und MySQL**
+**MariaDB and MySQL**
 
 ```
 RDBMS
-├── Datenbank/Schema
-│ ├── Tabelle
-│ └── Tabelle
-└── Datenbank/Schema
-    ├── Tabelle
-    └── Tabelle
+├── Database/Schema
+│   ├── Table
+│   └── Table
+└── Database/Schema
+    ├── Table
+    └── Table
 ```
 
 **PostgreSQL**
 
 ```
 RDBMS
-├── Datenbank
-│ ├── Schema
-│ │ ├── Tabelle
-│ │ └── Tabelle
-│ └── Schema
-│ └── Tabelle
-└── Datenbank
+├── Database
+│   ├── Schema
+│   │   ├── Table
+│   │   └── Table
+│   └── Schema
+│       └── Table
+└── Database
     └── Schema
-        ├── Tabelle
-        └── Tabelle
+        ├── Table
+        └── Table
 ```

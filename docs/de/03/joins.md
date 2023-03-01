@@ -1,33 +1,35 @@
 # Joins
 
-Vor allem nachdem du von der Normalisierung und der Aufteilung der Daten in verschiedene Tabellen gehört hast, fragst du dich jetzt vielleicht, wie wir 
-diese Daten verbinden, wenn wir Daten aus mehreren Tabellen gleichzeitig benötigen.
+Especially after hearing about normalization and splitting data into different tables you might ask now how we are connecting this data when we need data from multiple tables at the same time.
 
-Mit Joins können wir Tabellen anhand von Schlüsseln in der Tabelle miteinander verbinden. Das ist ein weiterer Grund, warum es wichtig ist, eindeutige 
-Identifikatoren für Entitäten. Ohne diese ist das Verbinden von Tabellen ziemlich mühsam.
+Joins allow us to connect tables based on keys in the table.
+That's another reason why it is important to have unique identifiers for entity.
+Without those joining tables is quite a pain.
 
-Bei Joins unterscheiden wir zwischen `LEFT JOIN` (das ist dasselbe wie `JOIN` und `RIGHT JOIN`, nur umgekehrt) 
-und `INNER JOIN`. Weitere spezielle Joins sind `CROSS JOIN` und `FULL OUTER JOIN` (Dieser wird nicht von allen Datenbanken unterstützt. 
-Datenbanken unterstützt. Wir werden ihn hier nicht behandeln).
+For joins, we differ between `LEFT JOIN` (which is the same as `JOIN` and `RIGHT JOIN` just inverse) and `INNER JOIN`.
+Some more special joins are `CROSS JOIN` and `FULL OUTER JOIN` (This one is not supported by all databases. We won't cover it here).
 
 ## Left Join
 
-Der Left Join ist der häufigste Join. Du wirst ihn in der Regel am häufigsten verwenden und in vielen Fällen reicht er aus. 
-Fällen. Im Grunde genommen fügt er die rechte Tabelle der linken Tabelle hinzu.
+The left join is the most common join.
+It is in general the join you will use the most and will suffice a lot of use 
+cases.
+What it does is basically adding the right table on the left table.
 
 ```postgresql
--- Wir verwenden eine normale Select-Anweisung
+-- We use a normal select statement
 SELECT *
--- Wir wählen unsere erste Tabelle aus
+-- We select our first table
 FROM left_table l
-    -- Wir deklarieren einen Left Join und fügen unsere rechte Tabelle hinzu 
+    -- We declare a left join and add our right table 
 LEFT JOIN right_table r 
-    -- Wir legen fest, welche Werte zur Definition unseres Join-Schlüssels verwendet werden.
+    -- We define which values are used to define our join key.
     ON l.id = r.id
 ```
 
-Nun gut. Das ist ziemlich abstrakt... Schauen wir mal, wie das mit unseren Daten aussieht. Zunächst fügen wir das money neben den Spielernamen 
-den Spielernamen hinzu, denn die IDs sind ziemlich schwer zu lesen.
+Fine. That's quite abstract...
+Let's see how this looks with our data.
+For now, we are going to add the money next to our player names, because ids are quite hard to read.
 
 ```postgresql
 SELECT player_name, money
@@ -36,25 +38,26 @@ LEFT JOIN money m ON p.id = m.player_id
 ORDER BY p.id
 ```
 
-| player_name | money |
-|:------------|:------|
-| Lexy        | 4117  |
-| John        | 7795  |
-| Milana      | 9843  |
-| Mike        | 4570  |
-| Lenny       | 984   |
-| Marry       | 2570  |
-| Summer      | 1858  |
-| Lilly       | 3602  |
-| Lexi        | 6057  |
-| Matthias    | 6244  |
-| Sarah       | 268   |
+| player\_name | money |
+|:-------------|:------|
+| Lexy         | 4117  |
+| John         | 7795  |
+| Milana       | 9843  |
+| Mike         | 4570  |
+| Lenny        | 984   |
+| Marry        | 2570  |
+| Summer       | 1858  |
+| Lilly        | 3602  |
+| Lexi         | 6057  |
+| Matthias     | 6244  |
+| Sarah        | 268   |
 
-Du siehst, dass wir unsere money-Werte jetzt schön neben den Spielernamen haben. Du könntest natürlich auch die ID neben 
-hinzufügen, wenn du sie brauchst.
+You see that we now have our money values nicely next to our player names.
+Of course, you could also add the id next to it as well if you need it.
 
-Die rechte Verknüpfung ist im Grunde die gleiche. Der einzige Unterschied besteht darin, wie die Datenbank mit Werten umgeht, die nicht 
-nicht in einer der beiden Tabellen vorhanden sind. Das wird ganz klar, wenn wir stattdessen die Kanaltabelle joinen.
+The right join is basically the same.
+The only difference is how the database will handle values which are not present in one of the tables.
+This gets quite clear when we join the channel table instead.
 
 ```postgresql
 SELECT player_name, channel_id
@@ -62,26 +65,26 @@ FROM player
 LEFT JOIN channel_subscription cs ON player.id = cs.player_id;
 ```
 
-| player_name | channel_id |
-|:------------|:-----------|
-| Mike        | 1          |
-| Mike        | 2          |
-| Sarah       | 1          |
-| Sarah       | 2          |
-| Sarah       | 3          |
-| John        | 1          |
-| Lexi        | null       |
-| Matthias    | null       |
-| Marry       | null       |
-| Lenny       | null       |
-| Lilly       | null       |
-| Lexy        | null       |
-| Milana      | null       |
-| Summer      | null       |
+| player\_name | channel\_id |
+|:-------------|:------------|
+| Mike         | 1           |
+| Mike         | 2           |
+| Sarah        | 1           |
+| Sarah        | 2           |
+| Sarah        | 3           |
+| John         | 1           |
+| Lexi         | null        |
+| Matthias     | null        |
+| Marry        | null        |
+| Lenny        | null        |
+| Lilly        | null        |
+| Lexy         | null        |
+| Milana       | null        |
+| Summer       | null        |
 
-Du kannst hier sehen, dass die Werte für Spieler, die keinen Eintrag in der Tabelle `channel_subcription` haben, einfach `null` sind.
+You can see here that the values for players which have no entry in the `channel_subcription` table are simply `null`.
 
-Wenn wir andersherum verbinden:
+If we join the other way around:
 
 ```postgresql
 SELECT player_name, channel_id
@@ -89,22 +92,23 @@ FROM player
 RIGHT JOIN channel_subscription cs ON player.id = cs.player_id;
 ```
 
-| player_name | channel_id |
-|:------------|:-----------|
-| Mike        | 1          |
-| Mike        | 2          |
-| Sarah       | 1          |
-| Sarah       | 2          |
-| Sarah       | 3          |
-| John        | 1          |
+| player\_name | channel\_id |
+|:-------------|:------------|
+| Mike         | 1           |
+| Mike         | 2           |
+| Sarah        | 1           |
+| Sarah        | 2           |
+| Sarah        | 3           |
+| John         | 1           |
 
-Es werden nur die Einträge angezeigt, die in der `channel_subscription` vorhanden sind, da dies unsere Referenztabelle ist.
+Only entries present in the `channel_subscription` are now shown since this is our reference table.
 
 ## Inner Join
 
-Der `INNER JOIN` ist genau das, wofür du ihn hältst. Er verbindet alle Daten, deren Schlüssel in beiden Tabellen vorhanden sind. 
-Er ist sogar noch restriktiver als der `LEFT JOIN` und der `RIGHT JOIN`. Wenn wir den `INNER JOIN` verwenden, müssen wir uns nicht 
-müssen wir uns nicht um fehlende Werte in unserer Tabelle kümmern, aber es kann sein, dass wir nicht alle Daten unserer ersten Tabelle erhalten.
+The `INNER JOIN` is exactly what you think it is.
+It will join all data where the keys are present in both tables. 
+This is even more restrictive than the `LEFT JOIN` and `RIGHT JOIN`.
+When using the `INNER JOIN` we don't have to care about missing values in our table, but we might not get all the data of our first table.
 
 ```postgresql
 SELECT player_name, channel_id
@@ -112,15 +116,15 @@ FROM player
 INNER JOIN channel_subscription cs ON player.id = cs.player_id;
 ```
 
-| player_name | channel_id |
-|:------------|:-----------|
-| Mike        | 1          |
-| Mike        | 2          |
-| Sarah       | 1          |
-| Sarah       | 2          |
-| Sarah       | 3          |
-| John        | 1          |
+| player\_name | channel\_id |
+|:-------------|:------------|
+| Mike         | 1           |
+| Mike         | 2           |
+| Sarah        | 1           |
+| Sarah        | 2           |
+| Sarah        | 3           |
+| John         | 1           |
 
 
-Der `INNER JOIN` hier ist im Grunde dasselbe wie unser `RIGHT JOIN` oben. Anstatt jedoch die Tabelle mit den 
-Daten zu wählen, verwenden wir einfach die kleinste Teilmenge unserer Tabellen.
+The `INNER JOIN` here is basically the same as our `RIGHT JOIN` above.
+But instead of choosing the table with the more sparse data we just use the smallest subset of our tables.

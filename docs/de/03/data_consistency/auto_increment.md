@@ -1,93 +1,98 @@
 # Auto increment
 
-Du erinnerst dich, dass wir die Spieler-ID immer selbst festgelegt haben? Das fühlt sich nicht richtig an, oder? Wie sollen wir uns merken
-welche ID wir bereits verwendet haben, zumal wir jetzt einen eindeutigen Index für unsere Spieler-ID haben. Ändern wir das also noch einmal.
-Diesmal fügen wir wieder einen Standardwert hinzu, aber auf eine andere Art und Weise, als wir es gewohnt sind.
+You remember how we always set the player id by ourselves?
+This doesn't feel right, right?
+How should we remember which ID we used already, especially with our unique index now on our player id.
+So lets change this once again.
+This time we will add a default value again, but in another way than we are used to do.
 
-Dieser Standardwert heißt auto increment und wird jedes Mal hochgezählt, wenn wir ihn verwenden. Das macht es unmöglich
-eine ID zweimal zu verwenden und wir müssen nicht mehr daran denken, welche ID wir zuletzt verwendet haben.
+This default value is called auto increment and will simply count up every time we use it.
+This makes it impossible to use an id twice and we no longer need to think about the id we used last.
 
-Leider ist das je nach verwendeter Datenbank ein wenig anders.
+Sadly this is a bit different depending on the database we use.
 
-*Unabhängig davon, ob du sie brauchst oder nicht, sollte die Auto Increment-Spalte in 99,9 % der Fälle als Primärschlüssel der Tabelle festgelegt werden.
-Fällen. Es gibt einfach keinen Grund, dies nicht zu tun. Manche Datenbanken verlangen sogar, dass sie ein Schlüssel oder sogar der Primärschlüssel ist.
-Schlüssel sein.
+*No matter if you need or not, the auto increment column should be set as the primary key of the table in 99.9% of the cases.
+There is simply no reason why not to do it.
+Some databases even require it to be a key or even the primary key anyway.*
 
 ## Postgres
 
-In Postgres können wir von SMALLSERIAL, SERIAL und BIGSERIAL profitieren. Diese unterscheiden sich durch den Typ und die Größe, die sie zurückgeben können.
+In postgres we can profit from SMALLSERIAL, SERIAL and BIGSERIAL.
+Those differ in the type and size they can return.
 
-| Name        | Typ      | Bereich                         |
-|-------------|----------|---------------------------------|
-| SMALLSERIAL | SMALLINT | 1 bis 32.767                    |
-| SERIAL      | INTEGER  | 1 bis 2.147.483.647             |
-| BIGSERIAL   | BIGINT   | 1 bis 9.223.372.036.854.775.807 |
+| Name        | Type     | Range                          |
+|-------------|----------|--------------------------------|
+| SMALLSERIAL | SMALLINT | 1 to 32,767                    |
+| SERIAL      | INTEGER  | 1 to 2,147,483,647             |
+| BIGSERIAL   | BIGINT   | 1 to 9,223,372,036,854,775,807 |
 
-Alles, was wir tun müssen, um sie zu verwenden, ist, unseren Datentyp `INTEGER` mit dem Datentyp `SERIAL` in unserer Tabelle zu vertauschen. Beachte, dass
-dieser Wert immer noch manuell gesetzt werden kann. Da er auch auf Null gesetzt werden kann, werden wir ihn zusätzlich als NOT NULL markieren.
+All we need to do in order to use them is swapping our `INTEGER` with the `SERIAL` datatype in our table.
+Note that this value can be still set manually.
+Since it can also set to null we will mark it as NOT NULL additionally.
 
-*Vergiss nicht, deine Tabelle zuerst zu löschen*
-
-```Postgresql
-CREATE TABLE player
-(
-    id SERIAL NOT NULL,
-    player_name TEXT NOT NULL,
-    last_online TIMESTAMP NOT NULL DEFAULT NOW()
-);
-```
-
-In Postgres muss das auto increment kein Schlüssel sein. Es wird jedoch dringend empfohlen, die auto increment
-id als Primärschlüssel zu verwenden, denn das ist fast immer die richtige Wahl, da der Wert ohnehin eindeutig ist und
-nicht null sein sollte.
+*Remember to drop your table first*
 
 ```postgresql
 CREATE TABLE player
 (
-    id SERIAL PRIMARY KEY,
-    player_name TEXT NOT NULL,
+    id          SERIAL    NOT NULL,
+    player_name TEXT      NOT NULL,
+    last_online TIMESTAMP NOT NULL DEFAULT NOW()
+);
+```
+
+In postgres the auto increment does not need to be a key.
+However, it is highly recommended to use the auto increment id as a primary key, because it is nearly always the right choice since your value is unique anyway and should be not null.
+
+```postgresql
+CREATE TABLE player
+(
+    id          SERIAL PRIMARY KEY,
+    player_name TEXT      NOT NULL,
     last_online TIMESTAMP NOT NULL DEFAULT NOW()
 );
 ```
 
 ## SqLite
 
-Um hier ein Autoinkrement zu erstellen, müssen wir den Primärschlüssel verwenden, den wir im
-letzten Abschnitt gelernt haben. Im Grunde genommen erstellen wir hier einen Primärschlüssel, dessen Werte von einer auto increment
-Sequenz. Klingt kompliziert? Denk nicht darüber nach. Alles, was du tun musst, ist, die Spalte als Primärschlüssel zu markieren und
-`AUTOINCREMENT` anfügen.
+In order to create an auto increment here we will need to use the primary key we learned in the last section.
+What we basically do here is creating a primary key which values get supplied by an auto increment sequence.
+Sounds complicated?
+Don't think about it.
+All you need to do is mark the column as a primary key and add
+`AUTOINCREMENT` afterwards.
 
-```Sqlite
+```sqlite
 CREATE TABLE player
 (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    player_name TEXT NOT NULL,
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    player_name TEXT      NOT NULL,
     last_online TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
 );
 ```
 
-## MariaDB und MySQL
+## MariaDB and MySQL
 
-MariaDB und MySQL verwenden zum Glück die gleiche Syntax. Bei einigen Engines musst du die auto increment Spalte als erste Spalte setzen.
-erste Spalte zu setzen, also werden wir das auch beibehalten. Außerdem muss deine Autoinkrement-Spalte Teil eines Schlüssels sein.
-eines Schlüssels sein, also werden wir sie als Primärschlüssel festlegen, was ohnehin empfohlen wird. Falls du einen Blick auf das
-Beispiel von SqLite angesehen hast, wirst du feststellen, dass der einzige Unterschied der Unterstrich in `AUTO_INCREMENT` ist.
+MariaDB and MySQL use the same syntax thankfully.
+Some engines require you to set the auto increment column as the first column, so we are going to stick with this as well.
+Additionally, your auto increment column need to be part of a key, so we are going to set it as a primary key, which is recommended anyway.
+In case you have taken a look at the above example from SqLite you will notice that the only difference ist the underscore in `AUTO_INCREMENT`.
 
 ```mariadb
 CREATE TABLE player
 (
-    id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    player_name TEXT NOT NULL,
+    id          INTEGER PRIMARY KEY AUTO_INCREMENT,
+    player_name TEXT      NOT NULL,
     last_online TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 ```
 
-## Testen
+## Testing it
 
-Jetzt, wo wir unser Auto Increment eingerichtet haben, ist es an der Zeit zu testen, wie es funktioniert.
+Now that we have set up our auto increment it is finally time to actually test how it works.
 
-Jetzt werden zwei unserer drei Spalten von der Datenbank ausgefüllt, was großartig ist. Um einen neuen Spieler hinzuzufügen, müssen wir nur noch
-um einen neuen Spieler hinzuzufügen, müssen wir seinen Namen in die Tabelle eingeben.
+Now two of our three columns are populated by the database, which is great.
+The only job left for us in order to add a new player is to insert its name into the table.
 
 ```sql
 INSERT INTO player(player_name)
@@ -103,7 +108,7 @@ VALUES ('Mike'),
        ('Lexi');
 ```
 
-Schauen wir uns an, was wir am Ende erhalten haben:
+Let's check what we ended up with:
 
 ```sql
 SELECT id, player_name, last_online
@@ -119,12 +124,13 @@ FROM player;
 | 5   | Matthias     | 2022-11-26 12:32:39.021491 |
 | 6   | Lenny        | 2022-11-26 12:32:39.021491 |
 | 7   | Summer       | 2022-11-26 12:32:39.021491 |
-| 8   | Marry     | 2022-11-26 12:32:39.021491 |
+| 8   | Marry        | 2022-11-26 12:32:39.021491 |
 | 9   | Milana       | 2022-11-26 12:32:39.021491 |
 | 10  | Lexi         | 2022-11-26 12:32:39.021491 |
 
-Sieht gut aus! Auto increment ids beginnen immer mit 1. Sie machen standardmäßig 1-Schritte, können aber geändert werden, um größere Schritte zu machen.
-Schritte zu machen. Ich werde hier nicht näher darauf eingehen, aber ich bin sicher, dass Google ein paar tolle Beispiele für dich hat.
+Looks nice! Auto increment ids always start with 1.
+They make 1 steps by default, but can be changed to make larger steps.
+I will not dive into this here, but I am sure google has some great examples for you.
 
-Und das war's auch schon. Wir haben die automatischen Schritte in unserer Tabelle gemeistert und müssen nicht mehr über die eindeutigen IDs nachdenken, die wir
-die wir für unsere Nutzer brauchen.
+And that's it already.
+We mastered auto increments on our table and no longer need to think about the unique ids we need for our users.

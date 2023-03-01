@@ -1,16 +1,18 @@
-# Geänderte Daten zurückgeben
+# Returning changed data
 
-**Gilt für Postgres, SqLite und MariaDB**
+**Applies to Postgres, SqLite and MariaDB**
 
-Wenn wir Daten durch Update- oder Delete-Anweisungen ändern oder sie einfügen, können wir die geänderten oder eingefügten Daten zurückgeben.
+When changing data via update or delete statements or inserting them, we can return the changed or inserted data.
 
-Bei Aktualisierungen bedeutet das, dass wir die jetzt gesetzten Werte erhalten, was jetzt vielleicht nicht hilfreich ist, aber es gibt Mechanismen in Datenbanken
-die Daten zwischen Update und Schreiben ändern. Bei Löschungen erhalten wir die gelöschten Einträge, die nicht mehr in der Datenbank vorhanden sind.
-in der Datenbank vorhanden sind. Das könnte noch hilfreicher sein. Richtig interessant wird es bei den Einfügungen. Im nächsten Kapitel wirst du lernen, wie man automatisch IDs erstellt oder Standardwerte für Spalten definiert. Diese werden natürlich nicht von dir festgelegt, wenn du
-du Daten einfügst, aber du kannst sie über die `RETURNING`-Klausel abrufen.
+For updates that means we get the now set values, which might not be helpful now, but there are mechanics in databases which change data between update and write.
+For deletes it will give us the deleted entries, which are no longer present in the database.
+This might be more helpful.
+Where this really comes to shine is for inserts.
+In the next chapter you will learn how to automatically create ids or define default values for columns.
+Those are of course not set by you when you insert data, but you can still get them via the `RETURNING` clause.
 
-Die Verwendung dieser Funktion ist ganz einfach. Wenn du ein `DELETE`, `UPDATE` oder `INSERT` ausführst, füge einfach ein `RETURNING` nach
-und gib die Spalten an, die du zurückgeben möchtest.
+Using this feature is quite simple.
+When executing a `DELETE`, `UPDATE` or `INSERT` simply add a `RETURNING` after it and list the columns you want to have returned.
 
 ```mariadb
 DELETE
@@ -19,4 +21,5 @@ WHERE id = 10
 RETURNING id, player_name;
 ```
 
-**Hinweis:** Nicht alle Datenbank-Clients verstehen, dass diese Abfrage Daten zurückgibt. Meistens werden sie hier keine Daten anzeigen, aber sei sicher, dass Java das mit dem richtigen Code kann.
+**Note:** Not all database clients understand that this query returns data.
+They will mostly not show any data here, but be sure that java can with the correct code.

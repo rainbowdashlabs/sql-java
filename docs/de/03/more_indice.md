@@ -1,15 +1,15 @@
-# Weitere Indizes
+# More indices
 
-Wir kennen bereits den [unique index](data_consistency/unique_indice.md), der sicherstellt, dass ein einzelner Wert oder eine 
-Kombination von Werten eindeutig ist. Aber es gibt noch mehr! Viel mehr und wir werden in diesem Abschnitt noch mehr coole Sachen behandeln. 
-Abschnitt behandeln.
+We already know the [unique index](../03/data_consistency/unique_indice.md), which ensures that a single value or a combination of values is unique.
+But there is more!
+Much more and we are going to cover more cool stuff in this section.
 
-Ein Index ist mehr als nur eine einfache Möglichkeit, Einschränkungen für Spalten in Form von Werten zu erzwingen. Obwohl das natürlich eine 
-eine gute Sache, aber wir können ihn für mehr nutzen, vor allem um unsere Suche zu beschleunigen. Außerdem muss ein Index nicht eindeutig sein 
-und kann sogar Daten umwandeln, bevor er sie indiziert.
+An index is more than a simple way to enforce constraints on columns in terms of values.
+While this is of course a nice thing, we can use it for more, especially for speeding up our search.
+Also, an index doesn't need to be unique and can even transform data before indexing it.
 
-Generell kannst du dir einen Index als eine sortierte Kopie deiner Spalte vorstellen, die sogar umgewandelte 
-Daten oder vorgeprüfte Daten enthalten kann. Denn das ist es, was ein Index im Grunde ist. Und ein Index wird nicht auf magische Weise berechnet, wenn du 
-sondern bereits irgendwo in der Datenbank vorberechnet. Das bedeutet auch, dass nicht nur deine Tabelle Speicherplatz braucht 
-Speicherplatz benötigt, sondern auch deine Indizes. Es ist nicht einmal ungewöhnlich, dass die Indizes einer Tabelle viel mehr Platz brauchen als 
-die Tabelle selbst.
+In general, you can think of an index as a copy of your column in a sorted way, which can even contain transformed data or pre-checked data.
+Because that's basically what an index is.
+And index is not magically calculated when you need it, but pre-calculated already somewhere in the database.
+That also means that not only your table needs disk space, but your indices do as well.
+It is not even uncommon that the indices of a table take up much more space than the table itself. 

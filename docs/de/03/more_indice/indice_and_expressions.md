@@ -1,31 +1,32 @@
-# Indizes und Ausdrücke
+# Indices and expressions
 
-Im vorherigen Abschnitt haben wir bereits gesehen, dass wir Ausdrücke für unsere Abfragen verwenden können. Auf diese Weise können wir eine Menge
-in unseren Tabellen jetzt mit einigen konkreteren Beispielen!
+In the previous section we already saw that we can use expressions for our queries.
+Doing this we can fix a lot of stuff in our tables now with some more concrete examples!
 
-Zuerst müssen wir unsere Spielertabelle aufräumen, um fortzufahren.
-Entweder löschst du alle Dummy-Einträge, die wir in den letzten Abschnitten mit der folgenden Abfrage erstellt haben, oder du erstellst sie von Grund auf neu.
+First we need to clean up our player table in order to proceed.
+Either delete all dummy entries we created in the last sections with the query below or recreate it from scratch.
 
 ```sql
 DELETE
 FROM player
-WHERE player_name = 'Spielername';
+WHERE player_name = 'player name';
 ```
 
-## Erstellen eines eindeutigen Indexes ohne Berücksichtigung der Groß-/Kleinschreibung
+## Creating a unique case insensitive index
 
-Die erste Aufgabe besteht darin, einen Index für den Spielernamen zu erstellen, der die Groß- und Kleinschreibung nicht berücksichtigt. Wir wollen vermeiden, dass mehrere Spieler
-Wir wollen vermeiden, dass mehrere Spieler denselben Namen haben, und brauchen daher eine Prüfung, die sicherstellt, dass wir den Namen nicht zweimal einfügen. Außerdem wollen wir
-sicherstellen, dass der Name nicht in einem anderen Gehäuse existiert.
+First task will be to create a case-insensitive index for our player name.
+We want to avoid that multiple players have the same name, and therefore we need a check which ensures that we don't insert the name twice.
+We also want to ensure that the name does not exist with another casing.
 
-Zu diesem Zweck verwenden wir wieder einen Ausdruck in unserem Index. Die Abfrage wird auch dieses Mal eindeutig sein. Ein Fallstrick
-ist, dass nicht alle Datenbanken hier gleich funktionieren. MariaDB unterstützt Ausdrücke nicht direkt, sondern nur über
-generierte Spalten, während MySQL verlangt, dass wir eine Teilzeichenkette verwenden oder unseren Wert casten. PostgreSQL und SqLite akzeptieren den
-einfachste Ansatz.
+To do this we will once again use an expression in our index.
+The query will also be unique this time.
+One pitfall here is that not all databases work the same here.
+MariaDB does not support expressions directly, but only via generated columns, while MySQL wants us to use a substring or cast our value.
+PostgreSQL and SqLite accept the most simple approach.
 
 ### PostgreSQL, SqLite
 
-Hier erstellen wir lediglich einen neuen Index, der die klein geschriebene Version unseres Spielernamens enthält.
+All we do here is creating a new index which contains the lower case version of our player name.
 
 ```postgresql
 CREATE UNIQUE INDEX player_name_uindex 
@@ -34,9 +35,10 @@ CREATE UNIQUE INDEX player_name_uindex
 
 ### MySQL
 
-MySQL verlangt, dass wir den substring-Aufruf substring verwenden oder den von lower zurückgegebenen Wert casten. Wir indizieren nur die
-ersten 50 Zeichen unseres Namens. Das sollte für die Länge ausreichen. Wenn du auf Nummer sicher gehen willst, kannst du eine
-[check](../data_consistency/checks.md) hinzufügen, um sicherzustellen, dass die Namen nicht länger als 50 Zeichen sind.
+MySQL requires us to use the substring call substring or cast the value returned from lower.
+We will just index the first 50 characters of our name.
+This should suffice for the length.
+If you want to be safe, you can add a [check](../03/data_consistency/checks.md) to ensure that names are no longer than 50 characters.
 
 ```mysql
 CREATE UNIQUE INDEX player_name_uindex 
@@ -45,10 +47,11 @@ CREATE UNIQUE INDEX player_name_uindex
 
 ### MariaDB
 
-Leider unterstützt MariaDB keine direkten Ausdrücke in Indizes. Stattdessen erstellen wir eine generierte Spalte und verwenden den
-Wert dieser Spalte, um unseren Index zu erstellen. Das ist wahrscheinlich der komplexeste Weg, der möglich ist.
+Sadly MariaDB does not directly support expressions in indices.
+Instead, we create a generated column and use the value of this column to create our index.
+This is probably the most complex way possible.
 
-Dazu verwenden wir den Befehl alter table, den wir uns noch nicht angeschaut haben, aber es sollte ziemlich klar sein, was er bewirkt.
+For this we will use the alter table command which we didn't look into yet, but it should be quite clear what it does.
 
 ```mariadb
 ALTER TABLE player
@@ -58,10 +61,11 @@ CREATE UNIQUE INDEX player_name_uindex
     ON player (name_lower)
 ```
 
-### Testen
+### Testing
 
-Schauen wir uns an, wie und ob dies tatsächlich funktioniert. Wir werden versuchen, Lexy noch einmal gegenseitig in unsere Tabelle einzufügen. Idealerweise würde dies
-scheitern, da wir bereits einen Spieler namens Lexy haben.
+Let's see how and if this actually works.
+We are going to try to insert Lexy once again into our table.
+Ideally this would fail since we already have a player named Lexy.
 
 ```postgresql
 INSERT INTO player(player_name)
@@ -70,14 +74,14 @@ INSERT INTO player(player_name)
 VALUES ('lexy');
 ```
 
-Du wirst auch sehen, dass beide Abfragen unabhängig von der Groß- und Kleinschreibung fehlschlagen. Das ist das Ergebnis unserer Abfrage, bei der die Groß- und Kleinschreibung nicht berücksichtigt wird.
+You will also see that both queries fail regardless of the casing.
+That's the result of our case-insensitive query.
 
-## Einen Index einer bidirektionalen Beziehung erstellen
+## Creating an index of a bidirectional relation
 
-Wir können auch einen anderen Indexausdruck verwenden, um sicherzustellen, dass Freundschaftsbeziehungen in beide Richtungen existieren und nicht
-einmal für jede Richtung existieren.
+We can also use another index expression to ensure that friend relations are in both direction and can not exist one time for each direction.
 
-Diesmal werden wir XOR verwenden, um einen Schlüssel für unsere Freundschaftsbeziehungen zu erstellen.
+This time we will use XOR in order to create a key for our friend relations.
 
 **Postgres**
 
@@ -95,25 +99,24 @@ CREATE UNIQUE INDEX friend_graph_relation_uindex
 
 **SqLite**
 
-SqLite hat keinen XOR-Operator, aber wir können "einfach" unser eigenes XOR erstellen.
+SqLite does not have a XOR operator, but we can "easily" build our own XOR.
 
 ```sqlite
 CREATE UNIQUE INDEX friend_graph_relation_uindex 
     ON friend_graph (((player_id_1 | player_id_2) - (player_id_1 & player_id_2)));
 ```
 
-Zeit zu testen, ob unsere Indizes tatsächlich funktionieren!
+Time to test if our indices actually work!
 
-Zuerst löschen wir die Tabelle, um nicht versehentlich widersprüchliche Einträge einzufügen.
+We are going to clear the table first in order to not accidentally insert conflicting entries.
 
-````postgresql
+```postgresql
 DELETE FROM friend_graph;
--- Erfolg
+-- Success
 INSERT INTO friend_graph VALUES (1,2);
--- Fehlschlag
+-- Failure
 INSERT INTO friend_graph VALUES (2,1);
 ```
 
-Wenn alles wie erwartet funktioniert, können wir die erste ID einfügen, aber nicht die zweite, da der kombinierte Wert der 
-beiden IDs aufgrund der XOR-Verknüpfung gleich sind. Jetzt haben wir sichergestellt, dass eine Freundschaftsverbindung nur in einer Richtung existiert 
-und jetzt in beiden.
+If everything work as expected we can insert the first one, but not the second one since the combined value of the two ids are the same because of the XOR.
+Now we have ensured that a friend connection exists only on one direction and now in both.

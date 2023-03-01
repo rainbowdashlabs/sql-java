@@ -1,26 +1,25 @@
-# Sortierte Indizes
+# Sorted Indices
 
-Im Allgemeinen sind Indizes immer sortiert, weil sie so funktionieren. Wir können dies nutzen, um die Suche zu beschleunigen
-wenn wir eine Tabelle nach einem Wert sortieren wollen. Wenn wir einen Index für die Spalte erstellen, nach der wir sortieren wollen, können wir
-können wir die Sortierung direkt überspringen, denn die Datenbank schaut sich nur den bereits sortierten Index an.
+In general indices are always sorted, because that's how they work.
+We can use this to speed up searches where we want to sort a table based on a value.
+With creating an index on the column we want to sort by we can directly skip the sort, because the database will just look at the already sorted index.
 
-Wahrscheinlich wollen wir unsere Nutzer nach der Menge des Geldes sortieren, das wir haben!
+We most probably want to sort our users by the amount of money we have!
 
-*Vergiss nicht, zuerst einige Daten in deine money-Tabelle einzufügen c: Du musst eventuell noch weitere Daten hinzufügen, wenn du möchtest, dass der Index 
-verwendet werden soll.*
+*Remember to insert some data into your money table first c: You might need to add some more if you want the index to be used.*
 
-<Details>
-<summary>Datengenerierung für Postgres</summary>
+<details>
+<summary>Data generation for postgres</summary>
 
 ```sql
--- Tabelle löschen
+-- clear table
 DELETE
 FROM money;
 
--- Wir müssen weitere Werte generieren, um die Verwendung des Index zu erzwingen
-INSERT INTO player(player_name) (SELECT 'player_name' FROM GENERATE_SERIES(1, 1500));
+-- We need to generate some more values to force the index usage
+INSERT INTO player(player_name) (SELECT 'player name' FROM GENERATE_SERIES(1, 1500));
 
--- Generiere einige zufällige money-Werte
+-- Generate some random money values
 INSERT INTO money (SELECT id, ROUND(RANDOM() * 10000) FROM player);
 ```
 
@@ -33,25 +32,26 @@ ORDER BY money DESC
 LIMIT 5;
 ```
 
-| player_id | money |
+| player\_id | money |
 |:-----------|:------|
-| 1406 | 9994 |
-| 1358 | 9993 |
-| 1430 | 9989 |
-| 178 | 9985 |
-| 1113 | 9977 |
+| 1406       | 9994  |
+| 1358       | 9993  |
+| 1430       | 9989  |
+| 178        | 9985  |
+| 1113       | 9977  |
 
-Wenn du willst, kannst du den Abfrageplan jetzt überprüfen, wie wir es im vorherigen [Abschnitt](../query_planer.md) getan haben. Du wirst sehen
-dass wir derzeit überhaupt keinen Index verwenden. Das wird sich natürlich ändern, sobald wir einen Index für die Spalte money hinzufügen.
+If you want you can check the query plan now as we did in the previous [section](../en/03/query_planer.md). 
+You will see that we currently use no index at all.
+This will of course change once we add an index on the money column.
 
 ```sql
--- wir verwenden dieses Mal CREATE INDEX statt CREATE UNIQUE INDEX
+-- we use CREATE INDEX instead of CREATE UNIQUE INDEX this time
 CREATE INDEX money_money_index
-    -- Wir legen auch fest, dass wir den Index absteigend sortieren wollen. Die Standardeinstellung ist aufsteigend.
+    -- We also define that we want to sort the index in an descending order. Ascending is the default.
     ON money (money DESC);
 ```
 
-Schau dir jetzt den Abfrageplan für diese Abfrage an.
+Check the query plan for this query now.
 
 ```sql
 SELECT player_id, money
@@ -60,8 +60,8 @@ ORDER BY money DESC
 LIMIT 5;
 ```
 
-Du wirst sehen, dass wir tatsächlich einen Index-Scan verwenden. Auch wenn wir nur nach einem Wert sortieren, verwenden wir den Index 
-wenn wir in die andere Richtung bestellen.
+Now you will see that we indeed use an index scan.
+Also, if we only order by one value we are even using the index when we order the other direction.
 
 ```sql
 SELECT player_id, money
@@ -70,6 +70,6 @@ ORDER BY money
 LIMIT 5;
 ```
 
-Bei dieser Abfrage wird der Index in umgekehrter Reihenfolge verwendet. Natürlich funktioniert das nicht mehr, wenn wir nach mehreren Werten ordnen. 
-Werten sortieren. Wenn du nach mehreren Werten sortierst, musst du einen Index hinzufügen, der der gleichen Reihenfolge der Spalten und der Sortier 
-Richtung übereinstimmen.
+This query will use the index in a reversed order.
+Of course this won't work anymore when we order by multiple values.
+If you sort by multiple values you will need to add an index matching the same order of columns and sort direction as well.

@@ -1,30 +1,32 @@
-# Treiber-Implementierungen
+# Driver Implementations
 
-Jede Datenbank hat ihre eigene Treiberimplementierung. Wie bereits erwähnt, sind diese Treiber für die Übersetzung
-zwischen Java und deiner Datenbank. Sie bilden Java-Datentypen auf ihre SQL-Typen ab und umgekehrt.
+Every database has its own driver implementation.
+Like mentioned before, those drivers are responsible to translate between java and your database.
+They map a java datatype to their sql types and vice versa.
 
-Du kannst diese Treiber normalerweise über Google finden, wenn du nach "<Datenbank> jdbc" suchst. Wahrscheinlich möchtest du auch ein
-Build-Tool verwenden, um diese Treiber in deine Anwendung zu integrieren. Aber ich bin sicher, du weißt, wie man das macht.
+You can usually find those drivers via Google when you search for `<database> jdbc`.
+You also probably want to use a build tool to integrate those drivers into your application.
+But I am sure you know how to do this.
 
-Einige Treiber können für mehrere Datenbanken verwendet werden. Zum Beispiel kann der mysql-Treiber auch für mariadb verwendet werden. Von
-Natürlich unterstützt er nicht den vollen Funktionsumfang von mariadb und du wirst Probleme bekommen, wenn du komplexere
-Dinge,
-aber es ist möglich, grundlegende Operationen durchzuführen.
+Some drivers are operable for multiple databases.
+For example the mysql driver can be used for mariadb as well.
+Of course, it does not support the full feature set of mariadb, and you will encounter issues when doing more complex stuff, but it is possible to perform basic operations.
 
-Werfen wir einen Blick auf die Treiber, die du wahrscheinlich brauchen wirst. Ich zeige dir, wie du sie importierst und die Maven
-Repository-Suche, wo du die neueste Version finden kannst. Alle Treiber implementieren die JDBC-Spezifikation.
+Let's take a look at the Drivers you will probably need.
+I will show you the way to import them and link the maven repository search, where you can find the latest version.
+All drivers implement the JDBC specification.
 
 ## [PostgreSQL](https://mvnrepository.com/artifact/org.postgresql/postgresql)
-**Aktuelle Version**
+**Latest version**
 
-![Aktuellste Version](https://img.shields.io/maven-central/v/org.postgresql/postgresql)
+![Latest version](https://img.shields.io/maven-central/v/org.postgresql/postgresql)
 
 ### Maven
 ```xml
 <dependency>
     <groupId>org.postgresql</groupId>
     <artifactId>postgresql</artifactId>
-    <version>Version</version>
+    <version>version</version>
 </dependency>
 ```
 
@@ -34,16 +36,16 @@ implementation("org.postgresql", "postgresql", "version")
 ```
 
 ## [MariaDB](https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client)
-**Letzte Version**
+**Latest version**
 
-![Neueste Version](https://img.shields.io/maven-central/v/org.mariadb.jdbc/mariadb-java-client)
+![Latest version](https://img.shields.io/maven-central/v/org.mariadb.jdbc/mariadb-java-client)
 
 ### Maven
 ```xml
-<Abhängigkeit>
+<dependency>
     <groupId>org.mariadb.jdbc</groupId>
     <artifactId>mariadb-java-client</artifactId>
-    <version>Version</version>
+    <version>version</version>
 </dependency>
 ```
 
@@ -53,16 +55,16 @@ implementation("org.mariadb.jdbc", "mariadb-java-client", "version")
 ```
 
 ## [MySQL](https://mvnrepository.com/artifact/com.mysql/mysql-connector-j)
-**Letzte Version**
+**Latest version**
 
-![Neueste Version](https://img.shields.io/maven-central/v/com.mysql/mysql-connector-j)
+![Latest version](https://img.shields.io/maven-central/v/com.mysql/mysql-connector-j)
 
 ### Maven
 ```xml
 <dependency>
     <groupId>com.mysql</groupId>
     <artifactId>mysql-connector-j</artifactId>
-    <version>Version</version>
+    <version>version</version>
 </dependency>
 ```
 
@@ -72,16 +74,16 @@ implementation("com.mysql", "mysql-connector-j", "version")
 ```
 
 ## [SqLite](https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc)
-**Letzte Version**
+**Latest version**
 
-![Aktuellste Version](https://img.shields.io/maven-central/v/org.xerial/sqlite-jdbc)
+![Latest version](https://img.shields.io/maven-central/v/org.xerial/sqlite-jdbc)
 
 ### Maven
 ```xml
 <dependency>
     <groupId>org.xerial</groupId>
     <artifactId>sqlite-jdbc</artifactId>
-    <version>Version</version>
+    <version>version</version>
 </dependency>
 ```
 
@@ -89,3 +91,8 @@ implementation("com.mysql", "mysql-connector-j", "version")
 ```kts
 implementation("org.xerial", "sqlite-jdbc", "version")
 ```
+
+
+
+
+

@@ -1,15 +1,15 @@
 # Try with Resources
 
-Try with resources ist ein allgemeines Konzept von Java. Es wird vor allem für IO verwendet und wenn du sicherstellen willst, dass Objekte
-auf die richtige Art und Weise abgerissen werden. Du hast es vielleicht schon bei der Verwendung von Input Streams beim Lesen von Daten kennengelernt.
+Try with resources is a general concept of java.
+It is especially used for IO and when you want to ensure that objects are teared down in a correct way.
+You may have encountered is already when using input streams when reading data.
 
-Try with resources kann mit jedem Objekt verwendet werden, das `AutoClosable` ist, also mit jedem Objekt, das `Closeable` ist. Eine Menge
-Klassen im Sql-Paket sind Closeable, und es ist auch erforderlich, sie zu schließen, normalerweise mit einigen kleinen
-Ausnahmen.
+Try with resources can be used with every object that is `AutoClosable` which is every Object that is `Closeable`.
+A lot of classes inside the sql package are Closeable, and it is also required to close them usually with some small exceptions.
 
-Um dir zu zeigen, wie das geht, werden wir eine kleine Klasse schreiben, die `Closeable` implementiert.
+To show you how it is done we are going to write a small class which implements `Closeable`.
 
-Das Konstrukt von try with resources sieht wie folgt aus:
+The construct of try with resources looks like this:
 
 <!-- @formatter:off -->
 
@@ -22,11 +22,12 @@ try (MyCloseable closeable = new MyCloseable()) {
 
 <!-- @formatter:on -->
 
-Alle `Closeable` innerhalb der try-Klammer werden geschlossen, sobald die Ausführung die geschweiften Klammern verlässt. Das klingt vielleicht schwer zu
-schwer vorstellbar, also schauen wir uns ein wenig Code an.
+Every `Closeable` inside the try parenthesis are closed once the execution leaves the braces.
+That might sound hard to image, so we will take a look at some code.
 
-Innerhalb der try-Klammer müssen keine Objekte erstellt werden. Es geht nur um die Zuweisung. Du kannst auch
-mehrere schließbare
+Objects do not need to be created inside the try parenthesis.
+It is only about the assignment.
+You can also assign multiple closable:
 
 <!-- @formatter:off -->
 
@@ -41,17 +42,17 @@ try (closeable; anotherCloseable) {
 
 <!-- @formatter:on -->
 
-Normalerweise wird die try-Anweisung mit einer catch-Klausel kombiniert, da meistens irgendeine Art von IOException geworfen wird oder
-in unserem Fall meist SQLExceptions.
+Usually the try statement is combined with a catch clause since most of the time some kind of IOException is thrown or in our case mostly SQLExceptions.
 
-Schauen wir uns an, wie und wann unser Code ausgeführt wird. Dafür brauchen wir eine "AutoClosable"-Klasse. Wir wissen, dass
-jedes `Closeable` ein `AutoClosable` ist, also werden wir eine Klasse erstellen, die das implementiert.
+Let us take a look at how and when our stuff is executed.
+For that we will need an `AutoClosable` class.
+We know that every `Closeable` is an `AutoClosable`, so we will create a class which implements it.
 
 ```java
 class MyCloseable implements Closeable {
 
     String read() {
-        return "Erledigt";
+        return "Done";
     }
 
     void exception() throws IOException {
@@ -60,13 +61,13 @@ class MyCloseable implements Closeable {
 
     @Override
     public void close() throws IOException {
-        System.out.println("Geschlossen");
+        System.out.println("Closed");
     }
 }
 ```
 
-Du siehst, dass wir die Methode `close()` implementieren, die einfach `Closed` ausgibt. Außerdem haben wir eine Methode, die
-eine Ausnahme auslöst und eine andere, die einfach einen String zurückgibt.
+You can see that we implement the `close()` method which simply prints `Closed`.
+Additionally, we have a method which throws an exception and another one which simply returns a String.
 
 ```java
 import java.io.Closeable;
@@ -84,23 +85,26 @@ public class TryWithResources {
         } catch (IOException e) {
             System.out.println(e);
         }
-        return "fehlgeschlagen";
+        return "failed";
     }
 }
 ```
 
-Ausgabe:
+Output:
 
 ```
-Geschlossen
-erledigt
+Closed
+done
 ```
 
-Wir rufen unsere `io()` Methode auf. Diese Methode erzeugt das Auto-Closable innerhalb der Try-Klammer. Dann rufen wir die read
-Methode auf, die die Zeichenkette `Done` zurückgibt. Wenn wir uns unsere Ausgabe ansehen, können wir sehen, dass die close-Methode tatsächlich aufgerufen wird, sobald
-die Return-Anweisung ausgeführt wird.
+We call our `io()` method.
+That method creates the auto closable inside the `try` parenthesis.
+We then call the read
+method which returns the string `Done`.
+If we look at our output we can see that the close method is indeed called once the return statement is executed.
 
-Das Gleiche passiert, wenn anstelle einer Rückgabe eine Ausnahme geworfen wird. Das ist der wichtigste Teil.
+The same happens when an exception is thrown instead of a return.
+That is the most important part.
 
 ```java
 import java.io.Closeable;
@@ -121,19 +125,18 @@ public class TryWithResources {
         } catch (IOException e) {
             System.out.println(e);
         }
-        return "Fehlgeschlagen";
+        return "Failed";
     }
 }
 ```
 
-Ausgabe:
+Output:
 
 ```
-Geschlossen
+Closed
 java.io.IOException
-Fehlgeschlagen
+Failed
 ```
 
-Hier kannst du sehen, dass selbst wenn eine Ausnahme ausgelöst wird, das `Closeable` geschlossen wird, bevor der Catch-Block bearbeitet wird. Das
-bedeutet auch, dass der Catch-Block optional ist und das `Closeable` auch geschlossen wird, wenn wir die Ausnahme nicht abfangen.
-Ausnahme nicht abfangen.
+Here you can see that even when an exception is thrown the `Closeable` is closed before the catch block is handled.
+That also means that the catch block is optional and the `Closeable` would be closed as well if we do not catch the exception.

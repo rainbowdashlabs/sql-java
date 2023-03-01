@@ -1,7 +1,9 @@
-# Einführung
+# Introduction
 
-Jetzt können wir aus unserer Datenbank lesen und richtig in sie schreiben. Jetzt müssen wir nur noch ein paar Dinge zu Ende bringen. Zum Beispiel
-unsere Aufrufe in ein paar nette Methoden verpacken und geeignete Rückgabewerte wählen. Außerdem fehlt uns noch eine gute Lösung für das Connection
-Pooling-Lösung und die Versionierung der Datenbank.
+Now we can read from our database and write into it properly.
+Now we just have to finish up some loose ends.
+For example wrapping our calls into some nice methods, choosing appropriate return values.
+We also still miss a proper connection pooling solution and database versioning.
 
-In diesem Kapitel geht es um die restlichen Themen, die bisher noch keinen Platz hatten. Zeit, die Dinge abzuschließen!
+This chapter is all about the remaining topics which had no place yet.
+Time to wrap things up!

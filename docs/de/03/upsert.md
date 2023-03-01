@@ -1,34 +1,36 @@
-# Upsert und Konfliktbehandlung
+# Upsert and Conflict Handling
 
-Jetzt haben wir eine Menge Möglichkeiten hinzugefügt, um Eingaben in unseren Tabellen zu blockieren. Wir haben Primärschlüssel, eindeutige Schlüssel und Fremdschlüssel, die
-die die Eingabe von ungültigen oder doppelten Daten in unsere Tabellen blockieren.
+Now we added a lot of ways to block input in our tables.
+We have primary keys, unique keys and foreign keys which block input of invalid or duplicated data into our tables.
 
-Fehler bei Fremdschlüsseln sind beabsichtigt. Diese sollten immer auf der Anwendungsseite behandelt werden. Allerdings können Fehler bei
-eindeutigen Schlüsseln können von uns behandelt werden. Dafür verwenden wir ein Konstrukt, das `UPSERT` genannt wird. Der Name deutet bereits an, dass
-dass es sich um eine Mischung aus `UPDATE` und `INSERT` handelt. Im Grunde heißt es: Einfügen und wenn mich etwas am Einfügen hindert, möchte ich
-die Daten zu aktualisieren.
+Failures of foreign keys are intended.
+Those should always be handled on the application side.
+However, failures on unique keys can be handled by us.
+For that we use a construct which is called `UPSERT`.
+The name already hints that this is a mix of `UPDATE` and `INSERT`.
+It basically says, insert and if something prevents me from inserting I want to update the data.
 
-Je nachdem, welche Datenbank du verwendest, ist die Syntax ein bisschen anders.
+Depending on the database you use the syntax is a bit different.
 
-## Konflikte bei der Eingabe ignorieren
+## Ignoring conflicts on input
 
 ### Postgres & SqLite
 
-Bei Postgres und SqLite fügen wir Lexy noch einmal ein und scheitern dabei gnädig.
+For postgres and SqLite we are going to insert Lexy once again and fail gracefully.
 
 ```postgresql
--- Dies ist unsere übliche Insert-Anweisung
+-- This is our usual insert statement
 INSERT INTO player(player_name)
 VALUES ('Lexy')
-       -- Hier legen wir fest, wo der Konflikt auftreten soll. In diesem Fall geht es um den Konflikt mit dem Spielernamen
+       -- Here we define where the conflict will appear. In this case we care about the conflict on the player name
 ON CONFLICT (player_name)
-    -- Hier sagen wir nur, dass wir nichts tun und den möglichen Fehler verwerfen wollen.
+    -- All we say here is that we wanna do nothing and discard the possible error.
     DO NOTHING;
 ```
 
 ### MariaDB & MySQL
 
-Für MariaDB und MySQL können wir die Syntax `INSERT IGNORE` verwenden, die Fehler, die beim Einfügen auftreten, einfach ignoriert.
+For MariaDB and MySQL we can use the `INSERT IGNORE` syntax which will simply ignore errors which occur on an insert.
 
 ```mariadb
 INSERT IGNORE INTO player(player_name)
@@ -37,30 +39,29 @@ VALUES ('Lexy');
 
 ## Upsert
 
-Die Upsert-Anweisung ist der wichtigere Teil. Damit fügen wir unseren Spieler in unsere Online-Tabelle ein und 
-die letzte Online-Zeit zu aktualisieren, falls sie bereits existiert.
+The upsert statement is the more important part.
+We will use this to insert our player into our online table and refresh the last online time in case it exists already.
 
-Das Paradigma ist immer: Versuche einzufügen und wenn das nicht geht, lass mich die Zeile mit dem Konflikt ändern.
+The paradigm is always: Try to insert and if I cant let me modify the conflicted row.
 
 ### Postges & SqLite 
 
-Bei Postgres und SqLite fügen wir Lexy noch einmal ein und aktualisieren diesmal die Online-Zeit, falls ein Spieler 
-mit diesem Namen bereits vorhanden ist. 
+For postgres and SqLite we are going to insert Lexy once again and this time update the online time in case a player with this name is already present. 
 
 ```postgresql
--- Dies ist unsere übliche Einfügeanweisung
+-- This is our usual insert statement
 INSERT INTO player(player_name)
 VALUES ('Lexy')
-       -- Hier legen wir fest, wo der Konflikt auftreten soll. In diesem Fall geht es um den Konflikt mit dem Spielernamen
+       -- Here we define where the conflict will appear. In this case we care about the conflict on the player name
 ON CONFLICT (player_name)
-    -- Hier sagen wir nur, dass wir nichts tun und den möglichen Fehler verwerfen wollen.
-    -- In SqLite verwenden wir hier CURRENT_TIMESTAMP anstelle von now
+    -- All we say here is that we wanna do nothing and discard the possible error.
+    -- In SqLite we use CURRENT_TIMESTAMP here instead of now
     DO UPDATE SET last_online = NOW();
 ```
 
-#### Tabelle ausschließen
+#### Exclude table
 
-Nehmen wir an, wir haben eine neue Zeile in unserer Spielertabelle namens Alter.
+Let's assume we have a new row in our player table called age.
 
 ```postgresql
 INSERT INTO player(player_name, age)
@@ -69,9 +70,10 @@ ON CONFLICT (player_name)
     DO UPDATE SET age = 21;
 ```
 
-Wenn wir das Alter von Lexy hochsetzen wollten, müssten wir das Alter zweimal in unsere Abfrage schreiben. Das kann bei größeren 
-bei größeren Abfragen. Zum Glück sind Postgres und SqLite auf unserer Seite und stellen eine temporäre Tabelle namens `excluded` zur Verfügung, die 
-die Werte enthält, die wir einfügen wollen. Anstelle der obigen Abfrage können wir also einfach schreiben.
+If we wanted to upsert the age of lexy we would need to write the age twice in our query.
+This can get quite messy on larger queries.
+Luckily Postgres and SqLite have our back and provide a temporary table named `excluded` which holds the values we wanted to insert.
+So instead of the above we can simply write.
 
 ```postgresql
 INSERT INTO player(player_name, age)
@@ -82,12 +84,11 @@ ON CONFLICT (player_name)
 
 ### MariaDB & MySQL
 
-Für MariaDB und MySQL können wir die Klausel `ON DUPLICATE KEY UPDATE` verwenden, mit der wir die Werte in der 
-konfliktbehafteten Zeile zu ändern.
+For MariaDB and MySQL we can use the `ON DUPLICATE KEY UPDATE` clause which allows us to change the values in the conflicted row.
 
 ```mariadb
 INSERT INTO player(player_name)
 VALUES ('Lexy')
--- Wir definieren, dass wir etwas tun wollen, wenn ein Duplikat auf einem Schlüssel oder eindeutigen Index auftaucht
+-- We define that we want to do something if any duplicate appears on a key or unique index
 ON DUPLICATE KEY UPDATE last_online = CURRENT_TIMESTAMP;
 ```

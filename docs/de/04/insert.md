@@ -1,8 +1,7 @@
-# Daten einfügen
+# Inserting data
 
-Zum Einfügen der Daten werden wir hauptsächlich die Methode `execute` unseres `PreparedStatement` verwenden. Wir wissen, dass es funktioniert hat, wenn
-Wir wissen, dass es funktioniert hat, wenn wir keine Ausnahme erhalten. Da wir normalerweise nur eine einzige Zeile einfügen, sind wir nicht wirklich an den geänderten Zeilen interessiert.
-auch nicht.
+For inserting data we will mainly use the `execute` method of our `PreparedStatement`.
+We will know that it worked when we get no exception and since we usually only insert a single line, we are not really interested into the changed lines as well.
 
 ```java
 import javax.sql.DataSource;
@@ -27,8 +26,7 @@ public class Insert {
 }
 ```
 
-Eine Ausnahme, in der wir `execute` nicht verwenden würden, wäre, wenn wir eine `RETURNING` [Klausel](../02/returning.md) verwenden, um die
-neu erstellte ID für unseren Nutzer zu erhalten.
+One exception where we would not use `execute` would be if we use a `RETURNING` [clause](../02/returning.md) to get the  new created id for our user.
 
 ```java
 import javax.sql.DataSource;
@@ -57,12 +55,12 @@ public class InsertReturning {
 }
 ```
 
-## Generierte Schlüssel
+## Generated keys
 
-Bei Datenbanken ohne `RETURNING`-Klausel (siehe MySQL) kannst du die generierten Schlüssel auf andere Weise abrufen.
-Unser `PreparedStatement` ermöglicht uns nicht nur die Ausführung, sondern auch die Überprüfung, was unsere Anweisung geändert hat. Wenn wir angeben, dass
-wir die generierten Schlüssel mit einem Flag angeben, gibt die Datenbank die generierten Schlüssel zurück, wenn wir die Anweisung ausführen.
-Danach können wir sie aus der Anweisung lesen.
+For databases without an `RETURNING` clause (Looking at you MySQL) you can retrieve the generated keys in another way.
+Our `PreparedStatement` not only allows us to execute, but also to check what our statement changed.
+If we provide that we want the generated keys by using a flag, the database will return the generated keys when we execute the statement.
+After that we can read those from the statement.
 
 ```java
 import javax.sql.DataSource;
@@ -79,13 +77,13 @@ public class InsertGeneratedKeys {
         try (Connection conn = dataSource.getConnection();
              PreparedStatement stmt = conn.prepareStatement("""
                      INSERT INTO player(player_name) VALUES (?)
-                     """, Statement.RETURN_GENERATED_KEYS)) { // Dieses Flag hier zu setzen ist sehr wichtig
+                     """, Statement.RETURN_GENERATED_KEYS)) { // Setting this flag here is very important
             stmt.setString(1, "Lexi");
             stmt.executeUpdate();
-            // Wir erhalten hier ein neues ResultSet
+            // We get a new ResultSet here
             ResultSet keys = stmt.getGeneratedKeys();
             if (keys.next()) {
-                // Da wir nicht wissen, wie die Spalte benannt ist, verwenden wir einfach die erste Spalte
+                // Since we do not know how the column is named we simply use the first one
                 System.out.printf("Created user %s with id %d%n", "Lexi", keys.getInt(1));
             }
         } catch (SQLException e) {
@@ -95,8 +93,8 @@ public class InsertGeneratedKeys {
 }
 ```
 
-Das Problem dabei ist, dass ein Schlüssel nur zurückgegeben wird, wenn er explizit als Schlüssel identifiziert wurde. Wenn das nicht klappt, kannst du immer noch
-die Datenbank bitten, eine oder mehrere Spalten explizit zurückzugeben.
+The issue with that is that a key is only returned if it was explicitly identified as key.
+If that fails you can still ask the database to explicitly return one or more columns.
 
 ```java
 import javax.sql.DataSource;
@@ -112,10 +110,10 @@ public class InsertGeneratedKeysColumns {
         try (Connection conn = dataSource.getConnection();
              PreparedStatement stmt = conn.prepareStatement("""
                      INSERT INTO player(player_name) VALUES (?)
-                     """, new String[]{"id"})) { // Wir definieren, dass wir den Wert von id zurückbekommen wollen
+                     """, new String[]{"id"})) { // We define that we want to get the value of id back
             stmt.setString(1, "Lexi");
             stmt.executeUpdate();
-            // Der Rest ist wie üblich
+            // The rest is as usual
             ResultSet keys = stmt.getGeneratedKeys();
             if (keys.next()) {
                 System.out.printf("Created user %s with id %d%n", "Lexi", keys.getInt(1));
@@ -126,3 +124,4 @@ public class InsertGeneratedKeysColumns {
     }
 }
 ```
+

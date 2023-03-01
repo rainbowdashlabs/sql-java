@@ -1,37 +1,36 @@
 # Checks
 
-**Nur für MySQL, MariaDB und PostgreSQL**
+**Only for MySQL, MariaDB and PostgreSQL**
 
-Checks sind auch sehr wichtig, um sicherzustellen, dass ein Wert in einer Spalte bestimmte Anforderungen erfüllt.
+Checks are also very important when ensuring that a value in a column meets certain requirements.
 
-Du kennst bereits einige Prüfungen. Jedes Mal, wenn wir `CONSTRAINT` verwendet haben, haben wir eine Prüfung hinzugefügt. Zum Beispiel in unserem [Fremdschlüssel]
-(foreign_keys.md) oder in unserem [primary key](primary_keys.md). Auch `NOT NULL` ist eine Inline-Prüfung. Aber es gibt
-sogar noch mehr! Wir können auch selbst manuelle Prüfungen hinzufügen.
+You already know some checks.
+Every time we used `CONSTRAINT` we added a check. For example in our [foreign key](foreign_keys.md) or in our [primary key](../03/data_consistency/primary_keys.md).
+`NOT NULL` is an inline check as well.
+But there is actually more! We can also add manual checks ourselves.
 
-Es ist an der Zeit, unsere Geldtabelle noch weiter zu verbessern, indem wir eine Prüfung hinzufügen, die sicherstellt, dass Geld immer gleich oder größer ist als
-0 ist, wodurch sichergestellt wird, dass wir nie einen negativen Geldbetrag haben.
+Time to enhance our money table even more, by adding a check which ensures that money is always equal or greater than 0, which will ensure that we never have a negative amount of money.
 
 ```sql
 CREATE TABLE money
 (
     player_id INT PRIMARY KEY,
-    money DECIMAL DEFAULT 0 NOT NULL,
-CONSTRAINT money_player_player_id_fk
+    money     DECIMAL DEFAULT 0 NOT NULL,
+    CONSTRAINT money_player_player_id_id_fk
         FOREIGN KEY (player_id) REFERENCES player (id)
             ON DELETE CASCADE,
-    -- Wir fügen eine weitere Einschränkung hinzu. Der Name sollte in etwa so lauten
-    -- check_<tabelle>_<check_name>
+    -- We add another constraint. The name should use something like
+    -- check_<table>_<check_name>
     CONSTRAINT check_money_negative
-        -- und eine eigene Prüfung definieren, die sicherstellt, dass Geld größer oder gleich 0 ist
-CHECK ( money >= 0)
+        -- and define a custom check which ensures that money is greater or equal to 0
+        CHECK ( money >= 0)
 );
 ```
 
-Versuchen wir nun, etwas Ungültiges einzufügen:
+Let's try to insert something invalid:
 
 ```sql
 INSERT INTO money (player_id, money) VALUES (1, -10);
 ```
 
-Das schlägt fehl! Unsere Prüfung funktioniert und verhindert, dass wir negative Werte in unsere Tabelle einfügen! Natürlich funktioniert das auch bei 
-Updates auch.
+It fails! Our check works and prevents us from adding negative values to our table! Of course this works with updates as well.

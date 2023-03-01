@@ -1,14 +1,15 @@
-# UUID als Binärzeichen
+# UUID as binary
 
-UUIDs können als `BINÄR(16)` oder `CHAR(36)` gespeichert werden. Eine char UUID benötigt also mehr Platz als eine binäre UUID.
-Dein Ziel sollte es sein, deine Spalten so klein wie möglich zu halten. Außerdem lassen sich binäre Daten besser indizieren. Eine binäre UUID
-hält auch den Index kleiner, was wichtig ist, weil die Datenbank versuchen wird, die Indizes zwischenzuspeichern und in den Speicher zu laden.
-in den Speicher zu laden. Das ist nur möglich, solange der Index klein genug ist, daher ist es immer eine gute Praxis, deine
-indizierten Spalten so klein wie möglich zu halten.
+UUIDs can be stored as `BINARY(16)` or `CHAR(36)`.
+Consequently, a char UUID requires more space than a binary UUID.
+Your goal should be to keep your columns as small as possible.
+Also, binary data can be indexed better.
+A binary UUID will also keep your index smaller, which is important because the database will try to cache the indices and load them into memory.
+This is only possible as long as the index is small enough, so it is always a good practice to keep your indexed columns as small as possible.
 
-Du kannst diese Funktionen verwenden, um deine `UUID` in `Byte[]` und deine `Byte[]` in `UUID` umzuwandeln:
+You can use these functions to convert your `UUID` to `byte[]` and your `byte[]` to `UUID`:
 
-```java
+``` java
 public static byte[] convert(UUID uuid) {
     return ByteBuffer.wrap(new byte[16])
             .putLong(uuid.getMostSignificantBits())
@@ -22,33 +23,34 @@ public static UUID convert(byte[] bytes) {
 }
 ```
 
-Du kannst diese Methoden wie folgt verwenden:
+You can use these methods like this:
 
-```java
-// UUID in Bytes umwandeln
+``` java
+// Convert UUID to bytes
 PreparedStatement stmt = conn.prepareStatement("...");
 stmt.setBytes(?, UUIDConverter.convert(player.getUniqueId()));
 
-// Bytes in UUID umwandeln
+// Convert bytes to UUID
 ResultSet rs = stmt.executeQuery();
 UUID uuid = UUIDConverter.convert(rs.getBytes("uuid"));
 ```
 
-# Zeitstempel konvertieren
+# Converting timestamps
 
-Die Arbeit mit Zeitstempeln mag auf den ersten Blick kompliziert erscheinen, ist aber gar nicht so schwer.
+Working with timestamps might seem to be tricky at first, but is not that hard.
 
-Die Schnittstelle "Zeitstempel" ermöglicht es dir, Zeitstempel in deiner Datenbank einfach zu handhaben. Zeitstempel in deiner Datenbank sollten
-als UTC gespeichert werden und idealerweise keine Zeitzonen enthalten. Diese verursachen normalerweise viel Kopfzerbrechen und es ist besser, sie zu vermeiden.
+The `Timestamp` interface allows you to easily handle timestamps in your database.
+Timestamps in your database should be saved as UTC and ideally not contain timezones.
+Those usually cause a lot of headache, and it is better to avoid them.
 
-Das ist auch der Grund, warum ich empfehle, immer Instant zu verwenden, wenn du mit der Datenbank interagierst. Die meisten Datenbanken verwenden
-standardmäßig UTC und legen keine Zeitzone fest.
+That is also the reason why I suggest to always use Instant when interacting with the database.
+Most databases will use UTC anyway by default and not set a timezone.
 
-**Timestamp zu Instant**
-`resultSet.getTimestamp("Spalte").toInstant()`
+**Timestamp to Instant**
+`resultSet.getTimestamp("column").toInstant()`
 
-**Instant zu Timestamp**
+**Instant to Timestamp**
 `stmt.setTimestamp(1, Timestamp.from(Instant.now()))`
 
-**Erinnere dich:** Wenn du den aktuellen Zeitstempel setzen musst, verwende `current_timestamp()` oder `now()` direkt in deiner Datenbank.
-Oder wenn es sich um eine "INSERT"-Anweisung handelt, solltest du eine Voreinstellung für die Tabellenspalte festlegen.
+**Remember:** If you need to set the current timestamp use `current_timestamp()` or `now()` directly in your database.
+Or if it is in an `INSERT` statement, consider setting a default for the table column.

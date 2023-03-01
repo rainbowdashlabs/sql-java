@@ -1,26 +1,26 @@
-# Löschen
+# Delete
 
-Nachdem wir alle unsere Daten eingefügt haben, fehlt uns nur noch eine grundlegende Funktion. Manchmal ist das Aktualisieren oder Einfügen von Daten nicht
-genug. Wir müssen auch Daten löschen.
+After inserting all our data we only miss one basic functionality.
+Sometimes updating or inserting data is not enough. We also need to delete data.
 
-Dafür verwenden wir das Schlüsselwort `DELETE`. Das Schlüsselwort `DELETE` ist der [`SELECT`-Anweisung] (select.md) sehr ähnlich, die wir
-bereits kennen.
-Wir müssen `FROM` definieren, welche Tabelle wir löschen wollen und `WHERE`, wo wir diese Zeilen löschen wollen
+For this we use the `DELETE` keyword. The `DELETE` keyword is pretty similar to the [`SELECT` statement](dev/private/java/!tutorial/basicsql-pages/docs/en/02/select.md) we
+already know.
+We need to define `FROM` which table we want to delete and `WHERE` we want to delete those rows
 
-Daher können wir davon ausgehen, dass die allgemeine `DELETE`-Anweisung wie folgt aussehen würde:
+With this in mind we can probably assume that the general `DELETE` statement would look like this:
 
 ```sql
 DELETE
 FROM table_name
-WHERE spalte_1 = wert_1; 
+WHERE column_1 = value_1; 
 ```
 
-Versuchen wir nun, eine Anweisung zu schreiben, die den Nutzer mit der ID 10 aus unserer Nutzertabelle löscht:
+Let's try to write a statement which would delete the user with id 10 from our users table:
 
 
 
-<Details>
-<summary>Lösung</summary>
+<details>
+<summary>Solution</summary>
 
 ```sql
 DELETE
@@ -30,19 +30,19 @@ WHERE id = 10;
 
 </details>
 
-Jetzt haben wir nur noch ein Problem... Unser Freundschaftsdiagramm und die Geldtabelle enthalten immer noch Verweise auf den Spieler mit der
-id 10. Um das zu ändern, müssen wir diese Einträge auch aus diesen beiden Tabellen löschen.
+Now we just have one more problem...
+Out friend graph and money table still contain references to the player with id 10.
+To change this we need to delete those entries from these two tables as well.
 
-Schreibe zwei Anweisungen.
+Write two statements.
 
-1. Lösche alle Einträge aus friend_graph, **bei denen** der Spieler 1 **oder** Spieler 2 die ID 10 hat. (Mach das in einer Anweisung.)
-2. Lösche den Eintrag von Spieler 10 aus der Tabelle `Geld` (Wenn du die Tabelle Geld nicht erstellt hast, kannst du sie einfach
-   ignorieren.)
+1. Delete all entries from friend_graph **where** the player 1 **or** player 2 has the id 10. (Do it in one statement.)
+2. Delete the entry of player 10 from the `money` table (If you haven't created the money table, you can simply ignore it.)
 
-<Details>
-<summary>Lösung</summary>
+<details>
+<summary>Solution</summary>
 
-```sql
+   ```sql
 DELETE
 FROM friend_graph
 WHERE player_1 = 10
@@ -55,7 +55,7 @@ WHERE id = 10;
 
 </details>
    
-Natürlich gibt es eine bessere und sicherere Lösung, um "tote" Einträge in anderen Tabellen zu vermeiden. Das werden wir in 
-einem anderen Kapitel.
+Of course there is a better and more save solution to avoid "dead" entries in other tables.
+We will learn this in another chapter.
 
-Da wir nun die Anweisungen für `SELECT`, `INSERT`, `UPDATE` und `DELETE` kennen, sind wir bereit für das nächste Kapitel.
+Now that we know the statements for `SELECT`, `INSERT`, `UPDATE` and `DELETE` we are ready for the next chapter.

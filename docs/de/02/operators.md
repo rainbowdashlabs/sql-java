@@ -1,26 +1,26 @@
-# Operatoren
+# Operators
 
-Es gibt viele Operatoren in SQL und noch mehr in unseren Datenbanken, wenn wir eine mit einem erweiterten SQL-Flavour verwenden.
+We actually have a lot of operators in SQL and even more in our databases if we use one with an extended SQL flavour.
+Some operators on this page may have shorter or different aliases in our databases.
+I will focus on the intersection of the operators to keep it simple for now.
 
-Einige Operatoren auf dieser Seite können in unseren Datenbanken kürzere oder andere Aliase haben. Ich werde mich auf die
-Schnittmenge der Operatoren konzentrieren, um es erst einmal einfach zu halten.
+Let's start with the one which are equal in all databases we use
 
-Beginnen wir mit den Operatoren, die in allen Datenbanken, die wir verwenden, gleich sind
+## Mathematical
 
-## Mathematisch
-
-- Addieren `+`
-- Subtrahieren `-`
-- Dividieren `/`
-- Multiplizieren `*`
+- Add `+`
+- Subtract `-`
+- Divide`/`
+- Multiply `*`
 - Modulo `%`
 
-Du kennst sie wahrscheinlich schon, und ihr seid beste Freunde. Wie in jeder anderen Sprache gibt es sie auch in Sql.
+You probably know these already, and you are best friends.
+Like in every other language we also have these in sql.
 
-Du musst jedoch beachten, dass Sql wie Java einige Typumwandlungen selbst vornimmt.
+What you will need to keep in mind is that sql like java does some type conversion on its own.
 
-Wenn du eine Ganzzahl mit einer Dezimalzahl multiplizierst, erhältst du eine Dezimalzahl. Es gibt einige eingebaute Funktionen und
-andere explizite Typumwandlungen, die das ändern können, aber im Moment musst du dich damit abfinden.
+Multiplying an integer with a decimal number will result in a decimal number.
+There are some build in functions and other explicit type conversion which can change this, but for now just bear with the fact.
 
 ```sql
 SELECT 1 * 1.0;
@@ -33,20 +33,19 @@ SELECT 5 / 2.0;
 -> 2.5
 ```
 
-Alle unsere Datenbanken haben zusätzliche mathematische Operatoren und eingebaute Funktionen wie Quadratwurzel, Absolutwert und mehr.
-Sie unterscheiden sich jedoch in der Syntax. Ich werde sie einfach hier verlinken, falls du etwas Spezielles brauchst.
+All our databases have additional mathematical operators and build in functions like square root, absolute and more.
+However, they are different in syntax.
+I will just link them here if you need something special.
 
-[MySQL](https://dev.mysql.com/doc/refman/8.0/en/numeric-functions.html)
-| [SQLite](https://www.sqlite.org/lang_corefunc.html) | [MariaDB](https://mariadb.com/kb/en/numeric-functions/)
-| [PostgreSQL](https://www.postgresql.org/docs/9.3/functions-math.html)
+[MySQL](https://dev.mysql.com/doc/refman/8.0/en/numeric-functions.html) | [SQLite](https://www.sqlite.org/lang_corefunc.html) | [MariaDB](https://mariadb.com/kb/en/numeric-functions/) | [PostgreSQL](https://www.postgresql.org/docs/9.3/functions-math.html)
 
-## Logisch
+## Logical
 
 ### AND/OR
 
-Der Java 'und' (`&&`) Operator wird in sql zu `AND` und der 'oder' (`||`) Operator zu `OR`.
+The java 'and' (`&&`) operator becomes `AND` in sql and the 'or' (`||`) operator becomes `OR`.
 
-Wir können unsere logischen Prüfungen auch in Gruppen mit geschweiften Klammern zusammenfassen.
+We can also group our logical checks in groups with braces.
 
 ```sql
 SELECT TRUE AND FALSE;
@@ -56,8 +55,8 @@ SELECT FALSE OR (TRUE OR FALSE) AND TRUE;
 -> TRUE
 ```
 
-**VORSICHT VOR NULL**
-Ein Nullwert in einem booleschen Vergleich kann zu ungewollten Ergebnissen führen.
+**BEWARE OF NULL**
+Having a null value in a boolean comparison can result in unintended results.
 
 ```sql
 NULL OR TRUE;
@@ -73,9 +72,9 @@ NULL AND FALSE;
 -> FALSE
 ```
 
-### NOT Schlüsselwort
+### NOT Keyword
 
-Das Schlüsselwort not invertiert jeden booleschen Wert. Das ist ähnlich wie das `!` in Java.
+The not keyword will invert every boolean value. This is similar to the `!` in java.
 
 ```sql
 SELECT NOT TRUE;
@@ -88,45 +87,45 @@ SELECT TRUE AND NOT FALSE;
 -> TRUE
 ```
 
-### Gleichheit
+### Equality
 
 #### EQUAL
 
-Anders als in Java können wir die Gleichheit mit einem einfachen `=` prüfen
+Different from java we can check for equality with a simple `=`
 
-```Sql
+```sql
 SELECT 1 = 2;
 -> FALSE
 ```
 
 #### NOT EQUAL
 
-Nicht gleich ist offensichtlich ähnlich wie gleich, aber wir haben hier zwei verschiedene Möglichkeiten.
+Not equality is obviously similar to equal, but we have two different ways here.
 
-Mit dem Operator `!=`
+Using the `!=` operator
 
 ```sql
 SELECT 1 != 2;
--> WAHR
+-> TRUE
 ```
 
-Oder mit dem Schlüsselwort NOT von vorhin
+Or using the NOT keyword from earlier
 
 ```sql
 SELECT NOT 1 = 2;
--> WAHR
+-> TRUE
 ```
 
-### IS und Null-Gleichheit
+### IS and null equality
 
-Die Prüfung auf Null ist ein bisschen anders. Unser Problem ist, dass eine Gleichheitsprüfung auf null null zurückgibt.
+Checking for null is a bit different. Our problem is that an equality check on null will return null.
 
 ```sql
 SELECT NULL = NULL;
 -> NULL
 ```
 
-An dieser Stelle verwenden wir das Schlüsselwort `is`, das mit dem Schlüsselwort not kombiniert werden kann, um einen `!=` Operator zu ermöglichen
+That is where we use the `is` keyword, which can be combined with the not keyword to facilitate a `!=` operator
 
 ```sql
 SELECT NULL IS NULL;
@@ -136,16 +135,16 @@ SELECT NULL IS NOT NULL;
 -> FALSE
 ```
 
-### Größer und kleiner
+### Greater and Less
 
-Alles, was eine Größe hat, ist größenmäßig vergleichbar. Das gilt für Strings, numerische Werte, Daten und mehr.
+Everything which has a size is size comparable. This counts for string, numeric values, date and more.
 
-Wie in Java haben wir hier die gleichen Operatoren.
+Like in java we have the same operators here.
 
-- Größer als `>`
-- Größer als oder gleich `>=`
-- kleiner als `<`
-- Kleiner als oder gleich `<=`
+- Greater than `>`
+- Greater than or equal to `>=`
+- less than `<`
+- Less than or equal to `<=`
 
 ```sql
 SELECT 'abc' > 'ab';
@@ -163,39 +162,40 @@ SELECT 5.0 <= 5.0;
 
 ### BETWEEN
 
-Außerdem gibt es den Operator between, der überprüft, ob ein Wert zwischen zwei verschiedenen Werten liegt.
+Additionally, we have the between operator which basically checks if a value is between two different values.
 
-Die untere und obere Grenze ist inklusive. Die Reihenfolge spielt keine Rolle.
+The lower and upper bounds are inclusive. The order doesn't matter.
 
 ```sql
-
+~~
 SELECT 1 BETWEEN 0 AND 5;
--> WAHR
+~~
+-> TRUE
 
 SELECT 0 BETWEEN 5 AND 0;
--> WAHR
+-> TRUE
 
 SELECT 5 BETWEEN 0 AND 5;
--> WAHR
+-> TRUE
 ```
 
-Du kannst auch das Schlüsselwort `NOT` verwenden
+You can also use the `NOT` keyword
 
 ```sql
 SELECT 1 NOT BETWEEN 0 AND 5;
 -> FALSE
 ```
 
-## Textvergleich und Mustervergleich
+## Text comparison and pattern matching
 
-Oft müssen wir Texte oder Teile von ihnen vergleichen. Unsere Datenbanken bieten uns bereits einige gute Möglichkeiten, dies zu tun.
+We often need to compare texts or part of them. Our databases already provide us some nice ways to do this.
 
 ### LIKE
 
-Der Like-Operator verwendet eine einfache Syntax für den Mustervergleich
+The like operator uses a simple pattern matching syntax
 
-- `%` ist ein Platzhalter für mehrere Zeichen
-- `_` ist ein Platzhalter für ein Zeichen
+- `%` is a wildcard for multiple characters
+- `_` is a wildcard for one character
 
 ```sql
 SELECT 'abcdef' LIKE 'abc'; -- (1)
@@ -209,32 +209,34 @@ SELECT 'abcdef' LIKE '__c%'; -- (3)
 
 SELECT 'abcdef' LIKE '%cde%'; -- (4)
 -> TRUE
+
 ```
 
-1. Wir prüfen, ob der String wie abc ist, aber wir fügen keinen Platzhalter am Ende hinzu
-2. Wir prüfen, ob die Zeichenfolge mit abc beginnt. Wir fügen auch einen Platzhalter am Ende hinzu, der auf alle folgenden Zeichen passt.
-3. Wir prüfen nur, ob das dritte Zeichen ein "c" ist. Wir fügen auch einen Platzhalter hinzu
-4. Wir prüfen, ob die Zeichenkette `cde` mit zwei Platzhaltern enthält
+1. We check if the string is like abc, but we do not add a wildcard at the end
+2. We check if the string starts with abc. We also add a wildcard in the end which matches all following characters.
+3. We just check if the third char is a `c`. We also add a wildcard
+4. We check if the string contains `cde` with two wildcards
 
-**Hinweis zur Groß- und Kleinschreibung**
+**Note on case sensitivity**
 
-In MySQL, SQLite und MariaDB ist der `LIKE` Operator **groß-klein-unabhängig**.
+In MySQL, SQLite and MariaDB the `LIKE` operator is **case-insensitive**.
 
-PostgreSQL verwendet `LIKE` für **Groß-/Kleinschreibung unterscheiden** und `ILIKE` für **Groß-/Kleinschreibung nicht unterscheiden**.
+PostgreSQL uses `LIKE` for **case-sensitive** and `ILIKE` for **case-insensitive** matching.
 
 ### Regex
 
-In MySQL und MariaDB gibt es den REGEXP-Operator. SQLite verfügt ebenfalls über diesen Operator, hat ihn aber nicht
-standardmäßig. Wenn er verwendet wird, wird ein Fehler ausgegeben.
+In MySQL and MariaDB have the REGEXP operator.
+SQLite has this operator as well but does not have an implementation of it by default.
+It will throw an error if used.
 
-PostgreSQL verwendet den Operator `~` für den Regex-Abgleich unter Berücksichtigung der Groß- und Kleinschreibung und `~*` für den Abgleich ohne Groß- und Kleinschreibung.
+PostgreSQL uses the `~` operator for case-sensitive regex matching and `~*` for case-insensitive.
 
-Bemerkenswert ist auch, dass die Operatoren REGEXP und `~` nicht prüfen, ob die gesamte Zeichenkette mit dem Ausdruck übereinstimmt. Es wird nur
-nur auf eine Teilsequenz geprüft.
+Notable is also that the REGEXP and `~` operators do not check if the whole string matches the expression.
+It just checks for a subsequence.
 
-Die Verwendung ist im Allgemeinen die gleiche.
+The usage in general is the same.
 
-```sql title="MariaDB und MySQL"
+```sql title="MariaDB and MySQL"
 SELECT 'abcdef' REGEXP 'CDE'; -- (1)
 -> TRUE
 
@@ -242,8 +244,8 @@ SELECT 'abcdef' REGEXP '[CDE]'; -- (2)
 -> TRUE
 ```
 
-1. Groß- und Kleinschreibung wird nicht berücksichtigt. Wir prüfen, ob die Zeichenkette CDE enthält
-2. Groß- und Kleinschreibung wird nicht berücksichtigt. Wir prüfen, ob die Zeichenkette ein `c`, `d` oder `e` enthält.
+1. Case-insensitive matching. We check if the string contains CDE
+2. Case-insensitive matching. We check if the string contains any of `c`, `d` or `e`.
 
 ```sql title="PostgreSQL"
 SELECT 'abcdef' ~ 'CDE'; -- (1)
@@ -256,6 +258,6 @@ SELECT 'abcdef' ~* '[CDE]'; -- (3)
 -> TRUE
 ```
 
-1. Abgleich unter Berücksichtigung der Groß-/Kleinschreibung. Wir prüfen, ob der String `CDE` mit der richtigen Groß- und Kleinschreibung enthält.
-2. Abgleich ohne Berücksichtigung der Groß-/Kleinschreibung. Wir prüfen, ob die Zeichenfolge "CDE" enthält.
-3. Groß- und Kleinschreibung wird nicht berücksichtigt. Wir prüfen, ob die Zeichenfolge ein "c", "d" oder "e" enthält.
+1. Case-sensitive matching. We check if the string contains `CDE` with the correct casing.
+2. Case-insensitive matching. We check if the string contains `CDE`
+3. Case-insensitive matching. We check if the string contains any of `c`, `d` or `e`.

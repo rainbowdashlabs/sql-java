@@ -1,82 +1,77 @@
-# Benennungskonventionen
+# Naming conventions
 
-Es gibt keine offiziellen Namenskonventionen für Sql, aber es gibt einige etablierte Konventionen für die Namensgebung.
+There are no official naming conventions for sql, but there are some established conventions for naming.
+More important than naming is consistency.
+Don't switch between different stiles.
+More detailed information can be found [here](https://www.sqlshack.com/learn-sql-naming-conventions/).
+User created names should be `snake_case` in general
 
-Noch wichtiger als die Namensgebung ist die Konsistenz. Wechsle nicht zwischen verschiedenen Stilen.
+## Database and Schema
 
-Ausführlichere Informationen findest du [hier](https://www.sqlshack.com/learn-sql-naming-conventions/).
+Avoid databases and schemas which start with numbers. If you do this you will need to quote it every time, which can 
+be really annoying
 
-Von Nutzern erstellte Namen sollten in der Regel `snake_case` sein
+## Tables
 
-## Datenbank und Schema
+- Tables should be named with singular terms. (user, role instead of users, roles)
+- Use single words if possible
 
-Vermeide Datenbanken und Schemas, die mit Zahlen beginnen. Du musst sie sonst jedes Mal in Anführungszeichen setzen, und das kann 
-sehr lästig sein kann
+## Columns
 
-## Tabellen
+- Avoid duplication of the table name. If your table is named `user` and has an id column name it `id` instead of `user_id`.
+- Even if it is possible that a column has the same name as its type, this should be avoided.
+### Primary key columns
 
-- Tabellen sollten mit singulären Begriffen benannt werden. (Nutzer, Rolle anstelle von Nutzer, Rollen)
-- Verwende wenn möglich einzelne Wörter
-
-## Spalten
-
-- Vermeide die Verdoppelung des Tabellennamens. Wenn deine Tabelle `user` heißt und eine id-Spalte hat, nenne sie `id` statt
-  `user_id`.
-- Auch wenn es möglich ist, dass eine Spalte den gleichen Namen wie ihren Typ hat, sollte dies vermieden werden.
-### Primärschlüsselspalten
-
-Am häufigsten ist "id".
+Most common is `id`
 
 ### Foreign key column
 
-Wenn deine Spalte Teil eines Fremdschlüssels ist, verwende den Tabellennamen, auf den sich der Schlüssel bezieht.
+If your column is part of a foreign key use the table name where the key references to.
+Imagine a table `user(id, name)` and a table `money(user_id, amount)`.
+The `user_id` column in `money` is a reference to the `id` column in `user`
 
-Stell dir eine Tabelle `Benutzer(id, Name)` und eine Tabelle `Geld(user_id, Betrag)` vor.
+### Dates
 
-Die Spalte `Benutzer_ID` in `Geld` ist ein Verweis auf die Spalte `ID` in `Benutzer`.
+Dates should not only be named date, but have a descriptive name like `inserted_date` or `edit_date`
 
-### Daten
+### Booleans
 
-Datumsangaben sollten nicht nur als Datum bezeichnet werden, sondern einen beschreibenden Namen wie "Einfügedatum" oder "Änderungsdatum" haben.
+Boolean columns should have questioning names like `is_enabled`
 
-### Boolesche Werte
+## Keys and indices
 
-Boolesche Spalten sollten fragende Namen wie "is_enabled" haben.
+- Prefixed with table names.
 
-## Schlüssel und Indizes
+### Indices
 
-- Mit vorangestellten Tabellennamen.
-
-### Indizes
-
-Beispiele
+Examples
 
 ```
-<tabellenname>_<Zeile.1>_<Zeile.2>_<Zeile.n>_index
-<tabellenname>_<Zeile.1>_<Zeile.2>_<Zeile.n>_uindex
+<tablename>_<row.1>_<row.2>_<row.n>_index
+<tablename>_<row.1>_<row.2>_<row.n>_uindex
 ```
 
-- Enthaltene Zeilen
-- mit Index angehängt, wenn nicht eindeutig
-- Suffix mit uindex, wenn eindeutig
+- Contained rows
+- suffixed with index if not unique
+- suffixed with uindex if unique
 
-### Primärschlüssel
-
-```
-<tabellenname>_pk
-```
-
-- Suffix mit `pk`
-
-### Fremdschlüssel
+### Primary key
 
 ```
-<Herkunfts_tabellenname>_<verwandter_tabellenname>
-<Herkunfts_tabellenname>_<verwandter_tabellenname>_fk
+<tablename>_pk
 ```
 
-- Enthält den Namen der zugehörigen Tabelle
-- mit der Endung `fk`
+- Suffixed with `pk`
+
+### Foreign keys
+
+```
+<origin_tablename>_<related_tablename>
+<origin_tablename>_<related_tablename>_fk
+```
+
+- Contain related table name
+- suffixed with `fk`
 
 ## Views
-- Views sollten mit dem Präfix `v_` versehen werden, um den Unterschied zwischen einer Tabelle und einem View sichtbar zu machen.
+- Views should be prefixed with `v_` to make the difference between a table and a view visible.

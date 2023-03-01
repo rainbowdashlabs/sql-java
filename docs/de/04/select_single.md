@@ -1,40 +1,45 @@
-# Lesen eines Eintrags aus einem ResultSet
+# Reading an entry from a ResultSet
 
-Werfen wir einen Blick auf unsere Ergebnismenge. Wenn wir die vorherige Abfrage ausführen: `SELECT player_name FROM player WHERE id = ?` würde es
-würde es wahrscheinlich ungefähr so aussehen.
+Let's take a look at our result set.
+If we execute the previous query: `SELECT player_name FROM player WHERE id = ?` it would probably look something like this.
 
 ```
-      Zeile | player_name
+        Row | player_name
 Cursor -> 0 |
           1 | 'Lexi'
 ```
 
-Du siehst, dass wir einen "Cursor" haben. Dieser Cursor zeigt auf Zeile 0 oder genauer gesagt auf die Zeile vor der ersten Zeile.
-Zeile. Das bedeutet, dass wir, wenn wir jetzt etwas aus dem `ResultSet` lesen würden, einen Fehler bekommen würden, weil es einfach
-keine Daten zum Lesen gibt. Um zu prüfen, ob es eine weitere Zeile in unserem `ResultSet` gibt, können wir `ResultSet#next` verwenden. Diese Methode
-tut drei Dinge:
+You can see that we have a `Cursor`.
+This cursor is pointing at row 0 or more specifically at the row before the first row.
+That means that if we would read something from the `ResultSet` now, we would get an error because there is simply not data to read.
+In order to check if there is another row in our `ResultSet` we can use `ResultSet#next`.
+This method does three things:
 
-1. Sie prüft, ob es eine weitere Zeile gibt, zu der sie wechseln kann.
-2. Sie geht in die nächste Reihe, wenn es eine gibt.
-3. Gibt einen booleschen Wert zurück, der true ist, wenn es eine neue Zeile gab.
+1. Checks whether there is another row it could move to.
+2. Moves to the next row if there is one
+3. Returns a boolean which is true when there was a new row.
 
-Nehmen wir an, wir haben `ResultSet#next` aufgerufen. Dann würde unser `ResultSet` wie folgt aussehen:
+Let's assume we have called `ResultSet#next`. Now our `ResultSet` would look like this:
 
 ```
-      Zeile | player_name
+        Row | player_name
           0 |
 Cursor -> 1 | 'Lexi'
 ```
 
-Du siehst, dass sich der Cursor eine Zeile weiter bewegt hat und wir uns jetzt in einer Zeile mit Daten befinden. Das bedeutet auch, dass wir jetzt in der Lage sind
-in der Lage sind, etwas aus unserer aktuellen Zeile zu lesen. Das machen wir mit den Methoden von `ResultSet`, die mit `get` beginnen. In unserem
-Fall wollen wir eine Zeichenkette lesen, also benutzen wir die Methode `ResultSet#getString()`. Du wirst feststellen, dass es
-zwei Versionen dieser Methode gibt. Das liegt daran, dass wir die Spalte, die wir auswählen wollen, auf zwei Arten definieren können. Die erste
-Version ist der Name `resultSet.getString("player_name")`. Diese Version wird im Allgemeinen bevorzugt, da sie nicht
-nicht abbricht, wenn du die Select-Anweisung änderst, und sie ist besser lesbar. Die zweite Version ist die Spalten-ID. Diese Ids
-beginnt wieder bei 1. Das bedeutet, dass wir die erste Spalte auswählen müssen, in unserem Fall `resultSet.getString(1)`.
+You can see that the cursor moved one row further, and we are now on a row with data.
+That also means that we are now able to read something from our current row.
+We do that with the methods of `ResultSet` which start with `get`.
+In our case we want to read a `String`, that means we will use the `ResultSet#getString()` method.
+You will notice that there are two versions of this method.
+This is because we can define the column we want to select in two ways.
+The first version would be by its name `resultSet.getString("player_name")`.
+This version is generally preferred since it will not break if you change the select statement and is more readable.
+The second version would be the column id.
+Those ids start at 1 again.
+That means that we would need to select the first column in our case `resultSet.getString(1)`.
 
-Jetzt ist es an der Zeit, all dies in einen schönen Code zu übersetzen:
+Now it is time to translate all this into some fine code:
 
 ```java
 import javax.sql.DataSource;
@@ -55,7 +60,7 @@ public class ReadResultSet {
                 System.out.println(resultSet.getString("player_name"));
                 System.out.println(resultSet.getString(1));
             } else {
-                System.out.println("Kein Eintrag zurückgegeben");
+                System.out.println("Not entry returned");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,16 +69,20 @@ public class ReadResultSet {
 }
 ```
 
-Du kannst sehen, dass wir `if` verwenden, um festzustellen, ob es eine weitere Zeile gibt oder nicht. Das ist wichtig, denn wir bekommen einen
-Fehler, wenn wir versuchen, eine Zeile zu lesen, obwohl es keine gibt. Nachdem wir mit `next()` bestätigt haben, dass es eine weitere Zeile gibt, versuchen wir
-versuchen wir, den Wert von "player_name" und der ersten Spalte zu lesen. Beide sind natürlich identisch.
+You can see that we use `if` to determine whether there is another row or not.
+This is important, because we will get a nasty error if we try to read a row when there is none.
+After we used `next()` to confirm that there is another row we attempt to read the value of `player_name` and the first column.
+Both are the same of course.
 
-Wenn du mehrere Spalten ausgewählt hättest, könntest du natürlich auch alle anderen auslesen.
+If you had selected multiple columns, you could of course read all those as well.
 
-## Schließen eines ResultSets
+## Closing a ResultSet
 
-Wenn du dir das `ResultSet` genau ansiehst, wirst du feststellen, dass es auch ein `AutoClosable` ist. Du könntest dich fragen: "
-Heißt das, dass ich es auch wieder schließen muss?". Die Antwort darauf ist "Nein". Aber das ist eine große Ausnahme im Allgemeinen.
-Ein `ResultSet` ist an das `Statement` oder `PreparedStatement` gebunden, von dem es abgerufen wurde. Das bedeutet, dass sobald die
-Anweisung geschlossen wird, wird auch das damit verbundene `ResultSet` geschlossen. Das bedeutet aber auch, dass die Rückgabe des ResultSet
-nicht funktionieren würde, da es bereits geschlossen ist, nachdem wir es zurückgegeben haben. Du musst die Werte immer innerhalb des `try`-Blocks lesen
+If you take a close look at the `ResultSet`, you will notice that it is an `AutoClosable` as well.
+You might question: "Does it mean I have to close it as well?".
+The answer to that is "No".
+But this is a huge exception in general.
+A `ResultSet` is bound to the `Statement` or `PreparedStatement` it was retrieved from.
+That means that once the statement is closed the connected `ResultSet` will be closed as well.
+But that also means that returning the ResultSet would not work since it is already closed after we returned it.
+You always need to read the values inside the `try` block.

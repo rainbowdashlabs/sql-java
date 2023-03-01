@@ -1,7 +1,8 @@
-# Mehrere Einträge aus einem ResultSet lesen
+# Reading multiple entries from an ResultSet
 
-Diesmal werden wir eine Abfrage verwenden, die du bereits kennen solltest. Es ist die Abfrage, die wir in Kapitel 2 verwendet haben, um alle Spieler auszuwählen, deren
-mit einer ID größer als 5. Aber dieses Mal machen wir sie mit unserem `PreparedStatement` ein bisschen konfigurierbarer.
+This time we will use a query you should know already.
+It is the query we used in chapter 2 to select all players with an id higher than 5.
+But this time we will make it a bit more configurable with the use of our `PreparedStatement`.
 
 ```sql
 SELECT
@@ -13,21 +14,22 @@ WHERE id >= ?
   AND id <= ?
 ```
 
-Wir setzen den ersten Wert auf 5 und den zweiten Wert auf 10. So erhalten wir ein `ResultSet`, das wie folgt aussieht:
+We set the first value to 5 and the second value to 10.
+That will give us a `ResultSet` which looks like this:
 
 ```      
-      Zeile | id | player_name
-Cursor -> 0 |      
-          1 | 5  | Matthias    
-          2 | 6  | Lenny       
-          3 | 7  | Summer      
-          4 | 8  | Marry       
-          5 | 9  | Milana      
-          6 | 10 | Lexi        
+        Row | id  | player_name
+Cursor -> 0 |     |     
+          1 | 5   | Matthias    
+          2 | 6   | Lenny       
+          3 | 7   | Summer      
+          4 | 8   | Marry       
+          5 | 9   | Milana      
+          6 | 10  | Lexi        
 ```
 
-Anstatt zu prüfen, ob es eine nächste Zeile gibt und diese zu lesen, wollen wir so lange lesen, wie es eine nächste Zeile gibt. Wir können das nicht
-Das können wir nicht mit einem `if` machen, aber wir können es mit einem `while` machen.
+Instead of checking whether there is a next row and read this we want to read as long as there is a next row.
+We can not do this with an `if`, but we can do this with a `while`.
 
 ```java
 import javax.sql.DataSource;
@@ -61,7 +63,9 @@ public class SelectMulti {
 }
 ```
 
-Die while-Funktion springt zur nächsten Zeile, solange es eine gibt. Es schlägt auch nicht fehl, wenn es gar keine Zeile gibt.
+The while will jump to the next row as long as there is one.
+It will also not fail if there is no row at all.
 
-Anstatt das Ergebnis auszudrucken, kannst du natürlich auch eine Liste oder eine Karte erstellen, um sie zu speichern. Wir werden uns mit der
-Rückgabe von Daten in einem späteren Abschnitt.
+Of course instead of printing out your result you might want to create a list or a map to store them.
+We will look into returning data in a later section.
+

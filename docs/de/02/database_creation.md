@@ -1,52 +1,49 @@
-# Datenbankerstellung
+# Database creation
 
-Jetzt, wo wir wissen, was wir in unserer Datenbank haben können und wie wir unsere Sachen benennen, können wir endlich 
-mit ihr zu arbeiten.
+Now that we know what we know what we can have in our database and how to name our stuff we can proceed to finally work with it.
 
-Stelle sicher, dass du mit deinem RDBMS verbunden bist. Verwende einen ssh-Tunnel, wie ich es dir auf der [setup](../01/setup.md) 
-Seite gezeigt habe, wenn du dich mit einer entfernten Datenbank verbindest.
+Make sure that you are connected to your RDBMS.
+Use an ssh tunnel like I showed you in the [setup](dev/private/java/!tutorial/basicsql-pages/docs/en/01rivate/java/!tutorial/basicsql-pages/docs/en/01/setup.md) page when you are connection to a remote database.
 
-Die Erstellung von Datenbanken ist bei allen unseren Datenbanken sehr einfach.
+Database creation is actually very simple on all our databases.
 
 ## SQLite
 
-In SQLite ist eine Datenbank gleichbedeutend mit einer Datei. Du hast deine Datenbank bereits erstellt, indem du die SQL-Datei und den Eintrag erstellt hast.
+In SQLite one database is equal to one file. By creating your sql file and entry you have already created your database.
 
-## MySQL, MariaDB und PostgreSQL
+## MySQL, MariaDB and PostgreSQL
 
-Um unsere Datenbank zu erstellen, können wir den Befehl `CREATE` verwenden.
+To create our database we can use the `CREATE` command.
 
 ```sql
 CREATE DATABASE sql_starter; -- (1)
 ```
 
-1. Wir erstellen eine neue Datenbank mit dem Namen `sql_starter`
+1. We create a new database with the name `sql_starter`
 
-Unsere Desktop-Clients erlauben es uns, die Datenbank über die Benutzeroberfläche zu erstellen.
+Our desktop clients allow us to create the database via the UI.
 
 **DataGrip**
 
-Klicke mit der rechten Maustaste auf deinen Datenbankeintrag und wähle `Neu > Datenbank`
+Right-click on your Database entry and select `New > Database`
 
-Klicke mit der rechten Maustaste auf deine neue Datenbank und wähle "Zur Abfragekonsole springen" und wähle die Standarddatenbank.
+Right-click on your new database and select `Jump to query console` and select the default one.
 
 **DBeaver**
 
-Klicke mit der rechten Maustaste auf deinen Datenbankeintrag und wähle "Neue Datenbank erstellen".
+Right-click on your database entry and select `Create New Database`
 
-Klicke mit der rechten Maustaste auf deine neue Datenbank und wähle "SQL-Editor > SQL-Konsole öffnen".
+Right-click on your new database and select `SQL Editor > Open SQL Console`
 
 **HeidiSQL**
 
 TBD
 
-### Nur Postgres
+### Postgres only
 
-Wenn du PostgreSQL verwendest, befindet sich alles, was wir tun, standardmäßig im öffentlichen Schema.
-
-Dieses Schema existiert aus Kompatibilitätsgründen mit anderen Datenbanken, da die Schema-Unterteilung irgendwie einzigartig ist.
-
-Wenn du möchtest, kannst du jetzt ein Schema erstellen, um dein öffentliches Schema sauber zu halten.
+When using PostgreSQL everything we do will be located in the public schema by default.
+This schema exists for compatibility with other databases since the schema subdivision is kinda unique.
+If you want you can create a schema now to keep your public schema clean.
 
 ```sql
 create schema my_schema;
@@ -54,31 +51,25 @@ create schema my_schema;
 
 **DataGrip**
 
-Klicke mit der rechten Maustaste auf deine Datenbank und wähle `Neu > Schema`
-
-Die Konsole in DataGrip ist standardmäßig an eine Datenbank und nicht an ein Schema gebunden.
-
-Du kannst das ändern, indem du das neue Schema oben rechts im Konsolenfenster auswählst.
+Make a right click on your database and select `New > Schema`
+The console in DataGrip is bound to a database and not to a schema by default.
+Cou can change this by selecting the new schema at the top right of your console window.
 
 
 **DBeaver**
 
-Klicke mit der rechten Maustaste auf deine Datenbank und wähle "Erzeugen > Schema".
+Make a right click on your database and select `Create > Schema`.
+Right-click on your new schema and select `SQL Editor > Open SQL Console`.
+Instead of being bound to the public schema your console is now bound to the new schema.
 
-Klicke mit der rechten Maustaste auf dein neues Schema und wähle "SQL-Editor > SQL-Konsole öffnen". Anstatt an das öffentliche Schema gebunden zu sein 
-Schema gebunden ist, ist deine Konsole jetzt an das neue Schema gebunden.
-
-Alternativ kannst du auch das Schema ändern, indem du oben im Konsolenfenster auf `public@<Datenbankname>` klickst 
-und wähle dein neues Schema aus.
+As an alternative you can also change the schema at the top of the console window click on `public@<database_name>` and select your new schema.
 
 **HeidiSQL**
 
 TBD
 
 
-## Datenbankkonfiguration
-Die Konfiguration deiner Datenbank wie Kodierung und Zeitzone richtet sich nach deinen Systemeinstellungen.
-
-Die Optionen, die du an deiner Datenbank ändern kannst, sind zahlreich und ich werde hier nicht darauf eingehen.
-
-Als Anfänger sollten die Standardeinstellungen für alles, was du tun willst, ausreichend sein.
+## Database configuration
+The configuration of your database like encoding and timezone will be orientated on your system settings.
+The options you can change on your database are numerous and I won't cover this here.
+As a beginner the default settings should be sufficient for all what you want to do.

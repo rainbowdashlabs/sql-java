@@ -1,48 +1,48 @@
-# Was ist JDBC?
+# What is JDBC
 
-Ja, das ist wahrscheinlich die erste Frage, der wir nachgehen sollten. JDBC bedeutet **J**ava **D**ata**b**ase **C**onnectivity.
+Yeah, that's probably the first question we should look into.
+JDBC means **J**ava **D**ata**b**ase **C**onnectivity.
 
-JDBC ist Teil von Java und definiert die Komponenten, die für die Interaktion mit einer Datenbank über Java erforderlich sind. Du findest die
-Schnittstellen davon findest du unter `javax.sql` und wird durch `java.sql` ergänzt. Wenn wir mit unserer Datenbank interagieren, verwenden wir normalerweise
-Schnittstellen dieser Pakete verwenden. Sie enthalten verschiedene Schnittstellen, die definieren
-wie Connection, Statement, PreparedStatement, ResultSet, DataSource und Driver zu implementieren sind.
+JDBC is part of java and defines the components required to interact with a database via java.
+You will find the interfaces of it located at `javax.sql` and is supplements by `java.sql`.
+Usually when we interact with our database we will use interfaces contained in those packages.
+They contain several interfaces which define how to implement a `Connection`, `Statement`, `PreparedStatement`, `ResultSet`, `DataSource` and `Driver`.
 
-## Verbindung
+## Connection
 
-Die Verbindungsschnittstelle definiert die Methoden für eine Datenbankverbindung. Sie ermöglicht es uns, Statements und Prepared
-Statements an unsere Datenbank zu senden.
+The connection interface defines the methods for a database connection.
+It allows us to send statements and prepared statements to our database.
 
-## Statement und PreparedStatement
+## Statement and PreparedStatement
 
-Die Schnittstellen Statement und PreparedStatement ermöglichen es uns, unsere SQL-Anweisung zu definieren und an die Datenbank zu senden. Die
-PreparedStatement erlaubt es uns zusätzlich, Variablen in unserer SQL-Abfrage zu setzen und unsere Eingaben zu escapen, um eine SQL
-Injektion zu vermeiden.
+The statement and prepared statement interfaces allow us to define our SQL statement and send it to the database.
+The prepared statement allows us additionally to set variables in our SQL query and escapes our input to avoid SQL injection.
 
 ## ResultSet
 
-Das ResultSet ist das, was wir erhalten, wenn wir Daten aus unserer Datenbank lesen. Es ermöglicht den Zugriff auf die Werte der verschiedenen Spalten und
-die von uns ausgewählten Zeilen durchzugehen. Du kannst es dir als eine Tabelle mit den Zeilen und Spalten vorstellen, die wir in unserer Anweisung ausgewählt haben.
-Sie enthält außerdem zusätzliche Metadaten über die von uns durchgeführte Operation.
+The ResultSet is what we get when we read data from our database.
+It allows to access the value of different columns and going through the rows we selected.
+You can imagine it as a table with the rows and columns we selected in our statement.
+It also contains additional metadata about the operation we performed.
 
 ## DataSource
 
-Die DataSource stammt aus dem Paket `javax.sql`, das die neuere Java-SQL-Implementierung darstellt. Sie ist der Nachfolger
-der Klasse `DriverManager` aus `java.sql`. Es wird nicht mehr empfohlen, den `DriverManager` seit java 8 und
-die Einführung der Klasse `DataSource`.
+The DataSource is from the `javax.sql` package, which represents the newer java sql implementation.
+It is the successor of the `DriverManager` class from `java.sql`.
+It is no longer recommended to use the `DriverManager` since java 8 and the introduction of the `DataSource` class.
 
-Anstatt wie der `DriverManager` eine einzelne `Connection` zu erstellen, soll die `DataSource` eine
-Verbindung bereitstellen und ihre Gültigkeit sicherstellen. Was die DataSource wirklich tut, hängt jedoch stark von ihrer Implementierung ab.
-Manche Implementierungen stellen nur eine einzige Verbindung bereit und verwalten sie. Andere wiederum stellen eine eigene Verbindung bereit, die
-offen gehalten und verwaltet wird. Einige Implementierungen wie [HikariCP](https://github.com/brettwooldridge/HikariCP) bieten eine
-DataSource, die einen Pool von Verbindungen verwaltet. Wir werden uns verschiedene "DataSource"-Implementierungen ansehen und
-Wir werden uns verschiedene Implementierungen von `DataSource` ansehen und uns schließlich für HikariCP entscheiden, da dies der Stand der Technik für Verbindungsmanagement und Pooling ist. Die meisten Datenbanken
-Die meisten Datenbanken bieten nur einfache DataSource-Implementierungen, mit denen man zwar spielen kann, die aber nicht wirklich für den
-Verwendung.
+Instead of creating a single `Connection` like the `DriverManager` does the `DataSource` is supposed to provide a connection and ensure its validity.
+However, what the DataSource really does highly depend on the implementation of it.
+Some implementations only provide a single connection and manage it.
+Some others provide a custom connection which is kept open and maintained.
+Some implementations like [HikariCP](https://github.com/brettwooldridge/HikariCP) provide a DataSource which maintains a pool of connections.
+We will look into different `DataSource` implementations and ultimately end up with HikariCP, which is the state of the art way for connection management and pooling.
+Most databases only provide basic `DataSource` implementations which are good for playing around but not really made for real world use.
 
-## Treiber
+## Driver
 
-Der Treiber ist das Herzstück einer jeden JDBC-Implementierung. Er ist im Grunde der Übersetzer zwischen Java und deiner Datenbank. Du
-wirst den Treiber wahrscheinlich nie direkt benutzen, aber es ist gut zu wissen, dass es ihn gibt und dass er wichtig ist.
+The driver is the heart of every JDBC implementation.
+It is basically the translator between java and your database.
+You will most likely never use the Driver directly, but it is good to know it is there and that it is important.
 
-Wenn du mehr wissen willst, schau dir 
-den [wikipedia Artikel](https://en.wikipedia.org/wiki/Java_Database_Connectivity).
+If you want to know more take a look at the [wikipedia article](https://en.wikipedia.org/wiki/Java_Database_Connectivity).

@@ -1,15 +1,14 @@
-# Kapitel 2
+# Chapter 2
 
-Willkommen zum zweiten Kapitel. Jetzt haben wir die Datenbank unserer Wahl eingerichtet und auch ein Tool installiert, um auf unsere 
-Datenbanken. Natürlich könnten wir jetzt direkt mit dem Schreiben cooler SQL-Abfragen beginnen, aber zuerst müssen wir über 
-einige sehr wichtige Dinge.
+Welcome to chapter two.
+Now we have set up the database of our choice and also installed a tool to access our databases.
+Of course, we could start now directly with writing cool SQL queries, but first we need to talk about some very important stuff.
 
-Zuerst werden wir etwas über Operatoren lernen. Vor allem über Operatoren zum Umwandeln und Vergleichen von Daten. Denn diese 
-Da diese Operatoren stark von den Datentypen abhängen, die wir verwenden, werden wir direkt zu ihnen übergehen und einen Blick auf die verschiedenen 
-Typen, die uns unsere Datenbanken bieten.
+We will start with learning about operators.
+Especially about operators to transform and compare data.
+Because those operators heavily depend on the datatypes we use we will directly head over to them and take a look at the different types our databases offer to us.
 
-Bevor wir nun endlich damit beginnen können, unsere erste Datenbank zu erstellen und unsere Tabellen anzulegen, müssen wir noch etwas 
-wichtige Sache, nämlich die Namensgebung. Eine klare Struktur in deiner Datenbank macht dir das Leben viel leichter und hilft 
-andere zu verstehen, was du tust.
+Before we can now finally start with creating our first database and creating our tables we will need to define some important thing, that is naming.
+A clear structure in your database will make your life a lot easier and helps others to understand what you are doing.
 
-Danach werden wir einen ersten Blick darauf werfen, wie wir Tabellen erstellen und Daten in diese Tabellen einfügen, aktualisieren, auswählen und löschen können.
+After this we will take a first look on how to create tables and insert, update, select and delete data in these tables.

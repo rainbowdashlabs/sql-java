@@ -1,40 +1,41 @@
-# Primärschlüssel
+# Primary Keys
 
-Primärschlüssel sind eine besondere Art von eindeutigem Index. Normalerweise definieren wir sie beim Erstellen unserer Tabelle, indem wir eine Spalte
-als Primärschlüssel. Nicht alle Tabellen brauchen oder können einen Primärschlüssel verwenden. Im Allgemeinen ist der Unterschied zwischen einem eindeutigen
-Index und einem Primärschlüssel ist sehr gering. Der einzige Unterschied ist, dass der Primärschlüssel für einen speziellen Join verwendet werden kann
-genannt `NATURAL JOIN`. Wir werden uns die Joins später ansehen, also denk jetzt noch nicht darüber nach.
+Primary keys are a special type of unique index.
+We usually define them when creating our table, by marking a column as primary key.
+Not all tables will need or be able to use a primary key.
+In general the difference between a unique index and a primary key is very small.
+The only difference is that the primary key can be used for a special join called `NATURAL JOIN`.
+We will look at joins later, so don't think about it yet.
 
-Ein weiterer Unterschied ist, dass ein Primärschlüssel immer als `NOT NULL` markiert ist und eine Tabelle nur einen Primärschlüssel haben kann,
-aber mehrere eindeutige Indizes.
+Another difference is that a primary key is always marked as `NOT NULL` and a table can only have one primary key, but multiple unique indices.
 
-Um unseren Primärschlüssel zu setzen, müssen wir nur unsere Spalte als Primärschlüssel markieren, indem wir `PRIMARY KEY`
-nach dem Typ hinzufügen.
+In order to set our primary key, all we need to do is mark our column as the primary key by adding `PRIMARY KEY` after the type.
 
 ```sql
 CREATE TABLE player
 (
-    id INTEGER PRIMARY KEY,
-    player_name TEXT NOT NULL,
+    id          INTEGER PRIMARY KEY,
+    player_name TEXT      NOT NULL,
     last_online TIMESTAMP NOT NULL DEFAULT NOW()
 );
 ```
 
-Leider funktioniert diese einfache Methode nur mit einer einzigen Spalte als Primärschlüssel. Wenn wir mehrere Spalten als Primärschlüssel haben wollen
-Primärschlüssel haben wollen, wird die Definition unserer Abfrage etwas komplexer. Werfen wir einen Blick auf unsere Tabelle `channel_subscription`
-Tabelle von vorhin an. Wir hatten einen eindeutigen Index für player_id und channel_id und da beide Werte als nicht null markiert sind
-und die Kombination eindeutig sein sollte, eignen sie sich perfekt für einen Primärschlüssel.
+Sadly this simple way only works with a single column as a primary key.
+If we want to have multiple columns as our primary key it will be a bit more complex when defining our query.
+Let's take a look at our `channel_subscription` table from earlier.
+We had a unique index on `player_id` and `channel_id` and since both values are marked as not null and the combination should be unique they are prefect for a primary key.
 
 ```sql
-CREATE TABLE kanal_abonnement
+CREATE TABLE channel_subscription
 (
-    player_id INTEGER,
+    player_id  INTEGER,
     channel_id INTEGER,
     CONSTRAINT channel_subscription_pk
         PRIMARY KEY (player_id, channel_id)
 );
 ```
 
-Die Einschränkung `NOT NULL` können wir jetzt sicher entfernen, da diese bereits durch den Primärschlüssel erzwungen wird.
-Und das war's. Nicht viel komplexer, aber ein bisschen mehr Arbeit beim Schreiben. Achte auch auf die korrekte Benennung des
-des Schlüssels, damit du ihn später identifizieren kannst.
+Not that we can now safely remove the `NOT NULL` restriction since those are enforced by the primary key already.
+And that's it.
+Not that much more complex, but a bit more work to write.
+Also take care about the correct naming of the key in order to identify it later.

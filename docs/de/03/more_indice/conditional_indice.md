@@ -1,11 +1,12 @@
-# Bedingte Indizes
+# Conditional indices
 
-Bis jetzt haben wir nur einen Index für eine oder mehrere Zeilen hinzugefügt. Das ist natürlich gut, wenn wir nach einzelnen Einträgen suchen 
-Einträge suchen oder unsere Tabelle sortieren wollen. Aber es gibt auch andere Fälle. Wir könnten zum Beispiel alle Einträge finden wollen, die 
-ungerade in der money Tabelle sind. Dieses Beispiel könnte der Einfachheit halber etwas konstruiert sein, aber es ist ein gutes 
-Beispiel, um dir zu zeigen, wie bedingte Indizes funktionieren.
+Till now all we did was adding an index for one or more rows.
+Of course this is nice if we want to search for single entries or want to sort our table.
+But there are other cases.
+For example, we might want to find all entries which are odd in the money table.
+This might be a more constructed example for the sake of simplicity, but it is a good example to show you how conditional indices work.
 
-Werfen wir zunächst einen Blick auf unsere ursprüngliche Abfrage, die wir ausführen wollen:
+First lets take a look at our original query we want to execute:
 
 ```sql
 SELECT player_id, money
@@ -13,19 +14,18 @@ FROM money
 WHERE money % 2 != 0;
 ```
 
-Wenn du dir den Abfrageplan ansiehst, wirst du feststellen, dass wir hier keinen Index verwenden, obwohl wir 
-einen Index für die Spalte money haben 
+Feel free to take a look at the query plan, and you will notice that we do not use any index here, even tho we have an index on the money column.
 
-Lass uns einen Index für unsere Berechnung hinzufügen! Anstatt nur einen Spaltenwert zu unserem Index hinzuzufügen, fügen wir nun den 
-den transformierten Spaltenwert in unseren Index ein, was im Grunde genommen unsere Prüfung ist, die wir zuvor durchgeführt haben.
+Let's add an index for our calculation!
+Instead of just adding a column value to our index we will now add the transformed column value to our index, which will be basically our check we performed earlier.
 
 ```sql
 CREATE INDEX money_is_odd 
     ON money((money % 2 != 0))
 ```
 
-Nicht, dass wir den Ausdruck in einen weiteren Satz geschweifter Klammern schreiben. Das ist notwendig, weil unsere Datenbank einen Wert erwartet 
-und nicht einen Ausdruck.
+Not that we write the expression in another set of braces.
+This is required, because our database expects a value there and not an expression.
 
 ```sql
 SELECT player_id, money
@@ -33,9 +33,9 @@ FROM money
 WHERE money % 2 != 0;
 ```
 
-Wenn wir uns unseren Abfrageplan jetzt noch einmal ansehen, werden wir feststellen, dass wir tatsächlich einen Index für unsere Prüfung verwenden!
+If we take another look at our query plan now we will notice that we are indeed using an index for our check!
 
-Versuchen wir das Gleiche mit einer geraden Prüfung zu tun:
+Let's try to do the same with an even check:
 
 ```sql
 SELECT player_id, money
@@ -43,10 +43,9 @@ FROM money
 WHERE money % 2 = 0;
 ```
 
-Wenn wir uns hier den Abfrageplan ansehen, sehen wir leider, dass unsere Datenbank nicht weiß, dass die Lösung einfach ein 
-invertierter Index ist, aber das ist eigentlich in Ordnung. Wir haben jetzt zwei Möglichkeiten:
+Sadly, if we check the query plan here we see that our database does not know that the solution would be simply an inverted index, but that is actually fine. We now have two choices:
 
-1. Wir fügen einen zweiten Index für gerade Zahlen hinzu
+1. Adding a second index for even numbers
 
 ```sql
 CREATE INDEX money_is_even
@@ -56,7 +55,7 @@ SELECT player_id, money
 FROM money
 WHERE money % 2 = 0;
 ```
-2. Das Ergebnis unserer Bedingung einfach umkehren!
+2. Simply inverting our condition result!
 
 ```sql
 SELECT player_id, money
@@ -64,6 +63,7 @@ FROM money
 WHERE NOT money % 2 != 0;
 ```
 
-Die Wahl ist vielleicht schon ziemlich klar. Indizes brauchen Platz, deshalb lohnt es sich, ein bisschen länger zu überlegen, ob du 
-einen bestehenden Index wiederverwenden kannst, anstatt einen neuen zu erstellen, lohnt es sich normalerweise immer. Im Allgemeinen werden Indizes nur 
-verwendet, wenn der Ausdruck in der Abfrage auch im Index selbst enthalten ist. Mehr dazu im nächsten Kapitel!
+The choice might be quite clear already.
+Indices take up space, so thinking a bit longer to see if you can actually reuse an existing index instead of creating a new one is usually always worth it.
+In general indices will be only used if the expression inside the query is also present inside the index itself.
+More on this in the next chapter!

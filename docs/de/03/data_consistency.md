@@ -1,5 +1,6 @@
-# Datenkonsistenz
+# Data Consistency
 
-Datenkonsistenz ist das A und O bei Datenbanken. In einer idealen Welt entfernt eine Datenbank ungültige Daten von selbst und
-sicher, dass nur gültige Daten eingefügt werden. Zum Glück geben uns alle Datenbanken die Werkzeuge an die Hand, die wir brauchen, um diese Ziele zu erreichen.
-idealen Ziele zu erreichen. Sie heißen eindeutige Indizes, Constrains, Fremdschlüssel und mehr.
+Data consistency is key when it comes to databases.
+In an ideal world a database removes invalid data by itself and ensures that only valid data gets inserted.
+Luckily all our databases give us the tools we need to accomplish those ideal goals.
+They are called unique indices, constrains, foreign keys and more.

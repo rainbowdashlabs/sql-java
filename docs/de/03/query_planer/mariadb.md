@@ -1,9 +1,9 @@
 # MariaDB
 
-Die Query Planer von MariaDB und MySQL sind recht einfach zu verstehen. Eine ausführliche Beschreibung findest du in den 
-docs von [MariaDB](https://mariadb.com/kb/en/explain/) und MySQL.
+The query planer of MariaDB and MySQL are quite simple to understand.
+An in depth description can be found in the docs of [MariaDB](https://mariadb.com/kb/en/explain/) and MySQL.
 
-Wir beginnen mit unserer Grundabfrage von vorhin:
+We start with our basic query from earlier:
 
 ```sql
 EXPLAIN
@@ -12,32 +12,32 @@ FROM player
 WHERE id = 5;
 ```
 
-Dies gibt zurück:
+This returns:
 
 
-| id | select\_type | table | type | possible\_keys | key | key\_len | ref | rows | Extra |
+| id  | select\_type | table  | type | possible\_keys | key  | key\_len | ref  | rows | Extra       |
 |:----|:-------------|:-------|:-----|:---------------|:-----|:---------|:-----|:-----|:------------|
-| 1 | SIMPLE | player | ALL | null | null | null | null | 10 | Using where |
+| 1   | SIMPLE       | player | ALL  | null           | null | null     | null | 10   | Using where |
 
-Beginnen wir mit den einzelnen Spalten und schauen wir uns an, was sie eigentlich bedeuten:
+Let's start with each column and take a look at what they actually mean:
 
-- `id` -> Die Reihenfolge, wenn du mehrere Tabellen kombinierst (Das haben wir noch nicht gemacht)
-- `select_type` -> Die Herkunft der ausgewählten Daten. Es gibt verschiedene Typen wie einfache oder Selects auf den 
-  Schlüssel `PRIMARY`. Diese werden wir noch öfter sehen.
-- `table` -> die Tabelle, aus der wir ausgewählt haben. In unserem Fall die Tabelle `player`.
-- `Typ` -> Das ist wahrscheinlich unsere wichtigste Spalte. In dieser Spalte steht derzeit "all", was bedeutet, dass wir 
-  alle Zeilen der Tabelle. Ideal wäre so etwas wie `index` oder `range`, was eine Verkürzung der Laufzeit bedeutet.
-- `possible_keys` zeigt die Namen der Schlüssel in der Tabelle an, aus der wir lesen.
-- `key` -> Der tatsächlich verwendete Schlüssel für unsere Abfrage.
-- `key_len` -> die Länge des verwendeten Schlüssels, wenn wir mehrspaltige Schlüssel verwenden
-- `ref` -> Die Referenz des Schlüsselwertes
-- `rows` -> Eine Schätzung, wie viele Zeilen wir erwarten können.
-- `Extra` -> einige zusätzliche Informationen. In unserem Fall sagt es uns, dass wir nach einer Where-Klausel suchen 
+- `id` -> The sequence when you combine multiple tables (We didn't do this yet)
+- `select_type` -> The origin of the selected data. There are different types like simple or selects on the 
+  `PRIMARY` key. We will see those more often
+- `table` -> the table we selected from. In our case the `player` table
+- `type` -> That's probably our most important column. This column currently shows `all` which means we are reading 
+  all rows of the table. Ideally there would be something like `index` or `range` which means a reduction in runtime.
+- `possible_keys` shows the names of the key in the table we are reading from.
+- `key` ->  The actual used key for our query.
+- `key_len` -> the length of the used key when we use multi-column keys
+- `ref` -> The reference of the key value
+- `rows` -> An estimation of how many rows we can expect.
+- `Extra` -> some additional information. In our case it tells us that we are searching by a where clause 
 
-## Analysieren
+## Analyze
 
-Zusätzlich kann das Schlüsselwort `ANALYZE` dir einen Einblick in das geben, was tatsächlich vor sich geht. Damit wird die 
-Abfrage aus und misst alles:
+Additionally, the `ANALYZE` keyword can give you an insight about the actual stuff going on.
+This will execute the query and measure everything:
 
 ```sql
 ANALYZE
@@ -46,10 +46,10 @@ FROM player
 WHERE id = 5;
 ```
 
-Ergebnisse in:
+Results in:
 
-| id | select\_type | table | type | possible\_keys | key | key\_len | ref | rows | r\_rows | filtered | r\_filtered | Extra |
+| id  | select\_type | table  | type | possible\_keys | key  | key\_len | ref  | rows | r\_rows | filtered | r\_filtered | Extra       |
 |:----|:-------------|:-------|:-----|:---------------|:-----|:---------|:-----|:-----|:--------|:---------|:------------|:------------|
-| 1 | EINFACH | player | ALL | null | null | null | null | 10 | 10.00 | 100 | 10 | Mit wo |
+| 1   | SIMPLE       | player | ALL  | null           | null | null     | null | 10   | 10.00   | 100      | 10          | Using where |
 
-Zusätzlich zu den vorherigen Schätzungen zeigen die Spalten mit dem Präfix `r_` die tatsächlichen Werte an.
+Additionally, to the previous estimations, columns prefixed with `r_` are showing the real values.
