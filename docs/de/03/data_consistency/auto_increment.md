@@ -62,7 +62,7 @@ Denk nicht darüber nach.
 Du musst nur die Spalte als Primärschlüssel markieren und Folgendes hinzufügen
 `AUTOINCREMENT` anfügen.
 
-``sqlite
+```sqlite
 CREATE TABLE player
 (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
