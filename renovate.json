@@ -1,5 +1,5 @@
 {
-  "baseBranches": ["master"],
+  "baseBranches": ["main"],
   "dependencyDashboard": true,
   "labels": ["dependencies"],
   "extends": ["config:base"],
