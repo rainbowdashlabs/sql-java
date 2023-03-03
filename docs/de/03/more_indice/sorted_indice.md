@@ -4,9 +4,9 @@ Im Allgemeinen sind Indizes immer sortiert, weil sie so funktionieren.
 Das können wir nutzen, um Suchvorgänge zu beschleunigen, bei denen wir eine Tabelle nach einem Wert sortieren wollen.
 Wenn wir einen Index für die Spalte erstellen, nach der wir sortieren wollen, können wir die Sortierung direkt überspringen, denn die Datenbank schaut sich nur den bereits sortierten Index an.
 
-Wahrscheinlich wollen wir unsere Nutzer nach der Menge des Geldes sortieren, das wir haben!
+Wahrscheinlich wollen wir unsere Nutzer nach der Menge des Geldes sortieren, das sie haben!
 
-*Vergiss nicht, zuerst einige Daten in deine money-Tabelle einzufügen c: Du musst eventuell noch mehr hinzufügen, wenn du willst, dass der Index verwendet wird.*
+*Vergiss nicht, zuerst einige Daten in deine `money` Tabelle einzufügen c: Du musst eventuell noch mehr hinzufügen, wenn du willst, dass der Index verwendet wird.*
 
 <Details>
 <summary>Datengenerierung für Postgres</summary>
@@ -33,16 +33,16 @@ LIMIT 5;
 ```
 
 | player_id | money |
-|:-----------|:------|
-| 1406 | 9994 |
-| 1358 | 9993 |
-| 1430 | 9989 |
-| 178 | 9985 |
-| 1113 | 9977 |
+|:----------|:------|
+| 1406      | 9994  |
+| 1358      | 9993  |
+| 1430      | 9989  |
+| 178       | 9985  |
+| 1113      | 9977  |
 
-Wenn du möchtest, kannst du den Abfrageplan jetzt überprüfen, so wie wir es im vorherigen [Abschnitt](../03/query_planer.md) getan haben. 
+Wenn du möchtest, kannst du den Queryplan jetzt überprüfen, so wie wir es im vorherigen [Abschnitt](../query_planer.md) getan haben. 
 Du wirst sehen, dass wir derzeit überhaupt keinen Index verwenden.
-Das wird sich natürlich ändern, wenn wir einen Index für die Spalte money hinzufügen.
+Das wird sich natürlich ändern, wenn wir einen Index für die Spalte `money` hinzufügen.
 
 ```sql
 -- Wir verwenden dieses Mal CREATE INDEX statt CREATE UNIQUE INDEX
@@ -51,7 +51,7 @@ CREATE INDEX money_money_index
     ON money (money DESC);
 ```
 
-Schau dir jetzt den Abfrageplan für diese Abfrage an.
+Schau dir jetzt den Queryplan für diese Abfrage an.
 
 ```sql
 SELECT player_id, money

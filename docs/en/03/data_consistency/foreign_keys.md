@@ -1,11 +1,11 @@
 # Foreign Keys
 
-We already know about [primary keys](../03/data_consistency/primary_keys.md) but there is at least one more important key type.
+We already know about [primary keys](primary_keys.md) but there is at least one more important key type.
 This is called the foreign key.
 All it does is checking if a value in a column is present in a column of another table.
 Sounds complicated? Trust me it isn't!
 
-Do you remember our money problem back in chapter 1 where we deleted a player, but his money was still listed in the money table?
+Do you remember our money problem back in [chapter 2](../../02/delete.md) where we deleted a player, but his money was still listed in the money table?
 We needed to delete it manually back then.
 Foreign keys allow us to do something cooler instead.
 

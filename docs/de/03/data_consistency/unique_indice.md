@@ -1,9 +1,9 @@
 # Eindeutige Indizes
 
 Jetzt haben wir einen weiteren Fehler in unserer Tabelle.
-Wir haben unsere ID, die wir jedem Spieler zuweisen.
+Wir haben unsere `id`, die wir jedem Spieler zuweisen.
 Diese Kennung sollte eindeutig sein, aber das ist sie nicht, wie wir bereits festgestellt haben.
-Wir können derzeit mehrere Spieler mit derselben ID haben.
+Wir können derzeit mehrere Spieler mit derselben `id` haben.
 
 An dieser Stelle kommen eindeutige Indizes ins Spiel.
 Sie stellen sicher, dass alle Werte in einer Spalte oder eine Kombination aus mehreren Werten eindeutig sind.

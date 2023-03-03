@@ -1,11 +1,11 @@
 # Postgres
 
 Der Postgres Query Planner ist extrem leistungsfähig und bietet einen hohen Detailgrad über die ausgeführten Aufgaben.
-Knoten werden durch Einrückungen im Abfrageplan dargestellt.
-Die Knoten werden vom inneren zum äußeren Knoten ausgeführt.
-Das ist noch nicht wichtig, da unsere Abfragepläne zunächst sehr einfach sein werden und wahrscheinlich nicht einmal so viele Knoten haben werden.
+Nodes werden durch Einrückungen im Abfrageplan dargestellt.
+Die Nodes werden vom inneren zur äußeren Node ausgeführt.
+Das ist noch nicht wichtig, da unsere Querpläne zunächst sehr einfach sein werden und wahrscheinlich nicht einmal so viele Nodes haben werden.
 
-Um einen tieferen Einblick in die Postgres-Abfragepläne zu bekommen, schau dir diese [Seite](https://www.postgresql.org/docs/current/using-explain.html) an.
+Um einen tieferen Einblick in die Postgres-Querypläne zu bekommen, schau dir diese [Seite](https://www.postgresql.org/docs/current/using-explain.html) an.
 
 Wir beginnen mit unserer Basisabfrage von vorhin:
 
@@ -25,18 +25,18 @@ Seq Scan on player (cost=0.00..24.12 rows=6 width=44)
 
 Schauen wir uns nun an, was wir hier sehen und heben wir die wichtigsten Dinge hervor:
 
-Erster Knoten:
+Erste Node:
 
-- `Seq Scan` bedeutet, dass wir über die gesamte Tabelle iterieren. das ist der Knotentyp.
-- on player" ist die Tabelle, die wir uns ansehen.
+- `Seq Scan` bedeutet, dass wir über die gesamte Tabelle iterieren. das ist der Nodetype.
+- `on player` ist die Tabelle, die wir uns ansehen.
 - `cost=0.00..24.12` die Kosten sind die Rechenleistung, die die Datenbank voraussichtlich benötigt. Höhere Zahlen bedeuten
   längere Zeiten. Die erste Zahl ist die Planungszeit. Die zweite Zahl ist die Zeit, die zum Lesen der Daten benötigt wird.
 - Bei `rows=6` erwartet die Datenbank aufgrund der internen Statistiken, dass bis zu 6 Zeilen zurückgegeben werden.
 - `width=44` ist die Menge der erwarteten Daten in Bytes
 
-Zweiter Knoten:
+Zweite Node:
 
-- `Filter:` ist der Typ unseres nächsten Knotens. Ein Filter-Knoten.
+- `Filter:` ist der Typ unseres nächsten Node. Eine Filternode.
 - `(id = 5)` ist der Filter selbst.
 
 Versuchen wir nun, ein komplexeres Beispiel zu erstellen.
@@ -72,7 +72,7 @@ Wir gehen es Schritt für Schritt durch und beginnen mit dem innersten Knoten.
                           Filter: ((player_1 = 2) OR (player_2 = 2))
 ```
 
-Wir kennen diesen Knoten bereits aus dem vorherigen Plan.
+Wir kennen diese Node bereits aus dem vorherigen Plan.
 Ein einfacher Scan über die gesamte Tabelle mit einer Bedingung.
 Der einzige Unterschied ist, dass wir in unserem Filter auf zwei Bedingungen prüfen und nicht nur auf eine.
 
@@ -83,13 +83,13 @@ Der einzige Unterschied ist, dass wir in unserem Filter auf zwei Bedingungen pr�
               -> Hash (cost=43.90..43.90 rows=23 width=8)
 ```
 
-Wir müssen uns diese Knoten gemeinsam ansehen.
-Wir fügen unsere Tabelle zusammen.
-Das bedeutet, dass wir einfach ein paar weitere Spalten auf unsere ursprüngliche Tabelle, den Freundesgraphen, kleben.
+Lass uns diese Node gemeinsam ansehen.
+Wir fügen unsere Tabelle zusammen in der Joinnode.
+Das bedeutet, dass wir einfach ein paar weitere Spalten an unsere ursprüngliche Tabelle, den `friend_graph`, kleben.
 Wir tun dies auf der Grundlage einer Bedingung.
 Für diese Bedingungen müssen wir die Spalten, die wir verwenden, mit einem Hash versehen.
-Am Ende müssen wir die gesamte Spielertabelle erneut lesen, um alle passenden Spieler zu finden.
-Und das ist schon alles in diesem Knoten.
+Am Ende müssen wir die gesamte `player` Table erneut lesen, um alle passenden Spieler zu finden.
+Und das ist schon alles in dieser Node.
 
 ```
 Hash Right Join (cost=74.06..123.89 rows=734 width=72)
@@ -98,10 +98,10 @@ Hash Right Join (cost=74.06..123.89 rows=734 width=72)
   -> Hash (cost=72.44..72.44 rows=130 width=40)
 ```
 
-Dieser Knoten ist genau derselbe Knoten wie der vorherige.
-Der einzige Unterschied ist, dass wir die Spalte `player_2` unseres Freundesgraphen verwenden.
+Dieser Knoten ist genau dieselbe Node wie der vorherige.
+Der einzige Unterschied ist, dass wir die Spalte `player_2` unseres `friend_graph` verwenden.
 
-Ich gehe nicht davon aus, dass du das alles schon verstehst, also sei nicht erschrocken.
+Ich gehe nicht davon aus, dass du das alles schon verstehst, also mach dir keine Sorgen.
 Du sollst nur ein besseres Verständnis für die Abfragepläne bekommen.
 Das meiste Wissen erhältst du, wenn du weitere Pläne liest und einen Blick in die oben verlinkten umfangreichen Postgres-Dokumente wirfst.
 
