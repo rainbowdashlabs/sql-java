@@ -22,7 +22,7 @@ GROUP BY player_id;
 
 Sobald wir diesen Code ausgeführt haben, müssen wir nur noch die Freundesanzahl aus unserer Ansicht `friend_count` auslesen.
 Allerdings unterscheidet unsere Datenbank bei der Auswahl nicht zwischen Tabelle und View.
-Wir werden unseren View wie eine Tabelle behandeln.
+Wir müssen unseren View wie eine Tabelle behandeln.
 
 ```postgresql
 SELECT player_id, sum
@@ -37,17 +37,16 @@ FROM friend_count;
 | 1 | 3 |
 
 Views auf eine Tabelle sind eine gute Möglichkeit, um größere SQL-Anweisungen zu verstecken.
-Denke daran, dass bei jedem Aufruf der View 
-auch die zugrunde liegende Abfrage aufgerufen wird.
+Denke daran, dass bei jedem Aufruf der View auch die zugrunde liegende Abfrage aufgerufen wird.
 Aus diesem Grund können Views deine Aggregation nicht wirklich beschleunigen.
 
 ## Materialisierte Ansichten
 
 **Nur Postgres**
 
-Wenn du Postgres verwendest, hast du Glück, denn Postgres verfügt über so genannte materialisierte Ansichten.
+Wenn du Postgres verwendest, hast du Glück, denn Postgres verfügt über sogenannte materialisierte Ansichten.
 Das sind echte Tabellen, die von einer Abfrage erstellt werden.
-Du definierst sie genauso wie die Views und fügst einfach das Schlüsselwort "MATERIALIZED" hinzu:
+Du definierst sie genauso wie die Views und fügst einfach das Schlüsselwort `MATERIALIZED` hinzu:
 
 ```postgresql
 CREATE MATERIALIZED VIEW friend_count_mat AS

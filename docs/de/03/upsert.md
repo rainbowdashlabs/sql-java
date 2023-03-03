@@ -1,11 +1,11 @@
 # Upsert und Konfliktbehandlung
 
 Jetzt haben wir viele Möglichkeiten, Eingaben in unseren Tabellen zu blockieren.
-Wir haben Primärschlüssel, eindeutige Schlüssel und Foreign keys, die die Eingabe von ungültigen oder doppelten Daten in unsere Tabellen blockieren.
+Wir haben `Primary Keys`, `Unique Indices` und `Foreign Keys`, die die Eingabe von ungültigen oder doppelten Daten in unsere Tabellen blockieren.
 
-Fehler bei Foreign keys sind beabsichtigt.
+Fehler bei `Foreign Keys` sind beabsichtigt.
 Diese sollten immer auf der Anwendungsseite behandelt werden.
-Fehler bei eindeutigen Schlüsseln können jedoch von uns behandelt werden.
+Fehler bei `Unique Indices` können jedoch von uns behandelt werden.
 Dafür verwenden wir ein Konstrukt, das `UPSERT` genannt wird.
 Der Name deutet bereits an, dass es sich um eine Mischung aus `UPDATE` und `INSERT` handelt.
 Im Grunde heißt es: Einfügen und wenn mich etwas am Einfügen hindert, dann möchte ich die Daten aktualisieren.
@@ -16,7 +16,7 @@ Je nachdem, welche Datenbank du verwendest, ist die Syntax ein bisschen anders.
 
 ### Postgres & SqLite
 
-Für Postgres und SqLite fügen wir Lexy erneut ein und scheitern dabei gnädig.
+Für Postgres und SqLite fügen wir Lexy erneut ein und scheitern dabei.
 
 ```postgresql
 -- Dies ist unsere übliche Insert-Anweisung
@@ -44,7 +44,7 @@ Mit ihr fügen wir unseren Spieler in unsere Online-Tabelle ein und aktualisiere
 
 Das Paradigma ist immer: Versuche einzufügen und wenn das nicht geht, lass mich die Zeile mit dem Konflikt ändern.
 
-### Postges & SqLite 
+### PostgeSQL & SqLite 
 
 Für Postgres und SqLite fügen wir Lexy erneut ein und aktualisieren diesmal die Online-Zeit, falls bereits ein Spieler mit diesem Namen vorhanden ist. 
 
@@ -59,7 +59,7 @@ ON CONFLICT (player_name)
     DO UPDATE SET last_online = NOW();
 ```
 
-#### Tabelle ausschließen
+#### Excluded Table
 
 Nehmen wir an, wir haben eine neue Zeile in unserer Spielertabelle namens Alter.
 
