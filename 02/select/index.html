@@ -1,0 +1,2352 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Your goto page when you start with java and sql.">
+      
+      
+      
+        <link rel="canonical" href="https://rainbowdashlabs.github.io/BasicSQLPlugin/02/select/">
+      
+      
+        <link rel="prev" href="../insert/">
+      
+      
+        <link rel="next" href="../update/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.0">
+    
+    
+      
+        <title>Select - SQL & Java - Your getting started Guide</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.402914a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.a0c5b2b5.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="pink" data-md-color-accent="light-blue">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#select" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="SQL &amp; Java - Your getting started Guide" class="md-header__button md-logo" aria-label="SQL & Java - Your getting started Guide" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SQL & Java - Your getting started Guide
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Select
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="pink" data-md-color-accent="light-blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="pink" data-md-color-accent="light-blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/RainbowDashLabs/BasicSQLPlugin/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Basic SQL Plugin
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="SQL &amp; Java - Your getting started Guide" class="md-nav__button md-logo" aria-label="SQL & Java - Your getting started Guide" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    SQL & Java - Your getting started Guide
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/RainbowDashLabs/BasicSQLPlugin/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Basic SQL Plugin
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Chapter 1 Getting Started
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Chapter 1 Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01/preface/" class="md-nav__link">
+        Preface
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01/about_databases/" class="md-nav__link">
+        About Databases
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01/setup/" class="md-nav__link">
+        Project Setup
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Chapter 2 Basic Data Operations
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Chapter 2 Basic Data Operations
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operators/" class="md-nav__link">
+        Operators
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sql_datatypes/" class="md-nav__link">
+        SQL Datatypes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+          Datatypes
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Datatypes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../datatypes/sqlite/" class="md-nav__link">
+        SQLite
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../datatypes/mariadb_mysql/" class="md-nav__link">
+        MariaDB and MySQL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../datatypes/postgresql/" class="md-nav__link">
+        PostgreSQL
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../naming/" class="md-nav__link">
+        Naming Conventions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../code_style/" class="md-nav__link">
+        Code Style
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../database_creation/" class="md-nav__link">
+        Database Creation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tables/" class="md-nav__link">
+        Tables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../insert/" class="md-nav__link">
+        Insert
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Select
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Select
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basic-select" class="md-nav__link">
+    Basic select
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#column-alias" class="md-nav__link">
+    Column Alias
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#table-alias" class="md-nav__link">
+    Table alias
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where" class="md-nav__link">
+    WHERE
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#order-by" class="md-nav__link">
+    ORDER BY
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limit" class="md-nav__link">
+    LIMIT
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#offset" class="md-nav__link">
+    OFFSET
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summing-up" class="md-nav__link">
+    Summing Up
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../update/" class="md-nav__link">
+        Update
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../delete/" class="md-nav__link">
+        Delete
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../returning/" class="md-nav__link">
+        Returning changed data
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Chapter 3 Data Consistency and advanced operations
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Chapter 3 Data Consistency and advanced operations
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03/query_planer/" class="md-nav__link">
+        Query Planer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+          Query Planer Details
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          Query Planer Details
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03/query_planer/postgres/" class="md-nav__link">
+        Postgres
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03/query_planer/mariadb/" class="md-nav__link">
+        MariaDB
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03/query_planer/mysql/" class="md-nav__link">
+        MySQL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03/query_planer/sqlite/" class="md-nav__link">
+        SqLite
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03/data_consistency/" class="md-nav__link">
+        Data Consistency
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+          Data Consistency Methods
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_5">
+          <span class="md-nav__icon md-icon"></span>
+          Data Consistency Methods
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03/data_consistency/null_values/" class="md-nav__link">
+        Null Values
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03/data_consistency/default_values/" class="md-nav__link">
+        Default Values
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03/data_consistency/unique_indice/" class="md-nav__link">
+        Unique Indice
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03/data_consistency/primary_keys/" class="md-nav__link">
+        Primary Keys
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03/data_consistency/auto_increment/" class="md-nav__link">
+        Auto Increment
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03/data_consistency/foreign_keys/" class="md-nav__link">
+        Foreign Keys
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03/data_consistency/checks/" class="md-nav__link">
+        Checks
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03/more_indice/" class="md-nav__link">
+        More about Indice
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_7" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_7" id="__nav_4_7_label" tabindex="0">
+          Even more about Indice
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_7">
+          <span class="md-nav__icon md-icon"></span>
+          Even more about Indice
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03/more_indice/sorted_indice/" class="md-nav__link">
+        Sorted Indice
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03/more_indice/conditional_indice/" class="md-nav__link">
+        Conditional indice
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03/more_indice/indice_and_expressions/" class="md-nav__link">
+        Indice and expressions
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03/upsert/" class="md-nav__link">
+        Upsert and Conflict handling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03/aggregation/" class="md-nav__link">
+        Aggregation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03/normalization/" class="md-nav__link">
+        Normalization
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03/joins/" class="md-nav__link">
+        Joins
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03/views/" class="md-nav__link">
+        Views
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Chapter 4 Java JDBC and SQL
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Chapter 4 Java JDBC and SQL
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04/jdbc/" class="md-nav__link">
+        What is JDBC
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04/try_with_resources/" class="md-nav__link">
+        Try with resources
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04/driver/" class="md-nav__link">
+        Driver Implementation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04/datasource/" class="md-nav__link">
+        Basic Datasource
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="0">
+          JDBC Usage
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5_6">
+          <span class="md-nav__icon md-icon"></span>
+          JDBC Usage
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04/prepared_statements/" class="md-nav__link">
+        Prepared statement
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04/select_single/" class="md-nav__link">
+        Read single rows
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04/select_multi/" class="md-nav__link">
+        Read multiple rows
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04/update_delete/" class="md-nav__link">
+        Update and Delete
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04/insert/" class="md-nav__link">
+        Insert
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          Chapter 5 Advanced Java
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Chapter 5 Advanced Java
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05/return/" class="md-nav__link">
+        Return Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05/async/" class="md-nav__link">
+        Async Calling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05/hikari/" class="md-nav__link">
+        HikariCP and Connection Pooling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05/versioning/" class="md-nav__link">
+        Versioning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05/snippets/" class="md-nav__link">
+        Snippets
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basic-select" class="md-nav__link">
+    Basic select
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#column-alias" class="md-nav__link">
+    Column Alias
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#table-alias" class="md-nav__link">
+    Table alias
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where" class="md-nav__link">
+    WHERE
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#order-by" class="md-nav__link">
+    ORDER BY
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limit" class="md-nav__link">
+    LIMIT
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#offset" class="md-nav__link">
+    OFFSET
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summing-up" class="md-nav__link">
+    Summing Up
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="select">Select</h1>
+<p>The <code>SELECT</code> statement is another very important statement. Now that we have inserted data in our tables we want to read
+them as well.</p>
+<p>The <code>SELECT</code> statement always returns a so-called result set. This set contains all our requested data. Notice that 
+although that it is called a "set", this doesn't man that the results are unique in any way.</p>
+<h2 id="basic-select">Basic select</h2>
+<p>The pure basic select statement is quite simple:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">       </span><span class="n">player_name</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">player</span><span class="p">;</span>
+</code></pre></div>
+<p>This statement will give you the content of <code>id</code> and <code>name</code> of the table <code>player</code>.</p>
+<table>
+<thead>
+<tr>
+<th align="left">id</th>
+<th align="left">player_name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">1</td>
+<td align="left">Mike</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">Sarah</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">John</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">Lilly</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">Matthias</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left">Lenny</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left">Summer</td>
+</tr>
+<tr>
+<td align="left">8</td>
+<td align="left">Marry</td>
+</tr>
+<tr>
+<td align="left">9</td>
+<td align="left">Milana</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="left">Lexi</td>
+</tr>
+</tbody>
+</table>
+<p>If you ever see or write a statement like this you might select way more than you need. Usage of plain select statement
+can be generally discouraged. In 99% of these cases there are better and more refined statements.</p>
+<blockquote>
+<p><strong>Read what you need</strong></p>
+</blockquote>
+<p>This is in general always a good thing to remember. Never read more data from the database than you need. The following
+keywords will help doing this.</p>
+<h2 id="column-alias">Column Alias</h2>
+<p>Using the <code>as</code> keyword we can rename columns when we select them</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">       </span><span class="n">player_name</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">name</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">player</span><span class="p">;</span>
+</code></pre></div>
+<p>Returns:</p>
+<table>
+<thead>
+<tr>
+<th align="left">id</th>
+<th align="left">name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">1</td>
+<td align="left">Mike</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">Sarah</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">Lilly</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">Matthias</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left">Lenny</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left">Summer</td>
+</tr>
+<tr>
+<td align="left">8</td>
+<td align="left">Marry</td>
+</tr>
+<tr>
+<td align="left">9</td>
+<td align="left">Milana</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="left">Lexi</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">John</td>
+</tr>
+</tbody>
+</table>
+<p>The column <code>player_name</code> is now names <code>name</code> in our result set</p>
+<h2 id="table-alias">Table alias</h2>
+<p>Tables can have aliases too. You won't need them now, but in general those are defined right behind the table name.</p>
+<p>Those are used to define a unique table name when you use multiple tables. It is also used to abbreviate long table 
+names, when you need to use the name explicitly.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">pl</span><span class="p">.</span><span class="n">id</span><span class="p">,</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">player_name</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">name</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">player</span><span class="w"> </span><span class="n">pl</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="where">WHERE</h2>
+<p>The where statement might be the most important keyword in sql. The where keyword evaluates to a boolean for each row
+and defines whether a row gets returned or not.</p>
+<p>Remember the <a href="../operators/#logical">logical operators</a> earlier in the chapter.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">column_x</span><span class="p">,</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">       </span><span class="n">column_y</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">my_table</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">column_z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value_a</span><span class="p">;</span><span class="w"> </span><span class="c1">--(1)</span>
+</code></pre></div>
+<ol>
+<li>The condition can be anything. It can be also multiple conditions or checks combined with <code>AND</code> or <code>OR</code>. The column
+   you check does not need to be contained in the select statement itself.</li>
+</ol>
+<p>Try to select all players with an id greater than 5.</p>
+<p>In the end you should have a table like this:</p>
+<table>
+<thead>
+<tr>
+<th align="left">id</th>
+<th align="left">player_name</th>
+<th align="left">last_online</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">6</td>
+<td align="left">Lenny</td>
+<td align="left">2022-03-08 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left">Summer</td>
+<td align="left">2022-05-22 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">8</td>
+<td align="left">Marry</td>
+<td align="left">2022-06-04 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">9</td>
+<td align="left">Milana</td>
+<td align="left">2022-02-12 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="left">Lexi</td>
+<td align="left">2022-02-22 00:00:00.000000</td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary>Solution</summary>
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">       </span><span class="n">player_name</span><span class="p">,</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">       </span><span class="n">last_online</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="k">FROM</span><span class="w"> </span><span class="n">player</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+</code></pre></div>
+
+</details>
+
+<p>All we need here is a simple check on the id column.</p>
+<p>We can also get more specific here. Let's add one more check for all names which start with the letter <code>m</code>. (case
+insensitive)</p>
+<table>
+<thead>
+<tr>
+<th align="left">id</th>
+<th align="left">player_name</th>
+<th align="left">last_online</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">8</td>
+<td align="left">Marry</td>
+<td align="left">2022-06-04 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">9</td>
+<td align="left">Milana</td>
+<td align="left">2022-02-12 00:00:00.000000</td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary>Solution</summary>
+
+**MySQL, MariaDB, SqLite**
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">       </span><span class="n">player_name</span><span class="p">,</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">       </span><span class="n">last_online</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="k">FROM</span><span class="w"> </span><span class="n">player</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">5</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="n">player_name</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;m%&#39;</span><span class="p">;</span>
+</code></pre></div>
+
+The `LIKE` keyword compares case-insensitive. the `%` is a wildcard for an infinite amount of other characters.
+
+**PostgreSQL**
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">       </span><span class="n">player_name</span><span class="p">,</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">       </span><span class="n">last_online</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="k">FROM</span><span class="w"> </span><span class="n">player</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">5</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="n">player_name</span><span class="w"> </span><span class="k">ILIKE</span><span class="w"> </span><span class="s1">&#39;m%&#39;</span><span class="p">;</span>
+</code></pre></div>
+
+Unlike the other databases the `LIKE` is case-sensitive in Postgres. That's why we need to use `ILIKE` here.
+
+
+</details>
+
+<p>You can continue chaining more conditions or try an <code>OR</code> instead of the <code>AND</code> and look how the output changes.</p>
+<h2 id="order-by">ORDER BY</h2>
+<p>Currently, our players are retrieved in the order they were inserted into the database. This might not only be the order
+we want.</p>
+<p>Let's say we want our players in the order they were last seen with the most recent players first and the inactive players
+last. We can do this by using the <code>ORDER BY</code> keyword on the <code>last_online</code> column.</p>
+<p>The general syntax is:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">column_x</span><span class="p">,</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">       </span><span class="n">column_y</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">my_table</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">column_x</span><span class="w"> </span><span class="p">[</span><span class="k">DESC</span><span class="o">|</span><span class="k">ASC</span><span class="p">];</span><span class="w"> </span><span class="c1">--(1)</span>
+</code></pre></div>
+<ol>
+<li>The ASC (ascending) or DESC (descending) clause defines the sorting order. ASC is default.</li>
+</ol>
+<p>Try to define a query to sort the player table by <code>last_online</code> in descending order.</p>
+<p>We want this table in the end:</p>
+<table>
+<thead>
+<tr>
+<th align="left">id</th>
+<th align="left">player_name</th>
+<th align="left">last_online</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">8</td>
+<td align="left">Marry</td>
+<td align="left">2022-06-04 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left">Summer</td>
+<td align="left">2022-05-22 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">1</td>
+<td align="left">Mike</td>
+<td align="left">2022-05-11 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">John</td>
+<td align="left">2022-04-08 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">Sarah</td>
+<td align="left">2022-04-04 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">Lilly</td>
+<td align="left">2022-04-01 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left">Lenny</td>
+<td align="left">2022-03-08 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">Matthias</td>
+<td align="left">2022-03-06 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="left">Lexi</td>
+<td align="left">2022-02-22 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">9</td>
+<td align="left">Milana</td>
+<td align="left">2022-02-12 00:00:00.000000</td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary>Solution</summary>
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">       </span><span class="n">player_name</span><span class="p">,</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">       </span><span class="n">last_online</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="k">FROM</span><span class="w"> </span><span class="n">player</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">last_online</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span>
+</code></pre></div>
+
+</details>
+
+<p>The <code>ORDER BY</code> clause defines the column we want to sort by. The <code>DESC</code> keyword tells SQL that we want a descending
+order. If we not define an order the elements will always be in ascending order.</p>
+<p>We can also sort by multiple columns. In this case they will be first sorted by the first column and every value with an
+equal value will be sorted by the second value.</p>
+<p>Let's sort by the first char of the name and id as a second example.</p>
+<p>To get the first character of a string we need to use a functions again.</p>
+<p><code>substr(player_name, 1, 1)</code> returns the first character of the <code>player_name</code>.</p>
+<p>In the end we want a table like this:</p>
+<table>
+<thead>
+<tr>
+<th align="left">id</th>
+<th align="left">player_name</th>
+<th align="left">last_online</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">3</td>
+<td align="left">John</td>
+<td align="left">2022-04-08 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">Lilly</td>
+<td align="left">2022-04-01 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left">Lenny</td>
+<td align="left">2022-03-08 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="left">Lexi</td>
+<td align="left">2022-02-22 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">1</td>
+<td align="left">Mike</td>
+<td align="left">2022-05-11 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">Matthias</td>
+<td align="left">2022-03-06 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">8</td>
+<td align="left">Marry</td>
+<td align="left">2022-06-04 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">9</td>
+<td align="left">Milana</td>
+<td align="left">2022-02-12 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">Sarah</td>
+<td align="left">2022-04-04 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left">Summer</td>
+<td align="left">2022-05-22 00:00:00.000000</td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary>Solution</summary>
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">       </span><span class="n">player_name</span><span class="p">,</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">       </span><span class="n">last_online</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="k">FROM</span><span class="w"> </span><span class="n">player</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">SUBSTR</span><span class="p">(</span><span class="n">player_name</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
+</code></pre></div>
+
+</details>
+
+<p>You can see that we first sort by the first character of the name and all names with the same first character are sorted
+by id.</p>
+<h2 id="limit">LIMIT</h2>
+<p>The <code>LIMIT</code> keyword is also really important to avoid overly large reads.</p>
+<p>The general syntax is:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">column_x</span><span class="p">,</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">       </span><span class="n">column_y</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">my_table</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="k">LIMIT</span><span class="w"> </span><span class="p">[</span><span class="n">n</span><span class="w"> </span><span class="o">|</span><span class="k">ALL</span><span class="p">];</span>
+</code></pre></div>
+<p>The <code>LIMIT</code> keyword restricts the amount of your results to the entered number <code>n</code>. As an alternative you can use
+<code>ALL</code> or <code>NULL</code> to disable the parameter. That's something frameworks use sometimes to disable a limit.</p>
+<p>Earlier we already sorted the players by the most recent online times. Let's try to only get the last 5 most recent
+players by adding the limit clause to our previous query.</p>
+<p><em>Hint: The limit is always the last parameter of your query.</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">id</th>
+<th align="left">player_name</th>
+<th align="left">last_online</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">8</td>
+<td align="left">Marry</td>
+<td align="left">2022-06-04 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left">Summer</td>
+<td align="left">2022-05-22 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">1</td>
+<td align="left">Mike</td>
+<td align="left">2022-05-11 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">John</td>
+<td align="left">2022-04-08 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">Sarah</td>
+<td align="left">2022-04-04 00:00:00.000000</td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary>Solution</summary>
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">       </span><span class="n">player_name</span><span class="p">,</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">       </span><span class="n">last_online</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="k">FROM</span><span class="w"> </span><span class="n">player</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">last_online</span><span class="w"> </span><span class="k">DESC</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="k">LIMIT</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+</code></pre></div>
+
+</details>
+
+<h2 id="offset">OFFSET</h2>
+<p>The <code>OFFSET</code> keyword is often used to facilitate some kind of pagination in results. That's also why it is often combined
+with limit.</p>
+<p>The <code>OFFSET</code> keyword skips the first <code>n</code> lines of the result sets.</p>
+<p>The general syntax is:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">column_x</span><span class="p">,</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">       </span><span class="n">column_y</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">my_table</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="k">OFFSET</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+</code></pre></div>
+<p>Let's try to enhance our query from the limit part even more. We already got the first 5 entries. Now we want to get 
+the next 5 entries by adding a <code>OFFSET</code> of <code>5</code> while keeping the <code>LIMIT</code> and <code>ORDER BY</code> keywords.</p>
+<p><em>Hint: The <code>OFFSET</code> keyword is directly located before the <code>LIMIT</code> keyword</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">id</th>
+<th align="left">player_name</th>
+<th align="left">last_online</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">4</td>
+<td align="left">Lilly</td>
+<td align="left">2022-04-01 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left">Lenny</td>
+<td align="left">2022-03-08 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">Matthias</td>
+<td align="left">2022-03-06 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="left">Lexi</td>
+<td align="left">2022-02-22 00:00:00.000000</td>
+</tr>
+<tr>
+<td align="left">9</td>
+<td align="left">Milana</td>
+<td align="left">2022-02-12 00:00:00.000000</td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary>Solution</summary>
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">       </span><span class="n">player_name</span><span class="p">,</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">       </span><span class="n">last_online</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="k">FROM</span><span class="w"> </span><span class="n">player</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">last_online</span><span class="w"> </span><span class="k">DESC</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="k">OFFSET</span><span class="w"> </span><span class="mi">5</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="k">LIMIT</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+</code></pre></div>
+
+</details>
+
+<p>What's basically happening here is:</p>
+<p>First we order the whole table by the <code>last_online</code> column. After this we skip the first <code>5</code> rows and read the next 
+<code>5</code> rows. It is important to remember that we first need to sort the whole table currently. That can be very costly 
+on large tables. Luckily there are ways to make this faster. We will cover this later.</p>
+<h2 id="summing-up">Summing Up</h2>
+<p>We have now learned the four most important keywords for searching, sorting and limiting the retrieved data. The 
+keywords have to be used in a specific order and cant be altered in a free way.</p>
+<p>The general syntax for this is:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">column_x</span><span class="p">,</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">       </span><span class="n">column_y</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">my_table</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">condition</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">column_z</span><span class="w"> </span><span class="k">DESC</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="k">OFFSET</span><span class="w"> </span><span class="n">n</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="k">LIMIT</span><span class="w"> </span><span class="n">m</span><span class="p">;</span>
+</code></pre></div>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      Last update:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 3, 2023</span>
+      
+        <br>
+        Created:
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 3, 2023</span>
+      
+    
+  </small>
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.indexes", "navigation.top", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.ce72ebac.min.js"></script>
+      
+    
+  </body>
+</html>
