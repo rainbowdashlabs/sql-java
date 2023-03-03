@@ -68,12 +68,10 @@ This is a large difference to other databases which have several text types with
 
 Java: String | [Documentation](https://www.postgresql.org/docs/current/datatype-character.html)
 
-The varchar is a string with a variable maximum size.
+The VARCHAR is a string with a variable maximum size.
+The maximum defined size of a VARCHAR is 10485760.
 Unlike CHAR is does not add any padding.
-
-Unlike other databases a varchar without an explicit limit is unlimited and equal to the TEXT in behaviour.
-Theoretically the maximum size is 65,532 characters.
-If you use utf8 which requires up to 4 bytes per char you are down to 21,844 characters in the worst case.
+Unlike other databases a VARCHAR without an explicit limit is unlimited and equal to the TEXT in behaviour.
 
 One advancement over TEXT is that varchar columns can be fully indexed while TEXT columns are truncated to a specified length.
 

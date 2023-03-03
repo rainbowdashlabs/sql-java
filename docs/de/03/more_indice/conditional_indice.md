@@ -3,7 +3,7 @@
 Bis jetzt haben wir nur einen Index für eine oder mehrere Zeilen hinzugefügt.
 Das ist natürlich praktisch, wenn wir nach einzelnen Einträgen suchen oder unsere Tabelle sortieren wollen.
 Aber es gibt auch andere Fälle.
-Wir wollen zum Beispiel alle ungeraden Einträge in der money-Tabelle finden.
+Wir wollen zum Beispiel alle ungeraden Einträge in der `money` Tabelle finden.
 Dieses Beispiel könnte der Einfachheit halber etwas konstruierter sein, aber es ist ein gutes Beispiel, um dir zu zeigen, wie bedingte Indizes funktionieren.
 
 Werfen wir zunächst einen Blick auf unsere ursprüngliche Abfrage, die wir ausführen wollen:
@@ -14,7 +14,7 @@ FROM money
 WHERE money % 2 != 0;
 ```
 
-Wenn du dir den Abfrageplan ansiehst, wirst du feststellen, dass wir hier keinen Index verwenden, obwohl wir einen Index für die Spalte money haben.
+Wenn du dir den Queryplan ansiehst, wirst du feststellen, dass wir hier keinen Index verwenden, obwohl wir einen Index für die Spalte `money` haben.
 
 Lass uns einen Index für unsere Berechnung hinzufügen!
 Anstatt nur einen Spaltenwert zu unserem Index hinzuzufügen, fügen wir nun den umgewandelten Spaltenwert zu unserem Index hinzu, der im Grunde unsere zuvor durchgeführte Prüfung darstellt.
@@ -24,8 +24,8 @@ CREATE INDEX money_is_odd
     ON money((money % 2 != 0))
 ```
 
-Nicht, dass wir den Ausdruck in einen weiteren Satz geschweifter Klammern schreiben.
-Das ist notwendig, weil unsere Datenbank dort einen Wert und keinen Ausdruck erwartet.
+Beachte, dass wir den Ausdruck in einen weiteren Satz Klammern schreiben.
+Dies ist notwendig, weil unsere Datenbank dort einen Wert und keinen Ausdruck erwartet.
 
 ```sql
 SELECT player_id, money
@@ -33,7 +33,7 @@ FROM money
 WHERE money % 2 != 0;
 ```
 
-Wenn wir uns unseren Abfrageplan jetzt noch einmal ansehen, werden wir feststellen, dass wir tatsächlich einen Index für unsere Prüfung verwenden!
+Wenn wir uns unseren Queryplan jetzt noch einmal ansehen, werden wir feststellen, dass wir tatsächlich einen Index für unsere Prüfung verwenden!
 
 Versuchen wir das Gleiche mit einer geraden Prüfung zu tun:
 

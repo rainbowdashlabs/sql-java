@@ -1,11 +1,11 @@
 # Query Planer
 
-Jedes Mal, wenn wir auf irgendeine Weise Daten aus unserer Datenbank auswählen, erstellt die Datenbank zunächst einen Abfrageplan.
-Dieser Abfrageplan legt fest, wie die Datenbank die Daten lesen wird.
-Die Abfragepläne sind in fast jeder Datenbank anders und bieten einen anderen Detaillierungsgrad.
+Jedes Mal, wenn wir auf irgendeine Weise Daten aus unserer Datenbank auswählen, erstellt die Datenbank zunächst einen Queryplan.
+Dieser Queryplan legt fest, wie die Datenbank die Daten lesen wird.
+Die Querypläne sind in fast jeder Datenbank anders und bieten einen anderen Detaillierungsgrad.
 Deshalb werde ich jeden Query Planer in einem eigenen Abschnitt behandeln.
 
-Doch bevor wir uns mit dem Layout des Abfrageplans selbst beschäftigen, wollen wir zunächst über die allgemeine Verwendung sprechen.
+Doch bevor wir uns mit dem Layout des Queryplans selbst beschäftigen, wollen wir zunächst über die allgemeine Verwendung sprechen.
 
 ## Warum einen Query Planer verwenden?
 
@@ -40,10 +40,9 @@ FROM player
 WHERE id = 5;
 ```
 
-Ein wichtiger Punkt ist, dass explain die Abfrage nicht selbst ausführt.
-Alle Werte sind also 
-Schätzungen und keine echten Werte.
-Diese Abfragepläne werden auf der Grundlage interner Statistiken über eine Tabelle erstellt.
-Wenn du große Änderungen an den Daten einer Tabelle vornimmst, können die Abfragepläne manchmal nicht korrekt sein.
+Ein wichtiger Punkt ist, dass `EXPLAIN` die Abfrage nicht selbst ausführt.
+Alle Werte sind also Schätzungen und keine echten Werte.
+Diese Querypläne werden auf der Grundlage interner Statistiken über eine Tabelle erstellt.
+Wenn du große Änderungen an den Daten einer Tabelle vornimmst, können die Querypläne manchmal nicht korrekt sein.
 
 Jetzt können wir loslegen.

@@ -1,6 +1,6 @@
 # Weitere Indizes
 
-Wir kennen bereits den [unique index](../03/data_consistency/unique_indice.md), der sicherstellt, dass ein einzelner Wert oder eine Kombination von Werten eindeutig ist.
+Wir kennen bereits den [unique index](data_consistency/unique_indice.md), der sicherstellt, dass ein einzelner Wert oder eine Kombination von Werten eindeutig ist.
 Aber es gibt noch mehr!
 Viel mehr und wir werden in diesem Abschnitt noch mehr coole Sachen behandeln.
 

@@ -24,7 +24,7 @@ CREATE INDEX money_is_odd
     ON money((money % 2 != 0))
 ```
 
-Not that we write the expression in another set of braces.
+Note that we write the expression in another set of braces.
 This is required, because our database expects a value there and not an expression.
 
 ```sql

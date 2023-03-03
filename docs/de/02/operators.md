@@ -2,7 +2,7 @@
 
 Es gibt viele Operatoren in SQL und noch mehr in unseren Datenbanken, wenn wir eine mit einem erweiterten SQL-Flavour verwenden.
 Einige Operatoren auf dieser Seite können in unseren Datenbanken kürzere oder andere Aliase haben.
-Der Einfachheit halber werde ich mich auf die Schnittmenge der Operatoren konzentrieren.
+Der Einfachheit halber werde ich mich auf die gemeinsamen Operatoren konzentrieren.
 
 Beginnen wir mit den Operatoren, die in allen Datenbanken, die wir verwenden, gleich sind
 
@@ -55,7 +55,8 @@ SELECT FALSE OR (TRUE OR FALSE) AND TRUE;
 -> TRUE
 ```
 
-**VORSICHT VOR NULL**
+#### VORSICHT VOR NULL
+
 Ein Nullwert in einem booleschen Vergleich kann zu ungewollten Ergebnissen führen.
 
 ```sql
@@ -118,14 +119,14 @@ SELECT NOT 1 = 2;
 
 ### IS und null Gleichheit
 
-Die Prüfung auf Null ist ein bisschen anders. Unser Problem ist, dass eine Gleichheitsprüfung auf null null zurückgibt.
+Die Prüfung auf `NULL` ist ein bisschen anders. Unser Problem ist, dass eine Gleichheitsprüfung auf `NULL` `NULL` zurückgibt.
 
 ```sql
 SELECT NULL = NULL;
 -> NULL
 ```
 
-An dieser Stelle verwenden wir das Schlüsselwort `is`, das mit dem Schlüsselwort not kombiniert werden kann, um einen `!=` Operator zu ermöglichen
+An dieser Stelle verwenden wir das Schlüsselwort `IS`, das mit dem Schlüsselwort not kombiniert werden kann, um einen `!=` Operator zu ermöglichen
 
 ```sql
 SELECT NULL IS NULL;
@@ -137,7 +138,7 @@ SELECT NULL IS NOT NULL;
 
 ### Größer und kleiner
 
-Alles, was eine Größe hat, ist größenmäßig vergleichbar. Das gilt für Strings, numerische Werte, Daten und mehr.
+Alles, was eine Größe hat, ist größenmäßig vergleichbar. Das gilt für Strings, numerische Werte, Datum und mehr.
 
 Wie in Java haben wir hier die gleichen Operatoren.
 
@@ -164,7 +165,7 @@ SELECT 5.0 <= 5.0;
 
 Außerdem gibt es den Operator between, der überprüft, ob ein Wert zwischen zwei verschiedenen Werten liegt.
 
-Die untere und obere Grenze sind inklusive. Die Reihenfolge spielt keine Rolle.
+Die untere und obere Grenze sind inklusiv. Die Reihenfolge spielt keine Rolle.
 
 ```sql
 ~~
@@ -219,19 +220,20 @@ SELECT 'abcdef' LIKE '%cde%'; -- (4)
 
 **Hinweis zur Groß- und Kleinschreibung**
 
-In MySQL, SQLite und MariaDB ist der `LIKE` Operator **groß-klein-unabhängig**.
+In **MySQL**, **SQLite** und **MariaDB** ist der `LIKE` Operator **nicht case-sensitiv**.
 
-PostgreSQL verwendet `LIKE` für **Groß-/Kleinschreibung unterscheiden** und `ILIKE` für **Groß-/Kleinschreibung nicht unterscheiden**.
+**PostgreSQL** verwendet man `LIKE` für **case-sensitiv** und `ILIKE` für **nicht case-sensitive** Vergleiche.
 
 ### Regex
 
-In MySQL und MariaDB gibt es den REGEXP-Operator.
-SQLite hat diesen Operator ebenfalls, aber er ist nicht standardmäßig implementiert.
+In **MySQL** und **MariaDB** gibt es den `REGEXP`-Operator.
+
+**SQLite** hat diesen Operator ebenfalls, aber er ist nicht standardmäßig implementiert.
 Wenn er verwendet wird, wird ein Fehler ausgegeben.
 
-PostgreSQL verwendet den Operator `~` für den Regex-Abgleich unter Berücksichtigung der Groß- und Kleinschreibung und `~*` für den Abgleich ohne Groß- und Kleinschreibung.
+**PostgreSQL** verwendet den Operator `~` für den Regex-Abgleich unter Berücksichtigung der Groß- und Kleinschreibung und `~*` für den Abgleich ohne Groß- und Kleinschreibung.
 
-Bemerkenswert ist auch, dass die Operatoren REGEXP und `~` nicht prüfen, ob die gesamte Zeichenkette mit dem Ausdruck übereinstimmt.
+Anzumerken ist auch, dass die Operatoren `REGEXP` und `~` nicht prüfen, ob die gesamte Zeichenkette mit dem Ausdruck übereinstimmt.
 Es wird nur auf eine Teilsequenz geprüft.
 
 Die Verwendung ist im Allgemeinen die gleiche.

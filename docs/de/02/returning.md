@@ -2,12 +2,12 @@
 
 **Gilt für Postgres, SqLite und MariaDB**
 
-Wenn wir Daten durch Update- oder Delete-Anweisungen ändern oder sie einfügen, können wir die geänderten oder eingefügten Daten zurückgeben.
+Wenn wir Daten durch `UPDATE`- oder `DELETE`-Anweisungen ändern oder sie einfügen, können wir die geänderten oder eingefügten Daten zurückgeben.
 
-Bei Aktualisierungen bedeutet das, dass wir die jetzt eingestellten Werte erhalten, was jetzt vielleicht nicht hilfreich ist, aber es gibt Mechanismen in Datenbanken, die Daten zwischen Aktualisierung und Schreiben ändern.
-Bei Löschungen erhalten wir die gelöschten Einträge, die nicht mehr in der Datenbank vorhanden sind.
+Bei `UPDATE` bedeutet das, dass wir die neuen Werte erhalten, was jetzt vielleicht nicht hilfreich ist, aber es gibt Mechanismen in Datenbanken, die Daten zwischen Senden und Schreiben ändern.
+Bei `DELETE` erhalten wir die gelöschten Einträge, die nicht mehr in der Datenbank vorhanden sind.
 Das könnte noch hilfreicher sein.
-Richtig interessant wird es bei Einfügungen.
+Richtig interessant wird es bei `INSERT`.
 Im nächsten Kapitel erfährst du, wie du automatisch IDs erstellen oder Standardwerte für Spalten festlegen kannst.
 Diese werden natürlich nicht von dir gesetzt, wenn du Daten einfügst, aber du kannst sie trotzdem über die `RETURNING`-Klausel erhalten.
 

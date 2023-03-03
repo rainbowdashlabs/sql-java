@@ -1,7 +1,7 @@
 # MariaDB
 
-The query planer of MariaDB and MySQL are quite simple to understand.
-An in depth description can be found in the docs of [MariaDB](https://mariadb.com/kb/en/explain/) and MySQL.
+The query planer of MariaDB is quite simple to understand.
+An in depth description can be found in the docs of [MariaDB](https://mariadb.com/kb/en/explain/).
 
 We start with our basic query from earlier:
 

@@ -8,28 +8,28 @@ Eigentlich haben wir das schon die ganze Zeit gemacht.
 
 Normalerweise haben Einträge eine Art von Beziehung.
 Um diese zu definieren, verwenden wir den Begriff `One to Many` (1:n) `Many to One` (n:1), `One to One` (1:1).
-Many to Many (n:n) ist etwas, das du normalerweise nicht hast, und wenn doch, ist es wahrscheinlich ein Zeichen für eine schlechte Normalisierung.
+`Many to Many` (n:n) ist etwas, das du normalerweise nicht hast, und wenn doch, ist es wahrscheinlich ein Zeichen für eine schlechte Normalisierung.
 
 ### One to Many und Many to One
 
-One to Many bedeutet, dass eine einzelne Entität von dir mehrere Einträge in einer einzigen Tabelle hat.
+`One to Many` bedeutet, dass eine einzelne Entität von dir mehrere Einträge in einer einzigen Tabelle hat.
 Wir haben das bereits in unserem `friend_graph`.
 _Ein_ Spieler kann _viele_ Freunde haben.
 So einfach ist das!
 
-Viele zu einem ist normalerweise dasselbe, nur in eine andere Richtung.
+`Many to One` ist normalerweise dasselbe, nur in eine andere Richtung.
 _Viele_ Freundschaftsverbindungen beziehen sich auf _einen_ Spieler. 
 
-### Eins zu Eins
+### One to One
 
-Eins zu Eins ist das, was es schon sagt.
+`One to One` ist das, was es schon sagt.
 Eine einzelne Entität steht in Beziehung zu einer anderen einzelnen Entität in einer anderen Tabelle.
-Das haben wir mit unserer Tabelle "player" und "money".
+Das haben wir mit unserer Tabelle `player` und `money`.
 Die Geldtabelle enthält genau _einen_ Eintrag für _einen_ Spieler.
 
-### Viele zu vielen
+### Many to Many
 
-Mir fällt nicht einmal ein gutes Beispiel für eine Many-to-Many-Beziehung ein.
+Mir fällt nicht einmal ein gutes Beispiel für eine `Many to Many` Beziehung ein.
 Es ist einfach gegen das Gesetz. 
 
 ## Normalformen
@@ -48,8 +48,8 @@ Alles, was zählt, ist die Beziehung einer Entität zu einer anderen Entität.
 
 ### Schlüssel sind der Schlüssel
 
-Denke an eindeutige Bezeichner für deine Entität.
-Dieser Bezeichner sollte sich nicht ändern.
+Denke an eindeutige Bezeichnungen für deine Entität.
+Diese Bezeichnungen sollte sich nicht ändern.
 Das kann eine Art UID sein, oder wenn deine Entität keine hat, sollte es eine automatisch inkrementierende ID sein.
 
 ### One to many in a column
