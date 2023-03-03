@@ -45,10 +45,10 @@ Schau dir die Dokumentation an, wenn du tiefer eintauchen willst.
 
 ## Null
 
-NULL in sql ist dasselbe wie in java in all unseren Datenbanken.
-Allerdings gibt es in Sql keine NullPointerException.
-Jedes Mal, wenn du etwas mit NULL machst, versucht Sql, etwas damit zu tun.
-Deshalb kann die Durchführung logischer Operationen mit NULL-Werten schwierig und fehleranfällig sein, wie du auf der vorherigen Seite gesehen hast.
+`NULL` in sql ist dasselbe wie in Java in all unseren Datenbanken.
+Allerdings gibt es in Sql keine `NullPointerException`.
+Jedes Mal, wenn du etwas mit `NULL` machst, versucht Sql, etwas damit zu tun. 
+Meistens kommt dabei `NULL` heraus, allerdings kann die Durchführung logischer Operationen mit `NULL`-Werten schwierig und fehleranfällig sein, wie du auf der vorherigen Seite gesehen hast.
 
 Ich werde dir auf den nächsten Seiten die verschiedenen Datentypen für jede Datenbank zeigen.
 Du kannst die Datenbanken auslassen, die dich nicht interessieren.

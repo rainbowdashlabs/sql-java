@@ -24,7 +24,7 @@ INSERT INTO table_name(column_1, column_2)
 VALUES (value_1, value_2)
 ```
 
-You can also insert multiple rows at once with:
+Du kannst außerdem mehrere Zeilen gleichzeitig einfügen:
 
 ```sql
 INSERT INTO table_name(column_1, column_2)
@@ -33,7 +33,7 @@ VALUES (value_1, value_2),
        (value_1, value_2);
 ```
 
-Du musst wissen, wie du einen String in einen Zeitstempel umwandeln kannst.
+Für die nächste Aufgabe musst wissen, wie du einen String in einen Zeitstempel umwandeln kannst.
 Das hängt von der Datenbank ab, die du verwendest:
 
 - Postgres: `'2022-05-11 00:00'::TIMESTAMP`\
@@ -63,6 +63,7 @@ VALUES (1, 'Mike', TIMESTAMP('2022-05-11 00:00')),
        (9, 'Milana', TIMESTAMP('2022-02-12 00:00')),
        (10, 'Lexi', TIMESTAMP('2022-02-22 00:00'));
 ```
+
 **PostgreSQL**
 ```sql
 INSERT INTO player(id, player_name, last_online)
@@ -77,6 +78,7 @@ VALUES (1, 'Mike', '2022-05-11 00:00'::TIMESTAMP),
        (9, 'Milana', '2022-02-12 00:00'::TIMESTAMP),
        (10, 'Lexi', '2022-02-22 00:00'::TIMESTAMP);
 ```
+
 **SqLite**
 ```sql
 INSERT INTO player(id, player_name, last_online)
@@ -95,8 +97,8 @@ VALUES (1, 'Mike', CAST(STRFTIME('%s', '2022-05-11 00:00') AS INTEGER)),
   
 </details>
 
-Lass uns das Gleiche mit dem friend_graph machen.
-Versuche, die folgenden Werte in die Tabelle "friend_graph" einzufügen.
+Lass uns das Gleiche mit dem `friend_graph` machen.
+Versuche, die folgenden Werte in die Tabelle `friend_graph` einzufügen.
 
 | player\_1 | player\_2 |
 |:----------|:----------|
@@ -158,12 +160,12 @@ Dadurch wird eine Tabelle wie diese erstellt:
 | 10  | 1000  |
 
 Bei dieser Methode musst du einige Dinge beachten.
-Die Datenbank wird über den Datentyp der Spalte entscheiden.
+Die Datenbank entscheidet über den Datentyp der Spalte.
 Wenn wir `1000.0` verwenden, erhalten wir einen numerischen Typ.
-Wenn wir "1000" verwenden, erhalten wir einen Integer-Typ.
+Wenn wir `1000` verwenden, erhalten wir einen Integer-Typ.
 Es ist auch wichtig, einen Alias für neu erstellte Spalten zu verwenden, die nur einen Typ haben.
 Verwende dazu das Schlüsselwort "as".
-Wenn du keinen Alias definierst, hat die Spalte einen Standardwert, der normalerweise nicht das ist, was du willst. 
+Wenn du keinen Alias definierst, hat die Spalte einen Standardnamen, der normalerweise nicht das ist, was du willst. 
 
 
 ## Konflikte

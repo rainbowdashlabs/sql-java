@@ -14,7 +14,7 @@ Du hast deine Datenbank bereits erstellt, indem du die SQL-Datei und den Eintrag
 
 ## MySQL, MariaDB and PostgreSQL
 
-Um unsere Datenbank zu erstellen, können wir den Befehl `CREATE` verwenden.
+Um unsere Datenbank zu erstellen, können wir den Befehl `CREATE DATABASE` verwenden.
 
 ```sql
 CREATE DATABASE sql_starter; -- (1)
@@ -42,17 +42,17 @@ TBD
 
 ### Nur Postgres
 
-Wenn du PostgreSQL verwendest, wird alles, was wir tun, standardmäßig im öffentlichen Schema gespeichert.
-Dieses Schema existiert aus Kompatibilitätsgründen mit anderen Datenbanken, da die Schema-Unterteilung irgendwie einzigartig ist.
-Wenn du möchtest, kannst du jetzt ein Schema erstellen, um dein öffentliches Schema sauber zu halten.
+Wenn du PostgreSQL verwendest, wird alles, was wir tun, standardmäßig im `^public` Schema gespeichert.
+Dieses Schema existiert aus Kompatibilitätsgründen mit anderen Datenbanken, da nicht alle Datenbanken Schema-Unterteilung unterstützen.
+Wenn du möchtest, kannst du jetzt ein Schema erstellen, um dein `public` Schema sauber zu halten.
 
 ```sql
-create schema my_schema;
+CREATE SCHEMA my_schema;
 ```
 
 **DataGrip**
 
-Klicke mit der rechten Maustaste auf deine Datenbank und wähle `Create > Schema`
+Klicke mit der rechten Maustaste auf deine Datenbank und wähle `Create > Schema`.
 Die Konsole in DataGrip ist standardmäßig an eine Datenbank und nicht an ein Schema gebunden.
 Du kannst das ändern, indem du das neue Schema oben rechts im Konsolenfenster auswählst.
 
@@ -71,6 +71,6 @@ TBD
 
 
 ## Datenbankkonfiguration
-Die Konfiguration deiner Datenbank wie Kodierung und Zeitzone richtet sich nach deinen Systemeinstellungen.
+Die Konfiguration deiner Datenbank wie Encoding und Zeitzone richtet sich nach deinen Systemeinstellungen.
 Die Optionen, die du an deiner Datenbank ändern kannst, sind zahlreich und ich werde hier nicht darauf eingehen.
 Als Anfänger sollten die Standardeinstellungen für alles, was du tun willst, ausreichend sein.

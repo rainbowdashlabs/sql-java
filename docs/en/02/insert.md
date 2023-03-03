@@ -63,6 +63,7 @@ VALUES (1, 'Mike', TIMESTAMP('2022-05-11 00:00')),
        (9, 'Milana', TIMESTAMP('2022-02-12 00:00')),
        (10, 'Lexi', TIMESTAMP('2022-02-22 00:00'));
 ```
+
 **PostgreSQL**
 ```sql
 INSERT INTO player(id, player_name, last_online)
@@ -77,6 +78,7 @@ VALUES (1, 'Mike', '2022-05-11 00:00'::TIMESTAMP),
        (9, 'Milana', '2022-02-12 00:00'::TIMESTAMP),
        (10, 'Lexi', '2022-02-22 00:00'::TIMESTAMP);
 ```
+
 **SqLite**
 ```sql
 INSERT INTO player(id, player_name, last_online)

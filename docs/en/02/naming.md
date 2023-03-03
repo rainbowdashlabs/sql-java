@@ -22,7 +22,7 @@ be really annoying
 - Even if it is possible that a column has the same name as its type, this should be avoided.
 ### Primary key columns
 
-Most common is `id`
+Most common is `id` for the column which represents the primary key,
 
 ### Foreign key column
 
@@ -47,13 +47,13 @@ Boolean columns should have questioning names like `is_enabled`
 Examples
 
 ```
-<tablename>_<row.1>_<row.2>_<row.n>_index
-<tablename>_<row.1>_<row.2>_<row.n>_uindex
+<tablename>_<col.1>_<col.2>_<col.n>_index
+<tablename>_<col.1>_<col.2>_<col.n>_uindex
 ```
 
-- Contained rows
-- suffixed with index if not unique
-- suffixed with uindex if unique
+- Contained columns
+- suffixed with `index` if not unique
+- suffixed with `uindex` if unique
 
 ### Primary key
 
@@ -68,10 +68,14 @@ Examples
 ```
 <origin_tablename>_<related_tablename>
 <origin_tablename>_<related_tablename>_fk
+<origin_tablename>_<related_tablename>_<origin_col>_<related_col>_fk
 ```
 
 - Contain related table name
 - suffixed with `fk`
+
+Foreign key `player_id` in `money` to `id` in `player`:\
+`money_user_player_id_id_fk`
 
 ## Views
 - Views should be prefixed with `v_` to make the difference between a table and a view visible.

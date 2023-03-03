@@ -1,7 +1,7 @@
 # Tabellen
 
 Jetzt, wo wir unsere Datenbank eingerichtet und etwas über die Namensgebung und die Datentypen gelernt haben, können wir endlich unsere erste Tabelle erstellen.
-Alles in unseren Datenbanken wird in Tabellen gespeichert.
+Das Meiste in unseren Datenbanken wird in Tabellen gespeichert.
 Das Erstellen und Löschen von Tabellen ist eine sehr wichtige Fähigkeit. Natürlich gibt es noch viel mehr, aber wir gehen es erst einmal langsam an.
 
 # Eine Tabelle erstellen
@@ -11,50 +11,50 @@ Beginnen wir damit, die beiden Tabellen neu zu erstellen, die wir zuvor benutzt 
 
 **player**
 
-In der Spielertabelle wird jeder Spieler mit einem Namen und einer ID gespeichert.
+In der `player` Tabelle wird jeder Spieler mit einem Namen und einer ID gespeichert.
 Außerdem speichern wir, wann der Spieler zuletzt online war.
 
-| id | player\_name | last\_online |
+| id  | player\_name | last\_online     |
 |:----|:-------------|:-----------------|
-| 1 | Mike | 2022-05-11 00:00 |
-| 2 | Sarah | 2022-04-04 00:00 |
-| 3 | john | 2022-04-08 00:00 |
-| 4 | Lilly | 2022-04-01 00:00 |
-| 5 | Matthias | 2022-03-06 00:00 |
-| 6 | Lenny | 2022-03-08 00:00 |
-| 7 | Sommer | 2022-05-22 00:00 |
-| 8 | Heiraten | 2022-06-04 00:00 |
-| 9 | Milana | 2022-02-12 00:00 |
-| 10 | Lexi | 2022-02-22 00:00 |
+| 1   | Mike         | 2022-05-11 00:00 |
+| 2   | Sarah        | 2022-04-04 00:00 |
+| 3   | john         | 2022-04-08 00:00 |
+| 4   | Lilly        | 2022-04-01 00:00 |
+| 5   | Matthias     | 2022-03-06 00:00 |
+| 6   | Lenny        | 2022-03-08 00:00 |
+| 7   | Sommer       | 2022-05-22 00:00 |
+| 8   | Heiraten     | 2022-06-04 00:00 |
+| 9   | Milana       | 2022-02-12 00:00 |
+| 10  | Lexi         | 2022-02-22 00:00 |
 
 **friend_graph**
 
-Der Freundschaftsgraph ist ein bidirektionaler Graph von Freundschaften.
-Im Allgemeinen gehen wir davon aus, dass, wenn `Spieler_1` mit `Spieler_2` befreundet ist, `Spieler_2` auch mit `Spieler_1` befreundet ist.
+Der `friend_graph` ist ein bidirektionaler Graph von Freundschaften.
+Im Allgemeinen gehen wir davon aus, dass, wenn `player_1` mit `player_2` befreundet ist, `player_2` auch mit `player_1` befreundet ist.
 
 Wir speichern hier nur die IDs der Spieler.
-Die anderen Informationen wie die Namen befinden sich in der Tabelle "Spieler", und wir wollen keine doppelten Daten speichern.
+Die anderen Informationen wie die Namen befinden sich in der Tabelle `player`, und wir wollen keine doppelten Daten speichern.
 
 | player_1 | player_2 |
 |----------|----------|
-| 1 | 2 |
-| 2 | 3 |
-| 4 | 3 |
+| 1        | 2        |
+| 2        | 3        |
+| 4        | 3        |
 
 Bitte versuche zuerst, die Anweisungen selbst zu erstellen, indem du das Gelernte aus den Datentypseiten anwendest.
-Du kannst dich auf das [datatype cheatsheet](dev/private/java/!tutorial/basicsql-pages/docs/de/02rivate/java/!tutorial/basicsql-pages/docs/de/02/sql_datatypes.md) beziehen.
+Du kannst dich auf das [datatype cheatsheet](sql_datatypes.md) beziehen.
 Der Inhalt ist uns im Moment noch egal.
 
-Du kannst natürlich auch einen Desktop-Client deiner Wahl verwenden, um die Tabellen zu erstellen, aber ich empfehle dir, auch die sql-Syntax zu lernen, denn das macht die Fehlersuche später sehr viel einfacher.
+Du kannst natürlich auch einen Desktop-Client deiner Wahl verwenden, um die Tabellen zu erstellen, aber ich empfehle dir, auch die SQL-Syntax zu lernen, denn das macht die Fehlersuche später sehr viel einfacher.
 
 Die allgemeine Syntax lautet:
 
 <!-- @formatter:off -->
 ```sql
-CREATE TABLE tabelle_name
+CREATE TABLE tabellen_name
 (
-    col_name TYPE,
-    spalte_name TYP
+    spalten_name TYPE,
+    spalten_name TYPE
 );
 ```
 <!-- @formatter:on --> 
@@ -87,10 +87,10 @@ Damit wird die Tabelle nur erstellt, wenn der Name nicht bereits verwendet wird.
 <!-- @formatter:off -->
 
 ```sql
-CREATE TABLE IF NOT EXISTS table_name
+CREATE TABLE IF NOT EXISTS tabellen_name
 (
-    col_name TYPE,
-    spalten_name TYP
+    spalten_name TYPE,
+    spalten_name TYPE
 );
 ```
 <!-- @formatter:on --> 

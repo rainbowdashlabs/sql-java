@@ -25,7 +25,7 @@ Bleib dran und lies alles sorgfältig durch.
 Du bekommst wahrscheinlich Probleme bekommen, wenn du einen Teil auslässt.
 Da wir nicht alle existierenden Datenbanken abdecken können, werden wir uns auf die populärsten Datenbanken konzentrieren MySQL, MariaDB, PostgreSQL und SQLite auf dieser Seite.
 Es ist in Ordnung, wenn du sie noch nicht kennst.
-Sie werden bald zu deinen beste Freunde werden.
+Sie werden bald zu deinen besten Freunden werden.
 
 Wir beginnen mit der Verbindung und dem Einrichten unserer Datenbank mit einigen Desktop-Clients.
 Danach tauchen wir in Java ein und schauen uns die verschiedenen Möglichkeiten an, wie wir uns mit unseren Datenbanken verbinden können.

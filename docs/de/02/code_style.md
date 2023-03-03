@@ -1,15 +1,15 @@
 # Code-Stil
 
 SQL-Code sollte leicht lesbar sein.
-Wenn du die oben angegebenen Namenskonventionen verwendest, geht das fast von alleine.
+Wenn du die unten angegebenen Namenskonventionen verwendest, geht das fast von alleine.
 Mach dir vorerst keine Gedanken über den eigentlichen Code.
 Du brauchst ihn noch nicht zu verstehen.
 
-Ich werde die Syntaxhervorhebung hier deaktivieren, um ihn übersichtlicher zu machen.
+Ich werde die Syntaxhighlighting hier deaktivieren, um dir zu zeigen, dass er einfacher zu lesen ist.
 
 ## Schlüsselwörter
 
-Alle SQL-Schlüsselwörter sollten in GROSSBUCHSTABEN geschrieben werden, damit klar wird, welche Wörter Namen und welche Schlüsselwörter sind.
+Alle SQL-Schlüsselwörter sollten in `GROSSBUCHSTABEN` geschrieben werden, damit klar wird, welche Wörter Namen und welche Schlüsselwörter sind.
 
 ```
 -- Bad
@@ -19,10 +19,10 @@ select col from my_table;
 SELECT col FROM my_table;
 ```
 
-## Quotiere nur, wenn es nötig ist
+## Akzente nur, wenn es nötig ist
 
-Viele Leute neigen dazu, viel zu zitieren, was nicht nötig ist.
-Wenn du ein gutes Benennungsschema verwendest, wirst du deine Texte wahrscheinlich nie zitieren müssen.
+Viele Leute neigen dazu, alles in akzente zu setzen, was nicht nötig ist.
+Wenn du ein gutes Namensschema verwendest, wirst du deine Worte wahrscheinlich nie in Akzente setzen müssen.
 
 ```
 -- Bad
@@ -71,7 +71,7 @@ Wähle einen beschreibenden, kürzeren Namen anstelle von einzelnen Zeichen wie 
 
 CTE kann deinen komplexen Code viel lesbarer machen.
 
-Sieh dir dieses Beispiel einer Unterabfrage an, die die Anzahl der Freunde aller Spieler anzeigt, die in den letzten 10 Tagen gesehen wurden.
+Sieh dir dieses Beispiel einer Anfrage an, die die Anzahl der Freunde aller Spieler anzeigt, die in den letzten 10 Tagen gesehen wurden.
 
 <!-- @formatter:off --> 
 ```sql

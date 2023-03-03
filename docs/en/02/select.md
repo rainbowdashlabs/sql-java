@@ -44,11 +44,11 @@ The following keywords will help doing this.
 
 ## Column Alias
 
-Using the `as` keyword we can rename columns when we select them
+Using the `AS` keyword we can rename columns when we select them
 
 ```sql
 SELECT id,
-       player_name as name
+       player_name AS name
 FROM player;
 ```
 
