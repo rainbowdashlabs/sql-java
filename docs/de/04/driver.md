@@ -1,4 +1,4 @@
-# Treiber-Implementierungen
+# Driver-Implementierungen
 
 Jede Datenbank hat ihre eigene Treiberimplementierung.
 Wie bereits erwähnt, sind diese Treiber für die Übersetzung zwischen Java und deiner Datenbank zuständig.
@@ -79,7 +79,7 @@ implementation("com.mysql", "mysql-connector-j", "version")
 ![Aktuellste Version](https://img.shields.io/maven-central/v/org.xerial/sqlite-jdbc)
 
 ### Maven
-````xml
+```xml
 <dependency>
     <groupId>org.xerial</groupId>
     <artifactId>sqlite-jdbc</artifactId>
