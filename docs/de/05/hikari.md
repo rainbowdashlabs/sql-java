@@ -19,13 +19,13 @@ Um Hikari zu verwenden, müssen wir es zuerst importieren:
 
 **Gradle**
 
-**Kkts
+```kts
 implementation("com.zaxxer", "HikariCP", "version")
 ```
 
 **Maven**
 
-``xml
+```xml
 
 <dependency>
     <groupId>com.zaxxer</groupId>
