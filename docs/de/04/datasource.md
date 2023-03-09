@@ -32,7 +32,7 @@ Um Java zu zwingen, unsere "Driver"-Klasse zu laden, müssen wir die Klasse übe
 
 Das könnte folgendermaßen aussehen:
 
-``java
+```java
 public class ClassForName {
     public static void main(String[] args) {
         try {
