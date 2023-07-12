@@ -1,10 +1,8 @@
 {
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "baseBranches": ["main"],
-  "dependencyDashboard": true,
-  "labels": ["dependencies"],
-  "extends": ["config:base"],
   "ignoreDeps": ["spigot-api"],
-  "reviewers": ["RainbowDashLabs"],
-  "prConcurrentLimit": 3,
-  "prHourlyLimit": 10
+  "extends": [
+    "github>rainbowdashlabs/rainbowdashlabs//.github/renovate_default"
+  ]
 }
