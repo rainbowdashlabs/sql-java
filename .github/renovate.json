@@ -1,8 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "baseBranches": ["main"],
-  "ignoreDeps": ["spigot-api"],
   "extends": [
     "github>rainbowdashlabs/rainbowdashlabs//.github/renovate_default"
-  ]
+  ],
+  "ignoreTests": true
 }
