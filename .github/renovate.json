@@ -4,5 +4,6 @@
   "extends": [
     "github>rainbowdashlabs/rainbowdashlabs//.github/renovate_default"
   ],
-  "ignoreTests": true
+  "ignoreTests": true,
+  "automerge": true
 }
