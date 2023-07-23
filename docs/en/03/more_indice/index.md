@@ -1,6 +1,6 @@
 # More indices
 
-We already know the [unique index](../03/data_consistency/unique_indice.md), which ensures that a single value or a combination of values is unique.
+We already know the [unique index](../data_consistency/unique_indice.md), which ensures that a single value or a combination of values is unique.
 But there is more!
 Much more and we are going to cover more cool stuff in this section.
 

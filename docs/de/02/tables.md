@@ -42,7 +42,7 @@ Die anderen Informationen wie die Namen befinden sich in der Tabelle `player`, u
 | 4        | 3        |
 
 Bitte versuche zuerst, die Anweisungen selbst zu erstellen, indem du das Gelernte aus den Datentypseiten anwendest.
-Du kannst dich auf das [datatype cheatsheet](sql_datatypes.md) beziehen.
+Du kannst dich auf das [datatype cheatsheet](datatypes/index.md) beziehen.
 Der Inhalt ist uns im Moment noch egal.
 
 Du kannst natürlich auch einen Desktop-Client deiner Wahl verwenden, um die Tabellen zu erstellen, aber ich empfehle dir, auch die SQL-Syntax zu lernen, denn das macht die Fehlersuche später sehr viel einfacher.

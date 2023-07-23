@@ -40,7 +40,7 @@ LIMIT 5;
 | 178        | 9985  |
 | 1113       | 9977  |
 
-If you want you can check the query plan now as we did in the previous [section](../query_planer.md). 
+If you want you can check the query plan now as we did in the previous [section](../query_planer/index.md). 
 You will see that we currently use no index at all.
 This will of course change once we add an index on the money column.
 

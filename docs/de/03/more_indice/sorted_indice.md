@@ -40,7 +40,7 @@ LIMIT 5;
 | 178       | 9985  |
 | 1113      | 9977  |
 
-Wenn du möchtest, kannst du den Queryplan jetzt überprüfen, so wie wir es im vorherigen [Abschnitt](../query_planer.md) getan haben. 
+Wenn du möchtest, kannst du den Queryplan jetzt überprüfen, so wie wir es im vorherigen [Abschnitt](../query_planer/index.md) getan haben. 
 Du wirst sehen, dass wir derzeit überhaupt keinen Index verwenden.
 Das wird sich natürlich ändern, wenn wir einen Index für die Spalte `money` hinzufügen.
 
