@@ -1,4 +1,4 @@
-FROM python:3.11
+FROM python:3.12
 
 RUN pip install mkdocs-material && pip install mkdocs-git-revision-date-localized-plugin
 
