@@ -16,7 +16,7 @@ dependencies {
         compileOnly("org.jetbrains", "annotations", "24.0.1")
     implementation("org.xerial", "sqlite-jdbc", "3.43.2.2")
     implementation("org.postgresql", "postgresql", "42.6.0")
-    implementation("com.zaxxer", "HikariCP", "5.0.1")
+    implementation("com.zaxxer", "HikariCP", "5.1.0")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
     compileOnly("org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT")
