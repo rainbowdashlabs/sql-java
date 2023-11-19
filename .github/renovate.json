@@ -2,7 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "baseBranches": ["main"],
   "extends": [
-    "github>rainbowdashlabs/rainbowdashlabs//.github/renovate_default"
+    "github>rainbowdashlabs/rainbowdashlabs"
   ],
   "ignoreTests": true,
   "automerge": true
