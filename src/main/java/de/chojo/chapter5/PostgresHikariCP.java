@@ -23,7 +23,7 @@ public class PostgresHikariCP {
         // Create a new config
         HikariConfig config = new HikariConfig();
         // Set the url we used before already to connect to our database
-        config.setJdbcUrl("jdbc:postgres://localhost:5432/db");
+        config.setJdbcUrl("jdbc:postgresql://localhost:5432/db");
         // Insert our credentials
         config.setUsername("username");
         config.setPassword("password");

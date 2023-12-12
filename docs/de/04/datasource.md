@@ -70,7 +70,7 @@ public class PostgresData {
 
     public static DataSource createDataSource() throws SQLException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
-        dataSource.setUrl("jdbc:postgres://localhost:5432/db");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/db");
         dataSource.setUser("username");
         dataSource.setPassword("password");
         return dataSource;
