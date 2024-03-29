@@ -8,7 +8,7 @@ Es gibt keine ultimative Datenbank, die mit jeder Art von Daten umgehen kann, ob
 
 Wenn wir über Datentypen sprechen, unterscheiden wir normalerweise zwischen strukturierten und unstrukturierten Daten.
 
-Einige Datenbanken sind auf die Suche in unstrukturierten Daten spezialisiert, wie z. B. [Solr] (https://solr.apache.org/) oder [ElasticSearch] (https://www.elastic.co/elastic-stack/), die am häufigsten für die Suche und Aggregation von Logs verwendet werden.
+Einige Datenbanken sind auf die Suche in unstrukturierten Daten spezialisiert, wie z. B. [Solr](https://solr.apache.org/) oder [ElasticSearch](https://www.elastic.co/elastic-stack/), die am häufigsten für die Suche und Aggregation von Logs verwendet werden.
 Eine weitere gängige Datenbank für unstrukturierte Daten ist [MongoDB](https://www.mongodb.com/).
 Wir nennen diese Datenbanken dokumentenbasierte Datenbanken, da wir Daten in Dokumenten speichern.
 
@@ -64,7 +64,7 @@ Sie enthält deine Daten in Tabellen, speichert Prozeduren und macht andere Ding
 
 ### Schema
 
-Einige Datenbanken wie PostgreSQL haben eine weitere Unterteilung in einer Datenbank, die [Schema] (https://www.postgresqltutorial.com/postgresql-schema/) genannt wird.
+Einige Datenbanken wie PostgreSQL haben eine weitere Unterteilung in einer Datenbank, die [Schema](https://www.postgresqltutorial.com/postgresql-schema/) genannt wird.
 
 Obwohl MariaDB und MySQL ihre Datenbanken in den Statements "Datenbank" nennen, bezeichnen sie sie intern auch als [Schema](https://www.tutorialspoint.com/difference-between-schema-and-database-in-mysql).
 
