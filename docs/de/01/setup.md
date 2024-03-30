@@ -81,7 +81,7 @@ Es ist nicht mal möglich für das Programm den Unterschied zu erkennen.
 
 Alle drei Tools bieten die Möglichkeit, einen SSH-Tunnel für die Verbindung zu deiner Datenbank zu verwenden. Das Ganze ist sehr einfach mit einem schönen UI.
 
-[Wenn du noch keine ssh-Verbindung eingerichtet hast, solltest du das jetzt tun.(https://phoenixnap.com/kb/ssh-to-connect-to-remote-server-linux-or-windows)
+[Wenn du noch keine ssh-Verbindung eingerichtet hast, solltest du das jetzt tun.](https://phoenixnap.com/kb/ssh-to-connect-to-remote-server-linux-or-windows)
 
 Jetzt musst du dich über einen ssh-Tunnel mit deiner Datenbank verbinden. Dafür verlinke ich wieder Tutorials für jedes der Tools.
 
