@@ -14,7 +14,7 @@ dependencies {
     implementation("mysql:mysql-connector-java:8.0.33")
     implementation("org.mariadb.jdbc:mariadb-java-client:3.4.1")
         compileOnly("org.jetbrains", "annotations", "25.0.0")
-    implementation("org.xerial", "sqlite-jdbc", "3.46.1.1")
+    implementation("org.xerial", "sqlite-jdbc", "3.46.1.2")
     implementation("org.postgresql", "postgresql", "42.7.4")
     implementation("com.zaxxer", "HikariCP", "6.0.0")
 
