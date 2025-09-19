@@ -15,7 +15,7 @@ dependencies {
     implementation("org.mariadb.jdbc:mariadb-java-client:3.5.6")
         compileOnly("org.jetbrains", "annotations", "26.0.2-1")
     implementation("org.xerial", "sqlite-jdbc", "3.50.3.0")
-    implementation("org.postgresql", "postgresql", "42.7.7")
+    implementation("org.postgresql", "postgresql", "42.7.8")
     implementation("com.zaxxer", "HikariCP", "7.0.2")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.13.4")
