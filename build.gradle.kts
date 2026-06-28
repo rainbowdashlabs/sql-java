@@ -18,7 +18,7 @@ dependencies {
     implementation("org.postgresql", "postgresql", "42.7.11")
     implementation("com.zaxxer", "HikariCP", "7.1.0")
 
-    testImplementation("org.junit.jupiter:junit-jupiter:6.1.0")
+    testImplementation("org.junit.jupiter:junit-jupiter:6.1.1")
     compileOnly("org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT")
 }
 
